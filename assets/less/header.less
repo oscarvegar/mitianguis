@@ -1,0 +1,623 @@
+//
+// Header
+// --------------------------------------------------
+//-- Main Header
+//---------------------------------------------------
+header {
+  position: absolute;
+  z-index: 15;
+  width: 100%;
+  height: 75px;
+  .header-bg(@header-height);
+  outline: none;
+  @media screen and (max-width: 500px) {
+    //For jQuery resize testing
+    outline: hidden;
+  }
+  .container {
+    position: relative;
+  }
+  .logo {
+    display: block;
+    position: absolute;
+    width: 100%;
+    max-width: 146px;
+    top: 16px;
+    left: 27px;
+    z-index: 3;
+    img {
+      width: 80px;
+    }
+    @media @tablet-land {
+      position: relative;
+      left: 60px;
+      width: 95px;
+      top: 18px;
+    }
+  }
+  @media @tablet-land {
+    .logo {
+      display: block !important;
+    }
+  }
+  &.small-header {
+    .logo {
+      display: none;
+    }
+  }
+  .search-form {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    background: @brand-primary;
+    z-index: 5;
+    color: #fff;
+    .transition(all, 0.4s);
+    &.closed {
+      opacity: 0;
+      top: -200px;
+    }
+    &.open {
+      opacity: 1;
+      top: 0px;
+    }
+    .container {
+      position: relative;
+      padding: 0 85px 0 15px;
+      background-color: @brand-primary;
+      @media @tablet-land {
+        padding: 0 60px 0 15px;
+      }
+    }
+    .form-group {
+      position: relative;
+      margin-bottom: 0;
+    }
+    .form-control {
+      margin-top: 13px;
+      color: #000;
+      border: 1px solid @brand-default;
+    }
+    button[type=submit] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.7em;
+      background: none;
+      border: none;
+      color: @brand-default;
+      padding: 8px 18px 0 0;
+      .opacity(1, 100);
+      .transition(opacity, 0.3s);
+      &:hover {
+        .opacity(0.7, 70);
+      }
+    }
+    .close-search {
+      position: absolute;
+      right: 18px;
+      font-size: 1.75em;
+      top: 17px;
+      .opacity(1, 100);
+      cursor: pointer;
+      color: @brand-default;
+      .transition(opacity, 0.3s);
+      &:hover {
+        .opacity(0.7, 70);
+      }
+      @media @tablet-land {
+        right: 15px;
+      }
+    }
+  }
+}
+.toolbar-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.toolbar {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 15px;
+  text-align: right;
+  padding-top: 5px;
+  .middle-btns {
+    padding-top: 0px;
+  }
+  .btn-outlined-invert {
+  	display: none;
+  }
+  .login-btn.btn-outlined-invert, .search-btn.btn-outlined-invert {
+  	display: inline;
+  }
+
+  button, a {
+    margin-left: 12px;
+    text-decoration: none;
+    -webkit-transition: background 0.2s ease, color 0.2s ease;
+    -moz-transition: background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
+    &:hover {
+      color: @header-right-bg !important;
+    }
+    &:focus {
+      color: #fff;
+    }
+    span {
+      @media @tablet-land {
+        display: none;
+      }
+    }
+  }
+  button i, a i {
+    font-size: 1.2em;
+    color: @brand-default;
+    .transition (all, 0.3s);
+  }
+  a span {
+    font-size: 0.6em;
+    line-height: 3em;
+    position: relative;
+    top: -5px;
+    color: @brand-black;
+    text-transform: uppercase;
+    margin-left: 5px;
+    b {
+      font-size: 1.5em;
+    }
+    &:hover {
+      color: @brand-default;
+    }
+  }
+  button:hover i, a:hover i {
+    color: @header-right-bg;
+  }
+  .search-btn {
+    padding: 11px 0 0 0;
+  }
+  .cart-btn {
+    position: relative;
+    width: 120px;
+    height: 40px;
+    display: inline-block;
+    background-color: @brand-black;
+    top: 11px;
+    margin-left: 10px;
+    @media @mobile-land {
+      background-color: transparent;
+    }
+  }
+  .cart-btn:hover .cart-dropdown {
+    display: inline-block;
+    @media @tablet-land {
+      display: none;
+    }
+  }
+  .cart-btn > .btn {
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+    padding: 0;
+    display: block;
+    top: 0;
+    left: 0;
+    text-align: center;
+    .no-transition();
+    span {
+      display: block;
+      margin: 0;
+      font-size: 12px;
+      padding: 2px 4px;
+      line-height: 1;
+      font-weight: 400;
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      color: @brand-primary;
+      background-color: @brand-default;
+    }
+    b {
+      font-weight: 400;
+      position: absolute;
+      display: block;
+      top: 10px;
+      left: 45px;
+      color: @brand-primary;
+      font-size: 12px;
+    }
+    i {
+      .transition(color, 0.2s);
+      position: absolute;
+      left: 12px;
+      top: 10px;
+      font-size: 17px;
+    }
+  }
+  .cart-btn:hover > .btn {
+    color: @header-right-bg;
+    background: transparent;
+    -webkit-border-radius: @border-radius-base @border-radius-base 0 0;
+    -moz-border-radius: @border-radius-base @border-radius-base 0 0;
+    border-radius: @border-radius-base @border-radius-base 0 0;
+    @media @tablet-land {
+      .border-radius();
+    }
+  }
+  .cart-btn:hover > .btn i {
+    color: @header-right-bg;
+  }
+  .search-btn i, .cart-btn i {
+    font-size: 1.4em;
+  }
+  .middle-btns a, .middle-btns button {
+    position: relative;
+    padding: 13px 10px 0 13px;
+    width: 140px;
+    height: 53px;
+    text-align: left;
+    font-weight: 300;
+    font-size: 1em;
+    line-height: 0;
+  }
+  .middle-btns a i, .middle-btns button i {
+    margin-right: 12px;
+    font-size: 1.5em;
+    vertical-align: middle;
+  }
+  .login-btn {
+    margin-top: 12px;
+  }
+  .search-btn {
+    margin-top: -13px;
+  }
+}
+.social-login {
+  margin-top: -10px;
+  a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 3em;
+    text-decoration: none;
+    .opacity(1, 100);
+    .transition(opacity, 0.3s);
+    &:hover {
+      .opacity(0.7, 70);
+      text-decoration: none;
+      border: none;
+    }
+    &.facebook {
+      color: #3b5998 !important;
+    }
+    &.google {
+      color: #dd4b39 !important;
+    }
+    &.twitter {
+      color: #55acee !important;
+    }
+  }
+}
+.cart-dropdown {
+  position: absolute;
+  width: 470px;
+  background: @brand-primary;
+  border: 1px solid @brand-default;
+  top: 56px;
+  right: -1px;
+  display: none;
+  text-align: left;
+  .body {
+    padding: @vert-gap 16px;
+    h3 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 0;
+    }
+    a {
+      .transition(color, 0.3s);
+      margin-left: 0;
+    }
+  }
+  span {
+    position: absolute;
+    width: 169px;
+    height: 16px;
+    background-color: transparent;
+    right: 0;
+    top: -17px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    th {
+      font-size: @font-size-base;
+      color: #000;
+      font-weight: normal;
+      padding-bottom: @vert-gap;
+      &:first-child {
+        padding-left: 20px;
+        width: 58%;
+      }
+    }
+    td {
+      padding-bottom: (@vert-gap/2);
+      color: #000;
+      a {
+        color: @brand-black;
+        .transition(all, 0.2s);
+        &:hover {
+          color: @brand-default;
+        }
+      }
+      &:first-child {
+        padding-right: 15px;
+      }
+      input {
+        width: 46px;
+        height: 34px;
+        border: 1px solid @brand-black;
+        .border-radius();
+        outline: 0;
+        text-align: center;
+        padding-left: 6px;
+        padding-right: 6px;
+        color: @brand-black;
+        &:focus {
+          border-color: @brand-default;
+        }
+      }
+      &.price {
+        font-weight: bold;
+        font-size: @font-size-large;
+      }
+      .delete {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: url(../img/forms/delete.png) no-repeat;
+        margin-right: 10px;
+        cursor: pointer;
+        .opacity(1, 100);
+        .transition(all, 0.3s);
+        &:hover {
+          .opacity(0.7, 70);
+        }
+      }
+    }
+  }
+  .footer {
+    width: 468px;
+    position: relative;
+    bottom: -1px;
+    background: @brand-default;
+    padding: 16px;
+    -webkit-border-radius: 0 0 @border-radius-base @border-radius-base;
+    -moz-border-radius: 0 0 @border-radius-base @border-radius-base;
+    border-radius: 0 0 @border-radius-base @border-radius-base;
+    .buttons {
+      float: left;
+    }
+    .total {
+      float: right;
+      font-size: (@font-size-base * 1.5);
+      font-weight: bold;
+      color: #fff;
+      padding-top: 6px;
+    }
+    .btn {
+      padding: 10px 15px 3px 15px;
+      font-weight: 300;
+      min-width: 113px;
+      font-size: (@btn-font-size/1.25);
+      color: @brand-default;
+      background-color: #fff;
+      &:first-child {
+        margin-left: 0;
+        min-width: 130px;
+      }
+      &:hover {
+        color: @brand-primary !important;
+        background-color: @brand-black;
+        i {
+          color: @brand-primary !important;
+        }
+      }
+      &:after {
+        visibility: hidden;
+        display: block;
+        content: "";
+        clear: both;
+        height: 0;
+      }
+      i {
+        display: block;
+        float: left;
+        font-size: 1.4em;
+        color: @brand-default;
+      }
+    }
+  }
+}
+//-- Small Header
+//---------------------------------------------------
+.small-header {
+  opacity: 0;
+  top: -120px;
+  position: fixed;
+  background-color: @brand-primary;
+  .transition(all, 0.4s);
+  &.stuck {
+    position: fixed;
+    top: 0;
+    opacity: 1;
+    z-index: 20;
+  }
+  .toolbar {
+    .cart-dropdown {
+      top: 56px;
+    }
+  }
+  .hide-sm {
+    @media @tablet-land {
+      display: block !important;
+    }
+  }
+}
+//-- Header Mobile
+//---------------------------------------------------
+//--Tablet Landscape
+@media @tablet-land {
+  header {
+    .container {
+      width: 100%;
+    }
+    .mobile-border {
+      width: 100%;
+      position: absolute;
+      padding: 0 400px 0 15px;
+      left: 0;
+      top: 73px;
+      span {
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: @brand-success;
+      }
+    }
+  }
+  .small-header .mobile-border {
+    display: none;
+  }
+}
+//--Tablet Small
+@media screen and (max-width: 640px) {
+  header {
+    .mobile-border {
+      padding-right: 220px;
+    }
+    .toolbar {
+      button, a {
+        width: 70px !important;
+        height: 52px !important;
+        span {
+          display: none;
+        }
+      }
+      .middle-btns {
+        float: right;
+      }
+      .middle-btns a {
+        padding-left: 22px;
+      }
+      .cart-btn {
+        height: 39px;
+        width: 55px;
+        background-color: transparent;
+      }
+      .cart-btn > .btn {
+        padding: 12px 0 0 0;
+        span {
+          display: none;
+          font-size: 1.1em;
+          font-weight: 300;
+          margin-top: -5px;
+        }
+        b {
+          display: none;
+        }
+        i {
+          font-size: 1.5em;
+          position: absolute;
+          left: 15px;
+          top: 7px;
+        }
+      }
+    }
+  }
+  .small-header {
+    .toolbar {
+      button, a, .middle-btns {
+        text-align: center;
+        span {
+          display: inline;
+        }
+      }
+      .search-btn {
+        margin-top: 5px;
+        width: 60px !important;
+      }
+      .cart-btn {
+        margin-left: 15px !important;
+        width: 100px;
+        .btn {
+          width: 100px !important;
+        }
+      }
+      .login-btn {
+        padding-left: 0;
+      }
+    }
+  }
+}
+//--Mobile Landscape
+@media @mobile-land {
+  header .mobile-border {
+    display: none;
+  }
+  .small-header {
+    .toolbar {
+      .search-btn {
+        margin-left: 0;
+        width: 45px !important;
+      }
+      .cart-btn {
+        margin-left: 8px !important;
+        width: 70px;
+        .btn {
+          width: 70px !important;
+          font-size: 1.2em;
+          padding-top: 12px;
+        }
+      }
+      .login-btn {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+//--Mobile Portrait
+@media @mobile-port {
+  header {
+    .logo {
+      display: block;
+      width: 100%;
+      max-width: 87px;
+      top: 18px;
+      left: 50px;
+    }
+    .menu-toggle {
+      left: 5px;
+    }
+    .toolbar {
+      button, a {
+      	width: 40px !important;
+      }
+      .cart-btn {
+      	width: 35px;
+      	margin-left: 0;
+      	.btn {
+      		i {
+      			left: 9px;
+      		}
+      	}
+      }
+    }
+  }
+}
+.modal-backdrop {
+  background: @brand-black;
+  opacity: 0.7;
+}

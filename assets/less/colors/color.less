@@ -1,0 +1,78 @@
+//
+// Color Schemes
+// --------------------------------------------------
+
+// 03a9f4
+// e91e63
+// 8bc34a
+// ff5722
+// 607d8b
+
+
+
+//--To globally change colors edit this 2 lines
+@brand-primary:         #fff;
+@brand-success:         #c7b07b;
+@brand-default:					#e91e63;
+//---------------------------------------------------
+
+@link-color:						@brand-default;
+@header-right-bg: 		@brand-default;
+
+body{color:@brand-default}a{color:@link-color}a:hover{color:@link-color}.primary-color,.text-primary{color:@brand-default!important}.text-success{color:@brand-success!important}.btn-primary{background:@brand-default;&:hover{background:#000;color:#fff}}.btn-success{background:@brand-success;&:hover{background:darken(@brand-success,10%)}}.btn-outlined{&.btn-primary{border-color:@brand-default;background-color:transparent;color:@brand-default;&:hover{background:@brand-default}}&.btn-success{border-color:@brand-success;background-color:transparent;color:@brand-success;&:hover{background:@brand-success}}}.btn-outlined-invert{&.btn-primary:hover{color:@brand-default;background:#fff}&.btn-success:hover{color:@brand-success;background:#fff}}.input-box-shadow(@shadow-color){-webkit-box-shadow:0 0 0 1px @shadow-color;-moz-box-shadow:0 0 0 1px @shadow-color;box-shadow:0 0 0 1px @shadow-color}.form-control-focus(@brand-default){&:focus{border-color:@brand-default;outline:0;.input-box-shadow(@brand-default)}}.form-control{border-color:@brand-default;.form-control-focus(@brand-default)}.select-style{border-color:@brand-default;&:after{color:@brand-default}}.toolbar{.cart-btn{.btn{span{background-color:@brand-default}}}i{color:@brand-default!important}button,a{&:hover{color:@brand-default!important}}button:hover i,a:hover i,.cart-btn:hover>.btn,.cart-btn:hover>.btn i{color:@brand-default}}.cart-dropdown{border-color:@brand-default;table{td input{border-color:#000}td input:focus{border-color:@brand-default}}.footer{background:@brand-default;.btn:hover{color:@brand-success!important;i{color:@brand-success}}}}@desktop:~"only screen and (max-width: 1200px)";@tablet-land:~"only screen and (max-width: 991px)";@tablet-port:~"only screen and (max-width: 768px)";@mobile-land:~"only screen and (max-width: 480px)";@mobile-port:~"only screen and (max-width: 360px)";@media @tablet-land{header .mobile-border span{background:@brand-success}}.menu{.main{li{&:hover{&>a{color:@brand-default!important}}}.submenu{border-color:@brand-primary;li{border-top-color:@brand-primary;background-color:@brand-default;&:hover{background:darken(@brand-default,10%);a{color:@brand-primary!important}}}}}.catalog{li{&:hover{background-color:darken(@brand-default,10%)}.submenu{background-color:darken(@brand-default,10%);border-color:@brand-default;li{border-color:@brand-default!important;&:hover{background:@brand-default}}}}.submenu{.sub-submenu{li{border:none!important;a{color:@brand-default!important}&:after{border-color:@brand-default!important}}}.offer:hover{background:#fff!important}.offer .btn{background:@brand-default!important;&:hover{background:darken(@brand-default,10%)!important}}}}.catalog-block{background-color:@brand-default}}@media @tablet-land{.menu,.small-header .menu{.catalog{li{a:hover{background:@brand-success}}}.main li{a:hover{background:@brand-default}}.submenu li:hover,.submenu li:hover a{color:@brand-default!important}.catalog{li .submenu li:hover,li .submenu li:hover a{color:@brand-success!important}}}}.log-reg .registr-form{border-left-color:@brand-success}.about .hero-static .content .inner h1 span{color:@brand-success}.about .team .member .mask{border-color:@brand-default}.cat-tiles a,.about .team .member h5,.cont-info-widget ul li i,.cont-info-widget ol li i,.coming-soon h1,.support h4,.history-title{color:@brand-default!important}.cat-tiles a:hover{border-color:@brand-default}.info-block-image .color-box .tiles div{border-color:@brand-default;i{color:@brand-default}}.feature-tabs{.tab{i{color:@brand-default}}}.catalog-grid .tile .price-label{background:@brand-success}.catalog-grid .tile .footer a{color:@brand-default}.catalog-grid .tile .footer .tools .rate span.active{color:@brand-default}.catalog-grid .tile .footer .tools .add-cart-btn{background:@brand-default}.catalog-grid .tile .footer .tools .share-btn,.catalog-grid .tile .footer .tools .wishlist-btn{color:@brand-default}.catalog-grid .tile .footer .tools .share-btn .hover-state{border-color:@brand-default;a{color:@brand-default}}.catalog-grid .tile .footer .tools .wishlist-btn .hover-state{border-color:@brand-default}.catalog-single{.rate span.active{color:@brand-default}.buttons .qnt-count{.incr-btn{background:@brand-default;&:hover{background:darken(@brand-default,10%)}}}.social-links a{color:@brand-default;&:hover{color:darken(@brand-default,10%)}}.promo-labels{div{border-color:@brand-default;i{color:@brand-default}&:hover{background:@brand-default}}}h1{color:@brand-default}}.tech-specs .item{border-bottom-color:@brand-success;span{color:@brand-default}i{color:@brand-default}&:hover{background:@brand-success}}.shop-filters{.filter-section{border-bottom-color:@brand-default;.clear{color:@brand-default;&:hover{border-bottom-color:@brand-default}}.categories{li{a{color:@brand-default}&.has-subcategory{.subcategory li:hover a{color:@brand-default}}}}}}.special-offer{.tile{.footer a{color:@brand-default}}}.cart-message{background:@brand-success}.shopping-cart,.wishlist{table td{&.name a:hover{border-bottom-color:@brand-default}&.delete i{color:@brand-default}&.qnt-count .incr-btn{background:@brand-default;&:hover{background:darken(@brand-default,10%)}}}}.checkout{table{th,.th{color:@brand-default}}.payment-method{background:@brand-default}}.top-item{.price-label{background:@brand-success}.footer a:hover{color:@brand-default}}.modal-header{border-bottom-color:@brand-default;a:hover{color:darken(@brand-default,10%);border-bottom:1px dashed darken(@brand-default,10%)}.close{color:@brand-default}}.blog .post .title:hover a{border-color:@brand-default}.blog .post footer .share a:hover{color:darken(@brand-default,10%)}.tags{color:@brand-default}.coming-soon .social-bar{background-color:@brand-default}.footer{.logo,.copyright{border-color:@brand-success}}.tabs-widget{.nav-tabs{border-bottom-color:@brand-default;li{a:hover{border-color:@brand-default}&.active{background:@brand-default;a{border-color:@brand-default;background:@brand-default!important}}}}h4{color:@brand-default}}.media-link .overlay .descr>div{background:@brand-default}.subscr-widget{background:@brand-default}.gallery-widget .gallery-grid .gallery-item a .overlay span{background:@brand-default}#lightGallery-action a{background:@brand-default}#lightGallery-action a.disabled{background:@brand-default!important}#lightGallery-action a:hover,#lightGallery-action a:focus{color:@brand-default}#lightGallery-Gallery .thumb_cont .thumb_info{background-color:@brand-default}#lightGallery-close{background:@brand-default}#lightGallery-close:hover{color:@brand-default}.noUi-connect{background:@brand-default}.noUi-handle{background:@brand-default}.brand-carousel .owl-prev,.brand-carousel .owl-next{color:@brand-default!important}.testmns-widget{background:@brand-default}.sticky-btns span{background:#000;&:hover{background:darken(@brand-default,10%)}}.panel-toggle{h1,.h1,.h2,h2,.h3,h3,.h4,h4,.h5,h5,.h6,h6{color:@brand-default}&:hover{color:darken(@brand-default,10%)!important;border-bottom-color:darken(@brand-default,10%);h1,.h1,.h2,h2,.h3,h3,.h4,h4,.h5,h5,.h6,h6{color:darken(@brand-default,10%)}}}a.panel-toggle{color:@brand-default!important}.accordion{.panel-heading a{color:@brand-default;h1,.h1,.h2,h2,.h3,h3,.h4,h4,.h5,h5,.h6,h6{color:@brand-default}&:hover{color:darken(@brand-default,10%)!important;border-bottom-color:darken(@brand-default,10%);h1,.h1,.h2,h2,.h3,h3,.h4,h4,.h5,h5,.h6,h6{color:darken(@brand-default,10%)}}}}.pagination li a:hover,.pagination li.active a{color:@brand-default}.sidebar-search button[type=submit]:hover{color:@brand-default}.countdown #timer{background:@brand-default}.hero-slider .ms-nav-next:before,.hero-slider .ms-nav-prev:before{color:@brand-default}.hero-slider .ms-bullet-selected{background-color:@brand-default}.btn-black{&:hover{background-color:@brand-default}}.sale{background-color:@brand-default!important}.price-label,#lightGallery-outer,.thumb_cont,body>footer{background-color:@brand-default!important}.old-price{background-color:#b2b2b2!important;color:#fff!important}.close-search,.toolbar a span:hover,.info-block-image .color-box .tiles div span{color:@brand-default!important}.search-form{button{color:@brand-default!important}.form-group input{border-color:@brand-default!important}}.cart-dropdown .footer .btn,.info-block-image h2{color:@brand-default!important}.cart-dropdown .footer .btn:hover,.thumb_info{color:#fff!important;background-color:#000!important}.tw-bg,.twitter-feed{background-color:darken(@brand-default,10%)!important;.button{background-color:@brand-default!important}}.footer .logo,.footer .copyright{border-color:#fff}.btn-default{color:@brand-default!important;border-color:@brand-default!important}.btn-default:hover{color:#fff!important;background-color:#000!important;border-color:#000!important}.tech-specs .item{border-bottom-color:@brand-default!important}.tech-specs .item:hover,.delivered,.tracking .accordion .panel-heading a,.tracking .accordion .panel-heading a:hover,.tracking .ship-scale>.round.done,.tracking .done .round,.tracking .done{background-color:@brand-default!important}.sorting a:hover{color:@brand-default}::selection{color:#fff;background:@brand-default}.log-reg h4,.tracking h4{color:@brand-default!important}.log-reg .registr-form{border-left-color:#000}.subscr-next,#subscr-submit{&:hover{color:@brand-default!important;i{color:@brand-default!important}}}.tracking .ship-scale>.round.done,.tracking .done .round{border-color:@brand-default}.cs-page h1{color:#000}.cs-page h4,.cs-page h5,.cs-page h6{color:@brand-default!important}.posts-widget,.posts-widget .latest-posts{background-color:@brand-default;}.posts-widget .latest-posts .btn-black:hover {background-color: darken(@brand-default, 10%) !important;}li.offer div.col-2 .btn-black:hover {background-color:#000!important;}li.offer div.col-2 .btn-black:hover {background-color:#000!important;}.shopping-cart table td.qnt-count .incr-btn:hover, .wishlist table td.qnt-count .incr-btn:hover{background-color: @brand-default!important;color: #fff!important}
+
+
+@media @tablet-land{
+	.menu .main li a:hover, .small-header .menu .main li a:hover,.menu .main .submenu li,.menu .main li a:hover, .small-header .menu .main li a:hover, .menu .main .submenu li,.menu .main .submenu li:hover a {
+		background-color: #fff;
+		color: #000!important;
+	}
+	.menu .main .submenu.open, .small-header .menu .main .submenu.open, .menu .catalog .submenu.open, .small-header .menu .catalog .submenu.open {
+		padding: 0!important;
+	}
+	.menu .catalog li .submenu li:hover, .small-header .menu .catalog li .submenu li:hover, .menu .catalog li .submenu li:hover a, .small-header .menu .catalog li .submenu li:hover a{
+		color: #fff!important;
+	}
+}
+.menu-toggle {
+	color: @brand-default;
+}
+footer.footer a:hover {
+	color: #000 !important;
+}
+.feature-tabs .tab.active i {
+	color: darken(@brand-default, 10%);
+}
+.cart-message {
+	background-color: @brand-default;
+	.btn-black {
+		background-color: #000;
+		color: #fff;
+		&:hover {
+			color: @brand-default;
+			background-color: #fff;	
+		}
+	}
+}
+.about .hero-static .content .inner h1 span {
+	color: @brand-default;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
