@@ -56,14 +56,15 @@ module.exports = {
                 }else{
                     cantidad = 22;
                 }
-                module.exports.aplicarComision(fCarteraInscrito,fMer,cantidad);
-                if(esSystem == false && nivel <= 5){
-                    Mercante.findOne({id:mentor}).exec(function(err,fmerMentor){
-                        console.log("datosSystem antes de ir>>>>>>>>>>");
-                        console.log(datosSystem);
-                        module.exports.calcularComisiones(mercante, fmerMentor.mentor, 1+nivel, cantidad+repartido, varoInicial, datosSystem);
-                    });
-                }
+                module.exports.aplicarComision(fCarteraInscrito,fMer,cantidad,function(){
+                    if(esSystem == false && nivel <= 5){
+                        Mercante.findOne({id:mentor}).exec(function(err,fmerMentor){
+                            console.log("datosSystem antes de ir>>>>>>>>>>");
+                            console.log(datosSystem);
+                            module.exports.calcularComisiones(mercante, fmerMentor.mentor, 1+nivel, cantidad+repartido, varoInicial, datosSystem);
+                        });
+                    }
+                });
             });
         });
     },
