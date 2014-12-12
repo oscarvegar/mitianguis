@@ -1,0 +1,45 @@
+<!--Sticky Buttons-->
+<div class="sticky-btns">
+    <form class="quick-contact" method="post" name="quick-contact">
+        <h3>Contáctanos</h3>
+        <p class="text-muted">Todas las dudas y sugerencias que tengas son bienvenidas</p>
+        <div class="form-group">
+            <label for="qc-name">Nombre completo</label>
+            <input class="form-control input-sm" type="text" name="qc-name" id="qc-name" placeholder="Nombre completo" required>
+        </div>
+        <div class="form-group">
+            <label for="qc-email">Correo Electrónico</label>
+            <input class="form-control input-sm" type="email" name="qc-email" id="qc-email" placeholder="Correo electrónico" required>
+        </div>
+        <div class="form-group">
+            <label for="qc-message">Tu mensaje</label>
+            <textarea class="form-control input-sm" name="qc-message" id="qc-message" placeholder="Escríbenos aqui" required></textarea>
+        </div>
+        <input class="btn btn-black btn-sm btn-block" type="submit" value="Send">
+    </form>
+    <span id="qcf-btn"><i class="fa fa-envelope"></i></span>
+    <span id="scrollTop-btn"><i class="fa fa-chevron-up"></i></span>
+</div><!--Sticky Buttons Close-->
+<script type="application/javascript">
+    var $scrollTopBtn = $('#scrollTop-btn');
+    var $qcfBtn = $('#qcf-btn');
+    /*Sticky Buttons
+	*******************************************/
+	//Scroll to Top Button
+	$(window).scroll(function(){
+		if ($(this).scrollTop() > 500) {
+			$scrollTopBtn.parent().addClass('scrolled');
+		} else {
+			$scrollTopBtn.parent().removeClass('scrolled');
+		}
+	});
+	//Quick Contact Form
+	$qcfBtn.click(function(){
+		$(this).toggleClass('active');
+		$(this).parent().find('.quick-contact').toggleClass('visible');
+	});
+	$('.page-content, .subscr-widget, footer, header').click(function(){
+		$qcfBtn.removeClass('active');
+		$('.quick-contact').removeClass('visible');
+	});
+</script>

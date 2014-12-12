@@ -9,7 +9,7 @@ $(document).ready(function(e) {
 	
 	/*Global Variables
 	*******************************************/
-  var $searchBtn = $('.search-btn');
+    var $searchBtn = $('.search-btn');
 	var $searchForm = $('.search-form');
 	var $closeSearch = $('.close-search');
 	var $subscrForm = $('.subscr-form');
@@ -32,7 +32,7 @@ $(document).ready(function(e) {
 	var $submenu = $('.menu .submenu');
 	var $featureTab = $('.feature-tabs .tab');
 	var $featureTabPane = $('.feature-tabs .tabs-pane');
-	var $brandCarousel = $('.brand-carousel .inner');
+
 	var $shareBtn1 = $('.tile .share-btn i');
 	var $offersTabs = $('.offer-tabs .tab-navs a');
 	var $offersTabsCarousel = $('.offer-tabs .tab-navs');
@@ -247,73 +247,6 @@ $(document).ready(function(e) {
 		threshold:0
 	});
 	
-	/*Initializing Gallery Plugin
-	*******************************************/
-	gallery.init();
-	$('.gallery-grid').lightGallery({
-		speed: 400
-	});
-	
-	/*Initializing Brands Carousel Plugin
-	*******************************************/
-	$brandCarousel.owlCarousel({
-		// Define custom and unlimited items depending from the width
-		// If this option is set, itemsDeskop, itemsDesktopSmall, itemsTablet, itemsMobile etc. are disabled
-		// For better preview, order the arrays by screen size, but it's not mandatory
-		// Don't forget to include the lowest available screen size, otherwise it will take the default one for screens lower than lowest available.
-		// In the example there is dimension with 0 with which cover screens between 0 and 450px
-		itemsCustom : [
-			[0, 1],
-			[340, 2],
-			[580, 3],
-			[991, 4],
-			[1200, 5]
-		],
-		navigation : true,
-		theme: "",
-		navigationText : ["",""]
-	});
-	
-	/*Hero Slider
-	*******************************************/
-	if($('#hero-slider').length > 0) {
-		var heroSlider = new MasterSlider();
-		heroSlider.control('arrows');
-		heroSlider.control('bullets');
-		heroSlider.setup('hero-slider' , {
-				width:1140,
-				height:455,
-				space:0,
-				speed: 18,
-				autoplay: true,
-				loop: true,
-				layout: 'fullwidth',
-				preload:'all',
-				view:'basic',
-				instantStartLayers: true
-		});
-	}
-	
-	/*Hero Fullscreen Slider
-	*******************************************/
-	if($('#fullscreen-slider').length > 0) {
-		var fullscreenSlider = new MasterSlider();
-		fullscreenSlider.control('arrows');
-		fullscreenSlider.control('bullets');
-		fullscreenSlider.setup('fullscreen-slider' , {
-				width:1140,
-				height:455,
-				space:0,
-				speed: 18,
-				autoplay: true,
-				loop: true,
-				layout: 'fullscreen',
-				fullscreenMargin: 116,
-				preload:'all',
-				view:'mask',
-				instantStartLayers: true
-		});
-	}
 	
 	/*Category Slider
 	*******************************************/
@@ -518,30 +451,6 @@ $(document).ready(function(e) {
 		$(this).parent().addClass('active');
 	});
 	
-	/*Sticky Buttons
-	*******************************************/
-	//Scroll to Top Button
-	$(window).scroll(function(){
-		if ($(this).scrollTop() > 500) {
-			$scrollTopBtn.parent().addClass('scrolled');
-		} else {
-			$scrollTopBtn.parent().removeClass('scrolled');
-		}
-	});
-	$scrollTopBtn.click(function(){
-		$('html, body').animate({scrollTop : 0}, {duration: 700, easing:"easeOutExpo"});
-	});
-	
-	//Quick Contact Form
-	$qcfBtn.click(function(){
-		$(this).toggleClass('active');
-		$(this).parent().find('.quick-contact').toggleClass('visible');
-	});
-	$('.page-content, .subscr-widget, footer, header').click(function(){
-		$qcfBtn.removeClass('active');
-		$('.quick-contact').removeClass('visible');
-	});
-
 	/*History page img switcher
 	*******************************************/
 
@@ -555,88 +464,4 @@ $(document).ready(function(e) {
 
 });/*Document Ready End*//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*Gallery Filtering and Responsiveness Function
-*******************************************/
-var gallery = (function( $ ) {
-	'use strict';
 
-	var $grid = $('.gallery-grid'),
-			$filterOptions = $('.filters'),
-			$sizer = $grid.find('.shuffle__sizer'),
-
-	init = function() {
-
-		// None of these need to be executed synchronously
-		setTimeout(function() {
-			listen();
-			setupFilters();
-		}, 100);
-
-		$grid.on('loading.shuffle done.shuffle shrink.shuffle shrunk.shuffle filter.shuffle filtered.shuffle sorted.shuffle layout.shuffle', function(evt, shuffle) {
-			// Make sure the browser has a console
-			if ( window.console && window.console.log && typeof window.console.log === 'function' ) {
-				console.log( 'Shuffle:', evt.type );
-			}
-		});
-
-		// instantiate the plugin
-		$grid.shuffle({
-			itemSelector: '.gallery-item',
-			sizer: $sizer
-		});
-	},
-
-	// Set up button clicks
-	setupFilters = function() {
-		var $btns = $filterOptions.children();
-		$btns.on('click', function(e) {
-			var $this = $(this),
-					isActive = $this.hasClass( 'active' ),
-					group = $this.data('group');
-					$('.filters .active').removeClass('active');
-					$this.addClass('active');
-
-			// Filter elements
-			$grid.shuffle( 'shuffle', group );
-			e.preventDefault();
-		});
-
-		$btns = null;
-	},
-
-	listen = function() {
-		var debouncedLayout = $.throttle( 300, function() {
-			$grid.shuffle('update');
-		});
-
-		// Get all images inside shuffle
-		$grid.find('img').each(function() {
-			var proxyImage;
-
-			// Image already loaded
-			if ( this.complete && this.naturalWidth !== undefined ) {
-				return;
-			}
-
-			// If none of the checks above matched, simulate loading on detached element.
-			proxyImage = new Image();
-			$( proxyImage ).on('load', function() {
-				$(this).off('load');
-				debouncedLayout();
-			});
-
-			proxyImage.src = this.src;
-		});
-
-		// Because this method doesn't seem to be perfect.
-		setTimeout(function() {
-			debouncedLayout();
-		}, 500);
-	};
-
-	return {
-		init: init
-	};
-}( jQuery ));	
-	
-/************************************************************************/
