@@ -19,6 +19,10 @@ module.exports = {
       mentor:{
           model:'mercante',
           required:true
+      },
+      diaInscripcion:{
+          type:'integer',
+          required:true
       }
   }
 };

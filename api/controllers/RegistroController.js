@@ -16,6 +16,7 @@ module.exports = {
             }
             data.mentor = found;
             data.codigoMercante = moment().valueOf().toString(16).toUpperCase();
+            data.diaInscripcion = moment().date();
             Mercante.create(data).exec(function(err,created){
                 if(err){return res.json(400,err);}
                 Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:created}).exec(function(err,cCar){
