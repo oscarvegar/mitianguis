@@ -1,5 +1,6 @@
    var myApp = angular.module("TianguisApp", 
                               ['ngAnimate',
+                               'ngRoute',
                                'CarruselModule',
                                'CategoriasModule',
                                'CatalogosModule',
@@ -8,14 +9,17 @@
                                'GaleriaModule',
                                'MarcasModule',
                                'SubscriptionModule',
-                               'ToolbarModule'
+                               'ToolbarModule',
+                               'RegistroModule'
                                ]);    
+
     myApp.controller( "TianguisController", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope){
         $scope.modal={login:"modal/login-module.html",
                      contactus:"modal/contact-us.html"};
-        $scope.template={footer:"footer.html", menu:"menu.html"}
-        
+        $scope.template={footer:"footer.html", menu:"menu.html"};
+        $rootScope.viewToolbar = true;  
     }])
+    
     .directive("carrusel", function( ){
         return {
             restrict:"E",
@@ -71,3 +75,8 @@
         };
     });
         
+myApp.config(function( $routeProvider, $locationProvider){
+    $routeProvider.when('/', {templateUrl: 'inicio.html'});
+    $routeProvider.when('/registroweb', {templateUrl: 'registro.html'});
+});
+

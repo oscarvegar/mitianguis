@@ -23,7 +23,7 @@ function($scope, $http){
 	
 	/*Hero Fullscreen Slider
 	*******************************************/
-	if($('#fullscreen-slider').length > 0) {
+	if( !$('#fullscreen-slider') && $('#fullscreen-slider').length > 0) {
 		var fullscreenSlider = new MasterSlider();
 		fullscreenSlider.control('arrows');
 		fullscreenSlider.control('bullets');
@@ -41,4 +41,5 @@ function($scope, $http){
 				instantStartLayers: true
 		});
 	}
+    
 }]);
