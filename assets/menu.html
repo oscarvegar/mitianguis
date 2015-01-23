@@ -1,5 +1,5 @@
 <!--Main Menu-->
-<nav class="menu">
+<nav class="menu" ng-controller="MenuController as mc">
     <div class="container">
         <ul class="main">
             <li class="has-submenu"><a href="/"><span>H</span>ome<i class="fa fa-chevron-down"></i></a>
@@ -20,25 +20,12 @@
             <li class="hide-sm"><a href="support.html"><span>C</span>ontáctanos</a></li>
         </ul>
     </div>
-
-    <div class="container">
-
-            <a class="login-btn btn-outlined-invert"  href="registroCliente.html">
-              <i class="icon-profile"></i><span><b>I</b>nscribete</span></a>
-
-    </div>
-
     <div class="catalog-block">
         <div class="container">
             <ul class="catalog">
-                <li class="has-submenu">
-                    <a href="shop-filters-left-3cols.html">Electrónicos<i class="fa fa-chevron-down"></i></a>
+                <li class="has-submenu" ng-repeat="categoria in mc.categorias">
+                    <a href="shop-filters-left-3cols.html">{{categoria.nombre}}<i class="fa fa-chevron-down"></i></a>
                 </li>
-                <li><a href="shop-filters-left-3cols.html">Ropa y Calzado</a></li>
-                <li><a href="shop-filters-left-3cols.html">Jugueteria</a></li>
-                <li><a href="shop-filters-left-3cols.html">Musica y Cine</a></li>
-                <li><a href="shop-filters-left-3cols.html">Miscelanea</a></li>
-
             </ul>
         </div>
     </div>

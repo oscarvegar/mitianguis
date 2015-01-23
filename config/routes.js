@@ -34,7 +34,8 @@ module.exports.routes = {
     'post /registro': 'RegistroController.registrarNuevo',
     'GET /mercante': 'MercanteController.find',   
     'POST /conekta/response': 'ConektaController.responseConekta',
-    'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo'   
+    'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
+    'GET /categoriasMenu': 'CategoriaController.categoriasMenu'   
 
 
   /***************************************************************************

@@ -63,7 +63,8 @@ registroCliente.directive('showErrors', function($timeout) {
 registroCliente.controller( "RegistroClienteController", function($scope, $http, $rootScope) {
     $rootScope.viewToolbar = false;
     $scope.registrarCliente = function(isValid) {
-         $scope.$broadcast('show-errors-check-validity');
+        $scope.$broadcast('show-errors-check-validity');
+        console.log("cliente a registar: " + JSON.stringify($scope.cliente) );
         if( isValid ){
             $http.post("/registroCliente", $scope.cliente)
             .success( function(data, status){

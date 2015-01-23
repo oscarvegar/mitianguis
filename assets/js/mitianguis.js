@@ -11,7 +11,8 @@
                                'SubscriptionModule',
                                'ToolbarModule',
                                'RegistroModule',
-                               'RegistroClienteModule'
+                               'RegistroClienteModule',
+                               'MenuModule'
                                ]);    
 
     myApp.controller( "TianguisController", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope){
