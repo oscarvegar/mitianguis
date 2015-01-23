@@ -10,7 +10,8 @@
                                'MarcasModule',
                                'SubscriptionModule',
                                'ToolbarModule',
-                               'RegistroModule'
+                               'RegistroModule',
+                               'RegistroClienteModule'
                                ]);    
 
     myApp.controller( "TianguisController", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope){
@@ -78,5 +79,6 @@
 myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/', {templateUrl: 'inicio.html'});
     $routeProvider.when('/registroweb', {templateUrl: 'registro.html'});
+    $routeProvider.when('/registroClienteWeb', {templateUrl: 'registroCliente.html'});
 });
 

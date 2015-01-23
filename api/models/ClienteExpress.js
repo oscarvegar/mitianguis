@@ -8,7 +8,18 @@
 module.exports = {
 
   attributes: {
-
+      items:{
+          model:'item',
+          via:'clienteexpress'
+      },
+      carteras:{
+          model:'cartera',
+          via:'clienteexpress'
+      },
+      diaInscripcion:{
+          type:'integer',
+          required:true
+      }
   }
 };
 

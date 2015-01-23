@@ -10,7 +10,8 @@ module.exports = {
   attributes: {
       varoActual:'float',
       ultimoMovimiento:'datetime',
-      mercante:{model:'mercante'}
+      mercante:{model:'mercante'},
+      clienteexpress:{model:'clienteexpress'}
   }
 };
 

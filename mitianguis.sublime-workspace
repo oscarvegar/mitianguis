@@ -1,0 +1,535 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ap",
+				"apellidoMaterno"
+			],
+			[
+				"ape",
+				"apellidoPaterno"
+			],
+			[
+				"fe",
+				"fechaEnvio"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"data",
+				"dataPaciente"
+			],
+			[
+				"tm",
+				"tmpC"
+			],
+			[
+				"res",
+				"respuestas"
+			],
+			[
+				"allPa",
+				"allParams"
+			],
+			[
+				"all",
+				"allParams"
+			],
+			[
+				"dia",
+				"diaVac"
+			],
+			[
+				"mes",
+				"mesVac"
+			],
+			[
+				"fecha",
+				"fechaNaciOri"
+			],
+			[
+				"feh",
+				"fechaNaciOri"
+			],
+			[
+				"yyyy",
+				"yyyy-mm-dd"
+			],
+			[
+				"apellido",
+				"apellidoMaterno"
+			],
+			[
+				"apMa",
+				"apMaternoHP"
+			],
+			[
+				"us",
+				"userData"
+			],
+			[
+				"nom",
+				"nombreHP"
+			],
+			[
+				"tele",
+				"telefonoMovil"
+			],
+			[
+				"pa",
+				"password"
+			],
+			[
+				"ge",
+				"genSalt"
+			],
+			[
+				"upd",
+				"updateUser"
+			],
+			[
+				"fi",
+				"findOneById"
+			],
+			[
+				"user",
+				"username"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"u",
+				"user"
+			],
+			[
+				"find",
+				"findOneById"
+			],
+			[
+				"re",
+				"required"
+			],
+			[
+				"mi",
+				"minLength"
+			],
+			[
+				"url",
+				"url"
+			],
+			[
+				"lo",
+				"log"
+			],
+			[
+				"s",
+				"style"
+			],
+			[
+				"fol",
+				"foliou"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "{\n    // The tab key will cycle through the settings when first created\n    // Visit http://wbond.net/sublime_packages/sftp/settings for help\n    \n    // sftp, ftp or ftps\n    \"type\": \"sftp\",\n\n    \"save_before_upload\": true,\n    \"upload_on_save\": false,\n    \"sync_down_on_open\": false,\n    \"sync_skip_deletes\": false,\n    \"sync_same_age\": true,\n    \"confirm_downloads\": false,\n    \"confirm_sync\": true,\n    \"confirm_overwrite_newer\": false,\n    \n    \"host\": \"example.com\",\n    \"user\": \"username\",\n    //\"password\": \"password\",\n    //\"port\": \"22\",\n    \n    \"remote_path\": \"/example/path/\",\n    \"ignore_regexes\": [\n        \"\\\\.sublime-(project|workspace)\", \"sftp-config(-alt\\\\d?)?\\\\.json\",\n        \"sftp-settings\\\\.json\", \"/venv/\", \"\\\\.svn/\", \"\\\\.hg/\", \"\\\\.git/\",\n        \"\\\\.bzr\", \"_darcs\", \"CVS\", \"\\\\.DS_Store\", \"Thumbs\\\\.db\", \"desktop\\\\.ini\"\n    ],\n    //\"file_permissions\": \"664\",\n    //\"dir_permissions\": \"775\",\n    \n    //\"extra_list_connections\": 0,\n\n    \"connect_timeout\": 30,\n    //\"keepalive\": 120,\n    //\"ftp_passive_mode\": true,\n    //\"ftp_obey_passive_host\": false,\n    //\"ssh_key_file\": \"~/.ssh/id_rsa\",\n    //\"sftp_flags\": [\"-F\", \"/path/to/ssh_config\"],\n    \n    //\"preserve_modification_times\": false,\n    //\"remote_time_offset_in_hours\": 0,\n    //\"remote_encoding\": \"utf-8\",\n    //\"remote_locale\": \"C\",\n    //\"allow_config_upload\": false,\n}\n",
+			"file": "/Users/oscarmonroygarcia/repos/com.cm.broadcasterV2/broadcaster/sftp-config.json",
+			"file_size": 1356,
+			"file_write_time": 1417624247000000,
+			"settings":
+			{
+				"buffer_size": 1356,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"fts",
+				"SFTP: Show Panel"
+			],
+			[
+				"s",
+				"SFTP: Show Panel"
+			],
+			[
+				"sftp",
+				"SFTP: Show Panel"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/sftp-config.json",
+		"/Users/oscarmonroygarcia/repos/broadcaster/com.cm.broadcasterV2/broadcaster/config/session.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/package.json",
+		"/Users/oscarmonroygarcia/repos/broadcaster/com.cm.broadcasterV2/broadcaster/config/connections.js",
+		"/Users/oscarmonroygarcia/repos/broadcaster/com.cm.broadcasterV2/broadcaster/package.json",
+		"/Users/oscarmonroygarcia/repos/broadcaster/com.cm.broadcasterV2/broadcaster/app.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/controllers/DashboardController.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/controllers/PacienteController.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/pacientes.html",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/pacientes.js",
+		"/Users/oscarmonroygarcia/Desktop/oscarMonroy/levantarServicios.txt",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/views/main.ejs",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/parametros.html",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/app.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/preguntas.html",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/controllers/RespuestaController.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/dashboardPie.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/script/create-test-tables.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/script/dump-db-types.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/script/list-db-types.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/script/test-connection.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/script/travis-pg-9.2-install.sh",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/test/buffer-list.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/test/unit/connection/startup-tests.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/lib/native/index.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/lib/index.js",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/package.json",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/NEWS.md",
+		"/Users/oscarmonroygarcia/Downloads/node-postgres-master/README.md",
+		"/Users/oscarmonroygarcia/Desktop/Documentacion Mi Tianguis",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/views/homepage.ejs",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/views/layout.ejs",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/tasks/pipeline.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/tasks/register/syncAssets.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/config/log.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/config/routes.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/config/session.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/config/views.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/config/connections.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/app.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/api/responses/notFound.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/api/responses/badRequest.js",
+		"/Users/oscarmonroygarcia/reposOscar/mitianguis/api/policies/sessionAuth.js",
+		"/Users/oscarmonroygarcia/Desktop/oscar.monroy.pub",
+		"/Users/oscarmonroygarcia/Desktop/uuid.js",
+		"/Users/oscarmonroygarcia/Desktop/lodash.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/config/routes.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/tasks/pipeline.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/.tmp/uploads/assets/imagenes/01d397b1-c889-49bd-a68c-ac01bc0b019b.jpg",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/parametros.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/schedule.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/preguntas.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/controllers/UserController.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/models/User.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/models/Paciente.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/site/assets/css/app.css",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/config/connections.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/config/session.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/sftp-config.json",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/controllers/PreguntaController.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/grafica.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/app.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/config/passport.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/controllers/PeriodoController.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/models/Respuesta.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/site/assets/css/bootstrap.css",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/dashboardPie.html",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/models/Empresa.js",
+		"/Users/oscarmonroygarcia/Desktop/prueba/js/angular.js",
+		"/Users/oscarmonroygarcia/Desktop/prueba/js/angular-resource.js",
+		"/Users/oscarmonroygarcia/Desktop/prueba/js/app.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/grafica.html",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/views/homepage.ejs",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/views/homepageDoctores.ejs",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/config/bootstrap.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/bajas.js",
+		"/Users/oscarmonroygarcia/Library/Application Support/Sublime Text 2/Packages/User/SFTP.sublime-settings",
+		"/Users/oscarmonroygarcia/Library/Application Support/Sublime Text 2/Packages/SFTP/SFTP.sublime-settings",
+		"/Users/oscarmonroygarcia/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/oscarmonroygarcia/Library/Application Support/Sublime Text 2/Packages/SFTP/Default (OSX).sublime-keymap",
+		"/Users/oscarmonroygarcia/Downloads/angular-file-upload-master/demo/war/js/upload.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/bajas.html",
+		"/Users/oscarmonroygarcia/Downloads/angular-file-upload-master/demo/war/index.html",
+		"/Users/oscarmonroygarcia/Downloads/angular-file-upload-master/dist/FileAPI.min.js",
+		"/Users/oscarmonroygarcia/Downloads/angular-file-upload-master/Gruntfile.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/site/assets/css/jquery-ui.min.css",
+		"/Users/oscarmonroygarcia/Desktop/jquery-ui.min.css",
+		"/Users/oscarmonroygarcia/Desktop/polyfiller.js",
+		"/Users/oscarmonroygarcia/Desktop/modernizr-custom.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/models/Pregunta.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/codigoPostal.html",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/controllers/EmpresaController.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/api/controllers/DoctorController.js",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/modules/loginPacientes.js",
+		"/Users/oscarmonroygarcia/Desktop/levantarServicios.txt",
+		"/Users/oscarmonroygarcia/repos/com.cm.icss.sanofi/sicova/assets/site/assets/css/sanofiStyles.css",
+		"/Users/oscarmonroygarcia/Desktop/index.html",
+		"/Users/oscarmonroygarcia/Desktop/angular-resource.js",
+		"/Users/oscarmonroygarcia/Desktop/angular.js",
+		"/Users/oscarmonroygarcia/Desktop/app.js",
+		"/Users/oscarmonroygarcia/Desktop/bootstrap.css",
+		"/Users/oscarmonroygarcia/Documents/historialTerminal.txt"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"push",
+			"doctores",
+			"pacientesDoctor",
+			"consultar",
+			"sails lift",
+			"preguntas",
+			"parámetro",
+			"parametro",
+			"parametros",
+			"showEditForm",
+			"showCreateForm",
+			"uploadFile",
+			"document",
+			"showImageActualizado",
+			"showImage",
+			"showCreateForm",
+			"currentImagen",
+			"DATOS IMAGEN",
+			"showImage",
+			"ng-click",
+			"showPregunta",
+			"showCargaImagen",
+			"push",
+			"sendSMS",
+			"formImagen",
+			"session",
+			"delete",
+			"session",
+			"post",
+			"update",
+			"imagen",
+			"onSelect",
+			"session",
+			"fechaEnvio",
+			"sendSMS",
+			"showPregunta",
+			"showImage",
+			"blockImagen",
+			"form-group",
+			"getRespuestas",
+			"or",
+			"btn-file",
+			"file",
+			"input",
+			".form-group",
+			"table-responsive",
+			"menu",
+			"div",
+			"Respuestas",
+			"dataPaciente",
+			"getReport",
+			"showImage",
+			"pacientePregunta",
+			"pacientes",
+			"populate",
+			"tipo23F",
+			"tipo24F",
+			"obj",
+			"HELP",
+			"calcula",
+			"calculaEdad",
+			"chartConfig",
+			"consultaGrafica",
+			"consultarGraficaPie",
+			"consultarGrafica",
+			"sicova",
+			"dashboard",
+			"SANOFI",
+			"ADMIN",
+			"showImage",
+			"show",
+			"ng-if",
+			"true",
+			"alert",
+			"countBajas",
+			"refreshNotificationBajas",
+			"cancelar",
+			"cargarPreguntaByFolio",
+			"fechaMinima",
+			"ui-datepicker",
+			"top",
+			"currentPaciente",
+			"webshims",
+			"init",
+			"rellena",
+			"Por Favor",
+			"favor",
+			"ngTableParams",
+			"ngTable",
+			"cargarPreguntaByFolio",
+			"showEdit",
+			"isPatoChecked",
+			"broadcast",
+			"row",
+			"cargarPreguntaByFolio",
+			"Enfermedad",
+			"enfermedad",
+			"Z",
+			"update",
+			"enviarRespuesta",
+			"findByRole",
+			"});\n",
+			"refreshNotificationBajas",
+			"inactivar",
+			"delete",
+			"cargarPreguntaByFolio"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/oscarmonroygarcia/repos/com.cm.broadcasterV2/broadcaster/sftp-config.json",
+					"settings":
+					{
+						"buffer_size": 1356,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								472,
+								472
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 159.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 271.0,
+	"status_bar_visible": true
+}

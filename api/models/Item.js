@@ -8,7 +8,8 @@
 module.exports = {
 
   attributes: {
-      mercante:{model:'mercante'}
+      mercante:{model:'mercante'},
+      clienteexpress:{model:'clienteexpress'}
   }
 };
 

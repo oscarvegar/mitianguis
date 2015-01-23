@@ -1,0 +1,119 @@
+<!--Breadcrumbs-->
+<br/>
+<div ng-controller="RegistroClienteController">
+    <ol class="breadcrumb">
+        <li><a href="index.html">Inicio</a></li>
+        <li>Entra o registrate</li>
+    </ol><!--Breadcrumbs Close-->
+
+    <!--Login / Register Client-->
+    <section class="log-reg container">
+        <h2>Entra o registrate</h2>
+        <h4 class="hide">Use social accounts</h4>
+        <div class="social-login hide">
+            <a class="facebook" href="#"><i class="fa fa-facebook-square"></i></a>
+            <a class="google" href="#"><i class="fa fa-google-plus-square"></i></a>
+            <a class="twitter" href="#"><i class="fa fa-twitter-square"></i></a>
+        </div>
+        <div class="row">
+            <!--Login-->
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <form method="post" class="login-form">
+                    <div class="form-group group">
+                        <input type="email" class="form-control" name="log-email2" id="log-email2" 
+                               placeholder="Ingresa tu correo electrónico" required>
+                        <a class="help-link" href="#">¿Olvidaste tu correo electrónico?</a>
+                    </div>
+                    <div class="form-group group">
+                        <input type="text" class="form-control" name="log-password2" id="log-password2" 
+                               placeholder="Ingresa tu contraseña" required>
+                        <a class="help-link" href="#">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="remember"> Recordar datos de acceso</label>
+                    </div>
+                    <input class="btn btn-black" type="submit" value="Login">
+                </form>
+            </div>
+            <!--Registration-->
+            <div class="col-lg-7 col-md-7 col-sm-7"> 
+                <form name="registerClientForm" ng-submit="registrarCliente(registerClientForm.$valid)"  novalidate>
+                    <div id="divnombre" class="form-group group has-feedback" show-errors> 
+                        <input type="text" class="form-control" name="nombre" id="rf-nombre" 
+                               placeholder="Escribe tu Nombre." ng-model="cliente.nombre" required>
+                        <span id="icononombre" aria-hidden="true"></span>
+                        <p ng-if="registerClientForm.nombre.$error.required" class="help-block">
+                            * Tu nombre es requerido.
+                        </p>  
+                    </div> 
+                    <div id="divapellidoPaterno" class="form-group group has-feedback" show-errors>
+                        <input type="text" class="form-control" name="apellidoPaterno" id="rf-apellido" 
+                               placeholder="Escribe tu apellido paterno" ng-model="cliente.apellidoPaterno" required/>
+                        <span id="iconoapellidoPaterno" aria-hidden="true"></span>
+                        <p ng-if="registerClientForm.apellidoPaterno.$error.required" class="help-block">
+                            * Tu apellido paterno es requerido
+                        </p>
+                    </div>
+                    <div id="divapellidoMaterno" class="form-group group has-feedback" show-errors>
+                        <input type="text" class="form-control" name="apellidoMaterno" id="rf-apellidomaterno" 
+                               placeholder="Escribe tu apellido materno" ng-model="cliente.apellidoMaterno"/>
+                        <span id="iconoapellidoMaterno" aria-hidden="true"></span>
+                    </div>
+                    <div id="divemail" class="form-group group has-feedback" show-errors>
+                        <input type="email" class="form-control" name="email" id="rf-email" 
+                               placeholder="Ingresa tu correo electrónico" ng-model="cliente.email" required/>
+                        <span id="iconoemail" aria-hidden="true"></span>
+                        <p ng-if="registerClientForm.email.$error.required" class="help-block">
+                            * Tu correo electrónico es requerido
+                        </p>
+                        <p ng-if="!registerClientForm.email.$error.required && registerClientForm.email.$invalid" class="help-block">
+                            * Ingresa un email válido.
+                        </p>
+                    </div>
+                    <div id="divpassword" class="form-group group has-feedback" show-errors>
+                        <input type="password" class="form-control" name="password" id="rf-password" 
+                               placeholder="Ingresa tu contraseña" ng-model="cliente.password" 
+                               ng-minlength="4" required />
+                        <span id="iconopassword" aria-hidden="true"></span>
+                        <p ng-if="registerClientForm.password.$error.required" class="help-block">
+                            * Tu contraseña es requerida.
+                        </p>
+                        <p ng-if="!registerClientForm.password.$error.required && registerClientForm.password.$invalid" class="help-block">
+                            * La constraseña debe ser mínimo de 4 caracteres.
+                        </p>
+                    </div>
+                    <div id="divpasswordRepeat" class="form-group group has-feedback" show-errors>
+                        <input type="password" class="form-control" name="passwordRepeat" id="rf-password-repeat" 
+                               placeholder="Repite tu contraseña" ng-model="cliente.passwordRepeat" 
+                               required />
+                        <span id="iconopasswordRepeat" aria-hidden="true"></span>
+                        <p ng-if="registerClientForm.passwordRepeat.$error.required" class="help-block">
+                            * Debes de confirmar tu contraseña.
+                        </p>
+                        <p ng-show="!registerClientForm.passwordRepeat.$error.required && (cliente.password != cliente.passwordRepeat)"
+                           class="help-block">
+                            * La contraseñas no coinciden.
+                        </p>
+                    </div>
+                    <div id="divtelefono" class="form-group group has-feedback" show-errors>
+                        <input type="number" class="form-control" name="telefono" id="rf-telefono" 
+                               placeholder="Escribe tu telefono" ng-model="cliente.telefono" required />
+                        <span id="iconotelefono" aria-hidden="true"></span>
+                        <p ng-if="registerClientForm.telefono.$error.required" class="help-block">
+                            * Tu telefono es requerido
+                        </p>
+                        <p ng-if="!registerClientForm.telefono.$error.required && registerClientForm.telefono.$invalid" class="help-block">
+                            * Ingresa un teléfono válido.
+                        </p>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="remember"> He leido y acepto los terminos de uso</label>
+                    </div>
+                    <button  class="btn btn-black" type="submit" >
+                        Registar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section><!--Login / Register  Client Close-->
+</div>
