@@ -2,10 +2,10 @@
 <nav class="menu" ng-controller="MenuController as mc">
     <div class="container">
         <ul class="main">
-            <li class="has-submenu"><a href="/"><span>H</span>ome<i class="fa fa-chevron-down"></i></a>
+            <li class="has-submenu"><a href="#/"><span>I</span>nicio<i class="fa fa-chevron-down"></i></a>
                 <!--Class "has-submenu" for proper highlighting and dropdown-->
             </li>
-            <li class="has-submenu">
+            <li class="has-submenu" ng-show="false">
                 <a href="shop-filters-left-3cols.html"><span>M</span>i tienda<i class="fa fa-chevron-down"></i></a>
                 <ul class="submenu">
                     <li><a href="shopping-cart.html">Carrito de compras</a></li>
@@ -13,11 +13,11 @@
                 </ul>
             </li>
             <li class="has-submenu">
-                <a href="blog-sidebar-right.html"><span>B</span>log<i class="fa fa-chevron-down"></i></a>
+                <a href="#/mercantes"><span>M</span>ercantes<i class="fa fa-chevron-down"></i></a>
             </li>
-            <li class="has-submenu"><a href="#"><span>M</span>i cuenta<i class="fa fa-chevron-down"></i></a>
+            <li class="has-submenu"><a href="#"><span>C</span>lientes<i class="fa fa-chevron-down"></i></a>
             </li>
-            <li class="hide-sm"><a href="support.html"><span>C</span>ontáctanos</a></li>
+            <li class="hide-sm"><a href="#/soporte"><span>C</span>ontáctanos</a></li>
         </ul>
     </div>
     <div class="catalog-block">
@@ -25,6 +25,9 @@
             <ul class="catalog">
                 <li class="has-submenu" ng-repeat="categoria in mc.categorias">
                     <a href="shop-filters-left-3cols.html">{{categoria.nombre}}<i class="fa fa-chevron-down"></i></a>
+                </li>
+                <li>
+                    <a href="shop-filters-left-3cols.html"> Más ... </a>
                 </li>
             </ul>
         </div>

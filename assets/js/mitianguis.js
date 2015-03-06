@@ -81,5 +81,7 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/', {templateUrl: 'inicio.html'});
     $routeProvider.when('/registroweb', {templateUrl: 'registro.html'});
     $routeProvider.when('/registroClienteWeb', {templateUrl: 'registroCliente.html'});
+    $routeProvider.when('/soporte', {templateUrl: 'soporte.html'});
+    $routeProvider.when('/mercantes', {templateUrl: 'mercante.html'});
 });
 
