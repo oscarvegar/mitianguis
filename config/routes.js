@@ -31,8 +31,17 @@ module.exports.routes = {
   * `assets` directory)                                                      *
   *                                                                          *
   ***************************************************************************/
-    'post /registro': 'RegistroController.registrarNuevo',
-    'GET /mercante': 'MercanteController.find',   
+	'/login': {
+	    controller: 'AuthController',
+	    action: 'login'
+	  },
+	'/logout': {
+	    controller: 'AuthController',
+	    	action: 'logout'
+	  },
+	'post /registro': 'RegistroController.registrarNuevo',
+    'GET /mercante': 'MercanteController.find',
+    'GET /mercanteByUrl': 'MercanteController.findByUrlMercante',
     'POST /conekta/response': 'ConektaController.responseConekta',
     'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
     'GET /categoriasMenu': 'CategoriaController.categoriasMenu'   

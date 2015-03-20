@@ -62,11 +62,26 @@ registro.directive('showErrors', function($timeout) {
 
 registro.controller( "RegistroController", function($scope, $http, $rootScope) {
     $rootScope.viewToolbar = false;
+    var indexInit = window.location.origin.indexOf("//") + 2;
+    var indexFin = window.location.origin.indexOf(".mitianguis");
+    var urlMercanteFind = window.location.origin.substring( indexInit, indexFin );
+    console.info(urlMercanteFind);	
+    $scope.mercante={mentor:{codigoMercante:null}};
+    $scope.lecturaCodMerca = false;
+    $http.get("/mercanteByUrl?urlMercante=" + urlMercanteFind).then(function(result){
+    	console.log( JSON.stringify(result) );
+    	if( result.data.codigoMercante ){
+    		$scope.mercante.mentor.codigoMercante = result.data.codigoMercante;
+    		$scope.lecturaCodMerca = true;
+    	}else{
+    		$scope.lecturaCodMerca = false;
+    	}
+    });
     $scope.registrar = function(isValid) {
-        //$http.post("/clienteExpress");
-         $scope.$broadcast('show-errors-check-validity');
+        		//$http.post("/clienteExpress");
+    	$scope.$broadcast('show-errors-check-validity');
         if( isValid ){
-            $http.post("/registro", $scope.mercante)
+        	$http.post("/registro", {mercante:$scope.mercante, usuario:$scope.usuario})
             .success( function(data, status){
                 alert("Success: " + JSON.stringify(data));
             })

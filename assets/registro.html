@@ -62,7 +62,7 @@
                     </div>
                     <div id="divemail" class="form-group group has-feedback" show-errors>
                         <input type="email" class="form-control" name="email" id="rf-email" 
-                               placeholder="Ingresa tu correo electrónico" ng-model="mercante.email" required/>
+                               placeholder="Ingresa tu correo electrónico" ng-model="usuario.email" required/>
                         <span id="iconoemail" aria-hidden="true"></span>
                         <p ng-if="registerForm.email.$error.required" class="help-block">
                             * Tu correo electrónico es requerido
@@ -73,7 +73,7 @@
                     </div>
                     <div id="divpassword" class="form-group group has-feedback" show-errors>
                         <input type="password" class="form-control" name="password" id="rf-password" 
-                               placeholder="Ingresa tu contraseña" ng-model="mercante.password" 
+                               placeholder="Ingresa tu contraseña" ng-model="usuario.password" 
                                ng-minlength="4" required />
                         <span id="iconopassword" aria-hidden="true"></span>
                         <p ng-if="registerForm.password.$error.required" class="help-block">
@@ -85,13 +85,13 @@
                     </div>
                     <div id="divpasswordRepeat" class="form-group group has-feedback" show-errors>
                         <input type="password" class="form-control" name="passwordRepeat" id="rf-password-repeat" 
-                               placeholder="Repite tu contraseña" ng-model="mercante.passwordRepeat" 
+                               placeholder="Repite tu contraseña" ng-model="passwordRepeat" 
                                required />
                         <span id="iconopasswordRepeat" aria-hidden="true"></span>
                         <p ng-if="registerForm.passwordRepeat.$error.required" class="help-block">
                             * Debes de confirmar tu contraseña.
                         </p>
-                        <p ng-show="!registerForm.passwordRepeat.$error.required && (mercante.password != mercante.passwordRepeat)"
+                        <p ng-show="!registerForm.passwordRepeat.$error.required && (usuario.password != passwordRepeat)"
                            class="help-block">
                             * La contraseñas no coinciden.
                         </p>
@@ -109,12 +109,18 @@
                     </div>
                     <div id="divcodigo" class="form-group group has-feedback" show-errors>
                         <input type="text" class="form-control" name="codigo" id="rf-codigo" 
-                               placeholder="Escribe el código de tu amigo que te invito" 
+                               placeholder="Escribe el código de tu amigo que te invito" ng-disable="lecturaCodMerca"
                                ng-model="mercante.mentor.codigoMercante" required />
                         <span id="iconocodigo" aria-hidden="true"></span>
                         <p ng-if="registerForm.codigo.$error.required" class="help-block">
                             * El código de tu amigo es requerido
                         </p>
+                    </div>
+                    <div id="divurlmercante" class="form-group group has-feedback" show-errors>
+                        <input type="text" class="form-control" name="codmerca" id="rf-codmerca" 
+                               placeholder="Escribe el nombre de tu tienda"
+                               ng-model="mercante.urlMercante" />
+                        
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox" name="remember"> He leido y acepto los terminos de uso</label>

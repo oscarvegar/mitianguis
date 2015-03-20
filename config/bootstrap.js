@@ -21,44 +21,69 @@ module.exports.bootstrap = function(cb) {
             newMer.codigoMercante="24201314227";
             newMer.mentor = -1;
             newMer.diaInscripcion =0;
-            Mercante.create(newMer).exec(function(err,created){
-                if(err){return console.log(err)}
-                console.log(created)
-                Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:created}).exec(function(err,cCar){
-                    console.log(cCar);
-                    Parametro.create({datosSystem:{systemId:created.id,carteraId:cCar.id}}).exec(function(err,cParam){
-                        console.log(cParam);
-                    });
-                            Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez',mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date()}).exec(function(err,createdMerc){
-                        console.log(createdMerc); 
-                        Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
-                            console.log(cCar);
-
+            newMer.urlMercante="store";
+            //newMer.password="system-main-43289";
+            User.create({username:'system@mitianguis.com', email:'system@mitianguis.com', password:'system-main-43289'})
+            .exec( function(err, userCreated){
+            	newMer.usuario = userCreated;
+            	Mercante.create(newMer).exec(function(err,created){
+            		if(err){return console.log(err)}
+	                console.log(created)
+	                Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:created})
+	                .exec(function(err,cCar){
+	                	console.log(cCar);
+                        Parametro.create({datosSystem:{systemId:created.id,carteraId:cCar.id}})
+                        .exec(function(err,cParam){
+                        	console.log(cParam);
+                         });
+                        
+                        User.create({username:'oscarv@mitianguis.com', email:'oscarv@mitianguis.com', password:'oscarv'})
+                        .exec( function(err, userNew){
+                        	Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date(),urlMercante:"oscarvegar",usuario:userNew})
+	                        .exec(function(err,createdMerc){
+	                             console.log(createdMerc); 
+	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
+	                                 console.log(cCar);
+	
+	                             });
+	                         });
                         });
-                    });
-                    Mercante.create({nombre:'Jose Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos',mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date()}).exec(function(err,createdMerc){
-                        Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
-                            console.log(cCar);
-
-                        });                   
-                    });
-                    Mercante.create({nombre:'Oscar',apellidoPaterno:'García',apellidoMaterno:'Pacheco',mentor:created,fechaNacimiento:moment('1981 08 21').toDate(),codigoMercante:'OSCARGARCIA',diaInscripcion:moment().date()}).exec(function(err,createdMerc){
-                        Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
-                            console.log(cCar);
-
-                        });                   
-                    });
-                    Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'Unknown',mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date()}).exec(function(err,createdMerc){
-                        Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
-                            console.log(cCar);
-
-                        });                   
-                    });
-                });
-
-
-
-            }); 
+                        
+                        User.create({username:'danielm@mitianguis.com', email:'danielm@mitianguis.com', password:'danielm'})
+                        .exec( function(err, userNew){
+	                         Mercante.create({nombre:'Jose Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos', mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date(),urlMercante:"danistore",usuario:userNew})
+	                         .exec(function(err,createdMerc){
+	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
+	                                 console.log(cCar);
+	
+	                             });                   
+	                         });
+                        });
+                        
+                        User.create({username:'oscarg@mitianguis.com', email:'oscarg@mitianguis.com', password:'oscarg'})
+                        .exec( function(err, userNew){
+	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'García',apellidoMaterno:'Pacheco', mentor:created,fechaNacimiento:moment('1981 08 21').toDate(),codigoMercante:'OSCARGARCIA',diaInscripcion:moment().date(),urlMercante:"oscarstore", usuario:userNew})
+	                         .exec(function(err,createdMerc){
+	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
+	                                 console.log(cCar);
+	
+	                             });                   
+	                         });
+                        });
+                        
+                        User.create({username:'oscarm@mitianguis.com', email:'oscarm@miianguis.com', password:'oscarm'})
+                        .exec( function(err, userNew){
+	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'Unknown', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(),urlMercante:"oscarmonstore", usuario:userNew})
+	                         .exec(function(err,createdMerc){
+	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
+	                                 console.log(cCar);
+	
+	                             });                   
+	                         });
+                        });
+                     });
+                 }); 
+            });
         }
     });
 
