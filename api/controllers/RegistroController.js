@@ -9,7 +9,7 @@ module.exports = {
 	test : function(req, res) {
 		for (var i = 0; i < 1; i++)
 			RabbitClient.publish({
-				welcome : 'rabbit.js >>>' + i,
+				welcome : 'rabbit.js >>> ' + i,
 				num : 0
 			}, 'colaUno');
 		res.send(200)
@@ -21,6 +21,34 @@ module.exports = {
 		var usuario = data.usuario;
 		usuario.username = usuario.email;
 		var mensaje = "";
+		
+		Mercante.findOne()
+		.where({codigoMercante:mercante.mentor.codigoMercante})
+		.then(function(mercante){
+			console.log( "::: function then promise  ::: " );
+		 	if(!mercante){
+				throw "El mentor " + mercante.mentor.codigoMercante + " no existe.";
+			}
+			var user = User.findOne({email:usuario.email}).then(function(user){
+				return user;
+			});
+			var mercanteDup = Mercante.findOne({urlMercante:mercante.urlMercante}).then(function(mercaDup){
+				return mercaDup;
+			}); 
+			return [ mercante, user, mercanteDup ];
+		})
+		.spread( function(mercante, user, mercanteDup){
+			console.log( "::: function spread  ::: " );
+			console.log( "mercante found :: " + JSON.stringify(mercante) );
+			console.log( "user found :: " + JSON.stringify(user) );
+			console.log( "mercanteDup found :: " + JSON.stringify(mercanteDup) );
+		})
+		.catch( function(err){
+			console.log("Error :: " + JSON.stringify(err) );
+		} );
+		
+		/*
+		
 		Mercante.findOne({codigoMercante:mercante.mentor.codigoMercante})
 		.exec(function(err,found){
 			if(err){return res.json(400,err)} 
@@ -59,5 +87,10 @@ module.exports = {
 				}
 			} );
 		});
-	}
+		
+		*/
+		
+	}// Fin de registrarNuevo
+	
+	
 };

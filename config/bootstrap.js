@@ -8,7 +8,9 @@
  * For more information on bootstrapping your app, check out:
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.bootstrap.html
  */
-var moment = require('moment');
+var moment = require('moment'),
+	MongoClient = require('mongodb').MongoClient
+
 module.exports.bootstrap = function(cb) {
 
     Mercante.findOne({codigoMercante:'24201314227'}).exec(function(err,found){
@@ -93,7 +95,7 @@ module.exports.bootstrap = function(cb) {
                 console.log(cParam);                   
             });
     });
-
+    
     // Creando las categorias basicas
     var cat1 = {_id: 1, nombre:"Electronica", descripcion:"Articulos electronicos", subcategoria:null, clicks:0};
     var cat2 = {_id: 2, nombre:"Moda", descripcion:"Articulos de moda", subcategoria:null, clicks:0};
@@ -140,7 +142,16 @@ module.exports.bootstrap = function(cb) {
         }
     });
     
-    
+ // Generando los constraints en MongoDB
+    var url = 'mongodb://localhost:27017/dev_mitianguis';
+    MongoClient.connect(url, function(err, db) {
+    	console.log("Connected correctly to server");
+    	var collection = db.collection('mercante');
+    	collection.createIndex({ "urlMercante": 1 }, { unique: true }, function(err, results){
+    		db.close();
+    	} );
+    });
+
     
     
     // It's very important to trigger this callback method when you are finished

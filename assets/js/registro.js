@@ -76,7 +76,7 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
     	}else{
     		$scope.lecturaCodMerca = false;
     	}
-    });
+    });	
     $scope.registrar = function(isValid) {
         		//$http.post("/clienteExpress");
     	$scope.$broadcast('show-errors-check-validity');

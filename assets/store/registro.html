@@ -1,12 +1,12 @@
 <!--Breadcrumbs-->
 <br/>
-<div ng-controller="RegistroClienteController">
+<div ng-controller="RegistroController">
     <ol class="breadcrumb">
         <li><a href="index.html">Inicio</a></li>
         <li>Entra o registrate</li>
     </ol><!--Breadcrumbs Close-->
 
-    <!--Login / Register Client-->
+    <!--Login / Register-->
     <section class="log-reg container">
         <h2>Entra o registrate</h2>
         <h4 class="hide">Use social accounts</h4>
@@ -37,74 +37,90 @@
             </div>
             <!--Registration-->
             <div class="col-lg-7 col-md-7 col-sm-7"> 
-                <form name="registerClientForm" ng-submit="registrarCliente(registerClientForm.$valid)"  novalidate>
+                <form name="registerForm" ng-submit="registrar(registerForm.$valid)"  novalidate>
+                    
                     <div id="divnombre" class="form-group group has-feedback" show-errors> 
                         <input type="text" class="form-control" name="nombre" id="rf-nombre" 
-                               placeholder="Escribe tu Nombre." ng-model="cliente.nombre" required>
+                               placeholder="¿Como te llamas tu?." ng-model="mercante.nombre" required>
                         <span id="icononombre" aria-hidden="true"></span>
-                        <p ng-if="registerClientForm.nombre.$error.required" class="help-block">
+                        <p ng-if="registerForm.nombre.$error.required" class="help-block">
                             * Tu nombre es requerido.
                         </p>  
                     </div> 
                     <div id="divapellidoPaterno" class="form-group group has-feedback" show-errors>
                         <input type="text" class="form-control" name="apellidoPaterno" id="rf-apellido" 
-                               placeholder="Escribe tu apellido paterno" ng-model="cliente.apellidoPaterno" required/>
+                               placeholder="Escribe tu apellido paterno" ng-model="mercante.apellidoPaterno" required/>
                         <span id="iconoapellidoPaterno" aria-hidden="true"></span>
-                        <p ng-if="registerClientForm.apellidoPaterno.$error.required" class="help-block">
+                        <p ng-if="registerForm.apellidoPaterno.$error.required" class="help-block">
                             * Tu apellido paterno es requerido
                         </p>
                     </div>
                     <div id="divapellidoMaterno" class="form-group group has-feedback" show-errors>
                         <input type="text" class="form-control" name="apellidoMaterno" id="rf-apellidomaterno" 
-                               placeholder="Escribe tu apellido materno" ng-model="cliente.apellidoMaterno"/>
+                               placeholder="Escribe tu apellido materno" ng-model="mercante.apellidoMaterno"/>
                         <span id="iconoapellidoMaterno" aria-hidden="true"></span>
                     </div>
                     <div id="divemail" class="form-group group has-feedback" show-errors>
                         <input type="email" class="form-control" name="email" id="rf-email" 
-                               placeholder="Ingresa tu correo electrónico" ng-model="cliente.email" required/>
+                               placeholder="Ingresa tu correo electrónico" ng-model="usuario.email" required/>
                         <span id="iconoemail" aria-hidden="true"></span>
-                        <p ng-if="registerClientForm.email.$error.required" class="help-block">
+                        <p ng-if="registerForm.email.$error.required" class="help-block">
                             * Tu correo electrónico es requerido
                         </p>
-                        <p ng-if="!registerClientForm.email.$error.required && registerClientForm.email.$invalid" class="help-block">
+                        <p ng-if="!registerForm.email.$error.required && registerForm.email.$invalid" class="help-block">
                             * Ingresa un email válido.
                         </p>
                     </div>
                     <div id="divpassword" class="form-group group has-feedback" show-errors>
                         <input type="password" class="form-control" name="password" id="rf-password" 
-                               placeholder="Ingresa tu contraseña" ng-model="cliente.password" 
+                               placeholder="Ingresa tu contraseña" ng-model="usuario.password" 
                                ng-minlength="4" required />
                         <span id="iconopassword" aria-hidden="true"></span>
-                        <p ng-if="registerClientForm.password.$error.required" class="help-block">
+                        <p ng-if="registerForm.password.$error.required" class="help-block">
                             * Tu contraseña es requerida.
                         </p>
-                        <p ng-if="!registerClientForm.password.$error.required && registerClientForm.password.$invalid" class="help-block">
+                        <p ng-if="!registerForm.password.$error.required && registerForm.password.$invalid" class="help-block">
                             * La constraseña debe ser mínimo de 4 caracteres.
                         </p>
                     </div>
                     <div id="divpasswordRepeat" class="form-group group has-feedback" show-errors>
                         <input type="password" class="form-control" name="passwordRepeat" id="rf-password-repeat" 
-                               placeholder="Repite tu contraseña" ng-model="cliente.passwordRepeat" 
+                               placeholder="Repite tu contraseña" ng-model="passwordRepeat" 
                                required />
                         <span id="iconopasswordRepeat" aria-hidden="true"></span>
-                        <p ng-if="registerClientForm.passwordRepeat.$error.required" class="help-block">
+                        <p ng-if="registerForm.passwordRepeat.$error.required" class="help-block">
                             * Debes de confirmar tu contraseña.
                         </p>
-                        <p ng-show="!registerClientForm.passwordRepeat.$error.required && (cliente.password != cliente.passwordRepeat)"
+                        <p ng-show="!registerForm.passwordRepeat.$error.required && (usuario.password != passwordRepeat)"
                            class="help-block">
                             * La contraseñas no coinciden.
                         </p>
                     </div>
                     <div id="divtelefono" class="form-group group has-feedback" show-errors>
                         <input type="number" class="form-control" name="telefono" id="rf-telefono" 
-                               placeholder="Escribe tu telefono" ng-model="cliente.telefono" required />
+                               placeholder="Escribe tu telefono" ng-model="mercante.telefono" required />
                         <span id="iconotelefono" aria-hidden="true"></span>
-                        <p ng-if="registerClientForm.telefono.$error.required" class="help-block">
+                        <p ng-if="registerForm.telefono.$error.required" class="help-block">
                             * Tu telefono es requerido
                         </p>
-                        <p ng-if="!registerClientForm.telefono.$error.required && registerClientForm.telefono.$invalid" class="help-block">
+                        <p ng-if="!registerForm.telefono.$error.required && registerForm.telefono.$invalid" class="help-block">
                             * Ingresa un teléfono válido.
                         </p>
+                    </div>
+                    <div id="divcodigo" class="form-group group has-feedback" show-errors>
+                        <input type="text" class="form-control" name="codigo" id="rf-codigo" 
+                               placeholder="Escribe el código de tu amigo que te invito" ng-disable="lecturaCodMerca"
+                               ng-model="mercante.mentor.codigoMercante" />
+                        <span id="iconocodigo" aria-hidden="true"></span>
+                        <p ng-if="registerForm.codigo.$error.required" class="help-block">
+                            * El código de tu amigo es requerido
+                        </p>
+                    </div>
+                    <div id="divurlmercante" class="form-group group has-feedback" show-errors>
+                        <input type="text" class="form-control" name="codmerca" id="rf-codmerca" 
+                               placeholder="Escribe el nombre de tu tienda"
+                               ng-model="mercante.urlMercante" />
+                        
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox" name="remember"> He leido y acepto los terminos de uso</label>
@@ -115,5 +131,5 @@
                 </form>
             </div>
         </div>
-    </section><!--Login / Register  Client Close-->
+    </section><!--Login / Register Close-->
 </div>

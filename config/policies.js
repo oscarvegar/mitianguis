@@ -27,13 +27,18 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
-	
+		
 	'*': 'authenticated',
 	'registro':true,
+	'categoria':true,
+	'mercante':{
+		'findByUrlMercante': true
+	},
 	'auth':
 	{
 		'*': true
 	}
+
 	
 	
 		
