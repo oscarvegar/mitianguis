@@ -23,7 +23,7 @@ module.exports.bootstrap = function(cb) {
             newMer.codigoMercante="24201314227";
             newMer.mentor = -1;
             newMer.diaInscripcion =0;
-            newMer.urlMercante="store";
+            //newMer.urlMercante="store";
             //newMer.password="system-main-43289";
             User.create({username:'system@mitianguis.com', email:'system@mitianguis.com', password:'system-main-43289'})
             .exec( function(err, userCreated){
@@ -41,19 +41,96 @@ module.exports.bootstrap = function(cb) {
                         
                         User.create({username:'oscarv@mitianguis.com', email:'oscarv@mitianguis.com', password:'oscarv'})
                         .exec( function(err, userNew){
-                        	Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date(),urlMercante:"oscarvega",usuario:userNew})
+                        	Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date(),usuario:userNew})
 	                        .exec(function(err,createdMerc){
 	                             console.log(createdMerc); 
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
 	
 	                             });
+                                 Tienda.create({
+                                    nombre:'Gameland',
+                                    descripcion:'Tienda de videojuegos',
+                                    url : "gameland",
+                                    mercante:createdMerc,
+                                    certificado:0,
+                                    visitas:0,
+                                    likes:0,
+                                    facebook:"facebook.com/oscarvegaro",
+                                    twitter:'@oscarvegar',
+                                    youtube:null
+                                }).exec(function(err,newTienda){
+                                    var productos = [{
+                                            nombre:"Grand Theaft Auto V",
+                                            descripcion:"<div>Vendo precioso GTA V<br><br><h1>MUY CHIDO!</h1><div>",
+                                            stock:10,
+                                            sku:null,
+                                            precio:600.00,
+                                            precioMayoreo:null,
+                                            cantidadMayoreo:null,
+                                            infoExtra:'Buen estado con caja e instructivo.', //Ej. Tallas de ropa, capacidad, etc, etc
+                                            costoEnvio:100.00,
+                                            garantia:'1 mes',
+                                            status:1, //-1:eliminado,0:inactivo,1:activo
+                                            imagenesSecundarias: ['http://www.adslzone.net/app/uploads/2014/05/protagonistas-de-a-historia-GTA-V.jpg','http://media.edge-online.com/wp-content/uploads/sites/117/2013/12/GTAV-610x343.jpg'], //strings de urls ['url1','url2']
+                                            imagenPrincipal:'http://elmanana.com.mx/imgs/noticias/original/bc5474fedb11d94_80982f56572768b91d2186ac130995e3',
+                                            visitas:0,
+                                            ratings:[{stars:5,comentario:"MUY BUEN VENDEDOR"},{stars:4,comentario:"Bueno pero tardó el envío"}], //[{stars:int,comentario:string}]
+                                            categorias:['#videojuegos','#gtav',"#ps3","#xbox360"],
+                                            isPrincipal:true,
+                                            youtube:'https://www.youtube.com/watch?v=kxHa0k_kTnM',
+                                            tienda:newTienda
+                                        },{
+                                            nombre:"Beats Studio 2.0",
+                                            descripcion:"<div>Vendo audifonos Beats 2.0 de Dr Dre<br><br><h1>BARA BARA!</h1><div>",
+                                            stock:10,
+                                            sku:null,
+                                            precio:3600.00,
+                                            precioMayoreo:3,
+                                            cantidadMayoreo:3000.00,
+                                            infoExtra:'Bluetooth, recargables.', //Ej. Tallas de ropa, capacidad, etc, etc
+                                            costoEnvio:150.00,
+                                            garantia:'3 meses',
+                                            status:1, //-1:eliminado,0:inactivo,1:activo
+                                            imagenesSecundarias: ['http://www1.pcmag.com/media/images/412497-beats-by-dr-dre-studio.jpg?thumb=y','http://brain-images.cdn.dixons.com/4/4/21660644/l_21660644.jpg'], //strings de urls ['url1','url2']
+                                            imagenPrincipal:'http://ebbob.com/img/01/iixjz0f4h2e.jpg',
+                                            visitas:0,
+                                            ratings:[{stars:5,comentario:"MUY BUEN VENDEDOR"},{stars:4,comentario:"Bueno pero tardó el envío"}], //[{stars:int,comentario:string}]
+                                            categorias:['#audifonos','#beats',"#DrDre","#Audio",'#Electrónica'],
+                                            isPrincipal:true,
+                                            youtube:'https://www.youtube.com/watch?v=xlljElC0ehg',
+                                            tienda:newTienda
+                                        },{
+                                            nombre:"Consola PS4",
+                                            descripcion:"<div>Vendo consola PS4, con un control, sellada<br><br><h1>LLevele Llévele!</h1><div>",
+                                            stock:5,
+                                            sku:null,
+                                            precio:6000.00,
+                                            infoExtra:'Totalmente nuevo, en su caja sellado.', //Ej. Tallas de ropa, capacidad, etc, etc
+                                            costoEnvio:500.00,
+                                            garantia:'1 Año',
+                                            status:1, //-1:eliminado,0:inactivo,1:activo
+                                            imagenesSecundarias: ['http://static1.gamespot.com/uploads/original/1535/15354745/2819663-8418826320-28191.jpg','http://www.extremetech.com/wp-content/uploads/2013/06/ps4-rhombox-cropped.jpg'], //strings de urls ['url1','url2']
+                                            imagenPrincipal:'http://genk2.vcmedia.vn/DlBlzccccccccccccE5CT3hqq3xN9o/Image/2014/02/1-05805.jpg',
+                                            visitas:0, //[{stars:int,comentario:string}]
+                                            categorias:['#PS4','#Electronica',"#Consolas","#Videojuegos"],
+                                            isPrincipal:false,
+                                            youtube:'https://www.youtube.com/watch?v=ZkE3gr5EDs0',
+                                            tienda:newTienda
+                                        }];
+                                    Producto.create(productos).exec(function(err,productos){
+                                        console.log(productos);
+                                    });  
+                                    createdMerc.tiendas = [newTienda];
+                                    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AQUI ESTA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+                                    createdMerc.save(console.log);
+                                });
 	                         });
                         });
                         
                         User.create({username:'danielm@mitianguis.com', email:'danielm@mitianguis.com', password:'danielm'})
                         .exec( function(err, userNew){
-	                         Mercante.create({nombre:'Jose Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos', mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date(),urlMercante:"danistore",usuario:userNew})
+	                         Mercante.create({nombre:'Jose Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos', mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date(),usuario:userNew})
 	                         .exec(function(err,createdMerc){
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
@@ -64,7 +141,7 @@ module.exports.bootstrap = function(cb) {
                         
                         User.create({username:'oscarg@mitianguis.com', email:'oscarg@mitianguis.com', password:'oscarg'})
                         .exec( function(err, userNew){
-	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'García',apellidoMaterno:'Pacheco', mentor:created,fechaNacimiento:moment('1981 08 21').toDate(),codigoMercante:'OSCARGARCIA',diaInscripcion:moment().date(),urlMercante:"oscarstore", usuario:userNew})
+	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'García',apellidoMaterno:'Pacheco', mentor:created,fechaNacimiento:moment('1981 08 21').toDate(),codigoMercante:'OSCARGARCIA',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
@@ -75,7 +152,7 @@ module.exports.bootstrap = function(cb) {
                         
                         User.create({username:'oscarm@mitianguis.com', email:'oscarm@miianguis.com', password:'oscarm'})
                         .exec( function(err, userNew){
-	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'Unknown', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(),urlMercante:"oscarmonstore", usuario:userNew})
+	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'Unknown', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
@@ -96,53 +173,11 @@ module.exports.bootstrap = function(cb) {
             });
     });
     
-    // Creando las categorias basicas
-    var cat1 = {_id: 1, nombre:"Electronica", descripcion:"Articulos electronicos", subcategoria:null, clicks:0};
-    var cat2 = {_id: 2, nombre:"Moda", descripcion:"Articulos de moda", subcategoria:null, clicks:0};
-    var cat3 = {_id: 3, nombre:"Hogar", descripcion:"Articulos para el hogar", subcategoria:null, clicks:0};
-    var cat4 = {_id: 4, nombre:"Zapatos", descripcion:"Articulos para el calzado", subcategoria:null, clicks:0};
-    var cat5 = {_id: 5, nombre:"Joyeria y Relojes", descripcion:"Articulos de joyeria y relojes", subcategoria:null, clicks:0};
-    var cat6 = {_id: 6, nombre:"Salud y Belleza", descripcion:"Articulos para tu salud", subcategoria:null, clicks:0};
-    var cat7 = {_id: 7, nombre:"Deportes", descripcion:"Articulos para Deportes", subcategoria:null, clicks:0};
     
-    var cat8 =  {_id: 100, nombre:"Celulares", descripcion:"", subcategoria:1, clicks:0};
-    var cat9 =  {_id: 101, nombre:"Tablets", descripcion:"", subcategoria:1, clicks:0};
-    var cat10 = {_id: 102, nombre:"Videocámaras", descripcion:"", subcategoria:1, clicks:0};
-    var cat11 = {_id: 103, nombre:"Videojuegos", descripcion:"", subcategoria:1, clicks:0};
     
-    var cat12 = {_id: 200, nombre:"Vestidos", descripcion:"", subcategoria:2, clicks:0};
-    var cat13 = {_id: 201, nombre:"Blusas", descripcion:"", subcategoria:2, clicks:0};
-    var cat14 = {_id: 202, nombre:"Camisas", descripcion:"", subcategoria:2, clicks:0};
-    var cat15 = {_id: 203, nombre:"Pantalones", descripcion:"", subcategoria:2, clicks:0};
+   
     
-    var cat16 = {_id: 300, nombre:"Decoracion", descripcion:"", subcategoria:3, clicks:0};
-    var cat17 = {_id: 301, nombre:"Baño", descripcion:"", subcategoria:3, clicks:0};
-    var cat18 = {_id: 302, nombre:"Jardin", descripcion:"", subcategoria:3, clicks:0};
-    var cat19 = {_id: 303, nombre:"Cocina", descripcion:"", subcategoria:3, clicks:0};
-    
-    var cat20 = {_id: 400, nombre:"Deportivos", descripcion:"", subcategoria:4, clicks:0};
-    var cat21 = {_id: 401, nombre:"Sandalias", descripcion:"", subcategoria:4, clicks:0};
-    var cat22 = {_id: 402, nombre:"Mocasines", descripcion:"", subcategoria:4, clicks:0};
-    var cat23 = {_id: 403, nombre:"Botas", descripcion:"", subcategoria:4, clicks:0};
-    
-    var cat24 = {_id: 700, nombre:"Futbol", descripcion:"", subcategoria:7, clicks:0};
-    var cat25 = {_id: 701, nombre:"Baloncesto", descripcion:"", subcategoria:7, clicks:0};
-    var cat26 = {_id: 702, nombre:"Golf", descripcion:"", subcategoria:7, clicks:0};
-    var cat27 = {_id: 703, nombre:"Tenis", descripcion:"", subcategoria:7, clicks:0};
-    
-    var categorias = [ cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10,
-                       cat11, cat12, cat13, cat14, cat15, cat16, cat17, cat18, cat19, cat20,
-                       cat21, cat22, cat23, cat24, cat25, cat26, cat27];
-    
-    Categoria.find().exec(function(err,found){
-        if(err){return res.json(400,err)}
-        if(found == null || found.length == 0){
-            Categoria.create(categorias)
-            .exec(function(err,cCat){});   
-        }
-    });
-    
- // Generando los constraints en MongoDB
+ /* Generando los constraints en MongoDB
     var url = 'mongodb://localhost:27017/dev_mitianguis';
     MongoClient.connect(url, function(err, db) {
     	console.log("Connected correctly to server");
@@ -150,7 +185,10 @@ module.exports.bootstrap = function(cb) {
     	collection.createIndex({ "urlMercante": 1 }, { unique: true }, function(err, results){
     		db.close();
     	} );
-    });
+    });*/
+
+//GENERANDO PRODUCTOS POR DEFAULT PARA UN MERCANTE
+
 
     
     

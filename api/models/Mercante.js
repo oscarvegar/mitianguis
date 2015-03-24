@@ -31,10 +31,15 @@ module.exports = {
 			type : 'integer',
 			required : true
 		},
-		urlMercante : {
-			type : 'string',
-			required : true
-		}
+		tiendas:{
+			collection:'tienda',
+			via:'mercante'
+		},
+		twitter:'string',
+		facebook:'string',
+		youtube:'string', //canal de youtube
+		telefono:'string',
+		direccion:'string'
 	}
 
 	

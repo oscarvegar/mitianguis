@@ -14,10 +14,10 @@ module.exports = {
     findByUrlMercante:function(request, response){
     	var data = request.allParams();
     	//console.log("Data for request find mercante::: " + data + "--" + JSON.stringify(data) );
-    	Mercante.findOne({urlMercante:data.urlMercante}).exec( function(err, found){
+    	Tienda.findOne({url:data.urlMercante}).populate('mercante').exec( function(err, found){
     		if(err){return response.json(400,err)}
     		console.log("Found :: " + JSON.stringify(found) );
-            return response.json(found);
+            return response.json(found.mercante);
     	} );
     }
 };
