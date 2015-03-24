@@ -41,7 +41,7 @@ module.exports.bootstrap = function(cb) {
                         
                         User.create({username:'oscarv@mitianguis.com', email:'oscarv@mitianguis.com', password:'oscarv'})
                         .exec( function(err, userNew){
-                        	Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date(),urlMercante:"oscarvegar",usuario:userNew})
+                        	Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date(),urlMercante:"oscarvega",usuario:userNew})
 	                        .exec(function(err,createdMerc){
 	                             console.log(createdMerc); 
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
