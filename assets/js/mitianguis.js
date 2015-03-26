@@ -30,7 +30,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
         //console.log( JSON.stringify(result.data.mercante) );
         if ( result.data == null ) {
 	    		window.location.href = constants.DOMAIN + "pages/#/?subdomain=" + subdominio;
-	    	} else if ( result.data.mercante.mentor ) {
+	    	} else if ( result.data.mercante.mentor ) { 
           webUtil.save("mercante", result.data.mercante);
           webUtil.save("tienda", result.data);
 	    	}
@@ -70,6 +70,7 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/admin', {templateUrl: 'pages/admin/main.html'});
     $routeProvider.when('/soporte', {templateUrl: 'pages/soporte.html'});
     $routeProvider.when('/mercantes', {templateUrl: 'pages/mercante.html'});
+    $routeProvider.when('/producto', {templateUrl: 'pages/store/detalleProducto.html'});
 
     //localStorage.clear();
 });

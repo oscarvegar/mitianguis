@@ -127,6 +127,24 @@ module.exports.bootstrap = function(cb) {
                                             isPrincipal:false,
                                             youtube:'https://www.youtube.com/watch?v=ZkE3gr5EDs0',
                                             tienda:newTienda
+                                        },{
+                                            nombre:"Consola PS4",
+                                            descripcion:"<div>Vendo consola PS4, con un control, sellada<br><br><h1>LLevele Llévele!</h1><div>",
+                                            descripcionCorta:"PS4 Nuevo y Sellado",
+                                            stock:5,
+                                            sku:null,
+                                            precio:6000.00,
+                                            infoExtra:'Totalmente nuevo, en su caja sellado.', //Ej. Tallas de ropa, capacidad, etc, etc
+                                            costoEnvio:500.00,
+                                            garantia:'1 Año',
+                                            status:1, //-1:eliminado,0:inactivo,1:activo
+                                            imagenesSecundarias: ['http://static1.gamespot.com/uploads/original/1535/15354745/2819663-8418826320-28191.jpg','http://www.extremetech.com/wp-content/uploads/2013/06/ps4-rhombox-cropped.jpg'], //strings de urls ['url1','url2']
+                                            imagenPrincipal:'http://genk2.vcmedia.vn/DlBlzccccccccccccE5CT3hqq3xN9o/Image/2014/02/1-05805.jpg',
+                                            visitas:0, //[{stars:int,comentario:string}]
+                                            categorias:['#PS4','#Electronica',"#Consolas","#Videojuegos"],
+                                            isPrincipal:false,
+                                            youtube:'https://www.youtube.com/watch?v=ZkE3gr5EDs0',
+                                            tienda:newTienda
                                         }];
                                     Producto.create(productos).exec(function(err,productos){
                                         console.log(productos);
