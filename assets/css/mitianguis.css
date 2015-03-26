@@ -9,3 +9,15 @@
 .form-group.has-error .help-block {
   display: block;
 }
+
+.cursor {
+  cursor: pointer;
+}
+
+.selected{
+  background: #e91e63;
+}
+
+.tech-specs .selected p {
+  color: #fff;
+}

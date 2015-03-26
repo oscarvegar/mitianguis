@@ -1,17 +1,9 @@
 var myApp = angular.module("TianguisApp",
                               ['ngAnimate',
                                'ngRoute',
-                               'CarruselModule',
-                               'CategoriasModule',
-                               'CatalogosModule',
-                               'ItemsModule',
-                               'PostModule',
-                               'GaleriaModule',
-                               'MarcasModule',
-                               'SubscriptionModule',
-                               'ToolbarModule',
-                               'RegistroModule',
-                               'MenuModule'
+                               'AdminModule',
+                                'TiendaModule',
+                               'RegistroModule'
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location){
