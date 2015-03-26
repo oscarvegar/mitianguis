@@ -19,7 +19,7 @@ module.exports = {
     		if(err){return response.json(400,err)}
     		if( found ){
 	    		console.log("Found :: " + JSON.stringify(found) );
-	            return response.json(found.mercante);
+	            return response.json(found);
     		}
     		return response.send(404,{error:"El dominio " + data.urlMercante + " no existe... "});
     	} );

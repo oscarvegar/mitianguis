@@ -3,7 +3,9 @@ var myApp = angular.module("TianguisApp",
                                'ngRoute',
                                'AdminModule',
                                 'TiendaModule',
-                               'RegistroModule'
+                               'RegistroModule',
+                               'CarruselModule',
+                               'TiendaModule',
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location){
@@ -22,20 +24,22 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     }
     //Obtener al mercante en base al subdominio en el primer acceso.
     var subdominio = webUtil.getDomain();
-    if(subdominio !== "http://") {
-    	//console.log("buscando a mercante por subdominio >> " + subdominio );
+    //if(subdominio !== "http://") {
 	    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
 	    .then(function(result) {
-	    	console.log( JSON.stringify(result.data) );
-	    	if ( result.data == null ) {
+        //console.log( JSON.stringify(result.data.mercante) );
+        if ( result.data == null ) {
 	    		window.location.href = constants.DOMAIN + "pages/#/?subdomain=" + subdominio;
-	    	} else if ( result.data.mentor ) {
-	    		webUtil.save("mercante", result.data);
+	    	} else if ( result.data.mercante.mentor ) {
+          webUtil.save("mercante", result.data.mercante);
+          webUtil.save("tienda", result.data);
 	    	}
 	    },function(error) {
 	    	window.location.href="tiendanoexiste";
 	    } );
-    }
+    //}
+
+    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
 
     $scope.login = function(){
       $scope.user.email = $scope.user.username;
