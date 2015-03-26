@@ -47,7 +47,7 @@ module.exports.i18n = {
 
   /****************************************************************************
   *                                                                           *
-  * Path (relative to app root) of directory to store locale (translation)    *
+  * Path (relative to app root) of directory to pages locale (translation)    *
   * files in.                                                                 *
   *                                                                           *
   ****************************************************************************/

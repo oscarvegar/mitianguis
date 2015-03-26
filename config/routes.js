@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 	'/login': {
 	    controller: 'AuthController',
-	    action: 'login'
+	    action: 'process'
 	 },
 	'/logout': {
 	    controller: 'AuthController',
@@ -42,10 +42,15 @@ module.exports.routes = {
 	'post /registro': 'RegistroController.registrarNuevo',
 	'GET /categoriasMenu': 'CategoriaController.categoriasMenu',
 	'GET /mercante': 'MercanteController.find',
-    'GET /mercanteByUrl': 'MercanteController.findByUrlMercante',
-    'POST /conekta/response': 'ConektaController.responseConekta',
-    'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
-       
+  'GET /mercanteByUrl': 'MercanteController.findByUrlMercante',
+  'POST /conekta/response': 'ConektaController.responseConekta',
+  'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
+  '/store': function(req, res, next) {
+    res.sendfile(sails.config.appPath + '/assets/pages/index.html');
+  },
+  '/':{
+    view:'store#'
+  }
 
 
   /***************************************************************************

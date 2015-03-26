@@ -3331,8 +3331,8 @@ function HashMap(array, isolatedUid) {
 HashMap.prototype = {
   /**
    * Store key value pair
-   * @param key key to store can be any type
-   * @param value value to store can be any type
+   * @param key key to pages can be any type
+   * @param value value to pages can be any type
    */
   put: function(key, value) {
     this[hashKey(key, this.nextUid)] = value;
@@ -5419,7 +5419,7 @@ function $CacheFactoryProvider() {
        * @name $cacheFactory.Cache
        *
        * @description
-       * A cache object used to store and retrieve data, primarily used by
+       * A cache object used to pages and retrieve data, primarily used by
        * {@link $http $http} and the {@link ng.directive:script script} directive to cache
        * templates and other data.
        *
@@ -5469,7 +5469,7 @@ function $CacheFactoryProvider() {
          * It will not insert undefined values into the cache.
          *
          * @param {string} key the key under which the cached data is stored.
-         * @param {*} value the value to store alongside the key. If it is undefined, the key
+         * @param {*} value the value to pages alongside the key. If it is undefined, the key
          *    will not be stored.
          * @returns {*} the value stored.
          */
@@ -17869,7 +17869,7 @@ var htmlAnchorDirective = valueFn({
  * binding information would be lost when the browser removes the attribute.
  * The `ngDisabled` directive solves this problem for the `disabled` attribute.
  * This complementary directive is not removed by the browser and so provides
- * a permanent reliable place to store the binding information.
+ * a permanent reliable place to pages the binding information.
  *
  * @example
     <example>
@@ -17905,7 +17905,7 @@ var htmlAnchorDirective = valueFn({
  * binding information would be lost when the browser removes the attribute.
  * The `ngChecked` directive solves this problem for the `checked` attribute.
  * This complementary directive is not removed by the browser and so provides
- * a permanent reliable place to store the binding information.
+ * a permanent reliable place to pages the binding information.
  * @example
     <example>
       <file name="index.html">
@@ -17940,7 +17940,7 @@ var htmlAnchorDirective = valueFn({
  * binding information would be lost when the browser removes the attribute.
  * The `ngReadonly` directive solves this problem for the `readonly` attribute.
  * This complementary directive is not removed by the browser and so provides
- * a permanent reliable place to store the binding information.
+ * a permanent reliable place to pages the binding information.
  * @example
     <example>
       <file name="index.html">
@@ -17975,7 +17975,7 @@ var htmlAnchorDirective = valueFn({
  * binding information would be lost when the browser removes the attribute.
  * The `ngSelected` directive solves this problem for the `selected` attribute.
  * This complementary directive is not removed by the browser and so provides
- * a permanent reliable place to store the binding information.
+ * a permanent reliable place to pages the binding information.
  *
  * @example
     <example>
@@ -18013,7 +18013,7 @@ var htmlAnchorDirective = valueFn({
  * binding information would be lost when the browser removes the attribute.
  * The `ngOpen` directive solves this problem for the `open` attribute.
  * This complementary directive is not removed by the browser and so provides
- * a permanent reliable place to store the binding information.
+ * a permanent reliable place to pages the binding information.
  * @example
      <example>
        <file name="index.html">
@@ -24228,11 +24228,11 @@ var ngPluralizeDirective = ['$locale', '$interpolate', function($locale, $interp
  *     For example: `item in items | filter:searchText track by item.id` is a pattern that might be used to apply a filter
  *     to items in conjunction with a tracking expression.
  *
- *   * `variable in expression as alias_expression` – You can also provide an optional alias expression which will then store the
+ *   * `variable in expression as alias_expression` – You can also provide an optional alias expression which will then pages the
  *     intermediate results of the repeater after the filters have been applied. Typically this is used to render a special message
  *     when a filter is active on the repeater, but the filtered result set is empty.
  *
- *     For example: `item in items | filter:x as results` will store the fragment of the repeated items as `results`, but only after
+ *     For example: `item in items | filter:x as results` will pages the fragment of the repeated items as `results`, but only after
  *     the items have been processed through the filter.
  *
  * @example

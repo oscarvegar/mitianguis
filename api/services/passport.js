@@ -1,9 +1,9 @@
 var passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
-  bcrypt = require('bcrypt'); 
+  bcrypt = require('bcrypt');
 // helper functions
 function findById(id, fn) {
-  User.findOne(id).done(function (err, user) {
+  User.findOne(id).exec(function (err, user) {
     if (err) {
       return fn(null, null);
     } else {
@@ -11,11 +11,9 @@ function findById(id, fn) {
     }
   });
 }
- 
+
 function findByUsername(u, fn) {
-  User.findOne({
-    username: u
-  }).done(function (err, user) {
+  User.findOne({username: u}).exec(function (err, user) {
     // Error handling
     if (err) {
       return fn(null, null);
@@ -25,7 +23,7 @@ function findByUsername(u, fn) {
     }
   });
 }
- 
+
 // Passport session setup.
 // To support persistent login sessions, Passport needs to be able to
 // serialize users into and deserialize users out of the session. Typically,
@@ -34,13 +32,13 @@ function findByUsername(u, fn) {
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
- 
+
 passport.deserializeUser(function (id, done) {
   findById(id, function (err, user) {
     done(err, user);
   });
 });
- 
+
 // Use the LocalStrategy within Passport.
 // Strategies in passport require a `verify` function, which accept
 // credentials (in this case, a username and password), and invoke a callback

@@ -27,8 +27,8 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
-		
-	//'*': 'authenticated',
+
+	'*': 'authenticated',
 	'registro':true,
 	'categoria':true,
 	'mercante':{
@@ -39,9 +39,9 @@ module.exports.policies = {
 		'*': true
 	}
 
-	
-	
-		
+
+
+
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *

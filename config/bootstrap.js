@@ -23,7 +23,7 @@ module.exports.bootstrap = function(cb) {
             newMer.codigoMercante="24201314227";
             newMer.mentor = -1;
             newMer.diaInscripcion =0;
-            //newMer.urlMercante="store";
+            //newMer.urlMercante="pages";
             //newMer.password="system-main-43289";
             User.create({username:'system@mitianguis.com', email:'system@mitianguis.com', password:'system-main-43289'})
             .exec( function(err, userCreated){
@@ -38,15 +38,15 @@ module.exports.bootstrap = function(cb) {
                         .exec(function(err,cParam){
                         	console.log(cParam);
                          });
-                        
+
                         User.create({username:'oscarv@mitianguis.com', email:'oscarv@mitianguis.com', password:'oscarv'})
                         .exec( function(err, userNew){
                         	Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date(),usuario:userNew})
 	                        .exec(function(err,createdMerc){
-	                             console.log(createdMerc); 
+	                             console.log(createdMerc);
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
-	
+
 	                             });
                                  Tienda.create({
                                     nombre:'Gameland',
@@ -75,6 +75,8 @@ module.exports.bootstrap = function(cb) {
                                             imagenesSecundarias: ['http://www.adslzone.net/app/uploads/2014/05/protagonistas-de-a-historia-GTA-V.jpg','http://media.edge-online.com/wp-content/uploads/sites/117/2013/12/GTAV-610x343.jpg'], //strings de urls ['url1','url2']
                                             imagenPrincipal:'http://elmanana.com.mx/imgs/noticias/original/bc5474fedb11d94_80982f56572768b91d2186ac130995e3',
                                             visitas:0,
+                                            subproductos:[{modelo:"online", imagen:"http://oyster.ignimgs.com/mediawiki/apis.ign.com/grand-theft-auto-5/thumb/7/79/GTA-Online.jpg/468px-GTA-Online.jpg", precio:110.0, stock:10},
+                                              {modelo:"xobox", imagen:"http://ecx.images-amazon.com/images/I/61gWiG%2BN7PL.jpg", precio:100.0, stock:5}],
                                             ratings:[{stars:5,comentario:"MUY BUEN VENDEDOR"},{stars:4,comentario:"Bueno pero tardó el envío"}], //[{stars:int,comentario:string}]
                                             categorias:['#videojuegos','#gtav',"#ps3","#xbox360"],
                                             isPrincipal:true,
@@ -95,6 +97,11 @@ module.exports.bootstrap = function(cb) {
                                             imagenesSecundarias: ['http://www1.pcmag.com/media/images/412497-beats-by-dr-dre-studio.jpg?thumb=y','http://brain-images.cdn.dixons.com/4/4/21660644/l_21660644.jpg'], //strings de urls ['url1','url2']
                                             imagenPrincipal:'http://ebbob.com/img/01/iixjz0f4h2e.jpg',
                                             visitas:0,
+                                            subproductos:[{modelo:"spiderman", imagen:"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSc1TQkeYONKa-5uJRzLL6TJnLeqYmTpcl_Jxed-S8J6iXTaLiH", precio:4000.0, stock:2},
+                                                          {modelo:"esmeralda", imagen:"http://ecx.images-amazon.com/images/I/41oPxGAzuCL._SY300_.jpg", precio:3100.0, stock:15},
+                                                          {modelo:"azul", imagen:"http://i.kinja-img.com/gawker-media/image/upload/s--oZoShgI8--/jgjw1twqvyr9ssi0drjd.jpg", precio:3600.0, stock:11},
+                                                          {modelo:"kitty", imagen:"http://cnet2.cbsistatic.com/hub/i/r/2014/10/28/18c1e8ac-c6a0-4ff7-af57-e3a298dfa67f/resize/770x578/ba037bd9fc28864186377005ec3adc49/hellokittyheadphones.jpg", precio:3200.0, stock:10}
+                                                        ],
                                             ratings:[{stars:5,comentario:"MUY BUEN VENDEDOR"},{stars:4,comentario:"Bueno pero tardó el envío"}], //[{stars:int,comentario:string}]
                                             categorias:['#audifonos','#beats',"#DrDre","#Audio",'#Electrónica'],
                                             isPrincipal:true,
@@ -120,48 +127,48 @@ module.exports.bootstrap = function(cb) {
                                         }];
                                     Producto.create(productos).exec(function(err,productos){
                                         console.log(productos);
-                                    });  
+                                    });
                                     createdMerc.tiendas = [newTienda];
                                     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AQUI ESTA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
                                     createdMerc.save(console.log);
                                 });
 	                         });
                         });
-                        
+
                         User.create({username:'danielm@mitianguis.com', email:'danielm@mitianguis.com', password:'danielm'})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'Jose Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos', mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date(),usuario:userNew})
 	                         .exec(function(err,createdMerc){
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
-	
-	                             });                   
+
+	                             });
 	                         });
                         });
-                        
+
                         User.create({username:'oscarg@mitianguis.com', email:'oscarg@mitianguis.com', password:'oscarg'})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'García',apellidoMaterno:'Pacheco', mentor:created,fechaNacimiento:moment('1981 08 21').toDate(),codigoMercante:'OSCARGARCIA',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
-	
-	                             });                   
+
+	                             });
 	                         });
                         });
-                        
+
                         User.create({username:'oscarm@mitianguis.com', email:'oscarm@miianguis.com', password:'oscarm'})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'Unknown', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
-	
-	                             });                   
+
+	                             });
 	                         });
                         });
                      });
-                 }); 
+                 });
             });
         }
     });
@@ -169,14 +176,14 @@ module.exports.bootstrap = function(cb) {
     Parametro.findOne({llave:'MENSUALIDAD'}).exec(function(err,found){
         if(!found)
             Parametro.create({llave:'MENSUALIDAD',valor:198}).exec(function(err,cParam){
-                console.log(cParam);                   
+                console.log(cParam);
             });
     });
-    
-    
-    
-   
-    
+
+
+
+
+
  /* Generando los constraints en MongoDB
     var url = 'mongodb://localhost:27017/dev_mitianguis';
     MongoClient.connect(url, function(err, db) {
@@ -190,8 +197,8 @@ module.exports.bootstrap = function(cb) {
 //GENERANDO PRODUCTOS POR DEFAULT PARA UN MERCANTE
 
 
-    
-    
+
+
     // It's very important to trigger this callback method when you are finished
     // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
     cb();

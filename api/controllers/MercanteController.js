@@ -13,11 +13,15 @@ module.exports = {
     },
     findByUrlMercante:function(request, response){
     	var data = request.allParams();
+
     	//console.log("Data for request find mercante::: " + data + "--" + JSON.stringify(data) );
     	Tienda.findOne({url:data.urlMercante}).populate('mercante').exec( function(err, found){
     		if(err){return response.json(400,err)}
-    		console.log("Found :: " + JSON.stringify(found) );
-            return response.json(found.mercante);
+    		if( found ){
+	    		console.log("Found :: " + JSON.stringify(found) );
+	            return response.json(found.mercante);
+    		}
+    		return response.send(404,{error:"El dominio " + data.urlMercante + " no existe... "});
     	} );
     }
 };
