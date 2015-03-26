@@ -6,6 +6,9 @@
  */
 
 module.exports = {
-	
+	productoPrincipalByMercante:function(req,res){
+		console.log(req.allParams())
+		res.json({code:"OK"})
+	}
 };
 

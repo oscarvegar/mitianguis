@@ -1,6 +1,12 @@
 var carruselModule = angular.module("CarruselModule",[]);
 carruselModule.controller("CarruselController", ["$scope", "$http", 
 function($scope, $http){
+	$scope.productosPrincipales = [];
+	$http.get('/producto/productoPrincipalByMercante/55146013291b7ccb08dcab42')
+	.success(function(data){
+		$scope.productosPrincipales = data.productos; 
+		
+	})
     /*Hero Slider
 	*******************************************/
 	if($('#hero-slider').length > 0) {
@@ -42,4 +48,10 @@ function($scope, $http){
 		});
 	}
     
-}]);
+}])
+.directive("carrusel", function( ){
+        return {
+            restrict:"E",
+            templateUrl:"../pages/store/carrusel.html"
+        };
+    });

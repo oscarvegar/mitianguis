@@ -28,7 +28,7 @@ module.exports.policies = {
 
   // '*': true,
 
-	'*': 'authenticated',
+	//'*': 'authenticated',
 	'registro':true,
 	'categoria':true,
 	'mercante':{
