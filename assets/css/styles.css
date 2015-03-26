@@ -10642,7 +10642,7 @@ header .search-form .close-search:hover {
 }
 @media only screen and (max-width: 991px) {
   .cat-tiles .category {
-    padding: 0 15px;
+    padding: 0 0px;
   }
 }
 @media only screen and (max-width: 480px) {

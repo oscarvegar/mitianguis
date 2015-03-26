@@ -63,6 +63,7 @@ module.exports.bootstrap = function(cb) {
                                     var productos = [{
                                             nombre:"Grand Theaft Auto V",
                                             descripcion:"<div>Vendo precioso GTA V<br><br><h1>MUY CHIDO!</h1><div>",
+                                            descripcionCorta:"Grand Theft Auto V, en buen estado",
                                             stock:10,
                                             sku:null,
                                             precio:600.00,
@@ -85,6 +86,7 @@ module.exports.bootstrap = function(cb) {
                                         },{
                                             nombre:"Beats Studio 2.0",
                                             descripcion:"<div>Vendo audifonos Beats 2.0 de Dr Dre<br><br><h1>BARA BARA!</h1><div>",
+                                            descripcionCorta:"Exquisitos Beats By Dr. Dre 2.0",
                                             stock:10,
                                             sku:null,
                                             precio:3600.00,
@@ -110,6 +112,7 @@ module.exports.bootstrap = function(cb) {
                                         },{
                                             nombre:"Consola PS4",
                                             descripcion:"<div>Vendo consola PS4, con un control, sellada<br><br><h1>LLevele Llévele!</h1><div>",
+                                            descripcionCorta:"PS4 Nuevo y Sellado",
                                             stock:5,
                                             sku:null,
                                             precio:6000.00,

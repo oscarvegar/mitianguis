@@ -16,6 +16,9 @@ module.exports = {
 			type:'string',
 			required:true
 		},
+		descripcionCorta:{
+			type:'string',
+		},
 		stock:'integer',
 		sku:'string',
 		precio:{

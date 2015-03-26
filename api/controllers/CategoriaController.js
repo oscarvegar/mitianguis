@@ -6,11 +6,20 @@
  */
 
 module.exports = {
-	categoriasMenu:function(req,res){
-		Categoria.find({subcategoria:null}).sort({clicks:-1}).limit(5).exec(function(err,found){
-            return res.json(found);
-        });
-    }
+	categoriasByTienda:function(req,res){
+		var idTienda = req.allParams().id;
+		Producto.find({tienda:idTienda},{fields: ['categorias']}).exec(function(err,data){
+			console.log(data)
+			var cats = []
+			for(var i in data){
+				cats = cats.concat(data[i].categorias)
+			}
+			cats = cats.filter(UtilService.onlyUnique).sort(function (a, b) {
+			    return a.toLowerCase().localeCompare(b.toLowerCase());
+			});
+			return res.json(cats);
+		})
+	}
 };
 
 	

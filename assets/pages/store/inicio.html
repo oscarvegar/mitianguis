@@ -1,3 +1,41 @@
-<div class="page-content">
+<div class="page-content"  ng-controller="TiendaCtrl">
 	<carrusel></carrusel>
+	<section class="cat-tiles">
+      	<div class="container">
+        	<h2>Categorías {{categorias.length}}</h2>
+        	<div class="row">
+          	<!--Category-->
+          	<div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" ng-repeat="cat in categorias" style="height:40px;">
+            	<a href="#">
+                <p>{{cat}}</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+	<section class="catalog-grid">
+      	<div class="container">
+        	<h2 class="dark-color">Productos</h2>
+          <div class="row">
+          	<!--Tile-->
+          	<div class="col-lg-3 col-md-4 col-sm-6" ng-repeat="prod in productos">
+            	<div class="tile">
+              	<div class="badges">
+                	<span class="sale">{{prod.nombre}}</span>
+                </div>
+              	<div class="price-label">${{prod.precio}}</div>
+              	<a href="#">
+                  <img ng-src="{{prod.imagenPrincipal}}" alt="1">
+                  <span class="tile-overlay"></span>
+                </a>
+                <div class="footer">
+                	<a>{{prod.descripcionCorta}}</a>
+                  
+                  <button class="btn btn-primary">Añadir al carrito</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 </div>
