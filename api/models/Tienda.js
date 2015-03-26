@@ -21,6 +21,7 @@ module.exports = {
 	certificado:'integer',
 	visitas:'integer',
 	likes:'integer',
+  logo:'string',
 	facebook:'string',
 	twitter:'string',
 	youtube:'string',

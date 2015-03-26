@@ -1,21 +1,80 @@
-<div class="post" ng-controller="TiendaController as tc">
-  <h3 class="title"><a href="#">Tus tiendas disponibles</a></h3>
-  Hola asñdhasdaskl asdjaskldhsa jdhkjh
+<div class="post" ng-controller="TiendaController as tienda">
+  <h3 class="title"><a href="#">Tus tiendas disponibles {{tienda.mistiendas.length}}</a></h3>
   <p class="p-style3">
-    MiTianguis is the product which was born thanks to the involvement not only of the UI experts but also great marketers who have tremendous experience in outstanding implementations of e-commerce projects from different domains....
+
   </p>
   <footer>
-    <a class="btn btn-primary" href="blog-single.html">Read more</a>
-    <div class="share">
-      <a href="#"><i class="fa fa-twitter"></i></a>
-      <a href="#"><i class="fa fa-facebook-square"></i></a>
-      <a href="#"><i class="fa fa-pinterest-square"></i></a>
-      <a href="#"><i class="fa fa-envelope"></i></a>
-    </div>
-    <ul class="meta">
-      <li><i class="fa fa-user"></i><a href="#">By Resoursa</a></li>
-      <li><i class="fa fa-calendar"></i><a href="#">12.02.2014</a></li>
-      <li><i class="fa fa-comment"></i><a href="#">Comments (34)</a></li>
-    </ul>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#tiendaModal" >Crear una tienda</button>
   </footer>
+
+  <!-- modal -->
+  <!--Login Modal-->
+  <div class="modal fade" id="tiendaModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="fa fa-times"></i>
+          </button>
+          <h2>Crea tu tienda</h2>
+          <span class="tenue" >Los campos marcados con * son obligatorios.</span>
+        </div>
+        <div  class="modal-body">
+          <form name="tiendaForm" class="login-form" ng-submit="tienda.crear();" novalidate>
+
+            <div class="alert alert-danger" role="alert" ng-show="errorTienda">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              {{errorMessageTienda}}
+            </div>
+
+            <div class="form-group group">
+              <input type="text" class="form-control" name="nombre" id="nombre"
+                     ng-model="tienda.nombre" placeholder="Escribe el nombre de tu tienda *" ng-required="true" />
+              <span style="color:maroon" ng-show="tiendaForm.nombre.$dirty && tiendaForm.nombre.$invalid">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span ng-show="tiendaForm.nombre.$error.required">El nombre de tu tienda es obligatorio.</span>
+              </span>
+            </div>
+            <div class="form-group group">
+              <textarea class="textarea form-control" placeholder="Escriba la descripcion de su tienda"
+                        name="descripcion" id="descripcion" ng-model="tienda.descripcion"></textarea>
+            </div>
+            <div class="form-group group">
+              <input type="text" class="form-control" name="url" id="url"
+                     ng-model="tienda.url" placeholder="Escribe la url de acceso a tu tienda * " ng-required="true" />
+              <span style="font-size: 11px;">Ej. <b>zonajuegos</b> podrá ser vista como: <i>https://zonajuegos.mitianguis.mx</i></span>
+              <span style="color:maroon" ng-show="tiendaForm.nombre.$dirty && tiendaForm.nombre.$invalid">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span ng-show="tiendaForm.url.$error.required">La url es requerido.</span>
+                <span ng-show="tiendaForm.url.$invalid && !tiendaForm.url.$error.required">
+                  {{urlMessageError}}
+                </span>
+              </span>
+            </div>
+            <div class="form-group group">
+              <input type="file" class="form-control" placeholder="Agrega el logo de tu tienda"
+                     name="logo" id="logo" ng-model="tienda.logo" />
+            </div>
+            <div class="form-group group">
+              <input type="text" class="form-control" placeholder="Pega aqui la URL de tu tienda en faceboook"
+                        name="urlFacebook" id="urlFacebook" ng-model="tienda.facebook" />
+            </div>
+            <div class="form-group group">
+              <input type="text" class="form-control" placeholder="Pega aqui la URL de tu tienda en Twitter"
+                     name="urlTwitter" id="urlTwitter" ng-model="tienda.twitter" />
+            </div>
+            <div class="form-group group">
+              <input type="text" class="form-control" placeholder="Pega aqui la URL de tu tienda en Youtube"
+                     name="urlYoutube" id="urlYoutube" ng-model="tienda.youtube" />
+            </div>
+
+            <input class="btn btn-black" ng-disabled="tiendaForm.$invalid" type="submit" value="Crear Tienda" />
+          </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
 </div>
+

@@ -50,7 +50,11 @@ module.exports.routes = {
   },
   '/':{
     view:'store#'
-  }
+  },
+
+  /*** ADMINISTRACION DE TIENDAS ***/
+  'GET /mistiendas': 'TiendaController.findByMercante'
+
 
 
   /***************************************************************************
