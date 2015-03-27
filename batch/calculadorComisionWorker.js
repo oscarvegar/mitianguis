@@ -29,7 +29,7 @@ mongodb.connect(dbstr, function (err, db) {
 				var context = require('rabbit.js').createContext("amqp://superpower:powersuper@mitianguis.mx");
 				context.on('ready', function() {
 				   var sub = context.socket('WORKER');
-				   sub.connect('billing-renovacion', function() {
+				   sub.connect('mercante-renovacion', function() {
 				   	console.log(">>>>> WORKER CONNECTED <<<<<")
 				   	Fiber(function() {
 				   		
