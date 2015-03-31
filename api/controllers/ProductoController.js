@@ -39,7 +39,8 @@ module.exports = {
 		Producto.findOne({id:idProducto}).exec(function(err,data){
 			console.log(data)
 			return res.view('detalleProducto',{
-    			producto: data
+    			producto: data,
+    			redirectURL: '/store#/producto?p='+data.id
   			})
 		});
 	}
