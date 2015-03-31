@@ -18,7 +18,9 @@ module.exports = {
    ***************************************************************************/
 
   // models: {
-     connection: 'dev_mitianguisServer'
+     connection: 'dev_mitianguisServer',
   // }
+  //LIVERELOAD
+  livereloadPath: "//localhost:35729/livereload.js"
 
 };
