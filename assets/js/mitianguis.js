@@ -6,6 +6,7 @@ var myApp = angular.module("TianguisApp",
                                'RegistroModule',
                                'CarruselModule',
                                'TiendaModule',
+                               'ProductoModule',
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location){

@@ -24,6 +24,10 @@ var webUtil = {
 
   get: function(key){
     return localStorage[key];
+  },
+
+  getCurrentUrl:function(){
+    return window.location.href;
   }
 
 };

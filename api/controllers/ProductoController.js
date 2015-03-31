@@ -22,6 +22,15 @@ module.exports = {
 			res.json(data)
 		})
 		
+	},
+
+	findById:function(req,res){
+		var idProducto = req.allParams().id;
+		console.log("ID PRODUCTO >>>>>>",idProducto)
+		Producto.findOne({id:idProducto}).exec(function(err,data){
+			console.log(data)
+			res.json(data);
+		});
 	}
 };
 
