@@ -10,7 +10,8 @@ var myApp = angular.module("TianguisApp",
                                 'TiendaAdminModule'
                                ]);
 
-myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location){
+myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$rootScope){
+    $rootScope.meta = "hola root scope"
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};
@@ -82,29 +83,5 @@ myApp.config(function( $routeProvider, $locationProvider){
     //localStorage.clear();
 });
 
-myApp.service('MetaInformation', function() {
-  
-  var metaDescription = '';
-  var metaKeywords = '';
-  return {
-    metaDescription: function() { return metaDescription; },
-    metaKeywords: function() { return metaKeywords; },
-    reset: function() {
-      metaDescription = '';
-      metaKeywords = '';
-    },
-    setMetaDescription: function(newMetaDescription) {
-      metaDescription = newMetaDescription;
-    },
-    appendMetaKeywords: function(newKeywords) {
-      for (var key in newKeywords) {
-        if (metaKeywords === '') {
-          metaKeywords += newKeywords[key].name;
-        } else {
-          metaKeywords += ', ' + newKeywords[key].name;
-        }
-      }
-    }
-  };
-});
+
 

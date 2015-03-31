@@ -1,7 +1,4 @@
 <div class="page-content" ng-controller="ProductoCtrl">
-   
-
-     
       <!--Shopping Cart Message-->
       <section class="cart-message">
       	<i class="fa fa-check-square"></i>
@@ -27,6 +24,7 @@
             
             <!--Product Description-->
             <div class="col-lg-6 col-md-6">
+            
               <h1>{{selProducto.nombre}}</h1>
               <div class="old-price">{{selProducto.precioCompetencia | currency : symbol : fractionSize}}</div>
               <div class="price">{{selProducto.precio | currency : symbol : fractionSize}}</div>

@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es" ng-app="TianguisApp">
+<html lang="es" ng-app="TianguisApp" ng-controller="TianguisController">
     <head>
      <meta property="og:type" content="website" />
     <meta property="og:image" itemprop="image primaryImageOfPage" content="http://ebbob.com/img/01/iixjz0f4h2e.jpg" />
-    <meta name="twitter:title" id="mtt" property="og:title" itemprop="title name" content="{{ MetaInformation.metaDescription() }}" />
-    <meta name="twitter:description" property="og:description" itemprop="description" content="descripcion del producto" />
+    <meta name="twitter:title" id="mtt" property="og:title" itemprop="title name" content="{{meta}}" />
+    <meta name="twitter:description" property="og:description" itemprop="description" content="Descripcion cambiada" />
       <meta charset="utf-8">
       <title>MiTianguis - Compra, Vende y haz Negocio</title>
       <meta name="description" content="Responsive HTML5 E-Commerce Template" />
@@ -30,7 +30,8 @@
     </head>
 
     <!--Body-->
-    <body ng-controller="TianguisController">
+    <body >
+
      <div id="fb-root"></div>
 
         <!--Header-->
@@ -76,7 +77,7 @@
                 <div class="toolbar group">
                   <span class="login-btn btn-outlined-invert" data-toggle="modal" ng-if="usuario === null"
                     data-target="#loginModal"><i class="icon-profile"></i>
-                    <span style="color: black;"><b>L</b>ogin</span>
+                    <span style="color: black;"><b>L</b>ogin{{MetaInformation.metaDescription()}}</span>
                   </span>
                   <span class="login-btn" ng-if="usuario !== null">
                     <span style="color: black;font-size: 11px;"><b>B</b>ienvendo {{usuario.username}}</span>

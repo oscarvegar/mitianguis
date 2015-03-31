@@ -1,7 +1,8 @@
 angular.module("ProductoModule",[])
-.controller('ProductoCtrl', function($scope,$http,$location,$sce,$timeout,MetaInformation){
+.controller('ProductoCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope){
 	$scope.showDesc=true;
-	MetaInformation.setMetaDescription("Titulo con servicios de angular")
+	$rootScope.meta = "cambio de meta por hijo"
+	console.log("META DESC",$rootScope.meta)
 	var params = $location.search();
 	if(params.p){
 		$scope.cantidad = 1;
