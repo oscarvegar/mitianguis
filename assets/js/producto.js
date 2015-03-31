@@ -1,6 +1,7 @@
 angular.module("ProductoModule",[])
-.controller('ProductoCtrl', function($scope,$http,$location,$sce,$timeout){
+.controller('ProductoCtrl', function($scope,$http,$location,$sce,$timeout,MetaInformation){
 	$scope.showDesc=true;
+	MetaInformation.setMetaDescription("Titulo con servicios de angular")
 	var params = $location.search();
 	if(params.p){
 		$scope.cantidad = 1;
