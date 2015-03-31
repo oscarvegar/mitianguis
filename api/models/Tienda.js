@@ -10,25 +10,25 @@ module.exports = {
   attributes: {
   	nombre:'string',
   	descripcion:'string',
-	url : {
-		type : 'string',
-		required : true
-	},
-	mercante:{
-		model:'mercante',
-		required:true,
-	},
-	certificado:'integer',
-	visitas:'integer',
-	likes:'integer',
-  logo:'string',
-	facebook:'string',
-	twitter:'string',
-	youtube:'string',
-	productos:{
-		collection:'producto',
-		via:'tienda'
-	}
+    url : {
+      type : 'string',
+      required : true
+    },
+    mercante:{
+      model:'mercante',
+      required:true
+    },
+    certificado:'integer',
+    visitas:'integer',
+    likes:'integer',
+    logo:'string',
+    facebook:'string',
+    twitter:'string',
+    youtube:'string',
+    productos:{
+      collection:'producto',
+      via:'tienda'
+    }
 	//TODO REVENTA DE PRODUCTOS DE OTRO MARKET
   }
 };

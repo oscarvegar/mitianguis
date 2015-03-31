@@ -147,11 +147,11 @@ module.exports.bootstrap = function(cb) {
                                             tienda:newTienda
                                         }];
                                     Producto.create(productos).exec(function(err,productos){
-                                        console.log(productos);
+                                        //console.log(productos);
                                     });
                                     createdMerc.tiendas = [newTienda];
-                                    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AQUI ESTA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-                                    createdMerc.save(console.log);
+                                    //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AQUI ESTA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+                                    //createdMerc.save(console.log);
                                 });
 	                         });
                         });

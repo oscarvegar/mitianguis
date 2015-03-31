@@ -1,5 +1,6 @@
 module.exports = {
-	onlyUnique : function (value, index, self) { 
+
+	onlyUnique : function (value, index, self) {
 	    return self.indexOf(value) === index;
 
 	}

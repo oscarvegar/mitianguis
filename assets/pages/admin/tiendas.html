@@ -1,14 +1,52 @@
-<div class="post" ng-controller="TiendaController as tienda">
-  <h3 class="title"><a href="#">Tus tiendas disponibles {{tienda.mistiendas.length}}</a></h3>
+<div class="post" ng-controller="TiendaController as tiendaCtrl">
+  <h3 class="title"><a href="#">Tus tiendas disponibles {{tiendaCtrl.mistiendas.length}}</a></h3>
   <p class="p-style3">
-
+    <section id="bodySection">
+      <div class="container">
+        <div class="row">
+          <div class="span3" style="height: 200px;" ng-repeat="tiendabd in tiendaCtrl.mistiendas" >
+            <div class="thumbnail" ng-if="tiendabd.nombre!=='Nuevo'" style="width: 90%; height: 90%">
+              <h4>{{tiendabd.nombre}}</h4>
+              <a href="#"></a>
+              <p style="font-size: 11px;">
+                <br/>
+                {{tiendabd.descripcion}}
+              </p>
+              <div class="btn-toolbar">
+                <div class="btn-group" >
+                  <button type="button" class="btn btn-default" data-placement="bottom"
+                          data-toggle="modal" data-target="#tiendaDelModal" title="Borrar Tienda"
+                          ng-click="tiendaCtrl.setTiendaSelected(tiendabd);">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                  <button type="button" class="btn btn-default" data-placement="bottom"
+                          data-toggle="modal" data-target="#tiendaModal" title="Agregar Nueva Tienda">
+                    <i class="fa fa-building"></i>
+                  </button>
+                  <button type="button" class="btn btn-default" data-placement="bottom"
+                          data-toggle="modal" data-target="#tiendaModal" title="Editar Tienda"
+                          ng-click="tiendaCtrl.setAsNuevaTienda(false, tiendabd);">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="thumbnail" ng-if="tiendaCtrl.tiendabd.nombre==='Nuevo'" style="width: 90%; height: 90%">
+              <div align="center">
+              <span data-toggle="modal" data-target="#tiendaModal" ng-click="tiendaCtrl.setAsNuevaTienda(true, null)" >
+                <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
+                     style="width: 110px;height: 110px" >
+              </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+      </div>
+    </section>
   </p>
-  <footer>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#tiendaModal" >Crear una tienda</button>
-  </footer>
 
   <!-- modal -->
-  <!--Login Modal-->
   <div class="modal fade" id="tiendaModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -20,17 +58,17 @@
           <span class="tenue" >Los campos marcados con * son obligatorios.</span>
         </div>
         <div  class="modal-body">
-          <form name="tiendaForm" class="login-form" ng-submit="tienda.crear();" novalidate>
+          <form name="tiendaForm" class="login-form" ng-submit="tiendaCtrl.crear();" novalidate>
 
             <div class="alert alert-danger" role="alert" ng-show="errorTienda">
               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
               <span class="sr-only">Error:</span>
-              {{errorMessageTienda}}
+              {{tiendaCtrl.errorMessageTienda}}
             </div>
 
             <div class="form-group group">
               <input type="text" class="form-control" name="nombre" id="nombre"
-                     ng-model="tienda.nombre" placeholder="Escribe el nombre de tu tienda *" ng-required="true" />
+                     ng-model="tiendaCtrl.tienda.nombre" placeholder="Escribe el nombre de tu tienda *" ng-required="true" />
               <span style="color:maroon" ng-show="tiendaForm.nombre.$dirty && tiendaForm.nombre.$invalid">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 <span ng-show="tiendaForm.nombre.$error.required">El nombre de tu tienda es obligatorio.</span>
@@ -38,35 +76,35 @@
             </div>
             <div class="form-group group">
               <textarea class="textarea form-control" placeholder="Escriba la descripcion de su tienda"
-                        name="descripcion" id="descripcion" ng-model="tienda.descripcion"></textarea>
+                        name="descripcion" id="descripcion" ng-model="tiendaCtrl.tienda.descripcion"></textarea>
             </div>
             <div class="form-group group">
               <input type="text" class="form-control" name="url" id="url"
-                     ng-model="tienda.url" placeholder="Escribe la url de acceso a tu tienda * " ng-required="true" />
+                     ng-model="tiendaCtrl.tienda.url" placeholder="Escribe la url de acceso a tu tienda * " ng-required="true" />
               <span style="font-size: 11px;">Ej. <b>zonajuegos</b> podrá ser vista como: <i>https://zonajuegos.mitianguis.mx</i></span>
               <span style="color:maroon" ng-show="tiendaForm.nombre.$dirty && tiendaForm.nombre.$invalid">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 <span ng-show="tiendaForm.url.$error.required">La url es requerido.</span>
                 <span ng-show="tiendaForm.url.$invalid && !tiendaForm.url.$error.required">
-                  {{urlMessageError}}
+                  {{tiendaCtrl.urlMessageError}}
                 </span>
               </span>
             </div>
             <div class="form-group group">
               <input type="file" class="form-control" placeholder="Agrega el logo de tu tienda"
-                     name="logo" id="logo" ng-model="tienda.logo" />
+                     nv-file-select uploader="tiendaCtrl.uploader" name="logo" id="logo" />
             </div>
             <div class="form-group group">
               <input type="text" class="form-control" placeholder="Pega aqui la URL de tu tienda en faceboook"
-                        name="urlFacebook" id="urlFacebook" ng-model="tienda.facebook" />
+                        name="urlFacebook" id="urlFacebook" ng-model="tiendaCtrl.tienda.facebook" />
             </div>
             <div class="form-group group">
               <input type="text" class="form-control" placeholder="Pega aqui la URL de tu tienda en Twitter"
-                     name="urlTwitter" id="urlTwitter" ng-model="tienda.twitter" />
+                     name="urlTwitter" id="urlTwitter" ng-model="tiendaCtrl.tienda.twitter" />
             </div>
             <div class="form-group group">
               <input type="text" class="form-control" placeholder="Pega aqui la URL de tu tienda en Youtube"
-                     name="urlYoutube" id="urlYoutube" ng-model="tienda.youtube" />
+                     name="urlYoutube" id="urlYoutube" ng-model="tiendaCtrl.tienda.youtube" />
             </div>
 
             <input class="btn btn-black" ng-disabled="tiendaForm.$invalid" type="submit" value="Crear Tienda" />

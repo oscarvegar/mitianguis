@@ -6,6 +6,7 @@ var myApp = angular.module("TianguisApp",
                                'RegistroModule',
                                'CarruselModule',
                                'TiendaModule',
+                                'TiendaAdminModule'
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location){
@@ -30,7 +31,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
         //console.log( JSON.stringify(result.data.mercante) );
         if ( result.data == null ) {
 	    		window.location.href = constants.DOMAIN + "pages/#/?subdomain=" + subdominio;
-	    	} else if ( result.data.mercante.mentor ) { 
+	    	} else if ( result.data.mercante.mentor ) {
           webUtil.save("mercante", result.data.mercante);
           webUtil.save("tienda", result.data);
 	    	}
@@ -44,12 +45,17 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $scope.login = function(){
       $scope.user.email = $scope.user.username;
       $http.post("/login", $scope.user).then(function(result){
-        console.log( JSON.stringify(result) );
+        //console.log( JSON.stringify(result) );
         if( result.data.message === constants.LOGIN_SUCCESS ){
           $('#loginModal').modal('hide');
-          webUtil.save("usuario", result.data.user);
-          webUtil.save("email", result.data.user.username);
-          $scope.usuario = result.data.user;
+          console.log("user usado para buscar mercante:: " + JSON.stringify(result.data.user) );
+          $http.post("/mercanteByUsuario", result.data.user).then( function( resultMerca ){
+            console.log("mercante found :: " + JSON.stringify(resultMerca));
+            result.data.user.mercante = resultMerca.data;
+            webUtil.save("usuario", result.data.user);
+            webUtil.save("email", result.data.user.username);
+            $scope.usuario = result.data.user;
+          });
         }else{
           $scope.errorLogin = true;
         }

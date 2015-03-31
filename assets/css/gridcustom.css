@@ -1,0 +1,8 @@
+/* Needed for animations -----------*/
+.well:hover, .thumbnail:hover {-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);}
+.center{text-align:center}
+/* Sections------------------------- */
+#bodySection{padding: 31px 0 0; text-align:center}
+#bodySection .thumbnail{overflow:hidden;}
+#bodySection .thumbnail h3,  #bodySection .thumbnail h4, #bodySection .thumbnail h4 { margin:-4px -4px 4px; line-height:44px; }
+#bodySection .well h4,  #bodySection .well h3 { margin:-9px -9px 9px; line-height:44px; padding:0 18px; }

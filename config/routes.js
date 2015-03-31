@@ -40,9 +40,10 @@ module.exports.routes = {
 	    	action: 'logout'
 	},
 	'post /registro': 'RegistroController.registrarNuevo',
-	'GET /categoriasMenu': 'CategoriaController.categoriasMenu',
+	//'GET /categoriasMenu': 'CategoriaController.categoriasMenu',
 	'GET /mercante': 'MercanteController.find',
   'GET /mercanteByUrl': 'MercanteController.findByUrlMercante',
+  'POST /mercanteByUsuario':'MercanteController.findByUsuario',
   'POST /conekta/response': 'ConektaController.responseConekta',
   'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
   '/store': function(req, res, next) {
@@ -53,7 +54,8 @@ module.exports.routes = {
   },
 
   /*** ADMINISTRACION DE TIENDAS ***/
-  'GET /mistiendas': 'TiendaController.findByMercante'
+  'GET /mistiendas/:id': 'TiendaController.findByMercante',
+  'POST /nuevatienda': 'TiendaController.create'
 
 
 

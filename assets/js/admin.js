@@ -1,4 +1,4 @@
-var adminModule = angular.module("AdminModule", ["TiendaModule"] );
+var adminModule = angular.module("AdminModule", ["TiendaAdminModule"] );
 adminModule.controller("AdminController", function($scope, $http){
   $scope.titulo = "Mis Tiendas";
   $scope.menuOptions = new Array(5);

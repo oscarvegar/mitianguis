@@ -1,4 +1,4 @@
-/**
+  /**
  * Global Variable Configuration
  * (sails.config.globals)
  *
