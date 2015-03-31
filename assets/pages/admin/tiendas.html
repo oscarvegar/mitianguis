@@ -1,5 +1,5 @@
 <div class="post" ng-controller="TiendaController as tiendaCtrl">
-  <h3 class="title"><a href="#">Tus tiendas disponibles {{tiendaCtrl.mistiendas.length}}</a></h3>
+  <h3 class="title"><a href="#">Tus tiendas disponibles {{tiendaCtrl.mistiendas.length - 1}}</a></h3>
   <p class="p-style3">
     <section id="bodySection">
       <div class="container">
@@ -31,7 +31,7 @@
                 </div>
               </div>
             </div>
-            <div class="thumbnail" ng-if="tiendaCtrl.tiendabd.nombre==='Nuevo'" style="width: 90%; height: 90%">
+            <div class="thumbnail" ng-if="tiendabd.nombre==='Nuevo'" style="width: 90%; height: 90%">
               <div align="center">
               <span data-toggle="modal" data-target="#tiendaModal" ng-click="tiendaCtrl.setAsNuevaTienda(true, null)" >
                 <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
