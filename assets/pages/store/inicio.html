@@ -24,7 +24,7 @@
                 	<span class="sale">{{prod.nombre}}</span>
                 </div>
               	<div class="price-label">${{prod.precio}}</div>
-              	<a href="#">
+              	<a href="javascript:void(0)" ng-click="seleccionarProducto(prod)">
                   <img ng-src="{{prod.imagenPrincipal}}" alt="1" style="width:260px;height:285px;">
                   <span class="tile-overlay"></span>
                 </a>

@@ -1,7 +1,9 @@
 angular.module("TiendaModule",[])
-.controller('TiendaCtrl', function($scope,$http){
+.controller('TiendaCtrl', function($scope,$http,$location){
+	
 	$scope.productos = [];
 	$scope.categorias = [];
+	console.log("SELPRODUCTO INI >>>>> ",$scope.selProducto);
 	$scope.tienda = webUtil.getJSON("tienda");
 	$http.get('/producto/productoByTienda/'+$scope.tienda.id)
 	.success(function(data){
@@ -13,4 +15,12 @@ angular.module("TiendaModule",[])
 		console.log(data)
 		$scope.categorias = data; 
 	})
+
+	$scope.seleccionarProducto = function(prod){
+		console.log(prod);
+
+		console.log("SELPRODUCTO SET >>>>> ",$scope.selProducto);
+		console.log($location.url())
+		$location.url("/producto?p="+prod.id)
+	}
 })

@@ -43,9 +43,11 @@ module.exports.routes = {
 	//'GET /categoriasMenu': 'CategoriaController.categoriasMenu',
 	'GET /mercante': 'MercanteController.find',
   'GET /mercanteByUrl': 'MercanteController.findByUrlMercante',
+  'GET /producto/:id':'ProductoController.findById',
   'POST /mercanteByUsuario':'MercanteController.findByUsuario',
   'POST /conekta/response': 'ConektaController.responseConekta',
   'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
+
   '/store': function(req, res, next) {
     res.sendfile(sails.config.appPath + '/assets/pages/index.html');
   },

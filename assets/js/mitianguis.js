@@ -6,6 +6,7 @@ var myApp = angular.module("TianguisApp",
                                'RegistroModule',
                                'CarruselModule',
                                'TiendaModule',
+                               'ProductoModule',
                                 'TiendaAdminModule'
                                ]);
 
