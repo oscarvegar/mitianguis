@@ -37,7 +37,9 @@ module.exports = {
 		var idProducto = req.allParams().id;
 		console.log("ID PRODUCTO >>>>>>",idProducto)
 		Producto.findOne({id:idProducto}).exec(function(err,data){
-			console.log(data);
+			if(!data){
+				return res.view('404')
+			}
 			data.precioFormat = accounting.formatMoney(data.precio);
 			return res.view('detalleProducto',{
     			producto: data,
