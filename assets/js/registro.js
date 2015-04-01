@@ -92,6 +92,19 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
             //alert("El form es invalido");
         }
     }
+
+    $scope.forgotPassword = function(){
+        console.log("Recuperar Password");
+        console.log($scope.forgotMail);
+
+            $http.post('/recuperarPassword',{email:$scope.forgotMail}).success(function(data){
+                if(data.code > 0)
+                    console.log("Datos");
+                    console.log(data);
+                     alert("Success: " + JSON.stringify(data));
+                  //  $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
+            });
+    };
     
 } );
 

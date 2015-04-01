@@ -5,6 +5,9 @@
  * @help :: See http://links.sailsjs.org/docs/controllers
  */
 var moment = require('moment');
+	eden = require('node-eden'),
+
+	
 module.exports = {
 	test : function(req, res) {
 		for (var i = 0; i < 1; i++)
@@ -90,7 +93,29 @@ module.exports = {
 		
 		*/
 		
-	}// Fin de registrarNuevo
-	
+	},// Fin de registrarNuevo
+
+
+	recuperarPassword:function(req,res){
+
+		console.log("Recuperar Password>>>>>>>");
+		console.log( req.allParams());
+        var mail = req.allParams().email;
+        console.log(mail);
+        User.findOneByEmail(mail,function(err,fuser){
+            if(!fuser){res.json({code:1});return}
+            if(err){console.log(err);return res.json({code:-1})};
+            var word =  eden.word()+ new Date().getMilliseconds()+new Date().getMinutes();
+            fuser.password = word ;
+            fuser.save();
+            var notificationMail = {
+                to: fuser.email, // list of receivers
+                subject: 'Restablecer Contraseña', // Subject line
+                text:  'Tu contraseña ha sido restablecida. \n\n Tu nueva contraseña es: '+word// plaintext body
+            };
+            EmailService.sendEmail(notificationMail);
+            res.json({code:1});
+        }); 
+    }
 	
 };

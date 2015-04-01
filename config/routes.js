@@ -47,6 +47,7 @@ module.exports.routes = {
   'POST /mercanteByUsuario':'MercanteController.findByUsuario',
   'POST /conekta/response': 'ConektaController.responseConekta',
   'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
+  'post /recuperarPassword':'RegistroController.recuperarPassword',
 
   '/store': function(req, res, next) {
     res.sendfile(sails.config.appPath + '/assets/pages/index.html');
