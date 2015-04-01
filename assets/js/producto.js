@@ -1,6 +1,8 @@
 angular.module("ProductoModule",[])
-.controller('ProductoCtrl', function($scope,$http,$location,$sce,$timeout){
+.controller('ProductoCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope){
 	$scope.showDesc=true;
+	$scope.tiendaURL = webUtil.getJSON("tienda").url;
+	console.log("META DESC",$rootScope.meta)
 	var params = $location.search();
 	if(params.p){
 		$scope.cantidad = 1;

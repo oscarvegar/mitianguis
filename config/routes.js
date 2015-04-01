@@ -52,9 +52,7 @@ module.exports.routes = {
   '/store': function(req, res, next) {
     res.sendfile(sails.config.appPath + '/assets/pages/index.html');
   },
-  '/':{
-    view:'store#'
-  },
+  'GET /share/:id': 'ShareController.shareP',
 
   /*** ADMINISTRACION DE TIENDAS ***/
   'GET /mistiendas/:id': 'TiendaController.findByMercante',
