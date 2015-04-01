@@ -38,7 +38,10 @@ module.exports = {
 		console.log("ID PRODUCTO >>>>>>",idProducto)
 		Producto.findOne({id:idProducto}).exec(function(err,data){
 			if(!data){
-				return res.view('404')
+				return res.view('404',{
+    			producto: {},
+    			redirectURL: ''
+  			})
 			}
 			data.precioFormat = accounting.formatMoney(data.precio);
 			return res.view('detalleProducto',{
