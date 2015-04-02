@@ -1,0 +1,97 @@
+<br><br><br><br><br>
+<section class="shopping-cart" ng-controller="CarritoCtrl">
+        <div class="container">
+          <div class="row">
+          
+            <!--Items List-->
+            <div class="col-lg-9 col-md-9">
+              <h2 class="title">Carrito de Compras</h2>
+              <h1 ng-show="carrito.productosCarrito.length == 0">No tienes productos en tu carrito!</h1>
+              <table class="items-list" ng-show="carrito.productosCarrito.length > 0">
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>Producto</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                </tr>
+                <!--Item-->
+                <tr class="item first" ng-repeat="item in carrito.productosCarrito">
+                  <td class="thumb"><a href="/store#/producto?p={{item.producto.id}}"><img ng-src="{{item.producto.imagenPrincipal}}" alt="Lorem ipsum"/></a></td>
+                  <td class="name"><a href="/store#/producto?p={{item.producto.id}}">{{item.producto.nombre}}</a></td>
+                  <td class="price">{{item.producto.precio | currency : symbol : fractionSize}}</td>
+                  <td class="qnt-count">
+                    <a class="incr-btn" href="javascript:void(0)" ng-click="decrementa(item)">-</a>
+                    <input class="quantity form-control" type="text" ng-model="item.cantidad">
+                    <a class="incr-btn" href="javascript:void(0)" ng-click="incrementa(item)">+</a>
+                  </td>
+                  <td class="total">{{item.producto.precio * item.cantidad | currency : symbol : fractionSize}}</td>
+                  <td class="delete" ng-click="eliminar($index)"><i class="icon-delete" ></i></td>
+                </tr>
+               
+              </table>
+            </div>
+            
+            <!--Sidebar-->
+            <div class="col-lg-3 col-md-3" ng-show="carrito.productosCarrito.length > 0">
+              <h3>Totales de Compra</h3>
+              <form class="cart-sidebar" method="post">
+                <div class="cart-totals">
+                  <table>
+                    <tr>
+                      <td>Subtotal carrito</td>
+                      <td class="total align-r">{{carrito.total | currency : symbol : fractionSize}}</td>
+                    </tr>
+                    <tr class="devider">
+                      <td>Envío</td>
+                      <td class="align-r">Envío Gratis</td>
+                    </tr>
+                    <tr>
+                      <td>Total Orden</td>
+                      <td class="total align-r">{{carrito.total | currency : symbol : fractionSize}}</td>
+                    </tr>
+                  </table>
+                  <!--div>
+                  <h3>Have a coupon?</h3>
+                  <div class="coupon">
+                    <div class="form-group">
+                      <label class="sr-only" for="coupon-code">Enter coupon code</label>
+                      <input type="text" class="form-control" id="coupon-code" name="coupon-code" placeholder="Enter coupon code">
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-sm btn-block" name="apply-coupon" value="Apply coupon">
+                  </div>
+                   </div>
+                  <input type="submit" class="btn btn-primary btn-sm btn-block" name="update-cart" value="Update shopping cart"-->
+                 
+                  <input type="submit" class="btn btn-black btn-block" name="to-checkout" value="Proceed to checkout">
+                </div>
+                
+                <a class="panel-toggle" href="#calc-shipping"><h3>Calculate shipping</h3></a>
+                <div class="hidden-panel calc-shipping" id="calc-shipping">
+                  <div class="form-group">
+                    <div class="select-style">
+                      <select name="country">
+                        <option>Australia</option>
+                        <option>Belgium</option>
+                        <option>Germany</option>
+                        <option>United Kingdom</option>
+                        <option>Switzerland</option>
+                        <option>USA</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="sr-only" for="state">State/ province</label>
+                    <input type="text" class="form-control" id="state" name="state" placeholder="State/ province">
+                  </div>
+                  <div class="form-group">
+                    <label class="sr-only" for="postcode">Postcode/ ZIP</label>
+                    <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Postcode/ ZIP">
+                  </div>
+                  <input type="submit" class="btn btn-primary btn-sm btn-block" name="update-totals" value="Update totals">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section><!--Shopping Cart Close-->
