@@ -166,7 +166,7 @@
                 <p class="large hide">Recuperar contraseña</p>
               </div>
               <div  class="modal-body">
-                <form name="loginForm" class="login-form" ng-submit="forgotPassword();" novalidate>
+                <form name="loginForm2" class="login-form" ng-submit="forgotPassword();" novalidate>
 
                   <div>
                     <label>Ingresa tu correo electrónico y en breve recibiras tu contraseña</label>
@@ -183,19 +183,19 @@
                     <label for="logEmail2">Email</label>
                     <input type="email" class="form-control" name="logEmail2" id="logEmail2"
                            ng-model="forgotMail" placeholder="Ingresa tu correo" ng-required="true" />
-                    <span style="color:maroon" ng-show="loginForm.logEmail2.$dirty && loginForm.logEmail2.$invalid">
+                    <span style="color:maroon" ng-show="loginForm2.logEmail2.$dirty && loginForm2.logEmail2.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                      <span ng-show="loginForm.logEmail2.$error.required">Tu correo electrónico es requerido.</span>
-                      <span ng-show="loginForm.logEmail2.$invalid && !loginForm.logEmail2.$error.required">Tu correo electrónico es inválido.</span>
+                      <span ng-show="loginForm2.logEmail2.$error.required">Tu correo electrónico es requerido.</span>
+                      <span ng-show="loginForm2.logEmail2.$invalid && !loginForm2.logEmail2.$error.required">Tu correo electrónico es inválido.</span>
                     </span>
                   </div>
                 
                   
-                  <input class="btn btn-black" ng-disabled="loginForm.$invalid" type="submit" value="Enviar" />
+                  <input class="btn btn-black" ng-disabled="loginForm2.$invalid" type="submit" value="Enviar" />
                 </form>
               </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
+            </div>
+          </div>
         </div><!-- /.modal -->
 
         <!-- Librerias -->
