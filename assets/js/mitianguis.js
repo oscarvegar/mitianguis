@@ -6,6 +6,7 @@ var myApp = angular.module("TianguisApp",
                                'RegistroModule',
                                'CarruselModule',
                                'TiendaModule',
+                               'CarritoModule',
                                'ProductoModule',
                                 'TiendaAdminModule'
                                ]);
@@ -124,9 +125,31 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/soporte', {templateUrl: 'pages/soporte.html'});
     $routeProvider.when('/mercantes', {templateUrl: 'pages/mercante.html'});
     $routeProvider.when('/producto', {templateUrl: 'pages/store/detalleProducto.html'});
+    $routeProvider.when('/carrito', {templateUrl: 'pages/store/carrito.html'});
 
     //localStorage.clear();
 });
 
+myApp.directive('onlyDigits', function () {
+    return {
+      require: 'ngModel',
+      restrict: 'A',
+      link: function (scope, element, attr, ctrl) {
+        function inputValue(val) {
+          if (val) {
+            var digits = val.replace(/[^0-9]/g, '');
+
+            if (digits !== val) {
+              ctrl.$setViewValue(digits);
+              ctrl.$render();
+            }
+            return parseInt(digits,10);
+          }
+          return undefined;
+        }            
+        ctrl.$parsers.push(inputValue);
+      }
+    };
+});
 
 
