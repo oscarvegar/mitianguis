@@ -62,6 +62,8 @@ registro.directive('showErrors', function($timeout) {
 
 registro.controller( "RegistroController", function($scope, $http, $rootScope) {
     $rootScope.viewToolbar = false;
+    $scope.showAlert = false;
+    $scope.alertClass = "";
     var indexInit = window.location.origin.indexOf("//") + 2;
     var indexFin = window.location.origin.indexOf(".mitianguis");
     var urlMercanteFind = window.location.origin.substring( indexInit, indexFin );
@@ -93,6 +95,34 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
         }
     }
 
+
+    $scope.alert = function(tipo,title,desc){
+            $scope.messageTitle = title;
+            $scope.messageDescription = desc;
+            switch(tipo){
+                
+                case 'warn':
+                    $scope.alertClass = "alert-warning";
+                    $scope.infoIcon = "icon-exclamation-sign";
+                    break;
+                case 'info':
+                    $scope.alertClass = "alert-info";
+                    $scope.infoIcon = "icon-lightbulb";
+                    break;
+                case 'danger':
+                    $scope.alertClass = "alert-danger";
+                    $scope.infoIcon = "icon-remove-sign";
+                    break;
+                default:
+                    $scope.alertClass = "alert-success";
+                    $scope.infoIcon = "icon-check-sign";
+                    break;
+                    
+            }
+            
+            $scope.showAlert = true;
+    };
+
     $scope.forgotPassword = function(){
         console.log("Recuperar Password");
         console.log($scope.forgotMail);
@@ -101,8 +131,8 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
                 if(data.code > 0)
                     console.log("Datos");
                     console.log(data);
-                     alert("Success: " + JSON.stringify(data));
-                  //  $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
+                     //alert("Success: " + JSON.stringify(data));
+                    $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
             });
     };
     

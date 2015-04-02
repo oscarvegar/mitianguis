@@ -15,6 +15,8 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};
+    $scope.showAlert = false;
+    $scope.alertClass = "";
     $scope.categorias = null;
     $scope.mercante = null;
     $scope.errorLogin = false;
@@ -63,6 +65,49 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
         }
       });
     }
+
+
+    $scope.alert = function(tipo,title,desc){
+            $scope.messageTitle = title;
+            $scope.messageDescription = desc;
+            switch(tipo){
+                
+                case 'warn':
+                    $scope.alertClass = "alert-warning";
+                    $scope.infoIcon = "icon-exclamation-sign";
+                    break;
+                case 'info':
+                    $scope.alertClass = "alert-info";
+                    $scope.infoIcon = "icon-lightbulb";
+                    break;
+                case 'danger':
+                    $scope.alertClass = "alert-danger";
+                    $scope.infoIcon = "icon-remove-sign";
+                    break;
+                default:
+                    $scope.alertClass = "alert-success";
+                    $scope.infoIcon = "icon-check-sign";
+                    break;
+                    
+            }
+            
+            $scope.showAlert = true;
+    };
+
+    $scope.forgotPassword = function(){
+        console.log("Recuperar Password");
+        console.log($scope.forgotMail);
+
+            $http.post('/recuperarPassword',{email:$scope.forgotMail}).success(function(data){
+                if(data.code > 0)
+                    console.log("Datos");
+                    console.log(data);
+                     //alert("Success: " + JSON.stringify(data));
+                    $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
+            });
+    };
+
+
 
 })
 /*.directive("toolbar", function( ){

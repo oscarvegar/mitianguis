@@ -18,12 +18,11 @@
                     <div class="form-group group">
                         <input type="email" class="form-control" name="log-email2" id="log-email2"
                                placeholder="Ingresa tu correo electrónico" required>
-                        <a class="help-link" href="#">¿Olvidaste tu correo electrónico?</a>
                     </div>
                     <div class="form-group group">
                         <input type="text" class="form-control" name="log-password2" id="log-password2"
                                placeholder="Ingresa tu contraseña" required>
-                        <a class="help-link" data-toggle="modal"  data-target="#passwordModal">¿Olvidaste tu contraseña?</a>
+                        <a class="help-link" href="#" data-toggle="modal"  data-target="#passwordModal">¿Olvidaste tu contraseña?</a>
                     </div>
 
                     <div class="checkbox">
@@ -144,6 +143,16 @@
               <div>
                 <label>Ingresa tu correo electrónico y en breve recibiras tu contraseña</label>
               </div>
+
+              <div class="alert alert-success"  ng-show="showAlert">
+                <strong>Se envío un correo electrónico con la contraseña nueva.</strong><a href="#embed-url"> Regresar al inicio. </a>
+                <button type="button" class="close" ng-click="showAlert = false">×</button>
+              </div>
+
+             <!--  <div class="alert alert-danger"  ng-show="showAlert">
+                <strong>Ocurrió un problema en el servicio de correo electrónico.</strong><a href="#embed-url">Regresar al inicio.</a>
+                <button type="button" class="close" ng-click="showAlert = false">×</button>
+              </div>-->
 
               </br>
 

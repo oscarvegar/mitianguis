@@ -140,7 +140,7 @@
                     <input type="password" class="form-control" name="logPassword" id="logPassword"
                            ng-model="user.password" placeholder="Ingresa tu contraseña"
                            ng-required="true" ng-minlength="6"/>
-                    <a class="help-link" href="#">¿Olvidaste tu contraseña?</a>
+                    <a class="help-link" href="#"  data-toggle="modal"  data-target="#passwordModal">¿Olvidaste tu contraseña?</a>
                     <span style="color:maroon" ng-show="loginForm.logPassword.$dirty && loginForm.logPassword.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span ng-show="loginForm.logPassword.$error.required">Tu contraseña es requerida.</span>
@@ -151,6 +151,47 @@
                     <label><input type="checkbox" name="remember"> Recordar</label>
                   </div>
                   <input class="btn btn-black" ng-disabled="loginForm.$invalid" type="submit" value="Entrar" />
+                </form>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+                 <h2>Recuperar contraseña</h2>
+                <p class="large hide">Recuperar contraseña</p>
+              </div>
+              <div  class="modal-body">
+                <form name="loginForm" class="login-form" ng-submit="forgotPassword();" novalidate>
+
+                  <div>
+                    <label>Ingresa tu correo electrónico y en breve recibiras tu contraseña</label>
+                  </div>
+
+                  <div class="alert alert-success"  ng-show="showAlert">
+                    <strong>Se envío un correo electrónico con la contraseña nueva.</strong><a href="store/register.html"> Regresar al inicio. </a>
+                    <button type="button" class="close" ng-click="showAlert = false">×</button>
+                  </div>
+
+                  </br>
+
+                  <div class="form-group group">
+                    <label for="logEmail2">Email</label>
+                    <input type="email" class="form-control" name="logEmail2" id="logEmail2"
+                           ng-model="forgotMail" placeholder="Ingresa tu correo" ng-required="true" />
+                    <span style="color:maroon" ng-show="loginForm.logEmail2.$dirty && loginForm.logEmail2.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span ng-show="loginForm.logEmail2.$error.required">Tu correo electrónico es requerido.</span>
+                      <span ng-show="loginForm.logEmail2.$invalid && !loginForm.logEmail2.$error.required">Tu correo electrónico es inválido.</span>
+                    </span>
+                  </div>
+                
+                  
+                  <input class="btn btn-black" ng-disabled="loginForm.$invalid" type="submit" value="Enviar" />
                 </form>
               </div>
             </div><!-- /.modal-content -->
