@@ -6,9 +6,8 @@
       <h2> Personaliza y administra tu tienda </h2>
       <div class="row">
         <!--Sidebar-->
-        <div class="col-lg-3 col-md-3">
+        <div class="col-lg-3 col-md-3" style="position: relative; top:-23px">
           <section class="filter-section tech-specs">
-            <h3>Acciones</h3>
             <div id="menuTiendas" class="item cursor" style="padding: 5px;"
                  ng-class="menuOptions[0]"
                  ng-click="selecciono(0)">
@@ -58,8 +57,7 @@
         </div>
 
         <!--Left Column-->
-        <div class="col-lg-9 col-md-9">
-          <h2 class="title">{{titulo}}</h2>
+        <div>
           <tiendas></tiendas>
 
         </div>

@@ -1,10 +1,15 @@
 var webUtil = {
 
+  getOrigin: function(){
+    return window.location.origin;
+  },
+
 	getDomain: function() {
+
 		var indexInit = window.location.origin.indexOf("//") + 2;
-	    var indexFin = window.location.origin.indexOf(".mitianguis");
-	    var urlMercanteFind = window.location.origin.substring( indexInit, indexFin );
-	    return urlMercanteFind;
+    var indexFin = window.location.origin.indexOf(".mitianguis");
+    var urlMercanteFind = window.location.origin.substring( indexInit, indexFin );
+    return urlMercanteFind;
 	},
 
   save: function( key, value ){

@@ -11,8 +11,8 @@ var myApp = angular.module("TianguisApp",
                                 'TiendaAdminModule'
                                ]);
 
-myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$rootScope){
-    $rootScope.meta = "hola root scope"
+myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location){
+
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};

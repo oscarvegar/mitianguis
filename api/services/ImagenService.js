@@ -1,6 +1,9 @@
 module.exports = {
   PATH_IMAGE: "/opt/resources/mitianguis/imagenes/",
-  PATH_LOGO : this.PATH_IMAGE + "logos",
+  IMAGE_NOT_FOUND: "noimageavailable.png",
+  PATH_LOGO : function(){
+    return this.PATH_IMAGE + "logos";
+  },
   saveLogo: function( filename ){
 
   },

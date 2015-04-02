@@ -31,6 +31,7 @@
 	padding-top:100px;
 }
 
+<<<<<<< Updated upstream
 .reviewTable table{
  	border-spacing: 10px;
     border-collapse: separate;
@@ -55,4 +56,16 @@
 
 .sample-show-hide.ng-hide {
   opacity:0;
+}
+
+.fondoMiTianguis{
+  background-color: #e91e63;
+  color: white;
+}
+
+.bordeHover:hover{
+  border-color: black;
+  cursor: pointer;
+
+
 }

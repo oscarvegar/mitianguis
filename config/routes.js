@@ -56,7 +56,12 @@ module.exports.routes = {
 
   /*** ADMINISTRACION DE TIENDAS ***/
   'GET /mistiendas/:id': 'TiendaController.findByMercante',
-  'POST /nuevatienda': 'TiendaController.create'
+  'POST /nuevatienda': 'TiendaController.create',
+  'POST /editartienda': 'TiendaController.editar',
+  'POST /asignaEstatus': 'TiendaController.setStatus',
+
+  /*** FUNCIONES GENERALES ***/
+  'GET /getImagen/:imagen':'ImagenController.getImagen'
 
 
 

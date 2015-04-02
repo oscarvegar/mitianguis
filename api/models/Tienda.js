@@ -1,4 +1,4 @@
-/**
+  /**
 * Tienda.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
@@ -25,6 +25,10 @@ module.exports = {
     facebook:'string',
     twitter:'string',
     youtube:'string',
+    status:{
+      type: 'integer', // 1 active, 0 inactive, 2 borrado
+      defaultsTo: 1
+    },
     productos:{
       collection:'producto',
       via:'tienda'
