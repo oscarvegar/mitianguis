@@ -104,7 +104,7 @@ module.exports.bootstrap = function(cb) {
                                                           {modelo:"azul", imagen:"http://i.kinja-img.com/gawker-media/image/upload/s--oZoShgI8--/jgjw1twqvyr9ssi0drjd.jpg", precio:3600.0, stock:11},
                                                           {modelo:"kitty", imagen:"http://cnet2.cbsistatic.com/hub/i/r/2014/10/28/18c1e8ac-c6a0-4ff7-af57-e3a298dfa67f/resize/770x578/ba037bd9fc28864186377005ec3adc49/hellokittyheadphones.jpg", precio:3200.0, stock:10}
                                                         ],
-                                            ratings:[{stars:5,comentario:"MUY BUEN VENDEDOR"},{stars:4,comentario:"Bueno pero tardó el envío"}], //[{stars:int,comentario:string}]
+                                            ratings:[{stars:5,comentario:"MUY BUEN VENDEDOR",fecha:new Date()},{stars:4,comentario:"Bueno pero tardó el envío",fecha:new Date()}], //[{stars:int,comentario:string}]
                                             categorias:['#audifonos','#beats',"#DrDre","#Audio",'#Electrónica'],
                                             isPrincipal:true,
                                             youtube:'https://www.youtube.com/watch?v=xlljElC0ehg',

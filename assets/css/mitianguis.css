@@ -30,3 +30,29 @@
 .mainSection{
 	padding-top:100px;
 }
+
+.reviewTable table{
+ 	border-spacing: 10px;
+    border-collapse: separate;
+}
+.reviewTable td{
+	font-weight: bold;
+	padding: 10px;
+}
+
+.star{
+	float: left;
+	width: 30px;
+	height: 30px;
+}
+
+
+
+.sample-show-hide {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.sample-show-hide.ng-hide {
+  opacity:0;
+}

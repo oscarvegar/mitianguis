@@ -1,10 +1,15 @@
 <div class="page-content" ng-controller="ProductoCtrl">
       <!--Shopping Cart Message-->
-      <section class="cart-message">
-      	<i class="fa fa-check-square"></i>
-        <p class="p-style3">"Nikon" was successfully added to your cart.</p>
-        <a class="btn-outlined-invert btn-black btn-sm" href="shopping-cart.html">View cart</a>
-      </section><!--Shopping Cart Message Close-->
+      <div ng-controller="CarritoCtrl">
+
+        <section class="sample-show-hide cart-message visible " ng-show="showATC">
+          
+        	<i class="fa fa-check-square"></i>
+          <p class="p-style3">"{{selProducto.nombre}}" se ha añadido a tu carrito.</p>
+          <a class="btn-outlined-invert btn-black btn-sm" href="/store#/carrito">Ver carrito</a>
+          
+        </section><!--Shopping Cart Message Close-->
+      
       
       <!--Catalog Single Item-->
       <section class="catalog-single">
@@ -34,8 +39,8 @@
                   <input id="quantity" class="form-control" type="text" ng-model="cantidad">
                   <a class="incr-btn" href="javascript:void(0)" ng-click="cantidad=cantidad+1">+</a>
                 </div>
-                <a class="btn btn-primary btn-sm" id="addItemToCart" href="#"><i class="icon-shopping-cart"></i>Añadir al Carrito</a>
-                <a class="btn btn-black btn-sm" href="#"><i class="icon-heart"></i>Add to wishlist</a>
+                <a class="btn btn-primary btn-sm" id="addItemToCart" href="javascript:void(0)" ng-click="addToCart(selProducto,cantidad)"><i class="icon-shopping-cart"></i>Añadir al Carrito</a>
+                <a class="btn btn-black btn-sm" href="#"><i class="icon-heart"></i>Añadir a mis favoritos</a>
               </div>
               <p class="p-style2">{{selProducto.descripcionCorta}}</p>
               <div class="row">
@@ -65,7 +70,7 @@
           </div>
         </div>
       </section><!--Catalog Single Item Close-->
-      
+      </div>
       <!--Tabs Widget-->
       <section class="tabs-widget">
         <!-- Nav tabs -->
@@ -98,6 +103,7 @@
           	<div class="container">
             	<div class="row">
                 <div class="col-lg-10 col-md-10 col-sm-10">
+                especificaciones
                   <div ng-bind-html="specsProductoHTML"></div>
                 </div>
               </div>
@@ -105,14 +111,23 @@
           </div>
           
           <!--Tab3 (Reviews)-->
-          <div class="tab-pane fade " id="review" ng-show="showRevs">
+          <div  id="review" ng-show="showRevs">
           	<div class="container">
-            	<div class="row">
+            	<div class="row" ng-repeat="com in selProducto.ratings">
+              <hr>
               	<!--Disqus Comments Plugin-->
-              	<div class="col-lg-10 col-lg-offset-1">
-                   <div id="disqus_thread"></div>
-                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+              	<div class="col-md-2 ">
+                  <img ng-repeat='i in range(1,com.stars)' ng-class='star' src="/img/star.png" class="star">
+                  
                 </div>
+
+                <div class="col-md-8 ">
+                  <span style="width: 100px;word-wrap: break-word;">{{com.comentario}}</span>
+                </div>
+                <div class="col-md-2">
+                  {{com.fecha | date:'dd/MM/yyyy @ h:mma'}}
+                </div>
+
               </div>
             </div>
           </div>
@@ -120,7 +135,7 @@
       </section><!--Tabs Widget Close-->
       
       <!--Special Offer-->
-      <section class="special-offer">
+      <section class="special-offer" ng-if=false>
       	<div class="container">
           <h2>Special offer</h2>
           <div class="row">

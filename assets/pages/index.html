@@ -85,6 +85,41 @@
                   <div class="cart-btn" style="visibility: hidden;width: 10px" >
                     <a class="btn" >&nbsp;</a>
                   </div><!--Cart Dropdown Close-->
+
+              <div class="cart-btn" ng-controller="CarritoCtrl">
+                <a class="btn btn-outlined-invert" href="/store#/carrito"><i class="icon-shopping-cart-content"></i><span>{{carrito.totalItems}}</span><b>{{carrito.total | currency : symbol : fractionSize}}</b></a>
+              
+              <!--Cart Dropdown-->
+                <div class="cart-dropdown" >
+                <span></span><!--Small rectangle to overlap Cart button-->
+                <div class="body" ng-show="carrito.productosCarrito.length > 0">
+                  <table>
+                    <tr>
+                      <th>Artículos</th>
+                      <th>Cantidad</th>
+                      <th>Precio</th>
+                    </tr>
+                    <tr class="item" ng-repeat="pc in carrito.productosCarrito track by $index">
+                      <td><div class="delete"></div><a href="#">{{pc.producto.nombre}}</a></td>
+                      <td><input type="text" ng-model="pc.cantidad" only-digits ng-blur="persist()"></td>
+                      <td class="price">{{pc.producto.precio * pc.cantidad | currency : symbol : fractionSize}}</td>
+                    </tr>
+                    
+                  </table> 
+                </div>
+                <div class="footer group" ng-show="carrito.productosCarrito.length > 0">
+
+                  <div class="buttons">
+                    <a class="btn " href="checkout.html"><i class="icon-download"></i>
+                      Pagar
+                    </a>
+                    <a class="btn" href="/store#/carrito"><i class="icon-shopping-cart-content"></i>Al carrito</a>
+                  </div>
+                  <div class="total">{{carrito.total | currency : symbol : fractionSize}}</div>
+                </div>
+                </div><!--Cart Dropdown Close-->
+            </div>
+
                   <button class="search-btn btn-outlined-invert"><i class="icon-magnifier"></i></button>
                 </div><!--Toolbar Close-->
               </div>
@@ -234,6 +269,7 @@
         <script src="../js/admin.js"></script>
         <script src="../js/menu.js"></script>
         <script src="../js/carrusel.js"></script>
+        <script src="/js/carrito.js"></script>
         <script src="../js/producto.js"></script>
         <script src="../js/store.js"></script>
 

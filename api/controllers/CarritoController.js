@@ -6,6 +6,8 @@
  */
 
 module.exports = {
-	
+	current:function(req,res){
+		
+	}
 };
 
