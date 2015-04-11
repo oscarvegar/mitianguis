@@ -1,8 +1,8 @@
 /**
  * Created by oscar on 26/03/15.
  */
-var tiendaModule = angular.module("TiendaAdminModule",["angularFileUpload"]);
-tiendaModule.controller("TiendaController", function($scope, $http, FileUploader){
+var tiendaModule = angular.module("TiendaAdminModule",["angularFileUpload", "AdminService"]);
+tiendaModule.controller("TiendaController", function($scope, $http, FileUploader, $tiendaService){
   var tiendaCtrl = this;
   tiendaCtrl.origin = webUtil.getOrigin();
   tiendaCtrl.isDetalle = false;
@@ -47,6 +47,7 @@ tiendaModule.controller("TiendaController", function($scope, $http, FileUploader
   tiendaCtrl.getTiendas = function(){
     $http.get("/mistiendas/" + webUtil.getJSON("usuario").mercante.id).then(function(result){
       tiendaCtrl.mistiendas = result.data;
+      $tiendaService.setTiendas(angular.copy(result.data));
       if (!tiendaCtrl.mistiendas) {
         tiendaCtrl.mistiendas = new Array();
       }
@@ -57,12 +58,15 @@ tiendaModule.controller("TiendaController", function($scope, $http, FileUploader
   tiendaCtrl.crear = function(){
     var item;
     tiendaCtrl.tienda.mercante = webUtil.getJSON("usuario").mercante.id;
+    tiendaCtrl.tienda.descripcion = $("#descripcionTienda").val();
+    var maxItems = tiendaCtrl.uploader.getNotUploadedItems().length;
+    var itemIndex = maxItems - 1;
     if(tiendaCtrl.isNuevaTienda) {
       tiendaCtrl.uploader.formData = [{tienda: tiendaCtrl.tienda}];
-      item = tiendaCtrl.uploader.getNotUploadedItems()[0];
-    }else{
+      item = tiendaCtrl.uploader.getNotUploadedItems()[itemIndex];
+    } else {
       tiendaCtrl.uploaderEdit.formData = [{tienda: tiendaCtrl.tienda}];
-      item = tiendaCtrl.uploaderEdit.getNotUploadedItems()[0];
+      item = tiendaCtrl.uploaderEdit.getNotUploadedItems()[itemIndex];
     }
     if (item) {
       item.formData = [{tienda: JSON.stringify(tiendaCtrl.tienda)}];

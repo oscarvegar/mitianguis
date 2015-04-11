@@ -60,9 +60,14 @@ module.exports.routes = {
   'POST /editartienda': 'TiendaController.editar',
   'POST /asignaEstatus': 'TiendaController.setStatus',
 
+  /*** ADMINISTRACION DE PRODUCTOS ***/
+  'GET /productoPorTienda/:id': 'ProductoController.productoByTienda',
+  'POST /registraProducto':'ProductoController.registraProducto',
+  'POST /actualizarProducto':'ProductoController.actualizarProducto',
+  'POST /guardarArchivoProducto':'ProductoController.guardarArchivo',
+
   /*** FUNCIONES GENERALES ***/
   'GET /getImagen/:imagen':'ImagenController.getImagen'
-
 
 
   /***************************************************************************

@@ -6,10 +6,10 @@
       <h2> Personaliza y administra tu tienda </h2>
       <div class="row">
         <!--Sidebar-->
-        <div class="col-lg-3 col-md-3" style="position: relative; top:-23px">
+        <div class="col-lg-3 col-md-3" style="position: relative; top:-23px; height: 100%">
           <section class="filter-section tech-specs">
             <div id="menuTiendas" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[0]"
+                 ng-class="menuOptions[0].selected"
                  ng-click="selecciono(0)">
               <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
@@ -17,9 +17,18 @@
                 </div>
               </div>
             </div>
+            <div id="menuProductos" class="item cursor" style="padding: 5px;"
+                 ng-class="menuOptions[1].selected"
+                 ng-click="selecciono(1);loadTiendas();">
+              <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                  <p class="p-style2">Mis Productos</p>
+                </div>
+              </div>
+            </div>
             <div id="menuVentas" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[1]"
-                 ng-click="selecciono(1)">
+                 ng-class="menuOptions[2].selected"
+                 ng-click="selecciono(2)">
               <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                   <p class="p-style2">Mis Ventas</p>
@@ -27,8 +36,8 @@
               </div>
             </div>
             <div id="menuReputacion" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[2]"
-                 ng-click="selecciono(2)">
+                 ng-class="menuOptions[3].selected"
+                 ng-click="selecciono(3)">
               <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                   <p class="p-style2">Mi Reputación</p>
@@ -36,8 +45,8 @@
               </div>
             </div>
             <div id="menuRed" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[3]"
-                 ng-click="selecciono(3)">
+                 ng-class="menuOptions[4].selected"
+                 ng-click="selecciono(4)">
               <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                   <p class="p-style2">Red MiTianguis</p>
@@ -45,8 +54,8 @@
               </div>
             </div>
             <div id="menuMovimientos" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[4]"
-                 ng-click="selecciono(4)">
+                 ng-class="menuOptions[5].selected"
+                 ng-click="selecciono(5)">
               <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                   <p class="p-style2">Movimientos</p>
@@ -58,9 +67,10 @@
 
         <!--Left Column-->
         <div>
-          <tiendas></tiendas>
-
+          <tiendas style="display:{{menuOptions[0].display}}"></tiendas>
+          <productos style="display:{{menuOptions[1].display}};"></productos>
         </div>
+
       </div>
     </div>
   </section><!--Blog Sidebar Left Close-->
