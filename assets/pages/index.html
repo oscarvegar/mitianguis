@@ -12,6 +12,9 @@
       <meta name="author" content="Oscar" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+<!--
+      <link rel='stylesheet' type="text/css" href='../css/fullcalendar.css'>-->
+      
       <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
       <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.min.css"/>
       <link rel="stylesheet" type="text/css" href="../css/bootstrap-wysihtml5.css"/>
@@ -82,9 +85,10 @@
                   <span class="login-btn" ng-if="usuario !== null">
                     <span style="color: black;font-size: 11px;"><b>B</b>ienvendo {{usuario.username}}</span>
                   </span>
-                  <div class="cart-btn" style="visibility: hidden;width: 10px" >
-                    <a class="btn" >&nbsp;</a>
-                  </div><!--Cart Dropdown Close-->
+
+                  <span class="login-btn btn-outlined-invert" ng-if="usuario !== null" href="#" ng-click="logout()"><i class="icon-profile"></i>
+                    <span style="color: black;font-size: 13px;"><b>C</b>errar Sesión</span>
+                  </span>
 
               <div class="cart-btn" ng-controller="CarritoCtrl">
                 <a class="btn btn-outlined-invert" href="/store#/carrito"><i class="icon-shopping-cart-content"></i><span>{{carrito.totalItems}}</span><b>{{carrito.total | currency : symbol : fractionSize}}</b></a>
@@ -119,12 +123,12 @@
                 </div>
                 </div><!--Cart Dropdown Close-->
             </div>
-
                   <button class="search-btn btn-outlined-invert"><i class="icon-magnifier"></i></button>
                 </div><!--Toolbar Close-->
               </div>
             </div>
 
+           
         </header><!--Header Close-->
         <!--Page Content-->
         <div>
@@ -234,6 +238,10 @@
         </div><!-- /.modal -->
 
         <!-- Librerias -->
+
+    
+
+
         <script src="../js/angular-1.3.8/angular.min.js"></script>
         <script src="../js/angular-1.3.8/angular-animate.js"></script>
         <script src="../js/angular-1.3.8/angular-route.min.js"></script>
@@ -241,6 +249,15 @@
         <script src="../js/libs/jquery-1.11.1.min.js"></script>
         <script src="../js/libs/jquery-ui-1.10.4.custom.min.js"></script>
         <script src="../js/libs/jquery.easing.min.js"></script>
+
+
+
+<!--
+        <script src='../js/libs/fullcalendar.min.js'></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+            <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.js"></script> -->
 
         <script src="../js/plugins/angular-file-upload.js"></script>
         <script src="../js/plugins/wysihtml5-0.3.0.js"></script>

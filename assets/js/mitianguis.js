@@ -11,7 +11,7 @@ var myApp = angular.module("TianguisApp",
                                 'TiendaAdminModule'
                                ]);
 
-myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location){
+myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location, $window){
 
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
@@ -107,6 +107,13 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
                     $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
             });
     };
+
+    $scope.logout = function(){
+          $http.get('/logout').success(function(datos){  
+          $window.localStorage.removeItem("usuario");
+              window.location = '/';
+          });
+      };
 
 
 

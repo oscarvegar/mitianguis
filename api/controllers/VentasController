@@ -1,0 +1,26 @@
+/**
+ * VentasController
+ *
+ * @description :: Server-side logic for managing Tiendas
+ * @help        :: See http://links.sailsjs.org/docs/controllers
+ */
+var fs = require('fs');
+module.exports = {
+
+	  misVentas:function(request, response){
+    console.log("*************** CONSULTA MIS VENTAS **************");
+    var data = request.allParams();
+    console.log( data);
+
+    var start_date=Number(data.fechaInicial);
+    var end_date=Number(data.fechaFinal);
+
+    console.log(start_date);
+    console.log(end_date);
+    
+    ProductosVenta.find().where({createdAt: { '>=': new Date(start_date),'<=' : new Date(end_date)}}).populate('producto').populate('venta').exec(function(err,productos){
+         return response.json(productos);
+    });
+
+  }
+};

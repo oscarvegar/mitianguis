@@ -15,14 +15,14 @@ module.exports = {
   	cliente:{
   		model:'user'
   	},
-  	productosVenta:{
-  		collection:'productosventa',
-  		via:'venta'
-  	},
   	totalEnvio:'float',
   	totalVenta:'float',
   	calificacion:'integer',
-  	status:'integer'
+  	status:'integer',
+    productosVenta:{
+      collection:'productosventa',
+      via:'venta'
+    }
   	//TODO CUPONES
   }
 };

@@ -1,0 +1,79 @@
+ <div class="post" ng-controller="VentaController as ventaCtrl">
+
+ <section class="shopping-cart">
+        <div class="container">
+          <div class="row">
+          
+            <!--Items List-->
+            <div class="col-lg-9 col-md-9">
+              <h2 class="title">Mis Ventas</h2>
+
+              <form class="form-horizontal"  ng-submit="tiendaCtrl.consultarVentas();">
+
+<!--
+<div class="input-group date custom">
+ <input type="text" id="date" name="date" class="form-control" required="" /><span class="input-group-addon" id="close_datepicker"><i class="crud date-icon"></i></span>
+</div>
+  Choose a date<br/>   
+<div class="input-group date custom">
+ <input type="text" id="date2" name="date" class="form-control" ngModel="date2" required="" datepicker="" /><span class="input-group-addon" ><span class="glyphicon glyphicon-calendar"></span></span>
+</div>  -->
+
+
+                        <div class="col-md-offset-1 col-md-2">
+                            <div class="form-group">
+                                <label for="date-birth" class="control-label">Fecha inicial:</label>
+                                <div class="control">
+
+
+                                    <input id="date" class="form-control" ng-model="tiendaCtrl.venta.fechaInicial" ui-date="{minDate:fechaMinIni}" ui-datepicker required/>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-offset-1 col-md-2">
+                            <div class="form-group">
+                                <label for="date-birth" class="control-label">Fecha final:</label>
+                                <div class="control">
+
+                                  <input id="date2" ng-model="tiendaCtrl.venta.fechaFinal" class="form-control"     ui-datepicker required>
+
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-offset-1 col-md-2">
+                            <div class="form-group">
+                                <label ><br/></label>
+                                <div class="control">
+                                    <button class="btn btn-primary btn">Consultar</button>
+                                </div>
+                            </div>
+                        </div>
+              </form>
+
+
+              <table class="items-list">
+                <tr>
+                  <th>Nombre Producto</th>
+                  <th>Codigo Producto</th>
+                  <th>Cantidad Vendidas</th>
+                  <th>Subtotal</th>
+                  <th>Total</th>
+                </tr>
+                <!--Item-->
+                <tr class="item first"  ng-repeat="productoVenta in tiendaCtrl.misventas" >
+                  <td class="name"><a href="shop-single-item-v1.html">{{productoVenta.producto.nombre}}</a></td>
+                  <td class="name"><a href="shop-single-item-v1.html">{{productoVenta.producto.sku}}</a></td>
+                  <td class="qnt-count">
+                    <input class="quantity form-control" type="text" value="{{productoVenta.cantidad}}">
+                  </td>
+                  <td class="price">{{productoVenta.subtotal}}</td>
+                  <td class="price">{{productoVenta.venta.totalVenta}}</td>
+                </tr>    
+              </table>
+            </div>
+            
+          </div>
+        </div>
+      </section><!--Shopping Cart Close-->
+</div>

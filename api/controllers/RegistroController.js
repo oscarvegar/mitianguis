@@ -99,7 +99,6 @@ module.exports = {
 	recuperarPassword:function(req,res){
 
 		console.log("Recuperar Password>>>>>>>");
-		console.log( req.allParams());
         var mail = req.allParams().email;
         console.log(mail);
         User.findOneByEmail(mail,function(err,fuser){
@@ -107,6 +106,8 @@ module.exports = {
             if(err){console.log(err);return res.json({code:-1})};
             var word =  eden.word()+ new Date().getMilliseconds()+new Date().getMinutes();
             fuser.password = word ;
+            console.log("Password");
+            console.log(fuser.password);
             fuser.save();
             var notificationMail = {
                 to: fuser.email, // list of receivers
