@@ -1,0 +1,12 @@
+#formProductos td{
+  margin: 5px;
+  padding: 5px;
+}
+
+#formProductos input[type="text"]{
+  width: 300px;
+}
+
+#formProductos input{
+  font-size: 13px;
+}
