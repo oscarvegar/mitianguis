@@ -10,12 +10,11 @@ var myApp = angular.module("TianguisApp",
                                'ProductoModule',
                                 'TiendaAdminModule',
                                 'ProductosAdminModule',
-                                'AdminService'
+                                'AdminService',
+                                'CheckoutModule'
                                ]);
 
-
-myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location, $window, $sce){
-
+myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
 
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
@@ -25,13 +24,13 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $scope.categorias = null;
     $scope.mercante = null;
     $scope.errorLogin = false;
-    $scope.usuario = webUtil.getJSON("usuario");
 
     $rootScope.trustAsHtml = function(value) {
       return $sce.trustAsHtml(value);
     };
 
-    console.log( $scope.usuario );
+    $rootScope.usuario = webUtil.getJSON("usuario");
+    console.log( $rootScope.usuario );
     // Obtener el subdominio erroneo, si existe
     var subdominioError = $location.search().subdomain;
     if(subdominioError){
@@ -68,7 +67,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
             result.data.user.mercante = resultMerca.data;
             webUtil.save("usuario", result.data.user);
             webUtil.save("email", result.data.user.username);
-            $scope.usuario = result.data.user;
+            $rootScope.usuario = result.data.user;
           });
         }else{
           $scope.errorLogin = true;
@@ -142,8 +141,10 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/mercantes', {templateUrl: 'pages/mercante.html'});
     $routeProvider.when('/producto', {templateUrl: 'pages/store/detalleProducto.html'});
     $routeProvider.when('/carrito', {templateUrl: 'pages/store/carrito.html'});
+    $routeProvider.when('/checkout', {templateUrl: 'pages/store/checkout.html'});
 
     //localStorage.clear();
+    Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
 });
 
 myApp.directive('onlyDigits', function () {
