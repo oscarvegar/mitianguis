@@ -32,13 +32,15 @@ angular.module("CheckoutModule",[])
 		Conekta.token.create(card, 
 		function(data){
 			var token = data.id;
-			$scope.orden.token = data.id;
+			$scope.orden.conektaToken = data.id;
+			$scope.orden.carrito = $rootScope.carrito;
 			$http.post('/venta/checkout',$scope.orden)
 			.success(function(data){
 				console.log(data)
 				$scope.disBtnPagar = false;
 			})
 			.error(function(err){
+				console.log(err)
 				$scope.disBtnPagar = false;
 			})
 		},
@@ -53,13 +55,25 @@ angular.module("CheckoutModule",[])
 		$scope.orden.apellidoMaterno = $rootScope.usuario.mercante.apellidoMaterno;
 	})
 
+	$scope.buscarUsuario = function(){
+		$http.post('/venta/buscarDatosByEmail/'+$scope.orden.email)
+		.success(function(data){
+			$scope.orden.telefono = data.telefono;
+			if(data.direccion){
+				$scope.orden.codigoPostal = data.direccion.codigoPostal;
+			}
+		}).error(function(err){
+			console.log(err);
+		});
+	}
+
 	/******************DATOS DE PRUEBA****************************/
 		$scope.orden.nombre = "oscar";
 		$scope.orden.apellidoMaterno = "rodriguez";
 		$scope.orden.apellidoPaterno = "vega";
 		$scope.orden.calle = "calle 2 No. 36";
 		$scope.orden.codigoPostal = "07680";
-		$scope.orden.email = "oscarvegar@gmail.com";
+		$scope.orden.email = "oscarm@mitianguis.com";
 		$scope.orden.telefono = "5520686109";
 		$scope.buscarDireccion();
 

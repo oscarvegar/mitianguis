@@ -9,10 +9,12 @@ module.exports = {
 
 	productoPrincipalByTienda:function(req,res){
 		var idTienda = req.allParams().id;
-		Producto.find({tienda:idTienda,isPrincipal:true}).exec(function(err,data){
-			//console.log(data)
+		Producto.find({tienda:idTienda,isPrincipal:true}).then(function(data){
+			console.log("PRODUCTOS TIENDAAAAAAAAAAAAAAAAAAA",data)
 			res.json(data)
-		})
+		}).catch(function(err){
+      console.log(err);
+    })
 	},
 
   registraProducto:function(request, response){
@@ -90,10 +92,12 @@ module.exports = {
 	findById:function(req,res){
 		var idProducto = req.allParams().id;
 		console.log("ID PRODUCTO >>>>>>",idProducto)
-		Producto.findOne({id:idProducto}).exec(function(err,data){
+		Producto.findOne({id:idProducto}).populate('subproductos').then(function(data){
 			console.log(data)
 			res.json(data);
-		});
+		}).catch(function(err){
+      console.log(err);
+    });
 	},
 
 	share:function(req,res){

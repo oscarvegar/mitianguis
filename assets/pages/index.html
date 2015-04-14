@@ -130,7 +130,7 @@
                       <th>Precio</th>
                     </tr>
                     <tr class="item" ng-repeat="pc in carrito.productosCarrito track by $index">
-                      <td><div class="delete"></div><a href="#">{{pc.producto.nombre}}</a></td>
+                      <td><div class="delete" ng-click="eliminar($index)"></div><a href="#">{{pc.producto.nombre}} {{pc.producto.modeloSelected.modelo}}</a></td>
                       <td><input type="text" ng-model="pc.cantidad" only-digits ng-blur="persist()"></td>
                       <td class="price">{{pc.producto.precio * pc.cantidad | currency : symbol : fractionSize}}</td>
                     </tr>

@@ -29,6 +29,7 @@ module.exports = {
     console.log("username: " + data.username);
     User.findOne({username:data.username}).exec(function(err,user){
       console.log("usuario encontrado >> " + user + "  :::: " + JSON.stringify(user));
+      if(!user)return response.json(404,{code:-1,msg:"Mercante no encontrado"})
       Mercante.findOne({usuario:user.id}).exec(function( err, found ){
         console.log("found mercante >> " + found );
         console.log("err mercante >> " + err );
