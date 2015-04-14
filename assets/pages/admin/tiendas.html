@@ -3,10 +3,9 @@
     <section id="bodySection">
       <div class="container">
         <div class="row">
-          <div class="span3" ng-repeat="tiendabd in tiendaCtrl.mistiendas"
-               ng-click="goDetalle(tiendabd);">
+          <div class="span3" ng-repeat="tiendabd in tiendaCtrl.mistiendas">
             <div class="thumbnail" ng-if="tiendabd.nombre!=='Nuevo'" style="height: 200px;cursor: pointer;"
-                 ng-click="tiendaCtrl.verDetalle(tiendabd)"  >
+                 ng-click="tiendaCtrl.verDetalle(tiendabd); tiendaCtrl.goDetalle(tiendabd)"  >
               <h4 class="page-header fondoMiTianguis">{{tiendabd.nombre}}</h4>
               <a style="width: 50px;height: 50px;margin: 0px;cursor: pointer"
                  ng-click="tiendaCtrl.verDetalle(tiendabd)">

@@ -68,7 +68,8 @@ module.exports.routes = {
   'POST /guardarArchivoProducto':'ProductoController.guardarArchivo',
 
   /*** FUNCIONES GENERALES ***/
-  'GET /getImagen/:imagen':'ImagenController.getImagen'
+  'GET /getImagen/:imagen':'ImagenController.getImagen',
+  'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto'
 
 
   /***************************************************************************

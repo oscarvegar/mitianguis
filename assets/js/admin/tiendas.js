@@ -103,7 +103,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
     });
   }
 
-  $scope.goDetalle = function(tiendabd){
+  tiendaCtrl.goDetalle = function(tiendabd){
     $rootScope.tiendaSelected = tiendabd;
     $rootScope.selecciono(1);
     $scope.isVistaDetalle = true;

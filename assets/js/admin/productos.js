@@ -110,30 +110,28 @@ module.controller("ProductosAdminController", function($rootScope, $scope, $http
     $scope.producto.subproductos = new Array();
     $scope.producto.archivos = new Array();
     $scope.producto.tienda = $scope.tiendaSelected.id;
-    /*for(var i = 0; i < $scope.imgSecundariasUpload.getNotUploadedItems().length; i++){
-      var item = $scope.imgSecundariasUpload.getNotUploadedItems()[i];
-      $scope.producto.imagenesSecundarias.push( item.file.name );
-    }*/
     $http.post( "/registraProducto", $scope.producto).then(function( result ){
       console.log(JSON.stringify(result));
-      if(result.data === "" ){
-        alert("No se registro el producto");
+      if(result.data === "" ) {
+        alert( "No se registro el producto" );
         return;
       }
       var objRequest = { userId:  webUtil.getJSON("usuario").id,
                          producto: result.data,
+                         pathBase: webUtil.getOrigin(),
                          tipoArchivo: "ImagenPrincipal"};
-
       // Preparando carga de archivos unicos
       var itemIndexImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems().length - 1;
       var itemImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems()[itemIndexImgPrincipal];
-
-
       var itemIndexPdf = $scope.fileUpload.getNotUploadedItems().length - 1;
       var itemArchivoPdf = $scope.fileUpload.getNotUploadedItems()[itemIndexPdf];
 
       if( itemImgPrincipal ) {
         itemImgPrincipal.formData = [{infoProductos:JSON.stringify(angular.copy(objRequest))}];
+        $scope.imgPrincipalUpload.onCompleteAll = function () {
+          $scope.getProductos();
+          $('#productoModal').modal('hide');
+        }
         itemImgPrincipal.upload();
       }
 
@@ -148,13 +146,11 @@ module.controller("ProductosAdminController", function($rootScope, $scope, $http
       if(tam > 0){
         objRequest.tipoArchivo = "ImagenSecundaria";
         var objRequestInstr = JSON.stringify(angular.copy(objRequest));
-        for(var i = 0; i < tam; i++){
+        for(var i = 0; i < tam; i++) {
           $scope.imgSecundariasUpload.getNotUploadedItems()[i].formData = [{infoProductos:objRequestInstr}];
         }
         $scope.imgSecundariasUpload.uploadAll();
       }
-      $scope.getProductos();
-      $('#productoModal').modal('hide');
     });
   };
 
