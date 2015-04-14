@@ -79,6 +79,18 @@
               </select>
             </div>
           </div-->
+
+          <div class="row">
+            <div class="form-group col-lg-6 col-md-6 col-sm-6">
+              <label for="co-email">Email *</label>
+              <input ng-model="orden.email" type="email" class="form-control" id="co-email" name="co-email" placeholder="Email adress" required ng-blur="buscarUsuario()">
+            </div>
+            <div class="form-group col-lg-6 col-md-6 col-sm-6">
+              <label for="co_phone">Teléfono *</label>
+              <input ng-model="orden.telefono" type="text" class="form-control" id="co_phone" name="co_phone" placeholder="Teléfono" required only-digits>
+            </div>
+          </div>
+
           <div class="row">
           	<div class="form-group col-lg-4 col-md-4 col-sm-4">
               <label for="co-first-name">Nombre *</label>
@@ -130,16 +142,6 @@
             <div class="form-group col-lg-6 col-md-6 col-sm-6">
               <label for="co_postcode">Estado *</label>
               <input type="text" class="form-control" id="co_postcode" name="co_postcode" placeholder="Municipio" required ng-model="orden.selColonia.d_estado">
-            </div>
-          </div>
-          <div class="row">
-          	<div class="form-group col-lg-6 col-md-6 col-sm-6">
-              <label for="co-email">Email *</label>
-              <input ng-model="orden.email" type="email" class="form-control" id="co-email" name="co-email" placeholder="Email adress" required>
-            </div>
-          	<div class="form-group col-lg-6 col-md-6 col-sm-6">
-              <label for="co_phone">Teléfono *</label>
-              <input ng-model="orden.telefono" type="text" class="form-control" id="co_phone" name="co_phone" placeholder="Teléfono" required only-digits>
             </div>
           </div>
           

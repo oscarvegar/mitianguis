@@ -22,7 +22,21 @@ module.exports = {
     productosVenta:{
       collection:'productosventa',
       via:'venta'
-    }
+    },
+    /* DATOS VENTA */
+    nombre:'string',
+    telefono:'string',
+    apellidoPaterno:'string',
+    apellidoMaterno:'string',
+    calle:'string',
+    colonia:'string',
+    municipio:'string',
+    ciudad:'string',
+    estado:'string',
+    mensajes:'array',
+    conektaToken:'string',
+    conektaInfo:'object',
+
   	//TODO CUPONES
   }
 };

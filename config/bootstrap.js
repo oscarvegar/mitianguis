@@ -153,7 +153,8 @@ module.exports.bootstrap = function(cb) {
 
 
                                     Producto.create(productos).exec(function(err,productos){
-                                        //console.log(productos);
+                                        console.log("PRODUCTOS ERR > > > > > > > > ",err);
+                                        console.log("PRODUCTOS > > > > > > > > ",productos);
 
                                           Venta.create({
                                         folio:222,

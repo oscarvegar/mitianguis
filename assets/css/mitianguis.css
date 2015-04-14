@@ -116,7 +116,20 @@
   color: black;
   font-weight: normal;
 }
-
 .col-nav-admin{
   color: #faebcc;font-size: 17px;font-weight: bolder;padding-right: 80px;
+}
+.thumbmodelo{
+  width: 50px;
+  height:50px;
+  float:left;
+  margin-left:15px;
+}
+.selected-thumbmodelo{
+  border: solid;
+  border-color: red;
+}
+
+.clear{
+  clear: both;
 }
