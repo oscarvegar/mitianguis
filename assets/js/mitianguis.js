@@ -11,7 +11,8 @@ var myApp = angular.module("TianguisApp",
                                 'TiendaAdminModule',
                                 'ProductosAdminModule',
                                 'AdminService',
-                                'CheckoutModule'
+                                'CheckoutModule',
+                                'VentasAdminModule'
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){

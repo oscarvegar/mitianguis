@@ -5,6 +5,8 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 var unirest = require('unirest');
+var fs = require('fs');
+
 module.exports = {
 	checkout:function(req,res){
 		var orden = req.allParams();
@@ -32,5 +34,16 @@ module.exports = {
 
 
 		res.json(orden)
-	}
+	},
+
+	misVentas:function(request, response){
+	    console.log("*************** CONSULTA MIS VENTAS **************");
+	    var data = request.allParams();
+	    
+	    ProductosVenta.find().populate('producto').populate('venta').exec(function(err,productos){
+	         return response.json(productos);
+	    });
+
+  }
+
 };

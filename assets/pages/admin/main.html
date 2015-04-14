@@ -28,7 +28,7 @@
             </div>
             <div id="menuVentas" class="item cursor" style="padding: 5px;"
                  ng-class="menuOptions[2].selected"
-                 ng-click="selecciono(2)">
+                 ng-click="selecciono(2);loadTiendas();">
               <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                   <p class="p-style2">Mis Ventas</p>
@@ -69,6 +69,7 @@
         <div>
           <tiendas style="display:{{menuOptions[0].display}}"></tiendas>
           <productos style="display:{{menuOptions[1].display}};"></productos>
+          <ventas style="display:{{menuOptions[2].display}};"></ventas>
         </div>
 
       </div>
