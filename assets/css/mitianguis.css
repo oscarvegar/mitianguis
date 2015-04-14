@@ -108,8 +108,6 @@
   border-radius: 0 0 0px 0px !important;
 }
 
-
-
 .white{
   color: white;
   font-weight: normal;
@@ -117,4 +115,8 @@
 .black{
   color: black;
   font-weight: normal;
+}
+
+.col-nav-admin{
+  color: #faebcc;font-size: 17px;font-weight: bolder;padding-right: 80px;
 }

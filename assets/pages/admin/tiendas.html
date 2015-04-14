@@ -3,13 +3,14 @@
     <section id="bodySection">
       <div class="container">
         <div class="row">
-          <div class="span3" ng-repeat="tiendabd in tiendaCtrl.mistiendas" >
+          <div class="span3" ng-repeat="tiendabd in tiendaCtrl.mistiendas"
+               ng-click="goDetalle(tiendabd);">
             <div class="thumbnail" ng-if="tiendabd.nombre!=='Nuevo'" style="height: 200px;cursor: pointer;"
                  ng-click="tiendaCtrl.verDetalle(tiendabd)"  >
               <h4 class="page-header fondoMiTianguis">{{tiendabd.nombre}}</h4>
               <a style="width: 50px;height: 50px;margin: 0px;cursor: pointer"
                  ng-click="tiendaCtrl.verDetalle(tiendabd)">
-                <img src="/getImagen/{{tiendabd.logo}}" width="50" height="50" style="height: 50px;max-height: 50px; min-height: 50px;" />
+                <img src="{{tiendabd.logo}}" width="50" height="50" style="height: 50px;max-height: 50px; min-height: 50px;" />
               </a>
               <span style="font-size: 11px;margin: 0px;">
                 <span ng-bind-html="trustAsHtml(tiendabd.descripcion)"></span>
@@ -19,6 +20,7 @@
               </span>
               <div class="btn-toolbar">
                 <div class="social" >
+
                   <span data-toggle="modal" data-target="#tiendaDelModal" title="Borrar Tienda"
                      class="bordeHover"
                      ng-click="tiendaCtrl.setTiendaSelected(tiendabd);">
@@ -32,10 +34,11 @@
                 </div>
               </div>
             </div>
-            <div class="thumbnail" ng-if="tiendabd.nombre==='Nuevo'" style="height: 200px;">
+            <div class="thumbnail" ng-if="tiendabd.nombre==='Nuevo'"
+                 style="height: 200px;" ng-click="tiendaCtrl.setAsNuevaTienda(true, null)">
               <h4>&nbsp;</h4>
               <div align="center">
-              <span data-toggle="modal" data-target="#tiendaModal" ng-click="tiendaCtrl.setAsNuevaTienda(true, null)" >
+              <span data-toggle="modal" data-target="#tiendaModal"  >
                 <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
                      style="width: 110px;height: 110px" >
               </span>
@@ -77,7 +80,8 @@
             </div>
             <div class="form-group group">
               <textarea class="form-control" placeholder="Escriba la descripcion de su tienda"
-                        name="descripcionTienda" id="descripcionTienda" ng-model="tiendaCtrl.tiendaForm.descripcion"
+                        name="descripcionTienda" id="descripcionTienda"
+                        ng-model="tiendaCtrl.tienda.descripcion"
                         rich-text-editor></textarea>
             </div>
             <div class="form-group group">
@@ -93,7 +97,7 @@
               </span>
             </div>
             <div class="form-group group">
-              <img  ng-if="tiendaCtrl.tienda.logo" src="/getImagen/{{tiendaCtrl.tienda.logo}}"
+              <img  ng-if="tiendaCtrl.tienda.logo" src="{{tiendaCtrl.tienda.logo}}"
                     width="50" height="50" style="height: 50px;max-height: 50px; min-height: 50px;" />
               <input type="file" class="form-control" placeholder="Agrega el logo de tu tienda"
                      nv-file-select uploader="tiendaCtrl.uploader" name="logo" id="logo"

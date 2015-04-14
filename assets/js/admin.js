@@ -1,20 +1,8 @@
 var adminModule = angular.module("AdminModule", ["TiendaAdminModule"] );
 adminModule.controller("AdminController", function($rootScope, $scope, $http){
-  $scope.titulo = "Mis Tiendas";
-  $scope.menuOptions = new Array(6);
-  for(var i = 0; i < $scope.menuOptions.length; i++){
-    $scope.menuOptions[i]={selected:"",display:'none'};
-  }
-  $scope.menuOptions[0]={selected:"selected",display:''};
-  $scope.selecciono = function( index ){
-    for(var i = 0; i < $scope.menuOptions.length; i++){
-      $scope.menuOptions[i]={selected:"",display:'none'};
-    }
-    $scope.menuOptions[index]={selected:"selected",display:''};
-  }
-  $scope.loadTiendas = function(){
-    $rootScope.$broadcast("mistiendas");
-  }
+  $rootScope.titulo = "Mis Tiendas";
+  $rootScope.tiendaSelected = null;
+  $scope.isVistaDetalle = false;
 })
 .directive("tiendas", function( ){
   return {

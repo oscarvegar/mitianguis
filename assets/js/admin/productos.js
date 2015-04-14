@@ -6,15 +6,24 @@ module.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 
-module.controller("ProductosAdminController", function($scope, $http, FileUploader, $tiendaService, $filter){
+module.controller("ProductosAdminController", function($rootScope, $scope, $http, FileUploader, $tiendaService, $filter){
 
-  $scope.tiendaSelected = {};
   $scope.tiendasDisponibles = [];
   $scope.productosDisponibles = [];
   $scope.categorias = [];
   $scope.msgErrorImgPrincipal = "";
   $scope.msgErrorImgSecundaria = "";
   $scope.msgErrorArchivo = "";
+
+
+  $rootScope.$watch('tiendaSelected', function(){
+    console.log("la variable de tiendaSelected se setió " + JSON.stringify($rootScope.tiendaSelected));
+
+    if($rootScope.tiendaSelected) {
+      $scope.getProductos();
+    }
+  })
+
   $scope.imgPrincipalUpload = new FileUploader(
     {url: "/guardarArchivoProducto",
       filters: [{
@@ -64,14 +73,6 @@ module.controller("ProductosAdminController", function($scope, $http, FileUpload
         }
       }]});
 
-  $scope.$on("mistiendas", function(){
-    $scope.tiendasDisponibles = $tiendaService.getTiendas();
-    if($scope.tiendasDisponibles.length && $scope.tiendasDisponibles.length > 0){
-      $scope.tiendaSelected = angular.copy($scope.tiendasDisponibles[0]);
-      $scope.getProductos();
-    }
-  });
-
   $scope.agregaCategoria = function(event){
     var catego = angular.copy($scope.categoriaElegida);
     if ($scope.categorias.indexOf(catego) == -1) {
@@ -97,7 +98,7 @@ module.controller("ProductosAdminController", function($scope, $http, FileUpload
   };
 
   $scope.getProductos = function (){
-    $http.get("/productoPorTienda/" + $scope.tiendaSelected.id).then(function(result){
+    $http.get("/productoPorTienda/" + $rootScope.tiendaSelected.id).then(function(result){
       $scope.productosDisponibles = result.data;
     });
   };
@@ -152,6 +153,7 @@ module.controller("ProductosAdminController", function($scope, $http, FileUpload
         }
         $scope.imgSecundariasUpload.uploadAll();
       }
+      $scope.getProductos();
       $('#productoModal').modal('hide');
     });
   };
@@ -171,20 +173,6 @@ module.controller("ProductosAdminController", function($scope, $http, FileUpload
       $scope.imgSecundariasUpload.uploadAll();
     }
   };
-
-
-  /*
-   $('.textarea').wysihtml5({
-   "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-   "emphasis": true, //Italics, bold, etc. Default true
-   "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-   "html": false, //Button which allows you to edit the generated HTML. Default false
-   "link": true, //Button to insert a link. Default true
-   "image": false, //Button to insert an image. Default true,
-   "color": false //Button to change color of font
-   });
-   */
-
 
 });
 

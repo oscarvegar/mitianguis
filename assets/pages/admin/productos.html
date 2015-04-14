@@ -1,48 +1,50 @@
 <div class="post" ng-controller="ProductosAdminController">
   <link rel="stylesheet" type="text/css" href="../../css/productos.css">
-  <div ng-if="tiendasDisponibles.length == 0">
-    Para agregar productos, primero debes de crear una
-    <span ng-click="selecciono(0)" class="link">tienda</span>
-  </div>
-  <div ng-show="tiendasDisponibles.length > 0">
-    <div ng-if="tiendasDisponibles.length === 1">
-      <h3>Tienda :::  <b>{{ tiendaSelected.nombre }}</b></h3>
+  <div>
+    <div>
+      <h3>Tienda Seleccionada:::  <b>{{ tiendaSelected.nombre }}</b></h3>
     </div>
-    <div ng-if="tiendasDisponibles.length > 1">
-      <span style="font-size: 22px">Tienda ::: </span>
-      <a href="#" style="font-size: 22px" buttons="no" onaftersave="getProductos()"
-         editable-select="tiendaSelected.id" e-ng-options="s.id as s.nombre for s in tiendasDisponibles">
-        {{ showStatus() }}
-      </a>
-    </div>
-
     <!-- DESPLIEGUE DE PRODUCTOS  -->
     <span>
       <span>
         Tienes {{productosDisponibles.length}} productos cargados en tu tienda
+
+        <button class="btn btn-black btn-sm" style="float: right" ng-click="selecciono(0)">
+          <span class="fa fa-repeat"></span>
+          Regresar
+        </button>
         <button class="btn btn-default btn-sm" style="float: right"
                 data-toggle="modal" data-target="#productoModal" >
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Producto
         </button>
+
         <br/><br/><hr/>
         <table class="table-striped table-hover" ng-show="productosDisponibles.length > 0"
                cellpadding="10" cellspacing="5" width="75%" >
           <tr>
+            <th>&nbsp;</th>
             <th>PRODUCTO</th>
             <th>PRECIO</th>
             <th>CATEGORIAS</th>
             <th>EN STOCK</th>
-            <th>&nbsp;</th>
+            <th>ACCIONES</th>
           </tr>
           <tr ng-repeat="producto in productosDisponibles" class="cursor">
+            <td><img src="/getImagen/{{producto.imagenPrincipal}}" width="40" height="40"></td>
             <td>{{producto.nombre}}</td>
             <td>{{producto.precio | currency}}</td>
             <td>{{producto.categorias}}</td>
             <td>{{producto.stock}}</td>
             <td>
-              <span class="glyphicon glyphicon-trash cursor" aria-hidden="true"></span>
-              <span class="glyphicon glyphicon-pencil cursor" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-trash cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="ELIMINAR"></span>
+              <span class="glyphicon glyphicon-pencil cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="EDITAR"></span>
+              <span class="glyphicon glyphicon-picture cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="CONFIGURAR IMAGENES"></span>
+              <span class="glyphicon glyphicon-plus cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="CONFIGURAR SUBPRODUCTOS"></span>
             </td>
           </tr>
         </table>

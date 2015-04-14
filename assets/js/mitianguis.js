@@ -117,13 +117,25 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     };
 
     $scope.logout = function(){
-          $http.get('/logout').success(function(datos){  
+          $http.get('/logout').success(function(datos){
           $window.localStorage.removeItem("usuario");
               window.location = '/';
           });
       };
 
-
+  // PARA MENU DE ADMINISTRACION
+  $rootScope.menuOptions = new Array(7);
+  for(var i = 0; i < $rootScope.menuOptions.length; i++){
+    $rootScope.menuOptions[i]={selected:"",display:'none'};
+  }
+  $rootScope.menuOptions[0]={selected:"selected",display:''};
+  $rootScope.selecciono = function( index ){
+    for(var i = 0; i < $rootScope.menuOptions.length; i++){
+      $rootScope.menuOptions[i]={selected:"",display:'none'};
+    }
+    $rootScope.menuOptions[index]={selected:"selected",display:''};
+  }
+  // *** FIN MENU DE ADMINISTRACION ***
 
 })
 /*.directive("toolbar", function( ){
