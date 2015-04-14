@@ -11220,7 +11220,7 @@ header .search-form .close-search:hover {
 .menu .catalog .submenu li a {
   display: block;
   color: #fff;
-  padding: 7px 7px 7px 10px;
+  padding: 7px 7px 7px 0px;
   font-size: 12px;
 }
 .menu .catalog-block {
@@ -11272,7 +11272,6 @@ header .search-form .close-search:hover {
 .menu .catalog li .submenu {
   position: absolute;
   top: 43px;
-  width: 740px;
   min-height: 210px;
   z-index: 10;
   background: #c1134e;

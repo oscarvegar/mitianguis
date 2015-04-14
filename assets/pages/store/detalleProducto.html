@@ -33,6 +33,10 @@
               <h1>{{selProducto.nombre}}</h1>
               <div class="old-price">{{selProducto.precioCompetencia | currency : symbol : fractionSize}}</div>
               <div class="price">{{selProducto.precio | currency : symbol : fractionSize}}</div>
+              <div id="modelos">
+                  <img class="thumbmodelo" ng-class="modelo.selected?'selected-thumbmodelo':''" ng-repeat="modelo in selProducto.subproductos" ng-src="{{modelo.imagen}}" ng-click="desSeleccionarModelos(modelo);" title="{{modelo.modelo}}">  
+              </div>
+              <div class="clear"/>
               <div class="buttons group">
                 <div class="qnt-count">
                   <a class="incr-btn" href="javascript:void(0)" ng-click="cantidad-1>0?cantidad=cantidad-1:0">-</a>

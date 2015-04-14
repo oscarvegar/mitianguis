@@ -14,7 +14,7 @@
 
 <!--
       <link rel='stylesheet' type="text/css" href='../css/fullcalendar.css'>-->
-      
+
       <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
       <link rel="stylesheet" type="text/css" href="../css/prettify.css"/>
       <link rel="stylesheet" type="text/css" href="../css/bootstrap-wysihtml5.css"/>
@@ -67,12 +67,37 @@
                   <li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li>
                   <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
                   <li class="hide-sm" ng-if="usuario === null"><a href="#/registro"><span>U</span>nete</a></li>
-                  <li class="hide-sm"><a href="#/admin" ng-if="usuario !== null"><span>A</span>dmin</a></li>
+                  <li class="hide-sm"><a href="#/admin" ng-if="usuario !== null"><span>M</span>i cuenta</a></li>
                 </ul>
               </div>
-              <div class="catalog-block">
-                <div class="container">&nbsp;</div>
+              <div class="catalog-block" style="margin: 0px;">
+                <div align="left" style="width: 100%">
+                  <table width="100%">
+                    <tr>
+                      <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
+                        <li class="has-submenu" style="text-align: left">
+                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
+                          <ul class="submenu">
+                            <li><a ng-click="selecciono(0)">Mis Tiendas</a></li>
+                            <li><a ng-click="selecciono(2)">Mis Ventas</a></li>
+                            <li><a ng-click="selecciono(3)">Mi Reputacion</a></li>
+                            <li><a ng-click="selecciono(4)">Red MiTianguis</a></li>
+                            <li><a ng-click="selecciono(5)">Movimientos</a></li>
+                            <li><a ng-click="selecciono(6)">Mi Perfil</a></li>
+                          </ul>
+                        </li>
+                      </ul></td>
+                      <td class="col-nav-admin" align="right">
+                        Mi Cuenta / {{titulo}}
+                      </td>
+                    </tr>
+                  </table>
+
+
+                </div>
+
               </div>
+
             </nav>
             <!-- FIN DE MENU PRINCIPAL -->
 
@@ -106,7 +131,7 @@
                       <th>Precio</th>
                     </tr>
                     <tr class="item" ng-repeat="pc in carrito.productosCarrito track by $index">
-                      <td><div class="delete"></div><a href="#">{{pc.producto.nombre}}</a></td>
+                      <td><div class="delete" ng-click="eliminar($index)"></div><a href="#">{{pc.producto.nombre}} {{pc.producto.modeloSelected.modelo}}</a></td>
                       <td><input type="text" ng-model="pc.cantidad" only-digits ng-blur="persist()"></td>
                       <td class="price">{{pc.producto.precio * pc.cantidad | currency : symbol : fractionSize}}</td>
                     </tr>
@@ -130,7 +155,7 @@
               </div>
             </div>
 
-           
+
         </header><!--Header Close-->
         <!--Page Content-->
         <div>
