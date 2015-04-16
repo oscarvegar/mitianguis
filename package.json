@@ -6,7 +6,7 @@
   "keywords": [],
   "dependencies": {
     "accounting": "^0.4.1",
-    "bcrypt": "^0.8.1",
+    "bcrypt-nodejs": "0.0.3",
     "bluebird": "^2.9.24",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
