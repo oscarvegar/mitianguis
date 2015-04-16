@@ -8,10 +8,14 @@ var myApp = angular.module("TianguisApp",
                                'TiendaModule',
                                'CarritoModule',
                                'ProductoModule',
-                                'TiendaAdminModule'
+                                'TiendaAdminModule',
+                                'ProductosAdminModule',
+                                'AdminService',
+                                'CheckoutModule',
+                                'VentasAdminModule'
                                ]);
 
-myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location){
+myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
 
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
@@ -21,8 +25,13 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $scope.categorias = null;
     $scope.mercante = null;
     $scope.errorLogin = false;
-    $scope.usuario = webUtil.getJSON("usuario");
-    console.log( $scope.usuario );
+
+    $rootScope.trustAsHtml = function(value) {
+      return $sce.trustAsHtml(value);
+    };
+
+    $rootScope.usuario = webUtil.getJSON("usuario");
+    console.log( $rootScope.usuario );
     // Obtener el subdominio erroneo, si existe
     var subdominioError = $location.search().subdomain;
     if(subdominioError){
@@ -59,7 +68,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
             result.data.user.mercante = resultMerca.data;
             webUtil.save("usuario", result.data.user);
             webUtil.save("email", result.data.user.username);
-            $scope.usuario = result.data.user;
+            $rootScope.usuario = result.data.user;
           });
         }else{
           $scope.errorLogin = true;
@@ -72,7 +81,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
             $scope.messageTitle = title;
             $scope.messageDescription = desc;
             switch(tipo){
-                
+
                 case 'warn':
                     $scope.alertClass = "alert-warning";
                     $scope.infoIcon = "icon-exclamation-sign";
@@ -89,9 +98,9 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
                     $scope.alertClass = "alert-success";
                     $scope.infoIcon = "icon-check-sign";
                     break;
-                    
+
             }
-            
+
             $scope.showAlert = true;
     };
 
@@ -108,7 +117,26 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
             });
     };
 
+    $scope.logout = function(){
+          $http.get('/logout').success(function(datos){
+          $window.localStorage.removeItem("usuario");
+              window.location = '/';
+          });
+      };
 
+  // PARA MENU DE ADMINISTRACION
+  $rootScope.menuOptions = new Array(7);
+  for(var i = 0; i < $rootScope.menuOptions.length; i++){
+    $rootScope.menuOptions[i]={selected:"",display:'none'};
+  }
+  $rootScope.menuOptions[0]={selected:"selected",display:''};
+  $rootScope.selecciono = function( index ){
+    for(var i = 0; i < $rootScope.menuOptions.length; i++){
+      $rootScope.menuOptions[i]={selected:"",display:'none'};
+    }
+    $rootScope.menuOptions[index]={selected:"selected",display:''};
+  }
+  // *** FIN MENU DE ADMINISTRACION ***
 
 })
 /*.directive("toolbar", function( ){
@@ -126,8 +154,10 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/mercantes', {templateUrl: 'pages/mercante.html'});
     $routeProvider.when('/producto', {templateUrl: 'pages/store/detalleProducto.html'});
     $routeProvider.when('/carrito', {templateUrl: 'pages/store/carrito.html'});
+    $routeProvider.when('/checkout', {templateUrl: 'pages/store/checkout.html'});
 
     //localStorage.clear();
+    Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
 });
 
 myApp.directive('onlyDigits', function () {
@@ -146,10 +176,103 @@ myApp.directive('onlyDigits', function () {
             return parseInt(digits,10);
           }
           return undefined;
-        }            
+        }
         ctrl.$parsers.push(inputValue);
       }
     };
 });
 
+myApp.directive('ngEnter', function() {
+  return function(scope, element, attrs) {
+    element.bind("keydown keypress", function(event) {
+      if(event.which === 13) {
+        scope.$apply(function(){
+          scope.$eval(attrs.ngEnter, {'event': event});
+        });
 
+        event.preventDefault();
+      }
+    });
+  };
+});
+
+myApp.directive('validNumberFloat', function() {
+  return {
+    require: '?ngModel',
+    link: function(scope, element, attrs, ngModelCtrl) {
+      if(!ngModelCtrl) {
+        return;
+      }
+
+      ngModelCtrl.$parsers.push(function(val) {
+        if (angular.isUndefined(val)) {
+          var val = '';
+        }
+        var clean = val.replace(/[^0-9\.]/g, '');
+        var decimalCheck = clean.split('.');
+
+        if(!angular.isUndefined(decimalCheck[1])) {
+          decimalCheck[1] = decimalCheck[1].slice(0,2);
+          clean =decimalCheck[0] + '.' + decimalCheck[1];
+        }
+
+        if (val !== clean) {
+          ngModelCtrl.$setViewValue(clean);
+          ngModelCtrl.$render();
+        }
+        return clean;
+      });
+
+      element.bind('keypress', function(event) {
+        if(event.keyCode === 32) {
+          event.preventDefault();
+        }
+      });
+    }
+  };
+});
+
+myApp.directive('richTextEditor', function() {
+  return {
+    restrict : "A",
+    require : 'ngModel',
+    replace : true,
+    transclude : true,
+    //template : '<div><textarea></textarea></div>',
+    link : function(scope, element, attrs, ctrl) {
+
+      var textarea = $("#" + element[0].id).wysihtml5({
+        "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+        "emphasis": true, //Italics, bold, etc. Default true
+        "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+        "html": false, //Button which allows you to edit the generated HTML. Default false
+        "link": true, //Button to insert a link. Default true
+        "image": false, //Button to insert an image. Default true,
+        "color": false //Button to change color of font
+      });
+
+
+      var editor = $('#' + element[0].id).data("wysihtml5").editor;
+      // view -> model
+
+      editor.on('change', function() {
+        scope.$apply(function () {
+          ctrl.$setViewValue(editor.getValue());
+        });
+        if(editor.getValue()) {
+          ctrl.$setValidity('required', true);
+        }else{
+          ctrl.$setValidity('required', false);
+        }
+      });
+
+      // model -> view
+      ctrl.$render = function() {
+        textarea.html(ctrl.$viewValue);
+        editor.setValue(ctrl.$viewValue);
+      };
+
+      ctrl.$render();
+    }
+  };
+});

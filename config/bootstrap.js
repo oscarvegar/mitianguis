@@ -146,8 +146,65 @@ module.exports.bootstrap = function(cb) {
                                             youtube:'https://www.youtube.com/watch?v=ZkE3gr5EDs0',
                                             tienda:newTienda
                                         }];
+
+
+                                      
+
+
+
                                     Producto.create(productos).exec(function(err,productos){
-                                        //console.log(productos);
+                                        console.log("PRODUCTOS ERR > > > > > > > > ",err);
+                                        console.log("PRODUCTOS > > > > > > > > ",productos);
+
+                                          Venta.create({
+                                        folio:222,
+                                        tienda:newTienda,
+                                        cliente:userNew,
+                                        totalEnvio:4,
+                                        totalVenta:200,
+                                        calificacion:9,
+                                        status:1
+
+                                        }).exec(function(err,newVenta){
+                                            console.log(newVenta);
+                                            console.log(err);
+                                            var productosVenta = [{
+                                            venta:newVenta,
+                                            producto:productos[0],
+                                            precioVenta:productos[0].precio,
+                                            cantidad:3,
+                                            subtotal:productos[0].precio*3,
+                                            subtotalEnvio:20
+                                        },{
+                                             venta:newVenta,
+                                            producto:productos[1],
+                                            precioVenta:productos[1].precio,
+                                            cantidad:2,
+                                            subtotal:productos[1].precio*2,
+                                            subtotalEnvio:20
+                                        },{
+                                            venta:newVenta,
+                                            producto:productos[2],
+                                            precioVenta:productos[2].precio,
+                                            cantidad:2,
+                                            subtotal:productos[2].precio,
+                                            subtotalEnvio:20
+                                        },{
+                                             venta:newVenta,
+                                            producto:productos[3],
+                                            precioVenta:productos[3].precio,
+                                            cantidad:2,
+                                            subtotal:productos[3].precio,
+                                            subtotalEnvio:20
+                                        }];
+
+                                        ProductosVenta.create(productosVenta).exec(function(err,productosVenta){
+
+                                        });
+
+
+                                           
+                                        });
                                     });
                                     createdMerc.tiendas = [newTienda];
                                     //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> AQUI ESTA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
@@ -184,7 +241,7 @@ module.exports.bootstrap = function(cb) {
 	                         });
                         });
 
-                        User.create({username:'oscarm@mitianguis.com', email:'oscarm@miianguis.com', password:'oscarm'})
+                        User.create({username:'oscarm@mitianguis.com', email:'oscarm@mitianguis.com', password:'oscarm'})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'García', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){

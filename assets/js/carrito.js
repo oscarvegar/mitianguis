@@ -2,21 +2,27 @@ angular.module("CarritoModule",[])
 .controller('CarritoCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope){
 	$scope.showATC = false;
 	$scope.init = function(){
-		/*****SI EL USUARIO HIZO LOGIN*****
-		$http.get('/carrito/current')
-		.success(function(data){
-
-		}).error(function(err){
-
-		})/
-		/*** SI EL USUARIO NO HA HECHO LOGIN *****/
-		$rootScope.carrito = webUtil.getJSON("carrito");
-		if($rootScope.carrito===null){
-			$rootScope.carrito = {};
-			$rootScope.carrito.productosCarrito = [];
-		}
 		
-
+		if($rootScope.usuario){
+			/*****SI EL USUARIO HIZO LOGIN*****/
+			$http.get('/carrito/current')
+			.success(function(data){
+				$rootScope.carrito = data;
+				if($rootScope.carrito===null){
+					$rootScope.carrito = {};
+					$rootScope.carrito.productosCarrito = [];
+				}	
+			}).error(function(err){
+				console.log(err);
+			})
+		}else{
+			/*** SI EL USUARIO NO HA HECHO LOGIN *****/
+			$rootScope.carrito = webUtil.getJSON("carrito");
+			if($rootScope.carrito===null){
+				$rootScope.carrito = {};
+				$rootScope.carrito.productosCarrito = [];
+			}
+		}
 	}
 
 	$scope.addToCart = function(item,_cantidad){
@@ -37,12 +43,19 @@ angular.module("CarritoModule",[])
 	}
 
 	$scope.findItemInCarrito = function(itemSearch){
+		console.log("findItemInCarrito")
 		for(var i in $rootScope.carrito.productosCarrito){
 			var item = $rootScope.carrito.productosCarrito[i];
-			console.log("CURR ITEM",item)
-			console.log("itemSearch",itemSearch)
 			if(item.producto.id === itemSearch.id){
-				return i;
+				if(item.subproductos && item.subproductos.length>0){
+					console.log("TIENE subproductos")
+					if(item.modeloSelected.modelo == itemSearch.modeloSelected.modelo){
+						return i;
+					}
+					return -1;
+				}else{
+					return i;
+				}
 			}
 		}
 		return -1;

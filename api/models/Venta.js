@@ -15,14 +15,28 @@ module.exports = {
   	cliente:{
   		model:'user'
   	},
-  	productosVenta:{
-  		collection:'productosventa',
-  		via:'venta'
-  	},
   	totalEnvio:'float',
   	totalVenta:'float',
   	calificacion:'integer',
-  	status:'integer'
+  	status:'integer',
+    productosVenta:{
+      collection:'productosventa',
+      via:'venta'
+    },
+    /* DATOS VENTA */
+    nombre:'string',
+    telefono:'string',
+    apellidoPaterno:'string',
+    apellidoMaterno:'string',
+    calle:'string',
+    colonia:'string',
+    municipio:'string',
+    ciudad:'string',
+    estado:'string',
+    mensajes:'array',
+    conektaToken:'string',
+    conektaInfo:'object',
+
   	//TODO CUPONES
   }
 };

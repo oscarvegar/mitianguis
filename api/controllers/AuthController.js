@@ -29,7 +29,8 @@ module.exports = {
 
 	logout : function(req, res) {
 		req.logout();
-		res.send('logout successful');
+		req.session.destroy();
+		res.send({message : 'Logout successful'});
 	}
 
 };

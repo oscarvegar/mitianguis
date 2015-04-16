@@ -1,0 +1,264 @@
+<div class="post" ng-controller="ProductosAdminController">
+  <link rel="stylesheet" type="text/css" href="../../css/productos.css">
+  <div>
+    <div>
+      <h3>Tienda Seleccionada:::  <b>{{ tiendaSelected.nombre }}</b></h3>
+    </div>
+    <!-- DESPLIEGUE DE PRODUCTOS  -->
+    <span>
+      <span>
+        Tienes {{productosDisponibles.length}} productos cargados en tu tienda
+
+        <button class="btn btn-black btn-sm" style="float: right" ng-click="selecciono(0)">
+          <span class="fa fa-repeat"></span>
+          Regresar
+        </button>
+        <button class="btn btn-default btn-sm" style="float: right"
+                data-toggle="modal" data-target="#productoModal" >
+          <span class="glyphicon glyphicon-plus"></span>
+          Agregar Producto
+        </button>
+
+        <br/><br/><hr/>
+        <table class="table-striped table-hover" ng-show="productosDisponibles.length > 0"
+               cellpadding="10" cellspacing="5" width="75%" >
+          <tr>
+            <th>&nbsp;</th>
+            <th>PRODUCTO</th>
+            <th>PRECIO</th>
+            <th>CATEGORIAS</th>
+            <th>EN STOCK</th>
+            <th>ACCIONES</th>
+          </tr>
+          <tr ng-repeat="producto in productosDisponibles" class="cursor">
+            <td><img src="{{producto.imagenPrincipal}}" width="40" height="40">
+
+            </td>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.precio | currency}}</td>
+            <td>{{producto.categorias}}</td>
+            <td>{{producto.stock}}</td>
+            <td>
+              <span class="glyphicon glyphicon-trash cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="ELIMINAR"></span>
+              <span class="glyphicon glyphicon-pencil cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="EDITAR"></span>
+              <span class="glyphicon glyphicon-picture cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="CONFIGURAR IMAGENES"></span>
+              <span class="glyphicon glyphicon-plus cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="CONFIGURAR SUBPRODUCTOS"></span>
+            </td>
+          </tr>
+        </table>
+      </span>
+
+    </span>
+
+
+
+    <div class="modal fade" id="productoModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              <i class="fa fa-times"></i>
+            </button>
+            <span class="cs-heading"><b style="font-size: 18px;"> Nuevo Producto</b> </span>
+            <br/>
+            <span class="tenue" >Los campos marcados con * son obligatorios.</span>
+          </div>
+          <div  class="modal-body">
+            <form class="form-horizontal" name="form" role="form"
+                  ng-submit="registrarProducto(form.$valid)"  novalidate>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Nombre*</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="nombre" name="nombre"
+                         ng-model="producto.nombre" placeholder="Escribe el nombre del producto"
+                         ng-required="true">
+                  <span style="color:maroon" ng-show="form.nombre.$dirty && form.nombre.$invalid">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span ng-show="form.nombre.$error.required">El nombre del producto es requerido.</span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Descripción*</label>
+                <div class="col-sm-10">
+                  <textarea id="descripcion" name="descripcion" class="form-control"
+                            ng-model="producto.descripcion" rich-text-editor
+                            placeholder="Escriba la descripción de su producto"
+                            ng-required="true"></textarea>
+                  <span style="color:maroon" ng-show="form.descripcion.$dirty && form.descripcion.$invalid">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span ng-show="form.descripcion.$error.required">La descripción del producto es requerido.</span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Descripción Corta</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="descripconCorta" name="descripconCorta"
+                         ng-model="producto.descripcionCorta"
+                         placeholder="Escribe la descripcion corta del producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Precio*</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="precio" name="precio" ng-required="true"
+                         ng-model="producto.precio" placeholder="Escribe el precio del producto"
+                         valid-number-float>
+                  <span style="color:maroon" ng-show="form.precio.$dirty && form.precio.$invalid">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span ng-show="form.precio.$error.required">El precio del producto es requerido.</span>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Categorias</label>
+                <div class="col-sm-10">
+                  <table width="100%">
+                    <tr>
+                      <td width="85%"><input type="text" class="form-control" id="categoria" name="categoria"
+                                 ng-model="categoriaElegida" placeholder="Escribe la categoria asociada al producto"
+                                 ng-enter="agregaCategoria( )"></td>
+                      <td width="5%">&nbsp;</td>
+                      <td>
+                        <div class="btn-mt">
+                          <span id="qcf-btn"><i class="glyphicon glyphicon-plus"
+                                ng-click="agregaCategoria( )"></i></span>
+                      </td>
+                    </tr>
+                  </table>
+                  <span style="font-size: 11px;">Nota: Escribe la categoria en formato HashTag, Ej. <i><b>#electronica, #dvd, etc</b> </i></span>
+                  <div ng-repeat="categoria in categorias">
+                    <div style="float: left">
+                      <span class="label label-default">{{categoria}}</span>
+                      <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
+                            ng-click="removerCategoria($index);"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Stock</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="stock" name="stock" only-digits
+                         ng-model="producto.stock" placeholder="Escribe la cantidad de productos disponibles a vender">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">SKU</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="sku" name="sku"
+                         ng-model="producto.sku" placeholder="Escribe el SKU de producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Precio Mayoreo</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="precioMayoreo" name="precioMayoreo" valid-number-float
+                         ng-model="producto.precioMayoreo" placeholder="Escribe el precio de mayoreo del producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Cantidad de Mayoreo</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="cantidadMayoreo" name="cantidadMayoreo" only-digits
+                         ng-model="producto.cantidadMayoreo" placeholder="Escribe la cantidad de mayoreo del producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">informacion Extra</label>
+                <div class="col-sm-10">
+                  <textarea id="infoExtra" class="textarea form-control"
+                            placeholder="Escriba informacion adicional sobre su producto (Tallas, capacidad, etc.)"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Garantia</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="garantia" name="garantia"
+                         ng-model="producto.garantia" placeholder="Escribe la garantia del producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Peso</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="peso" name="peso" valid-number-float
+                         ng-model="producto.peso" placeholder="Escribe el peso del producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Ancho</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="ancho" name="ancho" valid-number-float
+                         ng-model="producto.ancho" placeholder="Escribe el ancho del producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Alto</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="alto" name="alto" valid-number-float
+                         ng-model="producto.alto" placeholder="Escribe el alto del producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Largo</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="largo" name="largo" valid-number-float
+                         ng-model="producto.largo" placeholder="Escribe el largo del producto">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Imagen Principal</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control" id="imgPrincipal" name="imgPrincipal"
+                         nv-file-select uploader="imgPrincipalUpload" >
+                </div>
+                <span style="color:maroon" ng-show="msgErrorImgPrincipal != ''">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <span>{{msgErrorImgPrincipal}}</span>
+                </span>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Imagenes Secundarias</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control" id="imgSecu" name="imgSecu"
+                         nv-file-select uploader="imgSecundariasUpload">
+                  <span style="font-size: 11px;">Nota: Se pueden agregar mas de una imagen.</span><br/>
+                  <span style="color:maroon" ng-show="msgErrorImgSecundaria != ''">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span>{{msgErrorImgSecundaria}}</span>
+                  </span>
+                  <div style="width: 100%" ng-repeat="item in imgSecundariasUpload.getNotUploadedItems()">
+                    <div style="width: 200px;">
+                      <span class="label label-default" style="width: 150px;">{{item.file.name}}</span>
+                      <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
+                            ng-click="removerArchivoImagen(item);"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Especifica ciones</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control" id="fileEspec" name="fileEspec"
+                         nv-file-select uploader="fileUpload">
+                  <span style="color:maroon" ng-show="msgErrorArchivo != ''">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span>{{msgErrorArchivo}}</span>
+                  </span>
+                </div>
+              </div>
+              <input class="btn btn-black" ng-disabled="form.$invalid" type="submit" value="Aceptar" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

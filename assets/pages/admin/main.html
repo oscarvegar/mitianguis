@@ -1,75 +1,22 @@
 <div ng-controller="AdminController">
-  <!--Blog Sidebar Left-->
-  <br/><br/><br/><br/>
-  <section class="blog">
-    <div class="container">
-      <h2> Personaliza y administra tu tienda </h2>
-      <div class="row">
-        <!--Sidebar-->
-        <div class="col-lg-3 col-md-3" style="position: relative; top:-23px">
-          <section class="filter-section tech-specs">
-            <div id="menuTiendas" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[0]"
-                 ng-click="selecciono(0)">
-              <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <p class="p-style2">Mis Tiendas</p>
-                </div>
-              </div>
-            </div>
-            <div id="menuVentas" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[1]"
-                 ng-click="selecciono(1)">
-              <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <p class="p-style2">Mis Ventas</p>
-                </div>
-              </div>
-            </div>
-            <div id="menuReputacion" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[2]"
-                 ng-click="selecciono(2)">
-              <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <p class="p-style2">Mi Reputación</p>
-                </div>
-              </div>
-            </div>
-            <div id="menuRed" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[3]"
-                 ng-click="selecciono(3)">
-              <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <p class="p-style2">Red MiTianguis</p>
-                </div>
-              </div>
-            </div>
-            <div id="menuMovimientos" class="item cursor" style="padding: 5px;"
-                 ng-class="menuOptions[4]"
-                 ng-click="selecciono(4)">
-              <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-8">
-                  <p class="p-style2">Movimientos</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
+ <!--Blog Sidebar Left-->
+ <br/><br/><br/><br/>
+ <section class="blog">
+   <div class="container">
+   <br/>
+     <div>
+       <tiendas style="display:{{menuOptions[0].display}}"></tiendas>
+       <productos style="display:{{menuOptions[1].display}};"></productos>
+       <ventas style="display:{{menuOptions[2].display}};"></ventas>
+     </div>
+   </div>
+ </section><!--Blog Sidebar Left Close-->
 
-        <!--Left Column-->
-        <div>
-          <tiendas></tiendas>
-
-        </div>
-      </div>
-    </div>
-  </section><!--Blog Sidebar Left Close-->
-
-  <!--Brands Carousel Widget-->
-  <section class="brand-carousel">
-    <div class="container">
-      <h2>¿Algo mas para poner?</h2>
-    </div>
-  </section>
+ <!--Brands Carousel Widget-->
+ <section class="brand-carousel">
+   <div class="container">
+    <h2>¿Algo mas para poner?</h2>
+   </div>
+ </section>
 
 </div>

@@ -12,21 +12,26 @@
       <meta name="author" content="Oscar" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+<!--
+      <link rel='stylesheet' type="text/css" href='../css/fullcalendar.css'>-->
+
       <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
-      <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.min.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/prettify.css"/>
       <link rel="stylesheet" type="text/css" href="../css/bootstrap-wysihtml5.css"/>
+      <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.min.css"/>
       <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
       <link rel="icon" href="../favicon.ico" type="image/x-icon" />
       <link href="../masterslider/style/masterslider.css" rel="stylesheet" media="screen" />
       <link href="../css/styles.css" rel="stylesheet" media="screen" />
       <link rel="stylesheet" type="text/css" href="../css/mitianguis.css"/>
       <link rel="stylesheet" type="text/css" href="../css/gridcustom.css"/>
-
+      <link rel="stylesheet" type="text/css" href="../css/xeditable.css"/>
       <script src="../js/libs/modernizr.custom.js"></script>
       <!--Adding Media Queries Support for IE8-->
       <!--[if lt IE 9]>
         <script src="../js/plugins/respond.js"></script>
       <![endif]-->
+    
     </head>
 
     <!--Body-->
@@ -62,12 +67,37 @@
                   <li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li>
                   <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
                   <li class="hide-sm" ng-if="usuario === null"><a href="#/registro"><span>U</span>nete</a></li>
-                  <li class="hide-sm"><a href="#/admin" ng-if="usuario !== null"><span>A</span>dmin</a></li>
+                  <li class="hide-sm"><a href="#/admin" ng-if="usuario !== null"><span>M</span>i cuenta</a></li>
                 </ul>
               </div>
-              <div class="catalog-block">
-                <div class="container">&nbsp;</div>
+              <div class="catalog-block" style="margin: 0px;">
+                <div align="left" style="width: 100%">
+                  <table width="100%">
+                    <tr>
+                      <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
+                        <li class="has-submenu" style="text-align: left">
+                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
+                          <ul class="submenu">
+                            <li><a ng-click="selecciono(0)">Mis Tiendas</a></li>
+                            <li><a ng-click="selecciono(2)">Mis Ventas</a></li>
+                            <li><a ng-click="selecciono(3)">Mi Reputacion</a></li>
+                            <li><a ng-click="selecciono(4)">Red MiTianguis</a></li>
+                            <li><a ng-click="selecciono(5)">Movimientos</a></li>
+                            <li><a ng-click="selecciono(6)">Mi Perfil</a></li>
+                          </ul>
+                        </li>
+                      </ul></td>
+                      <td class="col-nav-admin" align="right">
+                        Mi Cuenta / {{titulo}}
+                      </td>
+                    </tr>
+                  </table>
+
+
+                </div>
+
               </div>
+
             </nav>
             <!-- FIN DE MENU PRINCIPAL -->
 
@@ -82,13 +112,14 @@
                   <span class="login-btn" ng-if="usuario !== null">
                     <span style="color: black;font-size: 11px;"><b>B</b>ienvendo {{usuario.username}}</span>
                   </span>
-                  <div class="cart-btn" style="visibility: hidden;width: 10px" >
-                    <a class="btn" >&nbsp;</a>
-                  </div><!--Cart Dropdown Close-->
+
+                  <span class="login-btn btn-outlined-invert" ng-if="usuario !== null" href="#" ng-click="logout()"><i class="icon-profile"></i>
+                    <span style="color: black;font-size: 13px;"><b>C</b>errar Sesión</span>
+                  </span>
 
               <div class="cart-btn" ng-controller="CarritoCtrl">
                 <a class="btn btn-outlined-invert" href="/store#/carrito"><i class="icon-shopping-cart-content"></i><span>{{carrito.totalItems}}</span><b>{{carrito.total | currency : symbol : fractionSize}}</b></a>
-              
+
               <!--Cart Dropdown-->
                 <div class="cart-dropdown" >
                 <span></span><!--Small rectangle to overlap Cart button-->
@@ -100,12 +131,12 @@
                       <th>Precio</th>
                     </tr>
                     <tr class="item" ng-repeat="pc in carrito.productosCarrito track by $index">
-                      <td><div class="delete"></div><a href="#">{{pc.producto.nombre}}</a></td>
+                      <td><div class="delete" ng-click="eliminar($index)"></div><a href="#">{{pc.producto.nombre}} {{pc.producto.modeloSelected.modelo}}</a></td>
                       <td><input type="text" ng-model="pc.cantidad" only-digits ng-blur="persist()"></td>
                       <td class="price">{{pc.producto.precio * pc.cantidad | currency : symbol : fractionSize}}</td>
                     </tr>
-                    
-                  </table> 
+
+                  </table>
                 </div>
                 <div class="footer group" ng-show="carrito.productosCarrito.length > 0">
 
@@ -119,11 +150,11 @@
                 </div>
                 </div><!--Cart Dropdown Close-->
             </div>
-
                   <button class="search-btn btn-outlined-invert"><i class="icon-magnifier"></i></button>
                 </div><!--Toolbar Close-->
               </div>
             </div>
+
 
         </header><!--Header Close-->
         <!--Page Content-->
@@ -224,8 +255,8 @@
                       <span ng-show="loginForm2.logEmail2.$invalid && !loginForm2.logEmail2.$error.required">Tu correo electrónico es inválido.</span>
                     </span>
                   </div>
-                
-                  
+
+
                   <input class="btn btn-black" ng-disabled="loginForm2.$invalid" type="submit" value="Enviar" />
                 </form>
               </div>
@@ -234,16 +265,33 @@
         </div><!-- /.modal -->
 
         <!-- Librerias -->
+        <script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"></script>
+
         <script src="../js/angular-1.3.8/angular.min.js"></script>
         <script src="../js/angular-1.3.8/angular-animate.js"></script>
         <script src="../js/angular-1.3.8/angular-route.min.js"></script>
+
+        <script src="../js/plugins/wysihtml5-0.3.0.js"></script>
 
         <script src="../js/libs/jquery-1.11.1.min.js"></script>
         <script src="../js/libs/jquery-ui-1.10.4.custom.min.js"></script>
         <script src="../js/libs/jquery.easing.min.js"></script>
 
+
+
+
+<!--
+        <script src='../js/libs/fullcalendar.min.js'></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+            <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.js"></script> -->
+
+        <script src="../js/plugins/prettify.js"></script>
+
+
         <script src="../js/plugins/angular-file-upload.js"></script>
-        <script src="../js/plugins/wysihtml5-0.3.0.js"></script>
+
         <script src="../js/plugins/bootstrap.min.js"></script>
         <script src="../js/plugins/smoothscroll.js"></script>
         <script src="../js/plugins/jquery.validate.min.js"></script>
@@ -256,7 +304,7 @@
         <script src="../js/plugins/owl.carousel.min.js"></script>
         <script src="../js/plugins/masterslider.min.js"></script>
         <script src="../js/plugins/bootstrap3-wysihtml5.js"></script>
-
+        <script src="../js/plugins/xeditable.js"></script>
         <script src="../js/scripts.js"></script>
         <script src="../js/constants.js"></script>
         <script src="../js/webUtil.js"></script>
@@ -264,21 +312,27 @@
         <script src="../js/registro.js"></script>
 
 
+        <!-- Services AngularJS -->
+        <script src="../js/services/AdminService.js"></script>
+
         <!-- Archivos de JS en Administracion de MiTianguis -->
         <script src="../js/admin/tiendas.js"></script>
+        <script src="../js/admin/productos.js"></script>
+        <script src="../js/admin/ventas.js"></script>
         <script src="../js/admin.js"></script>
         <script src="../js/menu.js"></script>
         <script src="../js/carrusel.js"></script>
         <script src="/js/carrito.js"></script>
         <script src="../js/producto.js"></script>
         <script src="../js/store.js"></script>
+        <script src="../js/checkout.js"></script>
 
 
         <script src="../js/mitianguis.js"></script>
 
-       
+
           <script src="//localhost:35729/livereload.js"></script>
-       
+
 
     </body><!--Body Close-->
 </html>

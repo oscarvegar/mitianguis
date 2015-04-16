@@ -2,6 +2,10 @@
     display: none;
 }
 
+.mostrar{
+  display: table;
+}
+
 .form-group .help-block {
   display: none;
 }
@@ -12,6 +16,12 @@
 
 .cursor {
   cursor: pointer;
+}
+
+.link{
+  color: darkblue;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .selected{
@@ -31,7 +41,6 @@
 	padding-top:100px;
 }
 
-<<<<<<< Updated upstream
 .reviewTable table{
  	border-spacing: 10px;
     border-collapse: separate;
@@ -46,8 +55,6 @@
 	width: 30px;
 	height: 30px;
 }
-
-
 
 .sample-show-hide {
   -webkit-transition:all linear 0.5s;
@@ -66,6 +73,63 @@
 .bordeHover:hover{
   border-color: black;
   cursor: pointer;
+}
 
+/*****************************/
 
+.btn-mt span {
+  display: block;
+  float: left;
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  font-size: 1.375em;
+  color: #fff;
+  background: #292c2e;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  padding-top: 7px;
+  margin: 0 7px;
+  cursor: pointer;
+  -webkit-transition: background 0.3s;
+  -moz-transition: background 0.3s;
+  transition: background 0.3s;
+}
+.btn-mt span:hover {
+  background: #000000;
+}
+.btn-mt span#scrollTop-btn {
+  padding-top: 5px;
+}
+.btn-mt #qcf-btn.active {
+  -webkit-border-radius: 0 0 0px 0px !important;
+  -moz-border-radius: 0 0 0px 0px !important;
+  border-radius: 0 0 0px 0px !important;
+}
+
+.white{
+  color: white;
+  font-weight: normal;
+}
+.black{
+  color: black;
+  font-weight: normal;
+}
+.col-nav-admin{
+  color: #faebcc;font-size: 17px;font-weight: bolder;padding-right: 80px;
+}
+.thumbmodelo{
+  width: 50px;
+  height:50px;
+  float:left;
+  margin-left:15px;
+}
+.selected-thumbmodelo{
+  border: solid;
+  border-color: red;
+}
+
+.clear{
+  clear: both;
 }
