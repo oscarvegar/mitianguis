@@ -9,14 +9,14 @@
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 var moment = require('moment'),
-	MongoClient = require('mongodb').MongoClient
+	MongoClient = require('mongodb').MongoClient;
 
 module.exports.bootstrap = function(cb) {
 
     Mercante.findOne({codigoMercante:'24201314227'}).exec(function(err,found){
         if(err){return res.json(400,err)}
         if(found == null){
-            var newMer = {}
+            var newMer = {};
             //newMer.id = "54840ad65c75f70000a5e879";
             newMer.name="SYSTEM";
             newMer.tipo=-2000;
@@ -30,7 +30,7 @@ module.exports.bootstrap = function(cb) {
             	newMer.usuario = userCreated;
             	Mercante.create(newMer).exec(function(err,created){
             		if(err){return console.log(err)}
-	                console.log(created)
+	                console.log(created);
 	                Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:created})
 	                .exec(function(err,cCar){
 	                	console.log(cCar);
@@ -158,9 +158,15 @@ module.exports.bootstrap = function(cb) {
 
                         User.create({username:'danielm@mitianguis.com', email:'danielm@mitianguis.com', password:'danielm'})
                         .exec( function(err, userNew){
-	                         Mercante.create({nombre:'Jose Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos', mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date(),usuario:userNew})
+	                         Mercante.create({nombre:'José Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos', mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date(),usuario:userNew})
 	                         .exec(function(err,createdMerc){
-	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
+                               ConektaToken.create({ conektaToken: 'tok_test_visa_4242', mercante: createdMerc }).exec(function(err,cCon) {
+                                 console.log(cCon);
+                                 Mercante.update({id: cCon.mercante}, {conektaToken: cCon}).exec(function(err, uMer) {
+                                   console.log(uMer);
+                                 });
+                               });
+	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar) {
 	                                 console.log(cCar);
 
 	                             });
@@ -180,7 +186,7 @@ module.exports.bootstrap = function(cb) {
 
                         User.create({username:'oscarm@mitianguis.com', email:'oscarm@miianguis.com', password:'oscarm'})
                         .exec( function(err, userNew){
-	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'Unknown', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(), usuario:userNew})
+	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'García', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
