@@ -30,8 +30,8 @@
                       <th>Cambiar Estatus</th>
                     </tr>
                     <!--Item-->
-                    <tr class="item first"  ng-repeat="productoVenta in misventas" >
-                      <td class="name"><a href="shop-single-item-v1.html">{{productoVenta.value}}</a></td>
+                    <tr class="item first"  ng-repeat="productoVenta in ventas" >
+                      <td class="name"><a href="shop-single-item-v1.html">{{productoVenta.nombre}}</a></td>
                       <td class="qnt-count">
                         <input class="quantity form-control" type="text" value="{{productoVenta.cantidad}}">
                       </td>
@@ -54,7 +54,7 @@
                       <th>Cambiar Estatus</th>
                     </tr>
                     <!--Item-->
-                    <tr class="item first"  ng-repeat="productoVenta in misventas" >
+                    <tr class="item first"  ng-repeat="productoVenta in ventas" >
                       <td class="name"><a href="shop-single-item-v1.html">{{productoVenta.producto.nombre}}</a></td>
                       <td class="qnt-count">
                         <input class="quantity form-control" type="text" value="{{productoVenta.cantidad}}">
@@ -78,7 +78,7 @@
                       <th>Estatus</th>
                     </tr>
                     <!--Item-->
-                    <tr class="item first"  ng-repeat="productoVenta in misventas" >
+                    <tr class="item first"  ng-repeat="productoVenta in ventas" >
                       <td class="name"><a href="shop-single-item-v1.html">{{productoVenta.producto.nombre}}</a></td>
                       <td class="qnt-count">
                         <input class="quantity form-control" type="text" value="{{productoVenta.cantidad}}">
@@ -100,7 +100,7 @@
                       <th>Estatus</th>
                     </tr>
                     <!--Item-->
-                    <tr class="item first"  ng-repeat="productoVenta in misventas" >
+                    <tr class="item first"  ng-repeat="productoVenta in ventas" >
                       <td class="name"><a href="shop-single-item-v1.html">{{productoVenta.producto.nombre}}</a></td>
                       <td class="qnt-count">
                         <input class="quantity form-control" type="text" value="{{productoVenta.cantidad}}">
