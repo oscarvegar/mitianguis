@@ -21,9 +21,9 @@
       <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.min.css"/>
       <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
       <link rel="icon" href="../favicon.ico" type="image/x-icon" />
-      <link href="../masterslider/style/masterslider.css" rel="stylesheet" media="screen" />
       <link href="../css/styles.css" rel="stylesheet" media="screen" />
-      <link rel="stylesheet" type="text/css" href="../css/mitianguis.css"/>
+      <link href="../masterslider/style/masterslider.css" rel="stylesheet" media="screen" />
+      <link rel="stylesheet" type="text/css" href="../css/mitianguis.css" media="screen" />
       <link rel="stylesheet" type="text/css" href="../css/gridcustom.css"/>
       <link rel="stylesheet" type="text/css" href="../css/xeditable.css"/>
       <script src="../js/libs/modernizr.custom.js"></script>
@@ -31,7 +31,7 @@
       <!--[if lt IE 9]>
         <script src="../js/plugins/respond.js"></script>
       <![endif]-->
-    
+
     </head>
 
     <!--Body-->
@@ -58,13 +58,13 @@
             <!--Mobile Menu Toggle-->
             <div class="menu-toggle"><i class="fa fa-list"></i></div>
             <div class="container">
-                <a class="logo" href="index.html" ><span style="font-size:250%">MiTianguis</span></a>
+              <h2 class="logo"><a  href="/store#/" >MiTianguis</a></h2>
             </div>
             <!--  MENU PRINCIPAL -->
             <nav class="menu">
               <div class="container">
                 <ul class="main">
-                  <li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li>
+                  <!--li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li-->
                   <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
                   <li class="hide-sm" ng-if="usuario === null"><a href="#/registro"><span>U</span>nete</a></li>
                   <li class="hide-sm"><a href="#/admin" ng-if="usuario !== null"><span>M</span>i cuenta</a></li>

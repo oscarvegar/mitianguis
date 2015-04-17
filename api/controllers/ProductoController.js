@@ -81,13 +81,26 @@ module.exports = {
     });
   },
 
-	productoByTienda:function(req,res){
-		var idTienda = req.allParams().id;
-		Producto.find({tienda:idTienda}).exec(function(err,data){
-			console.log(data)
-			res.json(data)
-		});
-	},
+  productoByTienda:function(req,res){
+    var idTienda = req.allParams().id;
+    Producto.find({tienda:idTienda}).exec(function(err,data){
+      console.log(data)
+      res.json(data)
+    });
+  },
+
+  productoByTiendaCategorias:function(req,res){
+    var peticion = req.allParams();
+    Producto.find({tienda:peticion.id,"$or": [
+      {"categorias": peticion.categoria },
+      {"categorias": "#PS4" }
+    ]}).then(function(data){
+      console.log(data)
+      res.json(data)
+    }).catch(function(err){
+      console.log(err);
+    });
+  },
 
 	findById:function(req,res){
 		var idProducto = req.allParams().id;

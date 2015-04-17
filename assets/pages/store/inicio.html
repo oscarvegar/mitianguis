@@ -1,19 +1,24 @@
-<div class="page-content"  ng-controller="TiendaCtrl">
-	<carrusel></carrusel>
-	<section class="cat-tiles">
+<div class="page-content"  ng-controller="TiendaCtrl" >
+  <div ng-if="productos==null || productos.length==0" ng-cloak class="ng-cloak" style="text-align: center">
+    <br><br><br>
+    <h1>Esta Tienda está en construcción. Próximamente será la inauguración.<br><br>Espérala...</h1>
+    <br>
+  </div>
+  <carrusel ng-show="productos.length>0"></carrusel>
+	<section class="cat-tiles" ng-show="productos.length>0">
       	<div class="container">
         	<h2>Categorías {{categorias.length}}</h2>
         	<div class="row">
           	<!--Category-->
           	<div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" ng-repeat="cat in categorias" style="height:40px;">
-            	<a href="#">
+            	<a href="javascript:void(0)" ng-click="buscaCategoria(cat)">
                 <p>{{cat}}</p>
               </a>
             </div>
           </div>
         </div>
       </section>
-	<section class="catalog-grid">
+	    <section class="catalog-grid" ng-show="productos.length>0">
       	<div class="container">
         	<h2 class="dark-color">Productos</h2>
           <div class="row">
@@ -30,13 +35,14 @@
                 </a>
                 <div class="footer">
                 	<a>{{prod.descripcionCorta}}</a>
-                  
+
                   <button class="btn btn-primary">Añadir al carrito</button>
                 </div>
               </div>
             </div>
-            
+
           </div>
-         
+        </div>
+
       </section>
 </div>
