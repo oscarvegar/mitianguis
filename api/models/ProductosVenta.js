@@ -17,7 +17,10 @@ module.exports = {
 		precioVenta:'float',
 		cantidad:'int',
 		subtotal:'float',
-		subtotalEnvio:'float'
+		subtotalEnvio:'float',
+		modeloSelected:{
+			model:'subproducto'
+		}
 	}
 };
 

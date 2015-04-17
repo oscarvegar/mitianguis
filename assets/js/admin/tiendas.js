@@ -2,7 +2,7 @@
  * Created by oscar on 26/03/15.
  */
 var tiendaModule = angular.module("TiendaAdminModule",["angularFileUpload", "AdminService"]);
-tiendaModule.controller("TiendaController", function($scope, $http, FileUploader, $tiendaService){
+tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, FileUploader, $tiendaService){
   var tiendaCtrl = this;
   tiendaCtrl.origin = webUtil.getOrigin();
   tiendaCtrl.isDetalle = false;
@@ -62,6 +62,7 @@ tiendaModule.controller("TiendaController", function($scope, $http, FileUploader
     var maxItems = tiendaCtrl.uploader.getNotUploadedItems().length;
     var itemIndex = maxItems - 1;
     if(tiendaCtrl.isNuevaTienda) {
+      tiendaCtrl.tienda.logo = tiendaCtrl.origin;
       tiendaCtrl.uploader.formData = [{tienda: tiendaCtrl.tienda}];
       item = tiendaCtrl.uploader.getNotUploadedItems()[itemIndex];
     } else {
@@ -69,6 +70,7 @@ tiendaModule.controller("TiendaController", function($scope, $http, FileUploader
       item = tiendaCtrl.uploaderEdit.getNotUploadedItems()[itemIndex];
     }
     if (item) {
+      tiendaCtrl.tienda.logo = tiendaCtrl.origin;
       item.formData = [{tienda: JSON.stringify(tiendaCtrl.tienda)}];
       if(tiendaCtrl.isNuevaTienda) {
         tiendaCtrl.uploader.onCompleteAll = function () {
@@ -99,6 +101,12 @@ tiendaModule.controller("TiendaController", function($scope, $http, FileUploader
       $('#tiendaDelModal').modal('hide');
       tiendaCtrl.getTiendas()
     });
+  }
+
+  tiendaCtrl.goDetalle = function(tiendabd){
+    $rootScope.tiendaSelected = tiendabd;
+    $rootScope.selecciono(1);
+    $scope.isVistaDetalle = true;
   }
 
   tiendaCtrl.getTiendas();

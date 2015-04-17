@@ -2,10 +2,10 @@
 <section class="shopping-cart" ng-controller="CarritoCtrl">
         <div class="container">
           <div class="row">
-          
+
             <!--Items List-->
             <div class="col-lg-9 col-md-9">
-              <h2 class="title">Carrito de Compras</h2>
+              <h1 class="title">Carrito de Compras</h1>
               <h1 ng-show="carrito.productosCarrito.length == 0">No tienes productos en tu carrito!</h1>
               <table class="items-list" ng-show="carrito.productosCarrito.length > 0">
                 <tr>
@@ -17,7 +17,8 @@
                 </tr>
                 <!--Item-->
                 <tr class="item first" ng-repeat="item in carrito.productosCarrito">
-                  <td class="thumb"><a href="/store#/producto?p={{item.producto.id}}"><img ng-src="{{item.producto.imagenPrincipal}}" alt="Lorem ipsum"/></a></td>
+                  <td class="thumb"><a href="/store#/producto?p={{item.producto.id}}">
+                    <img ng-src="{{item.producto.subproductos && item.producto.subproductos.length>0?item.modeloSelected.imagen:item.producto.imagenPrincipal}}" alt="Lorem ipsum"/></a></td>
                   <td class="name"><a href="/store#/producto?p={{item.producto.id}}">{{item.producto.nombre}}</a></td>
                   <td class="price">{{item.producto.precio | currency : symbol : fractionSize}}</td>
                   <td class="qnt-count">
@@ -28,10 +29,26 @@
                   <td class="total">{{item.producto.precio * item.cantidad | currency : symbol : fractionSize}}</td>
                   <td class="delete" ng-click="eliminar($index)"><i class="icon-delete" ></i></td>
                 </tr>
-               
+
               </table>
+              <hr ng-show="carrito.productosCarrito.length > 0">
+              <section ng-show="carrito.productosCarrito.length > 0"  >
+                <h3>Haz una pregunta al vendedor.</h3>
+                <div>
+                  <textarea class="form-control" style="float: left;width: 70%" ng-model="pregunta"></textarea>
+                  <a style="float: right;width: 20%" href="javascript:void(0)" ng-click="agregarPregunta()" class="btn" name="to-checkout">Preguntar</a>
+                </div>
+                <div class="clear"></div>
+                <br>
+                <div ng-repeat="msg in carrito.preguntas track by $index">
+                  {{msg.creador}}   <a style="font-size: smaller">{{msg.createdAt | date:'MM/dd/yyyy @ h:mma'}}</a> <br>
+                  {{msg.contenido}}
+                  <br><hr>
+                </div>
+
+              </section>
             </div>
-            
+
             <!--Sidebar-->
             <div class="col-lg-3 col-md-3" ng-show="carrito.productosCarrito.length > 0">
               <h3>Totales de Compra</h3>
@@ -62,10 +79,10 @@
                   </div>
                    </div>
                   <input type="submit" class="btn btn-primary btn-sm btn-block" name="update-cart" value="Update shopping cart"-->
-                 
+
                   <a href="/store#/checkout" class="btn btn-black btn-block" name="to-checkout">Comprar</a>
                 </div>
-                
+
                 <a class="panel-toggle" href="#calc-shipping"><h3>Calcular Envío</h3></a>
                 <div class="hidden-panel calc-shipping" id="calc-shipping">
                   <div class="form-group">
@@ -90,8 +107,11 @@
                   </div>
                   <input type="submit" class="btn btn-primary btn-sm btn-block" name="update-totals" value="Update totals">
                 </div>
+
+
               </form>
             </div>
           </div>
+
         </div>
       </section><!--Shopping Cart Close-->

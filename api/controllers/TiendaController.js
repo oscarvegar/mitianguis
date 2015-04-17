@@ -35,7 +35,7 @@ module.exports = {
         var indexDiag = archivo.fd.lastIndexOf("/");
         var nombreArchivo = archivo.fd.substring(indexDiag + 1);
         console.log("nombre de archivo:: " + nombreArchivo);
-        data.logo = nombreArchivo;
+        data.logo += "/getImagen/" + nombreArchivo;
         Tienda.create(data).exec(function (err, newTienda) {
           if (err) {
             console.log(err);
@@ -47,7 +47,7 @@ module.exports = {
       });
     } else {
       data = request.allParams();
-      data.logo = ImagenService.IMAGE_NOT_FOUND;
+      data.logo += "/getImagen/" + ImagenService.IMAGE_NOT_FOUND;
       Tienda.create(data).exec(function (err, newTienda) {
         if (err) {
           console.log(err);

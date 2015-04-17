@@ -13,7 +13,7 @@ module.exports = {
   },
   findByUrlMercante:function(request, response){
     var data = request.allParams();
-    //console.log("Data for request find mercante::: " + data + "--" + JSON.stringify(data) );
+    console.log("Data for request find mercante::: " + data + "--" + JSON.stringify(data) );
     Tienda.findOne({url:data.urlMercante}).populate('mercante').exec( function(err, found){
       if(err){return response.json(400,err)}
       if( found ){
@@ -29,6 +29,7 @@ module.exports = {
     console.log("username: " + data.username);
     User.findOne({username:data.username}).exec(function(err,user){
       console.log("usuario encontrado >> " + user + "  :::: " + JSON.stringify(user));
+      if(!user)return response.json(404,{code:-1,msg:"Mercante no encontrado"})
       Mercante.findOne({usuario:user.id}).exec(function( err, found ){
         console.log("found mercante >> " + found );
         console.log("err mercante >> " + err );

@@ -1,56 +1,162 @@
 <div class="post" ng-controller="ProductosAdminController">
   <link rel="stylesheet" type="text/css" href="../../css/productos.css">
-  <div ng-if="tiendasDisponibles.length == 0">
-    Para agregar productos, primero debes de crear una
-    <span ng-click="selecciono(0)" class="link">tienda</span>
-  </div>
-  <div ng-show="tiendasDisponibles.length > 0">
-    <div ng-if="tiendasDisponibles.length === 1">
-      <h3>Tienda :::  <b>{{ tiendaSelected.nombre }}</b></h3>
+  <div>
+    <div>
+      <h2>Tienda:::  <b>{{ tiendaSelected.nombre }}</b></h2>
     </div>
-    <div ng-if="tiendasDisponibles.length > 1">
-      <span style="font-size: 22px">Tienda ::: </span>
-      <a href="#" style="font-size: 22px" buttons="no" onaftersave="getProductos()"
-         editable-select="tiendaSelected.id" e-ng-options="s.id as s.nombre for s in tiendasDisponibles">
-        {{ showStatus() }}
-      </a>
-    </div>
-
     <!-- DESPLIEGUE DE PRODUCTOS  -->
-    <span>
+    <span style="display:{{vistas[0]}}">
       <span>
         Tienes {{productosDisponibles.length}} productos cargados en tu tienda
+
+        <button class="btn btn-black btn-sm" style="float: right" ng-click="selecciono(0)">
+          <span class="fa fa-repeat"></span>
+          Regresar
+        </button>
         <button class="btn btn-default btn-sm" style="float: right"
                 data-toggle="modal" data-target="#productoModal" >
           <span class="glyphicon glyphicon-plus"></span>
           Agregar Producto
         </button>
+
         <br/><br/><hr/>
         <table class="table-striped table-hover" ng-show="productosDisponibles.length > 0"
-               cellpadding="10" cellspacing="5" width="75%" >
+               cellpadding="10" cellspacing="5" width="100%" >
           <tr>
+            <th>&nbsp;</th>
             <th>PRODUCTO</th>
             <th>PRECIO</th>
             <th>CATEGORIAS</th>
             <th>EN STOCK</th>
-            <th>&nbsp;</th>
+            <th>ACCIONES</th>
           </tr>
           <tr ng-repeat="producto in productosDisponibles" class="cursor">
+            <td style="vertical-align: middle" align="center">
+              <img src="{{producto.imagenPrincipal}}" width="40" height="40">
+            </td>
             <td>{{producto.nombre}}</td>
             <td>{{producto.precio | currency}}</td>
-            <td>{{producto.categorias}}</td>
+            <td>{{formatoCategoria(producto.categorias)}}</td>
             <td>{{producto.stock}}</td>
             <td>
-              <span class="glyphicon glyphicon-trash cursor" aria-hidden="true"></span>
-              <span class="glyphicon glyphicon-pencil cursor" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-trash cursor" aria-hidden="true"
+                    data-toggle="modal" data-placement="bottom" title="ELIMINAR"
+                    data-target="#productoDelModal" ng-click="setProductoSelected(producto)" ></span>
+              <span class="glyphicon glyphicon-pencil cursor" aria-hidden="true"
+                    data-toggle="modal" data-placement="bottom" title="EDITAR"
+                    data-target="#productoModal" ng-click="setAsNuevoProducto(false, producto)"></span>
+              <span class="glyphicon glyphicon-picture cursor" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="CONFIGURAR IMAGENES"
+                    ng-click="setProductoSelected(producto);initImagenes();setView(1);"></span>
+              <span class="glyphicon glyphicon-plus cursor" aria-hidden="true"
+                    title="CONFIGURAR SUBPRODUCTOS"
+                    ng-click="setProductoSelected(producto);setView(2);"
+                    data-toggle="tooltip" data-placement="bottom"></span>
             </td>
           </tr>
         </table>
       </span>
-
     </span>
 
+    <!-- DESPLIEGUE DE IMAGENES Y ARCHIVOS -->
+    <div style="display:{{vistas[1]}}">
+      <h4>
+        PERSONALIZA TUS IMAGENES Y ARCHIVOS DE <b><i>{{productoSelected.nombre.toUpperCase()}}</i></b>
+        <button class="btn btn-black btn-sm" style="float: right;position: relative;top:-5px;font-size: 15px;"
+                ng-click="setView(0)">
+          <span class="fa fa-repeat"></span>
+          Regresar
+        </button>
+      </h4>
+      <hr/>
+      <h4> IMAGEN PRINCIPAL </h4>
+      <div class="thumbnail" style="height: 200px;width: 300px;margin: 0px;">
+        <h4 class="fondoMiTianguis" style="text-align: center;margin: 0px;">IMAGEN PRINCIPAL</h4>
+        <div align="center">
+          <div class="img-wrap">
+            <span id="btnBorrarImgPrincipal" class="close" ng-click="viewDialogDelArchivo(IMAGEN_PRINCIPAL,null);">
+              <i class="glyphicon glyphicon-remove"></i>
+            </span>
+            <span class="edit" ng-click="prepararCambiarImagenPrincipal();"><i class="fa fa-edit"></i></span>
+            <img ng-if="productoSelected.imagenPrincipal"
+                 src="{{productoSelected.imagenPrincipal}}" width="100%"
+                 style="height: 180px;max-height: 180px; min-height: 180px;">
+          </div>
+        </div>
+      </div>
 
+      <br/><hr/>
+      <h4> IMAGENES SECUNDARIAS </h4>
+      <div class="row">
+        <div class="span3" ng-repeat="imagenSecu in imagenesSecundariasTemp" >
+          <div class="thumbnail" style="height: 200px;width: 280px;"
+               ng-show="$index <= (imagenesSecundariasTemp.length - 2)"  >
+            <h4 class="fondoMiTianguis" style="text-align: center;margin: 0px;">{{$index + 1}} - IMAGEN SECUNDARIA</h4>
+            <div align="center" style="margin: 0px;width: 100%;height: 100%">
+              <div class="img-wrap" style="margin: 0px;">
+                <span id="btnBorrarSecundaria" class="close confirmation-callback"
+                      ng-click="viewDialogDelArchivo(IMAGEN_SECUNDARIA,$index);">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </span>
+                <span class="edit" ng-click="prepararCambiarImagenSecundria($index);"><i class="fa fa-edit"></i></span>
+                  <img src="{{imagenSecu}}" width="100%" height="200"
+                       style="height: 180px;max-height: 180px; min-height: 180px;"
+                       alt="Imagen Principal"   >
+              </div>
+            </div>
+          </div>
+          <div class="thumbnail" ng-if="$index === (imagenesSecundariasTemp.length - 1)"
+               style="height: 200px;" ng-click="tiendaCtrl.setAsNuevaTienda(true, null)">
+            <h4>&nbsp;</h4>
+            <div align="center">
+              <span data-toggle="modal" data-target="#tiendaModal"
+                    ng-click="prepararCambiarImagenSecundria(null);">
+                <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
+                     style="width: 110px;height: 110px" >
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br/><hr/>
+      <h4> ARCHIVOS </h4>
+      <div class="row">
+        <div class="span3" ng-repeat="archivo in archivosTemp" >
+          <div class="thumbnail" style="height: 200px;width: 280px;" ng-show="$index <= (archivosTemp.length - 2)">
+            <h4 class="fondoMiTianguis" style="text-align: center;margin: 0px;">{{$index + 1}} - ARCHIVOS</h4>
+            <div align="center" style="margin: 0px;width: 100%;height: 100%">
+              <div class="img-wrap" style="margin: 0px;">
+                <span class="close" ng-click="viewDialogDelArchivo(ARCHIVO,$index);"><i class="glyphicon glyphicon-remove"></i></span>
+                <span class="edit"><i class="fa fa-edit"></i></span>
+                <img src="{{archivo.url}}" width="100%" height="200" style="margin: 0px;"
+                     alt="Archivo">
+              </div>
+            </div>
+          </div>
+          <div class="thumbnail" ng-if="$index === (archivosTemp.length - 1)"
+               style="height: 200px;" ng-click="tiendaCtrl.setAsNuevaTienda(true, null)">
+            <h4>&nbsp;</h4>
+            <div align="center">
+              <span data-toggle="modal" data-target="#tiendaModal"  >
+                <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
+                     style="width: 110px;height: 110px" >
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div style="display:{{vistas[2]}}">
+      MODELOS
+
+    </div>
+
+    <!-- MODALES -->
 
     <div class="modal fade" id="productoModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
@@ -59,7 +165,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
               <i class="fa fa-times"></i>
             </button>
-            <span class="cs-heading"><b style="font-size: 18px;"> Nuevo Producto</b> </span>
+            <span class="cs-heading"><b style="font-size: 18px;"> {{titulo}}</b> </span>
             <br/>
             <span class="tenue" >Los campos marcados con * son obligatorios.</span>
           </div>
@@ -129,7 +235,7 @@
                   </table>
                   <span style="font-size: 11px;">Nota: Escribe la categoria en formato HashTag, Ej. <i><b>#electronica, #dvd, etc</b> </i></span>
                   <div ng-repeat="categoria in categorias">
-                    <div style="float: left">
+                    <div class="left">
                       <span class="label label-default">{{categoria}}</span>
                       <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
                             ng-click="removerCategoria($index);"></span>
@@ -207,7 +313,7 @@
                          ng-model="producto.largo" placeholder="Escribe el largo del producto">
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-show="isNuevoProducto">
                 <label class="col-sm-2 control-label">Imagen Principal</label>
                 <div class="col-sm-10">
                   <input type="file" class="form-control" id="imgPrincipal" name="imgPrincipal"
@@ -218,7 +324,7 @@
                   <span>{{msgErrorImgPrincipal}}</span>
                 </span>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-show="isNuevoProducto">
                 <label class="col-sm-2 control-label">Imagenes Secundarias</label>
                 <div class="col-sm-10">
                   <input type="file" class="form-control" id="imgSecu" name="imgSecu"
@@ -237,7 +343,7 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-show="isNuevoProducto">
                 <label class="col-sm-2 control-label">Especifica ciones</label>
                 <div class="col-sm-10">
                   <input type="file" class="form-control" id="fileEspec" name="fileEspec"
@@ -255,6 +361,88 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="productoDelModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="fa fa-times"></i>
+          </button>
+          <h2>ELIMINAR PRODUCTO</h2>
+        </div>
+        <div  class="modal-body">
+          ¿Esta seguro que desea borrar el producto seleccionado? Tus Clientes potenciales ya no podrán verlo.
+        </div>
+        <div  class="modal-footer">
+          <input class="btn btn-primary" type="button" value="Si" ng-click="borrarProducto();" />
+          <input class="btn btn-black" type="button" value="No" data-dismiss="modal" />
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade" id="archivoDelModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="fa fa-times"></i>
+          </button>
+          <h2>{{dlgTitulo}}</h2>
+        </div>
+        <div  class="modal-body">
+          {{dlgMensaje}}
+        </div>
+        <div  class="modal-footer">
+          <input class="btn btn-primary" type="button" value="Si" ng-click="borrarArchivoDetalle();" />
+          <input class="btn btn-black" type="button" value="No" data-dismiss="modal" />
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+  <div class="modal fade" id="prodCambiaImgModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form class="form-horizontal" name="formImg" role="form"
+              ng-submit="cambiarImagen()"  novalidate>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              <i class="fa fa-times"></i>
+            </button>
+            <h2>CAMBIAR IMAGEN</h2>
+          </div>
+          <div  class="modal-body">
+            <label>Selecciona una Imagen</label><br/>
+            <input type="file" class="form-control" name="imagen-producto"
+                   ng-if="infoProducto.tipoArchivo === 'ImagenPrincipal'"
+                   nv-file-select uploader="imgPrincipalUpload" >
+            <input type="file" class="form-control" name="imagen-producto"
+                   ng-if="infoProducto.tipoArchivo === 'ImagenSecundaria'"
+                   nv-file-select uploader="cambiarArchivoUpload" >
+            <div style="color:maroon" ng-show="msgErrorImgPrincipal != ''">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <span>{{msgErrorImgPrincipal}}</span>
+            </div>
+            <div style="color:maroon" ng-show="msgErrorCamiarArchivo != ''">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <span>{{msgErrorCamiarArchivo}}</span>
+            </div>
+
+          </div>
+          <div  class="modal-footer">
+            <input class="btn btn-primary" type="submit" value="Si" />
+            <input class="btn btn-black" type="button" value="No" data-dismiss="modal" />
+          </div>
+        </form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+
 </div>
 
 

@@ -39,7 +39,12 @@ module.exports = {
 		facebook:'string',
 		youtube:'string', //canal de youtube
 		telefono:'string',
-		direccion:'string'
+		direccion:'string'/*,
+
+    conektaToken: {
+      model: 'conektaToken',
+      via: 'mercante'
+    }*/
 	}
 
 

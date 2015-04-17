@@ -9,6 +9,17 @@ angular.module("ProductoModule",[])
 		console.log("DATA PARAM",params.p);
 		$http.get('/producto/'+params.p).success(function(data){
 			$scope.selProducto = data;
+			if($scope.selProducto.subproductos && $scope.selProducto.subproductos.length>0){
+				for(var i in $scope.selProducto.subproductos){
+					if($scope.selProducto.subproductos[i].stock<1){
+						$scope.selProducto.subproductos.splice(i,1);
+					}
+				}
+				$scope.selProducto.precio = $scope.selProducto.subproductos[0].precio;
+				$scope.selProducto.stock = $scope.selProducto.subproductos[0].stock;
+				$scope.selProducto.modeloSelected = $scope.selProducto.subproductos[0];
+				$scope.selProducto.subproductos[0].selected = true;
+			}
 			$scope.descripcionProductoHTML = $sce.trustAsHtml($scope.selProducto.descripcion);
 			$scope.selImagen = $scope.selProducto.imagenPrincipal;
 			$scope.imagenes = [{src:$scope.selProducto.imagenPrincipal,mainClass:'ms-sl-selected',thumbClass:'ms-thumb-frame-selected'}];
@@ -53,11 +64,24 @@ angular.module("ProductoModule",[])
 	}
 
 	$scope.range = function(min, max, step){
-    step = step || 1;
-    var input = [];
-    for (var i = min; i <= max; i += step) input.push(i);
-    return input;
-  };
+	    step = step || 1;
+	    var input = [];
+	    for (var i = min; i <= max; i += step) input.push(i);
+	    return input;
+
+
+  	};
+
+ 	$scope.desSeleccionarModelos = function(modelo){
+		for(var i in $scope.selProducto.subproductos){
+			$scope.selProducto.subproductos[i].selected = false;
+		}
+		$scope.selProducto.precio = modelo.precio;
+		$scope.selProducto.stock = modelo.stock;
+		$scope.selProducto.modeloSelected = modelo;
+		console.log($scope.selProducto.modeloSelected.id)
+		modelo.selected = true;
+	}
 	
 
 });

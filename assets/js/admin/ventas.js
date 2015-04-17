@@ -1,78 +1,67 @@
-/*
-  tiendaCtrl.consultarVentas = function(){
-    console.log("Consulta Ventas");
-    console.log(tiendaCtrl.venta);
-     console.log(tiendaCtrl.venta.fechaInicial);
-     console.log(tiendaCtrl.venta.fechaFinal);
+/**
+ * Created by oscarm on 13/04/15.
+ */
+var module = angular.module("VentasAdminModule",[]);
 
-      var anio = tiendaCtrl.venta.fechaInicial.substring(0,4);
-      var mes = tiendaCtrl.venta.fechaInicial.substring(5,7);
-      var dia = tiendaCtrl.venta.fechaInicial.substring(8,10);
-      var aniofin = tiendaCtrl.venta.fechaFinal.substring(0,4);
-      var mesfin = tiendaCtrl.venta.fechaFinal.substring(5,7);
-      var diafin = tiendaCtrl.venta.fechaFinal.substring(8,10);
-      mes = parseInt(mes)-1;
-      mesfin =parseInt(mesfin)-1;
-      diafin =parseInt(diafin)+1;
+module.controller("VentasAdminController", function($window,$scope, $http){
 
-      var fechaInicial = new Date(anio,mes,dia-1);
-      var fechaFinal= new Date(aniofin,mesfin,diafin);
+//data-ng-init="init()" ng-click="tabChange($event)"
+  $scope.init = function(){
+      console.log("Inicio");
 
-console.log(fechaInicial);
-console.log(fechaFinal);
+      console.log("Tienda");
 
+      var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
 
-      $http.get("/misventas/" +fechaInicial.getTime() +'/'+ fechaFinal.getTime()).then(function(result){
-      tiendaCtrl.misventas = result.data;
+      $http.get("/misventas/"+usuario.id).then(function(result){
+      $scope.misventas = result.data;
      
-     console.log("Termino Consulta Ventas");
-      console.log(  tiendaCtrl.misventas);
+      console.log("Termino Consulta Ventas");
+      console.log(  $scope.misventas);
+      console.log($scope.misventas[0].value[0].precioVenta);
+
+      $scope.ventas = new Array();
+      for(var i=0;i<$scope.misventas.length;i++){
+        for(var j=0;j<$scope.misventas[i].value.length;j++){
+          
+                 $scope.ventas.push({
+                   "nombre": $scope.misventas[i].value[j].producto.nombre,
+                   "cantidad":$scope.misventas[i].value[j].cantidad,
+                   "subtotal": $scope.misventas[i].value[j].precioVenta,
+                   "totalVenta": $scope.misventas[i].value[j].subtotal
+                 });
+          }
+      }
+
+      console.log( $scope.ventas );
     });
+  }
 
+  $scope.init();
 
+  $scope.tabSelected = "#tab1";
+
+  $scope.tabChange = function(e){
+      if (e.target.nodeName === 'A') {
+          $scope.tabSelected = e.target.getAttribute("href");
+          e.preventDefault();
+      }
   }
 
 
-    
 
-  tiendaModule.directive('uiDatepicker', function ($parse) {
+  $scope.consultarVentas = function(){
 
-    console.log("Entra directiva");
-      return function (scope, element, attrs, controller) {
 
-      var ngModel = $parse(attrs.ngModel);
+/*
+      $http.get("/misventas").then(function(result){
+      $scope.misventas = result.data;
+     
+     console.log("Termino Consulta Ventas");
+      console.log(  $scope.misventas);
+    });
+*/
 
-      $parse.fechaMax = new Date(); 
-    $parse.fechaMinIni = new Date($parse.fechaMax.getFullYear(), $parse.fechaMax.getMonth()-1, $parse.fechaMax.getDate());
-          $(function(){
-              element.datepicker({
-                  changeYear:true,
-                  changeMonth:true,
-                  dateFormat:'yy-mm-dd',
-                 // minDate: $parse.fechaMinIni,
-                  maxDate: $parse.fechaMax,
-                  yearRange: '1920:new Date().getFullYear()',
-                   beforeShow: function(input,instance) {
-                        var oldMethod = $.datepicker._generateMonthYearHeader;
-                        $.datepicker._generateMonthYearHeader = function(){
-                            var html = $("<div />").html(oldMethod.apply(this,arguments));
-                            var monthselect = html.find(".ui-datepicker-month");
-                            monthselect.insertAfter(monthselect.next());
-                            return html.html();
-                        }
-                    },
-                    onSelect:function (dateText, inst) {
+  }
 
-                        scope.$apply(function(scope){
-                            
-                            $('#fechaFinal').datepicker('option','minDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
-                            var toDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);//Date one month after selected date
-                            var oneDay = new Date(toDate.getTime()+86400000);
-                           // document.getElementById('end_date').value =$.datepicker.formatDate('dd/mm/yy', oneDay);
-                            ngModel.assign(scope, dateText);
-                        });
-                    }
-              });
-          });
-      }
-  });*/
+});

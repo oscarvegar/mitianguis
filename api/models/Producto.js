@@ -34,13 +34,19 @@ module.exports = {
 		ancho:'float',
 		alto:'float',
 		largo:'float',
-		status:'int', //-1:eliminado,0:inactivo,1:activo
+    status: {
+      type: 'integer',
+      defaultsTo : 1  //-1:eliminado,0:inactivo,1:activo
+    },
 		imagenesSecundarias: 'array', //strings de urls ['url1','url2']
 		imagenPrincipal:'string',
 		archivos:'array', //[{nombre:string,url:string,etc...}]
 		visitas:'int',
 		ratings:'array', //[{stars:int,comentario:string}]
-    subproductos:'array', //[{modelo:string, imagen:string, precio:float, stock:integer}]
+    	subproductos:{
+    		collection:'subproducto',
+    		via:'producto'
+    	}, //[{modelo:string, imagen:string, precio:float, stock:integer}]
 		categorias:'array', //['#hashtag1','#hashtag2']
 		isPrincipal:'boolean',
 		youtube:'string',

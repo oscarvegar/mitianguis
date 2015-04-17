@@ -6,7 +6,7 @@
  }
 .center{text-align:center}
 /* Sections------------------------- */
-#bodySection{padding: 21px 0 0; text-align:center}
+#bodySection{padding: 1px 0 0; text-align:center}
 #bodySection .thumbnail{overflow:hidden;}
 #bodySection .thumbnail h3,  #bodySection .thumbnail h4, #bodySection .thumbnail h4
 { margin:-4px -4px 4px; line-height:44px; }

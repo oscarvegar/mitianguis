@@ -1,18 +1,18 @@
 <!--Carruel inclide-->
 <section class="hero-slider" ng-controller="CarruselCtrl">
     <div class="master-slider" id="hero-slider" ng-show="productosPrincipales.length>0">
-        <!--Slide 1--> 
-        <div class="ms-slide" data-delay="7" ng-repeat="prod in productosPrincipales">
-            
-            <img ng-src="{{prod.imagenPrincipal}}" alt=""/>
-            <h2 style="width: 456px; left: 110px; top: 110px;" class="ms-layer ms-layer btn btn-primary" data-effect="top(50,true)" data-duration="700" 
+        <!--Slide 1-->
+        <div class="ms-slide"  ng-repeat="prod in productosPrincipales">
+            <img ng-src="{{prod.imagenPrincipal}}" alt="" >
+
+            <h2 style="width: 456px; left: 110px; top: 110px;" class="ms-layer ms-layer btn btn-primary" data-effect="top(50,true)" data-duration="700"
                 data-delay="250" data-ease="easeOutQuad">{{prod.nombre}}</h2>
-            
-            <!--div style="left: 110px; top: 300px;" class="ms-layer button" data-effect="left(50,true)" data-duration="500" data-delay="750" 
+
+            <!--div style="left: 110px; top: 300px;" class="ms-layer button" data-effect="left(50,true)" data-duration="500" data-delay="750"
                  data-ease="easeOutQuad"><a class="btn btn-black" href="#">Go to catalog</a></div-->
             <div style="left: 350px; top: 300px;" class="ms-layer button" data-effect="bottom(50,true)" data-duration="700" data-delay="950"
-                 data-ease="easeOutQuad"><a class="btn btn-primary" href="#">Ver mas...</a></div>
+                 data-ease="easeOutQuad"><a class="btn btn-primary" ng-href="/store#/producto?p={{prod.id}}">Ver mas...</a></div>
         </div>
-        
+
     </div>
 </section>
