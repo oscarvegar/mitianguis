@@ -1,6 +1,6 @@
 angular.module("TiendaModule",[])
 .controller('TiendaCtrl', function($scope,$http,$location){
-	
+
 	$scope.productos = [];
 	$scope.categorias = [];
 	console.log("SELPRODUCTO INI >>>>> ",$scope.selProducto);
@@ -8,12 +8,12 @@ angular.module("TiendaModule",[])
 	$http.get('/producto/productoByTienda/'+$scope.tienda.id)
 	.success(function(data){
 		console.log(data)
-		$scope.productos = data; 
+		$scope.productos = data;
 	})
 	$http.get('/categoria/categoriasByTienda/'+$scope.tienda.id)
 	.success(function(data){
 		console.log(data)
-		$scope.categorias = data; 
+		$scope.categorias = data;
 	})
 
 	$scope.seleccionarProducto = function(prod){
@@ -23,4 +23,10 @@ angular.module("TiendaModule",[])
 		console.log($location.url())
 		$location.url("/producto?p="+prod.id)
 	}
+
+    $scope.buscaCategoria = function(cat){
+      $http.post('/producto/productoByTiendaCategorias',{id:$scope.tienda.id,categoria:{contains:cat}}).success(function(data){
+        $scope.productos = data;
+      })
+    }
 })

@@ -8,7 +8,7 @@ carruselModule.controller("CarruselCtrl", function($scope, $http,$timeout,$sce){
 	$http.get('/producto/productoPrincipalByTienda/'+$scope.tienda.id)
 	.success(function(data){
 		console.log(data)
-		$scope.productosPrincipales = data; 
+		$scope.productosPrincipales = data;
 		$timeout(function() {
 			/*Hero Slider
 			*******************************************/
@@ -23,18 +23,19 @@ carruselModule.controller("CarruselCtrl", function($scope, $http,$timeout,$sce){
 						speed: 18,
 						autoplay: true,
 						loop: true,
-						layout: 'fullwidth',
+            layout: 'fullwidth',
 						preload:'all',
+            fillMode:'stretch',
 						view:'basic',
 						instantStartLayers: true
 				});
 			}
 		}, 10);
-		
-	
-		
+
+
+
 	})
-    
+
 	/*Hero Fullscreen Slider
 	*******************************************/
 	if( !$('#fullscreen-slider') && $('#fullscreen-slider').length > 0) {
@@ -49,13 +50,13 @@ carruselModule.controller("CarruselCtrl", function($scope, $http,$timeout,$sce){
 				autoplay: true,
 				loop: true,
 				layout: 'fullscreen',
-				fullscreenMargin: 116,
+				fullscreenMargin: 0,
 				preload:'all',
 				view:'mask',
 				instantStartLayers: true
 		});
 	}
-    
+
 })
 .directive("carrusel", function( ){
         return {
