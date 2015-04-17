@@ -5,7 +5,7 @@ angular.module("TiendaModule",[])
 	$scope.categorias = [];
 	console.log("SELPRODUCTO INI >>>>> ",$scope.selProducto);
 	$scope.tienda = webUtil.getJSON("tienda");
-	$http.get('/producto/productoByTienda/'+$scope.tienda.id)
+	$http.get('/producto/productoByTienda/' + $scope.tienda.id)
 	.success(function(data){
 		console.log(data)
 		$scope.productos = data;

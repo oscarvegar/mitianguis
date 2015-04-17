@@ -66,6 +66,8 @@ module.exports.routes = {
   'POST /registraProducto':'ProductoController.registraProducto',
   'POST /actualizarProducto':'ProductoController.actualizarProducto',
   'POST /guardarArchivoProducto':'ProductoController.guardarArchivo',
+  'POST /borrarProducto':'ProductoController.borrarProducto',
+  'POST /carmbiarArchivo':'ProductoController.carmbiarArchivo',
 
   /*** FUNCIONES GENERALES ***/
   'GET /getImagen/:imagen':'ImagenController.getImagen',

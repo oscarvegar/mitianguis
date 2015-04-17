@@ -26,6 +26,8 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $scope.mercante = null;
     $scope.errorLogin = false;
 
+    $rootScope.menuAccionOn = false;
+
     $rootScope.trustAsHtml = function(value) {
       return $sce.trustAsHtml(value);
     };
@@ -42,7 +44,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     //if(subdominio !== "http://") {
 	    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
 	    .then(function(result) {
-        //console.log( JSON.stringify(result.data.mercante) );
+        console.log( "Mercante obtenido del subdominio :: " + subdominio + " >> "  +  JSON.stringify(result) );
         if ( result.data == null ) {
 	    		window.location.href = constants.DOMAIN + "pages/#/?subdomain=" + subdominio;
 	    	} else if ( result.data.mercante.mentor ) {
@@ -157,7 +159,10 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/checkout', {templateUrl: 'pages/store/checkout.html'});
 
     //localStorage.clear();
-    Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
+    //Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
+
+
+
 });
 
 myApp.directive('onlyDigits', function () {
@@ -231,7 +236,7 @@ myApp.directive('validNumberFloat', function() {
     }
   };
 });
-
+/*
 myApp.directive('richTextEditor', function() {
   return {
     restrict : "A",
@@ -240,7 +245,6 @@ myApp.directive('richTextEditor', function() {
     transclude : true,
     //template : '<div><textarea></textarea></div>',
     link : function(scope, element, attrs, ctrl) {
-
       var textarea = $("#" + element[0].id).wysihtml5({
         "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
         "emphasis": true, //Italics, bold, etc. Default true
@@ -250,11 +254,8 @@ myApp.directive('richTextEditor', function() {
         "image": false, //Button to insert an image. Default true,
         "color": false //Button to change color of font
       });
-
-
       var editor = $('#' + element[0].id).data("wysihtml5").editor;
       // view -> model
-
       editor.on('change', function() {
         scope.$apply(function () {
           ctrl.$setViewValue(editor.getValue());
@@ -275,4 +276,4 @@ myApp.directive('richTextEditor', function() {
       ctrl.$render();
     }
   };
-});
+});*/
