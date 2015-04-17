@@ -130,11 +130,34 @@ module.exports = {
 	},
 		misVentas:function(request, response){
 	    console.log("*************** CONSULTA MIS VENTAS **************");
-	    var data = request.allParams();
-	    
-	    ProductosVenta.find().populate('producto').populate('venta').exec(function(err,productos){
-	         return response.json(productos);
-	    });
+	    	var data =request.allParams().id;
+			     Venta.find({cliente:data,status:1}).then(function(ventas){
+			      if(ventas){
+			        if(ventas.length>0){
+			     		var productos = [];
+						 for(var i=0;i<ventas.length;i++){	
+							productos.push(
+								 ProductosVenta.find().where({venta:ventas[i].id}).populate('producto').populate('venta')
+							);
+						}
+						Q.all(productos)
+						.allSettled(productos).then(function(results) {
+							response.json(results);
+					  	}).catch(function(err,err2){
+					  		console.log(err)
+					  		console.log(err2)
+					  	});
+			        }else{
+			          return response.json(ventas);
+			        }
+			      }else{
+			        return response.json(ventas);
+			      }
+			    }).catch(function(err){
+			      sails.log.error(err)
+			      return response.json(500,"ERROR EN SERVIDOR")
+			    });
+
 
   }
 
