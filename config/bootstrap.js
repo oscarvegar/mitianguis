@@ -148,7 +148,7 @@ module.exports.bootstrap = function(cb) {
                                         }];
 
 
-                                      
+
 
 
 
@@ -203,7 +203,7 @@ module.exports.bootstrap = function(cb) {
                                         });
 
 
-                                           
+
                                         });
                                     });
                                     createdMerc.tiendas = [newTienda];
@@ -264,7 +264,22 @@ module.exports.bootstrap = function(cb) {
             });
     });
 
-
+    TipoTransaccion.find().exec(function(err, found) {
+      if(!found || found.length === 0) {
+        TipoTransaccion.create({ordinal: 1, descripcion: 'Retiro', codigo: 'RET'}).exec(function(err, cTipoTrans) {
+          console.log(cTipoTrans);
+        });
+        TipoTransaccion.create({ordinal: 2, descripcion: 'Pago', codigo: 'PAG'}).exec(function(err, cTipoTrans) {
+          console.log(cTipoTrans);
+        });
+        TipoTransaccion.create({ordinal: 3, descripcion: 'Cargo Mensualidad', codigo: 'CAR_MENS'}).exec(function(err, cTipoTrans) {
+          console.log(cTipoTrans);
+        });
+        TipoTransaccion.create({ordinal: 4, descripcion: 'Deposito Comisión', codigo: 'DEP_COM'}).exec(function(err, cTipoTrans) {
+          console.log(cTipoTrans);
+        });
+      }
+    });
 
 
 
