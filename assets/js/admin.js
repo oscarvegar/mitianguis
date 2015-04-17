@@ -3,6 +3,12 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
   $rootScope.titulo = "Mis Tiendas";
   $rootScope.tiendaSelected = null;
   $scope.isVistaDetalle = false;
+  $rootScope.menuAccionOn = true;
+  $("#menuAccion").css("display","");
+  $scope.$on("$destroy", function() {
+    $rootScope.menuAccionOn = false;
+  });
+
 })
 .directive("tiendas", function( ){
   return {

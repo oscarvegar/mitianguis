@@ -1,14 +1,14 @@
 <div class="post" ng-controller="TiendaController as tiendaCtrl">
-  <span class="p-style3">
+  <span class="p-style3"><br/>
     <section id="bodySection">
       <div class="container">
+        <h3 align="left">&nbsp;&nbsp; Aqui puedes personalizar tus Tiendas de MiTianguis </h3>
         <div class="row">
           <div class="span3" ng-repeat="tiendabd in tiendaCtrl.mistiendas">
             <div class="thumbnail" ng-if="tiendabd.nombre!=='Nuevo'" style="height: 200px;cursor: pointer;"
                  ng-click="tiendaCtrl.verDetalle(tiendabd); tiendaCtrl.goDetalle(tiendabd)"  >
               <h4 class="page-header fondoMiTianguis">{{tiendabd.nombre}}</h4>
-              <a style="width: 50px;height: 50px;margin: 0px;cursor: pointer"
-                 ng-click="tiendaCtrl.verDetalle(tiendabd)">
+              <a style="width: 50px;height: 50px;margin: 0px;cursor: pointer" ng-click="tiendaCtrl.verDetalle(tiendabd)">
                 <img src="{{tiendabd.logo}}" width="50" height="50" style="height: 50px;max-height: 50px; min-height: 50px;" />
               </a>
               <span style="font-size: 11px;margin: 0px;">

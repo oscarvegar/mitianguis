@@ -13,7 +13,7 @@ module.exports = {
   },
   findByUrlMercante:function(request, response){
     var data = request.allParams();
-    //console.log("Data for request find mercante::: " + data + "--" + JSON.stringify(data) );
+    console.log("Data for request find mercante::: " + data + "--" + JSON.stringify(data) );
     Tienda.findOne({url:data.urlMercante}).populate('mercante').exec( function(err, found){
       if(err){return response.json(400,err)}
       if( found ){

@@ -22,42 +22,60 @@ module.exports = {
 		//console.log("CARRITO >>>>>",carrito.productosCarrito)
 		delete orden.selColonia;
 		delete orden.carrito;
-
 		orden.totalVenta =0.0;
 		orden.productosVenta = [];
 		var promises = [];
 		for(var i in carrito.productosCarrito){
 			promises.push(
-				Producto.findOne({id:carrito.productosCarrito[i].producto.id})
+				Producto.findOne({id:carrito.productosCarrito[i].producto.id}).populate('subproductos')
 			);
 		}
 		Q.all(promises)
 		.allSettled(promises).then(function(results) {
 			for(var i in results){
 				var producto = results[i].value;
-				var obj = {
-					producto:producto,
-					precioVenta:producto.precio,
-					cantidad:carrito.productosCarrito[i].cantidad
+				if(producto.subproductos && producto.subproductos.length>0){
+					for(var j in producto.subproductos){
+						if(producto.subproductos[j].id === carrito.productosCarrito[i].producto.modeloSelected.id){
+							var obj = {
+								producto:producto,
+								precioVenta:producto.subproductos[j].precio,
+								cantidad:carrito.productosCarrito[i].cantidad,
+								modeloSelected:producto.subproductos[j].id
+							}
+							obj.subtotal=obj.cantidad*obj.precioVenta,
+							orden.productosVenta.push(obj);
+							orden.totalVenta += obj.subtotal
+							break;
+						}
+					}
+				}else{
+					var obj = {
+						producto:producto,
+						precioVenta:producto.precio,
+						cantidad:carrito.productosCarrito[i].cantidad
+					}
+					obj.subtotal=obj.cantidad*obj.precioVenta,
+					orden.productosVenta.push(obj);
+					orden.totalVenta += obj.subtotal
 				}
-				obj.subtotal=obj.cantidad*obj.precioVenta,
-				orden.productosVenta.push(obj);
-				orden.totalVenta += obj.subtotal
 			}
 			console.log("TOTAL VENTA >>>>>",orden.totalVenta);
-			console.log("ORDEN >>>>>",orden)
+			//console.log("ORDEN >>>>>",orden)
 			var productosVenta = orden.productosVenta;
 			delete orden.productosVenta;
 			delete orden.id;
 			var ventaData;
-			Venta.create(orden).then(function(venta){
+			orden.status = 0;
+			Venta.create(orden).exec(function(err,venta){
 				ventaData = venta;
 				for(var i in productosVenta){
 					productosVenta[i].producto = productosVenta[i].producto.id;
 					productosVenta[i].venta = venta;
 				}
 				ProductosVenta.create(productosVenta).then(function(prodsVenta){
-					hola();
+
+				console.log("PRODUCTOS VENTA >>>>>",prodsVenta)
 					var pago = {
 				       	"currency":"MXN",
 				       	"amount": venta.totalVenta,
@@ -75,13 +93,10 @@ module.exports = {
 								'Content-type': 'application/json'})
 					.send(pago)
 					.end(function(response){
+						console.log("SALVANDO LA VENTA!!!!!!!!!!!!!!!!!")
 						venta.conektaInfo = response.body;
 						venta.save();
 						res.json({code:1})
-					}).catch(function(err){
-						ProductosVenta.destroy({venta:ventaData.id}).then();
-						venta.destroy();
-						res.json(500,{code:-10,msg:"Error al pasar la transacción"})
 					})
 				}).catch(function(err){
 					console.log("XXXXXXXXXXX DELETING PROD VENTAS XXXXXXXXXXXXX")
@@ -89,31 +104,14 @@ module.exports = {
 					venta.destroy();
 					res.json(500,{code:-20,msg:"Error al guardar el detalle de la venta"})
 				})
-			}).catch(function(err){
-					console.log("XXXXXXXXXXX DELETING VENTAS XXXXXXXXXXXXX")
-					ventaData.destroy()
-					res.json(500,{code:-20,msg:"Error al guardar la venta"})
-					
 			})
 			
 			
 	    	
+	  	}).catch(function(err,err2){
+	  		console.log(err)
+	  		console.log(err2)
 	  	});
-
-		
-
-		
-
-		/*Venta.create(orden).exec(function(venta){
-			console.log("VENTA >>>>>",venta)
-		})*/
-
-		
-
-		
-
-
-		
 	},
 	buscarDatosByEmail:function(req,res){
 		var email = req.allParams().id;
@@ -132,11 +130,34 @@ module.exports = {
 	},
 		misVentas:function(request, response){
 	    console.log("*************** CONSULTA MIS VENTAS **************");
-	    var data = request.allParams();
-	    
-	    ProductosVenta.find().populate('producto').populate('venta').exec(function(err,productos){
-	         return response.json(productos);
-	    });
+	    	var data =request.allParams().id;
+			     Venta.find({cliente:data,status:1}).then(function(ventas){
+			      if(ventas){
+			        if(ventas.length>0){
+			     		var productos = [];
+						 for(var i=0;i<ventas.length;i++){	
+							productos.push(
+								 ProductosVenta.find().where({venta:ventas[i].id}).populate('producto').populate('venta')
+							);
+						}
+						Q.all(productos)
+						.allSettled(productos).then(function(results) {
+							response.json(results);
+					  	}).catch(function(err,err2){
+					  		console.log(err)
+					  		console.log(err2)
+					  	});
+			        }else{
+			          return response.json(ventas);
+			        }
+			      }else{
+			        return response.json(ventas);
+			      }
+			    }).catch(function(err){
+			      sails.log.error(err)
+			      return response.json(500,"ERROR EN SERVIDOR")
+			    });
+
 
   }
 

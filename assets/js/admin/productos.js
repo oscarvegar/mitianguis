@@ -6,7 +6,7 @@ module.run(function(editableOptions) {
   editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });
 
-module.controller("ProductosAdminController", function($rootScope, $scope, $http, FileUploader, $tiendaService, $filter){
+module.controller("ProductosAdminController", function($rootScope, $timeout, $scope, $http, FileUploader, $tiendaService, $filter){
 
   $scope.tiendasDisponibles = [];
   $scope.productosDisponibles = [];
@@ -14,11 +14,27 @@ module.controller("ProductosAdminController", function($rootScope, $scope, $http
   $scope.msgErrorImgPrincipal = "";
   $scope.msgErrorImgSecundaria = "";
   $scope.msgErrorArchivo = "";
+  $scope.msgErrorImagen = "";
+  $scope.isNuevoProducto = true;
+  $scope.titulo = "Nuevo Producto";
+  $scope.vistas = new Array(3);
+  $scope.accionBorrarArchivo = null;
+  $scope.cambioImagenUpload =  new FileUploader( );
+  $scope.IMAGEN_PRINCIPAL = 1;
+  $scope.IMAGEN_SECUNDARIA = 2;
+  $scope.ARCHIVO= 3;
 
+
+  $scope.setView = function( index ){
+    for(var i = 0; i < $scope.vistas.length; i++){
+      $scope.vistas[i]='none';
+    }
+    $scope.vistas[index]='';
+  }
+
+  $scope.setView(0);
 
   $rootScope.$watch('tiendaSelected', function(){
-    console.log("la variable de tiendaSelected se setió " + JSON.stringify($rootScope.tiendaSelected));
-
     if($rootScope.tiendaSelected) {
       $scope.getProductos();
     }
@@ -73,6 +89,22 @@ module.controller("ProductosAdminController", function($rootScope, $scope, $http
         }
       }]});
 
+  $scope.cambiarArchivoUpload = new FileUploader(
+    {url: "/carmbiarArchivo",
+      filters: [{
+        name: 'extension',
+        // A user-defined filter
+        fn: function(item) {
+          if(item.type.indexOf("pdf") < 0 && item.type.indexOf("image") < 0 ){
+            item = null;
+            $scope.msgErrorCamiarArchivo = "El tipo de archivo es incorrecto";
+            return false;
+          }
+          $scope.msgErrorCamiarArchivo = "";
+          return true;
+        }
+      }]});
+
   $scope.agregaCategoria = function(event){
     var catego = angular.copy($scope.categoriaElegida);
     if ($scope.categorias.indexOf(catego) == -1) {
@@ -104,8 +136,19 @@ module.controller("ProductosAdminController", function($rootScope, $scope, $http
   };
 
   $scope.registrarProducto = function(isValid){
-    // Primero registramos el producto
+
     $scope.producto.categorias = $scope.categorias;
+    if( !$scope.isNuevoProducto ){
+      //Es una actualizacion
+
+      $http.post("/actualizarProducto", $scope.producto).then(function(result){
+        $scope.getProductos();
+        $('#productoModal').modal('hide');
+      });
+      return;
+    }
+
+    // Primero registramos el producto
     $scope.producto.imagenesSecundarias = new Array();
     $scope.producto.subproductos = new Array();
     $scope.producto.archivos = new Array();
@@ -154,21 +197,136 @@ module.controller("ProductosAdminController", function($rootScope, $scope, $http
     });
   };
 
-  $scope.registrarTest = function(isValid){
-    var objRequest = { userId:  webUtil.getJSON("usuario").id,
-      producto: $scope.producto,
-      tipoArchivo: "ImagenSecundaria"};
-    console.log( JSON.stringify(objRequest) );
-    $scope.imgSecundariasUpload.formData = [{infoProductos:angular.copy(objRequest)}];
-    // Guardando imagenes multiples secundarias
-    var tam = $scope.imgSecundariasUpload.getNotUploadedItems().length;
-    if(tam > 0){
-      for(var i = 0; i < tam; i++){
-        $scope.imgSecundariasUpload.getNotUploadedItems()[i].formData = [{infoProductos:angular.copy(objRequest)}];
-      }
-      $scope.imgSecundariasUpload.uploadAll();
+  $scope.formatoCategoria = function( catego ){
+    if(catego) {
+      catego += "";
+      return catego.replace("[", "");
     }
-  };
+  }
+
+  $scope.setProductoSelected = function( producto ){
+    $scope.productoSelected = producto;
+  }
+
+  $scope.setAsNuevoProducto = function( isNuevo, producto  ){
+    $scope.isNuevoProducto = isNuevo;
+    $scope.producto = angular.copy(producto);
+    if( isNuevo ){
+      $scope.titulo = "Nuevo Producto";
+    }else{
+      $scope.categorias = producto.categorias;
+      $scope.titulo = "Edición de Producto";
+    }
+  }
+
+  $scope.borrarProducto = function(){
+    $http.post("/borrarproducto", $scope.productoSelected).then(function(result){
+      $scope.getProductos();
+      $('#productoDelModal').modal('hide');
+    });
+  }
+
+  $scope.initImagenes = function(){
+    $scope.imagenesSecundariasTemp = angular.copy( $scope.productoSelected.imagenesSecundarias );
+    $scope.archivosTemp = angular.copy( $scope.productoSelected.archivos );
+    if( !$scope.imagenesSecundariasTemp ) $scope.imagenesSecundariasTemp = new Array();
+    if( !$scope.archivosTemp ) $scope.archivosTemp = new Array();
+
+    $scope.imagenesSecundariasTemp.push( "../../imagenes/add.png" );
+    $scope.archivosTemp.push( {nombre:"add", url:"../../imagenes/add.png"} );
+  }
+
+  $scope.borrarImagenPrincipal = function() {
+    var request = {id:$scope.productoSelected.id, imagenPrincipal:constants.PATH_IMAGE_NOT_AVAILABLE};
+    $http.post("/actualizarProducto", request).then( function( result ){
+      $scope.productoSelected.imagenPrincipal = constants.PATH_IMAGE_NOT_AVAILABLE;
+    });
+  }
+
+  $scope.borrarArchivoDetalle = function( ){
+    if( $scope.accionBorrarArchivo === $scope.ARCHIVO ){
+
+    }else if( $scope.accionBorrarArchivo === $scope.IMAGEN_SECUNDARIA ){
+      $scope.productoSelected.imagenesSecundarias.splice( $scope.index, 1 );
+      var request = {id:$scope.productoSelected.id,
+                     imagenesSecundarias:$scope.productoSelected.imagenesSecundarias};
+      $http.post("/actualizarProducto", request).then(function(result){
+        $scope.productoSelected = result.data;
+        $scope.imagenesSecundariasTemp.splice( $scope.index, 1 );
+      });
+    }else if( $scope.accionBorrarArchivo === $scope.IMAGEN_PRINCIPAL ){
+      $scope.borrarImagenPrincipal();
+    }
+    $('#archivoDelModal').modal('hide');
+  }
+
+  $scope.prepararCambiarImagenPrincipal = function(){
+
+    $scope.infoProducto = { userId:  webUtil.getJSON("usuario").id,
+                            producto: $scope.productoSelected,
+                            pathBase: webUtil.getOrigin(),
+                            tipoArchivo: "ImagenPrincipal"};
+    $('#prodCambiaImgModal').modal('show');
+  }
+
+  $scope.prepararCambiarImagenSecundria = function(indice){
+    $scope.infoProducto = { userId:  webUtil.getJSON("usuario").id,
+      producto: $scope.productoSelected,
+      pathBase: webUtil.getOrigin(),
+      tipoArchivo: "ImagenSecundaria",
+      index:indice};
+    $('#prodCambiaImgModal').modal('show');
+  }
+
+  $scope.cambiarImagen = function(){
+    if( $scope.infoProducto.tipoArchivo === "ImagenPrincipal" ){
+      var itemIndexImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems().length - 1;
+      var itemImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems()[itemIndexImgPrincipal];
+      if( itemImgPrincipal ) {
+        itemImgPrincipal.formData = [{infoProductos:JSON.stringify(angular.copy($scope.infoProducto))}];
+        $scope.imgPrincipalUpload.onCompleteAll = function () {
+          $http.get("/producto/findById/" + $scope.productoSelected.id).then(function(result){
+            $scope.productoSelected = result.data;
+            $('#prodCambiaImgModal').modal('hide');
+          });
+        }
+        itemImgPrincipal.upload();
+      }
+    }else if( $scope.infoProducto.tipoArchivo === "ImagenSecundaria" ){
+      var tam = $scope.cambiarArchivoUpload.getNotUploadedItems().length;
+      if(tam > 0){
+        var objRequestInstr = JSON.stringify(angular.copy($scope.infoProducto));
+        for(var i = 0; i < tam; i++) {
+          $scope.cambiarArchivoUpload.getNotUploadedItems()[i].formData = [{infoProductos:objRequestInstr}];
+        }
+        $scope.cambiarArchivoUpload.onCompleteAll = function () {
+          $http.get("/producto/findById/" + $scope.productoSelected.id).then(function(result){
+            $scope.productoSelected = result.data;
+            $scope.initImagenes();
+            $('#prodCambiaImgModal').modal('hide');
+          });
+        }
+        $scope.cambiarArchivoUpload.uploadAll();
+      }
+    }
+  }
+
+  $scope.viewDialogDelArchivo = function( accion, index ){
+    $scope.accionBorrarArchivo = accion;
+    $scope.index = index;
+    $('#archivoDelModal').modal('show');
+    if( accion === $scope.ARCHIVO ){
+      $scope.dlgTitulo="CONFIRMACION BORRAR ARCHIVO";
+      $scope.dlgMensaje="¿Esta seguro de borrar el archivo seleccionado.?";
+    }else{
+      $scope.dlgTitulo="CONFIRMACION BORRAR IMAGEN";
+      $scope.dlgMensaje="¿Esta seguro de borrar la imagen seleccionada.?";
+    }
+
+
+  }
+
+
 
 });
 

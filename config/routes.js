@@ -59,13 +59,15 @@ module.exports.routes = {
   'POST /nuevatienda': 'TiendaController.create',
   'POST /editartienda': 'TiendaController.editar',
   'POST /asignaEstatus': 'TiendaController.setStatus',
-  'GET /misventas': 'VentaController.misVentas',
+  'GET /misventas/:id': 'VentaController.misVentas',
 
   /*** ADMINISTRACION DE PRODUCTOS ***/
   'GET /productoPorTienda/:id': 'ProductoController.productoByTienda',
   'POST /registraProducto':'ProductoController.registraProducto',
   'POST /actualizarProducto':'ProductoController.actualizarProducto',
   'POST /guardarArchivoProducto':'ProductoController.guardarArchivo',
+  'POST /borrarProducto':'ProductoController.borrarProducto',
+  'POST /carmbiarArchivo':'ProductoController.carmbiarArchivo',
 
   /*** FUNCIONES GENERALES ***/
   'GET /getImagen/:imagen':'ImagenController.getImagen',

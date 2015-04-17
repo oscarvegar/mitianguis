@@ -10,7 +10,7 @@ angular.module("CheckoutModule",[])
 	$scope.selAno = "17";
 	$scope.datosPago = {};
 	$scope.disBtnPagar = false;
-	
+
 
 	$scope.buscarDireccion = function(){
 		$http.get('/direccion/find/'+$scope.orden.codigoPostal).success(function(data){
@@ -29,7 +29,7 @@ angular.module("CheckoutModule",[])
 		console.log($scope.orden);
 		var card = {card:$scope.datosPago};
 		console.log(JSON.stringify(card));
-		Conekta.token.create(card, 
+		Conekta.token.create(card,
 		function(data){
 			var token = data.id;
 			$scope.orden.conektaToken = data.id;
@@ -49,7 +49,6 @@ angular.module("CheckoutModule",[])
 		});
 	}
 	$rootScope.$watch('usuario',function(){
-		console.log("la variable de usuario se setió",$rootScope.usuario);
 		$scope.orden.nombre = $rootScope.usuario.mercante.nombre;
 		$scope.orden.apellidoPaterno = $rootScope.usuario.mercante.apellidoPaterno;
 		$scope.orden.apellidoMaterno = $rootScope.usuario.mercante.apellidoMaterno;
