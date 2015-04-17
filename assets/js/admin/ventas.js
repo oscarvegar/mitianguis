@@ -3,16 +3,37 @@
  */
 var module = angular.module("VentasAdminModule",[]);
 
-module.controller("VentasAdminController", function($scope, $http){
+module.controller("VentasAdminController", function($window,$scope, $http){
 
+//data-ng-init="init()" ng-click="tabChange($event)"
   $scope.init = function(){
       console.log("Inicio");
 
-      $http.get("/misventas").then(function(result){
+      console.log("Tienda");
+
+      var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
+
+      $http.get("/misventas/"+usuario.id).then(function(result){
       $scope.misventas = result.data;
      
-     console.log("Termino Consulta Ventas");
+      console.log("Termino Consulta Ventas");
       console.log(  $scope.misventas);
+      console.log($scope.misventas[0].value[0].precioVenta);
+
+      $scope.ventas = new Array();
+      for(var i=0;i<$scope.misventas.length;i++){
+        for(var j=0;j<$scope.misventas[i].value.length;j++){
+          
+                 $scope.ventas.push({
+                   "nombre": $scope.misventas[i].value[j].producto.nombre,
+                   "cantidad":$scope.misventas[i].value[j].cantidad,
+                   "subtotal": $scope.misventas[i].value[j].precioVenta,
+                   "totalVenta": $scope.misventas[i].value[j].subtotal
+                 });
+          }
+      }
+
+      console.log( $scope.ventas );
     });
   }
 
@@ -32,14 +53,14 @@ module.controller("VentasAdminController", function($scope, $http){
   $scope.consultarVentas = function(){
 
 
-
+/*
       $http.get("/misventas").then(function(result){
       $scope.misventas = result.data;
      
      console.log("Termino Consulta Ventas");
       console.log(  $scope.misventas);
     });
-
+*/
 
   }
 
