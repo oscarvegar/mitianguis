@@ -1,7 +1,7 @@
 <!--Checkout--><br><br><br><br><br>
 <section class="checkout" ng-controller="CheckoutCtrl">
 	<div class="container">
-  	
+
     <!--Expandable Panels-->
   	<div class="row">
       <div class="col-lg-12">
@@ -58,11 +58,11 @@
         </div>
       </div>
     </div-->
-    
+
     <!--Checkout Form-->
     <div class="row">
     	<form ng-submit="disBtnPagar = true;ordenar()">
-      	
+
         <!--Left Column-->
         <div class="col-lg-8 col-md-8 col-sm-8">
           <!--h3>Dirección de Envío</h3>
@@ -122,36 +122,36 @@
               <label for="co-country">Colonia</label>
                 <div class="select-style">
                   <select required placeholder="Selecciona" name="co-country" id="co-country" ng-model="orden.selColonia" ng-options="item as item.d_asenta for item in direcciones" ng-init="direcciones[0]">
-                      
+
                   </select>
                 </div>
               </div>
-            
+
             <div class="form-group col-lg-6 col-md-6 col-sm-6">
               <label for="co_postcode">Municipio *</label>
               <input type="text" class="form-control" id="co_postcode" name="co_postcode" placeholder="Municipio" required ng-model="orden.selColonia.D_mnpio">
             </div>
           </div>
           <div class="row">
-            
+
             <div class="form-group col-lg-6 col-md-6 col-sm-6">
               <label for="co_postcode">Ciudad *</label>
               <input type="text" class="form-control" id="co_postcode" name="co_postcode" placeholder="Municipio" required ng-model="orden.selColonia.d_ciudad">
             </div>
-            
+
             <div class="form-group col-lg-6 col-md-6 col-sm-6">
               <label for="co_postcode">Estado *</label>
               <input type="text" class="form-control" id="co_postcode" name="co_postcode" placeholder="Municipio" required ng-model="orden.selColonia.d_estado">
             </div>
           </div>
-          
+
           <h3>Deja un mensaje al vendedor</h3>
           <div class="form-group">
           	<label class="sr-only" for="order-notes"></label>
             <textarea ng-model="orden.mensaje" class="form-control" name="order-notes" id="order-notes" rows="4" placeholder="Mensaje"></textarea>
           </div>
         </div>
-        
+
         <!--Right Column-->
         <div class="col-lg-3 col-lg-offset-1 col-md-4 col-sm-4">
         	<h3>Tu Orden</h3>
@@ -174,7 +174,15 @@
               <td class="price">{{carrito.total | currency : symbol : fractionSize}}</td>
             </tr>
           </table>
-          <div class="payment-method">
+          <section>
+            <h3>Forma de pago</h3>
+            <input type="radio" ng-model="formaPago" name="formaPago" value="RECO"> Negociado con vendedor
+            <br>
+            <input type="radio" ng-model="formaPago" name="formaPago" value="TC"> Tarjeta de Crédito / Débito
+            <br><br>
+          </section>
+          <div class="payment-method" ng-if="formaPago=='TC'">
+            <h2 class="white">Datos de pago</h2>
             <label class="white">Nombre en la tarjeta *</label>
             <input ng-model="datosPago.name" class="black" type="text" required>
             <br><br><label class="white">Número de Tarjeta *</label>
@@ -183,7 +191,7 @@
             <div class="row">
               <div class="scol-lg-6 col-md-6 col-sm-6">
                 Mes <select required class="black" ng-model="selMes" ng-options="item for item in meses"  ></select>
-              </div> 
+              </div>
               <div class="col-lg-6 col-md-6 col-sm-6">
                 Año <select required class="black" ng-model="selAno" ng-options="item for item in anos"  ></select>
               </div>
@@ -191,7 +199,7 @@
             <br>
               <label class="white">Código Verificador *</label>
               <input class="black" ng-model="datosPago.cvc" type="text" required only-digits>
-            
+
           </div>
           <input class="btn btn-black btn-block" type="submit" name="place-order" value="Ordenar" ng-disabled="disBtnPagar">
         </div>

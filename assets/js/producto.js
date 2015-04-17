@@ -79,6 +79,7 @@ angular.module("ProductoModule",[])
 		$scope.selProducto.precio = modelo.precio;
 		$scope.selProducto.stock = modelo.stock;
 		$scope.selProducto.modeloSelected = modelo;
+		console.log($scope.selProducto.modeloSelected.id)
 		modelo.selected = true;
 	}
 	

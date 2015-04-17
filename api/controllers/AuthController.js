@@ -22,6 +22,7 @@ module.exports = {
 			req.logIn(user, function(err) {
 				if (err) res.send(err);
         user.password = null;
+        req.session.currentUser = user;
 				return res.send({message : 'login successful', user:user});
 			});
 		})(req, res);

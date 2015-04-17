@@ -19,7 +19,8 @@ module.exports = {
   		model:'user'
   	},
   	totalEnvio:'float',
-  	totalVenta:'float'
+  	totalVenta:'float',
+    preguntas:'array'
   }
 };
 

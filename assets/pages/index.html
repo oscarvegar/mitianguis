@@ -35,7 +35,7 @@
     </head>
 
     <!--Body-->
-    <body >
+    <body ng-cloak class="ng-cloak">
 
      <div id="fb-root"></div>
 
@@ -101,7 +101,7 @@
             </nav>
             <!-- FIN DE MENU PRINCIPAL -->
 
-            <div class="toolbar-container">
+            <div class="toolbar-container" ng-cloak>
               <div class="container">
                 <!--Toolbar-->
                 <div class="toolbar group">
@@ -117,11 +117,11 @@
                     <span style="color: black;font-size: 13px;"><b>C</b>errar Sesión</span>
                   </span>
 
-              <div class="cart-btn" ng-controller="CarritoCtrl">
+              <div class="cart-btn" ng-controller="CarritoCtrl" ng-cloak>
                 <a class="btn btn-outlined-invert" href="/store#/carrito"><i class="icon-shopping-cart-content"></i><span>{{carrito.totalItems}}</span><b>{{carrito.total | currency : symbol : fractionSize}}</b></a>
 
               <!--Cart Dropdown-->
-                <div class="cart-dropdown" >
+                <div class="cart-dropdown" ng-cloak>
                 <span></span><!--Small rectangle to overlap Cart button-->
                 <div class="body" ng-show="carrito.productosCarrito.length > 0">
                   <table>
@@ -131,8 +131,8 @@
                       <th>Precio</th>
                     </tr>
                     <tr class="item" ng-repeat="pc in carrito.productosCarrito track by $index">
-                      <td><div class="delete" ng-click="eliminar($index)"></div><a href="#">{{pc.producto.nombre}} {{pc.producto.modeloSelected.modelo}}</a></td>
-                      <td><input type="text" ng-model="pc.cantidad" only-digits ng-blur="persist()"></td>
+                      <td><div class="deletes" ng-click="eliminar($index)"></div><a href="/store#/producto?p={{pc.producto.id}}">{{pc.producto.nombre}} {{pc.modeloSelected.modelo}}</a></td>
+                      <td><input type="text" ng-model="pc.cantidad" only-digits ng-change="persist()"></td>
                       <td class="price">{{pc.producto.precio * pc.cantidad | currency : symbol : fractionSize}}</td>
                     </tr>
 

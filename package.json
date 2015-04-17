@@ -8,6 +8,7 @@
     "accounting": "^0.4.1",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^2.9.24",
+    "connect-mongo": "^0.8.0",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
     "grunt-contrib-clean": "~0.5.0",
