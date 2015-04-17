@@ -5,9 +5,10 @@ angular.module("TiendaModule",[])
 	$scope.categorias = [];
 	console.log("SELPRODUCTO INI >>>>> ",$scope.selProducto);
 	$scope.tienda = webUtil.getJSON("tienda");
-	$http.get('/producto/productoByTienda/'+$scope.tienda.id)
+    console.log("TIENDA >>>>>>",$scope.tienda)
+	$http.get('/producto/productoByTienda/' + $scope.tienda.id)
 	.success(function(data){
-		console.log(data)
+		console.log("PRODUCTOS >>>>>>>>>>>",data)
 		$scope.productos = data;
 	})
 	$http.get('/categoria/categoriasByTienda/'+$scope.tienda.id)

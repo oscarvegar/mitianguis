@@ -56,6 +56,7 @@ module.exports.bootstrap = function(cb) {
                                     certificado:0,
                                     visitas:0,
                                     likes:0,
+                                    logo:'../../imagenes/noimageavailable.png',
                                     facebook:"facebook.com/oscarvegaro",
                                     twitter:'@oscarvegar',
                                     youtube:null
@@ -148,7 +149,7 @@ module.exports.bootstrap = function(cb) {
                                         }];
 
 
-                                      
+
 
 
 
@@ -203,7 +204,7 @@ module.exports.bootstrap = function(cb) {
                                         });
 
 
-                                           
+
                                         });
                                     });
                                     createdMerc.tiendas = [newTienda];
