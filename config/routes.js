@@ -67,8 +67,14 @@ module.exports.routes = {
   'POST /actualizarProducto':'ProductoController.actualizarProducto',
   'POST /guardarArchivoProducto':'ProductoController.guardarArchivo',
 
+  /***url pruebas**/
+
+  'GET /cotizacion': 'LoadShippingController.getCotizacionPedido',
+
+
   /*** FUNCIONES GENERALES ***/
   'GET /getImagen/:imagen':'ImagenController.getImagen'
+
 
 
   /***************************************************************************

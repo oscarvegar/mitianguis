@@ -24,6 +24,7 @@
     "moment": "^2.8.4",
     "mongodb": "^1.4.23",
     "node-eden": "0.0.3",
+    "node-estafeta": "^1.0.0",
     "node-schedule": "^0.1.13",
     "nodemailer": "^1.3.2",
     "passport": "^0.2.1",
