@@ -27,4 +27,10 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
     restrict:"E",
     templateUrl:"pages/admin/ventas.html"
   };
+})
+.directive("red", function( ){
+  return {
+    restrict:"E",
+    templateUrl:"pages/admin/mired.html"
+  };
 });

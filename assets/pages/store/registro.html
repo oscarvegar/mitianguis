@@ -4,7 +4,7 @@
     <br/><br/><br/><br/>
     <!--Login / Register-->
     <section class="log-reg container">
-        <h2>Entra o registrate</h2>
+        <h2>Completa tus datos</h2>
         <h4 class="hide">Use social accounts</h4>
         <div class="social-login hide">
             <a class="facebook" href="#"><i class="fa fa-facebook-square"></i></a>
@@ -13,31 +13,15 @@
         </div>
         <div class="row">
             <!--Login-->
-            <div class="col-lg-5 col-md-5 col-sm-5">
-                <form method="post" class="login-form">
-                    <div class="form-group group">
-                        <input type="email" class="form-control" name="log-email2" id="log-email2"
-                               placeholder="Ingresa tu correo electrónico" required>
-                    </div>
-                    <div class="form-group group">
-                        <input type="text" class="form-control" name="log-password2" id="log-password2"
-                               placeholder="Ingresa tu contraseña" required>
-                        <a class="help-link" href="#" data-toggle="modal"  data-target="#passwordModal">¿Olvidaste tu contraseña?</a>
-                    </div>
 
-                    <div class="checkbox">
-                        <label><input type="checkbox" name="remember"> Recordar datos de acceso</label>
-                    </div>
-                    <input class="btn btn-black" type="submit" value="Login">
-                </form>
-            </div>
             <!--Registration-->
+          <form name="registerForm" ng-submit="registrar(registerForm.$valid)"  novalidate>
             <div class="col-lg-7 col-md-7 col-sm-7">
-                <form name="registerForm" ng-submit="registrar(registerForm.$valid)"  novalidate>
+
 
                     <div id="divnombre" class="form-group group has-feedback" show-errors>
                         <input type="text" class="form-control" name="nombre" id="rf-nombre"
-                               placeholder="¿Como te llamas tu?." ng-model="mercante.nombre" required>
+                               placeholder="¿Como te llamas?." ng-model="mercante.nombre" required>
                         <span id="icononombre" aria-hidden="true"></span>
                         <p ng-if="registerForm.nombre.$error.required" class="help-block">
                             * Tu nombre es requerido.
@@ -56,42 +40,8 @@
                                placeholder="Escribe tu apellido materno" ng-model="mercante.apellidoMaterno"/>
                         <span id="iconoapellidoMaterno" aria-hidden="true"></span>
                     </div>
-                    <div id="divemail" class="form-group group has-feedback" show-errors>
-                        <input type="email" class="form-control" name="email" id="rf-email"
-                               placeholder="Ingresa tu correo electrónico" ng-model="usuario.email" required/>
-                        <span id="iconoemail" aria-hidden="true"></span>
-                        <p ng-if="registerForm.email.$error.required" class="help-block">
-                            * Tu correo electrónico es requerido
-                        </p>
-                        <p ng-if="!registerForm.email.$error.required && registerForm.email.$invalid" class="help-block">
-                            * Ingresa un email válido.
-                        </p>
-                    </div>
-                    <div id="divpassword" class="form-group group has-feedback" show-errors>
-                        <input type="password" class="form-control" name="password" id="rf-password"
-                               placeholder="Ingresa tu contraseña" ng-model="usuario.password"
-                               ng-minlength="4" required />
-                        <span id="iconopassword" aria-hidden="true"></span>
-                        <p ng-if="registerForm.password.$error.required" class="help-block">
-                            * Tu contraseña es requerida.
-                        </p>
-                        <p ng-if="!registerForm.password.$error.required && registerForm.password.$invalid" class="help-block">
-                            * La constraseña debe ser mínimo de 4 caracteres.
-                        </p>
-                    </div>
-                    <div id="divpasswordRepeat" class="form-group group has-feedback" show-errors>
-                        <input type="password" class="form-control" name="passwordRepeat" id="rf-password-repeat"
-                               placeholder="Repite tu contraseña" ng-model="passwordRepeat"
-                               required />
-                        <span id="iconopasswordRepeat" aria-hidden="true"></span>
-                        <p ng-if="registerForm.passwordRepeat.$error.required" class="help-block">
-                            * Debes de confirmar tu contraseña.
-                        </p>
-                        <p ng-show="!registerForm.passwordRepeat.$error.required && (usuario.password != passwordRepeat)"
-                           class="help-block">
-                            * La contraseñas no coinciden.
-                        </p>
-                    </div>
+
+                    
                     <div id="divtelefono" class="form-group group has-feedback" show-errors>
                         <input type="number" class="form-control" name="telefono" id="rf-telefono"
                                placeholder="Escribe tu telefono" ng-model="mercante.telefono" required />
@@ -105,74 +55,58 @@
                     </div>
                     <div id="divcodigo" class="form-group group has-feedback" show-errors>
                         <input type="text" class="form-control" name="codigo" id="rf-codigo"
-                               placeholder="Escribe el código de tu amigo que te invito" ng-disable="lecturaCodMerca"
+                               placeholder="Escribe el código del amigo que te invito" ng-disable="lecturaCodMerca"
                                ng-model="mercante.mentor.codigoMercante" />
                         <span id="iconocodigo" aria-hidden="true"></span>
                         <p ng-if="registerForm.codigo.$error.required" class="help-block">
                             * El código de tu amigo es requerido
                         </p>
                     </div>
-                    <div id="divurlmercante" class="form-group group has-feedback" show-errors>
-                        <input type="text" class="form-control" name="codmerca" id="rf-codmerca"
-                               placeholder="Escribe el nombre de tu tienda"
-                               ng-model="mercante.urlMercante" />
 
-                    </div>
                     <div class="checkbox">
                         <label><input type="checkbox" name="remember"> He leido y acepto los terminos de uso</label>
                     </div>
                     <button  class="btn btn-black" type="submit" >
                         Registar
                     </button>
-                </form>
+
             </div>
-        </div>
-    </section><!--Login / Register Close-->
-
-    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
-             <h2>Recuperar contraseña</h2>
-            <p class="large hide">Recuperar contraseña</p>
-          </div>
-          <div  class="modal-body">
-            <form name="loginForm" class="login-form" ng-submit="forgotPassword();" novalidate>
-
-              <div>
-                <label>Ingresa tu correo electrónico y en breve recibiras tu contraseña</label>
+          <div class="col-lg-5 col-md-5 col-sm-5">
+            <div style="background-color: #e91e63">
+              <h2><b class="white">Datos de pago</b></h2>
+              <div class="form-group group">
+                <label class="white col-lg-6 col-md-6 col-sm-6">Nombre en la tarjeta *</label>
+                <input ng-model="datosPago.name" class="black col-lg-5 col-md-5 col-sm-5" type="text" required>
               </div>
-
-              <div class="alert alert-success"  ng-show="showAlert">
-                <strong>Se envío un correo electrónico con la contraseña nueva.</strong><a href="#embed-url"> Regresar al inicio. </a>
-                <button type="button" class="close" ng-click="showAlert = false">×</button>
+              <div class="form-group group">
+                <label class="white col-lg-6 col-md-6 col-sm-6">Número de Tarjeta *</label>
+                <input ng-model="datosPago.number" class="black col-lg-5 col-md-5 col-sm-5" type="text" required only-digits>
               </div>
+              <div class="form-group group">
+                <label class="white col-lg-4 col-md-4 col-sm-4">Fecha de Expiración *</label>
 
-             <!--  <div class="alert alert-danger"  ng-show="showAlert">
-                <strong>Ocurrió un problema en el servicio de correo electrónico.</strong><a href="#embed-url">Regresar al inicio.</a>
-                <button type="button" class="close" ng-click="showAlert = false">×</button>
-              </div>-->
 
-              </br>
+
+                  <div class="scol-lg-4 col-md-4 col-sm-4 white">
+                    Mes <select required class="black" ng-model="selMes" ng-options="item for item in meses"  ></select>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 white">
+                    Año <select required class="black" ng-model="selAno" ng-options="item for item in anos"  ></select>
+                  </div>
+              </div>
 
               <div class="form-group group">
-                <label for="logEmail">Email</label>
-                <input type="email" class="form-control" name="logEmail" id="logEmail"
-                       ng-model="forgotMail" placeholder="Ingresa tu correo" ng-required="true" />
-                <span style="color:maroon" ng-show="loginForm.logEmail.$dirty && loginForm.logEmail.$invalid">
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  <span ng-show="loginForm.logEmail.$error.required">Tu correo electrónico es requerido.</span>
-                  <span ng-show="loginForm.logEmail.$invalid && !loginForm.logEmail.$error.required">Tu correo electrónico es inválido.</span>
-                </span>
+                <label class="white col-lg-6 col-md-6 col-sm-6">Código Verificador *</label>
+                <input class="black col-lg-2 col-md-2 col-sm-2" ng-model="datosPago.cvc" type="text" required only-digits size="3">
               </div>
-            
-              
-              <input class="btn btn-black" ng-disabled="loginForm.$invalid" type="submit" value="Enviar" />
-            </form>
+            </div>
+
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+          </form>
+        </div>
+
+    </section><!--Login / Register Close-->
+
+
 
 </div>
