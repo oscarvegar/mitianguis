@@ -78,6 +78,9 @@ module.exports = {
         } else if (infoProductos.tipoArchivo === "archivoPdf") {
           var pathArchivo = infoProductos.pathBase + "/getArchivo/" + infoProductos.userId + "_" + nombreArchivo;
           var archivoPdfObj = {nombre:archivo.filename, url:pathArchivo};
+          if(!infoProductos.producto.archivos){
+            infoProductos.producto.archivos = [];
+          }
           infoProductos.producto.archivos.push(archivoPdfObj);
           Producto.update({id:infoProductos.producto.id},{archivos:infoProductos.producto.archivos})
             .exec(function(err, updateProd){
@@ -129,7 +132,14 @@ module.exports = {
         if (infoProductos.tipoArchivo === "archivoPdf") {
           var pathArchivo = infoProductos.pathBase + "/getArchivo/" + infoProductos.userId + "_" + nombreArchivo;
           var archivoPdfObj = {nombre:archivo.filename, url:pathArchivo};
-          infoProductos.producto.archivos.push(archivoPdfObj);
+          console.log("Indice ::: " + infoProductos.index  );
+          if( infoProductos.index  != null && infoProductos.index >= 0 ) {
+            console.log("reemplazando en posicion " + infoProductos.index);
+            infoProductos.producto.archivos[infoProductos.index] = archivoPdfObj;
+          }else {
+            console.log("add archivo :(");
+            infoProductos.producto.archivos.push(archivoPdfObj);
+          }
           Producto.update({id:infoProductos.producto.id},{archivos:infoProductos.producto.archivos})
             .exec(function(err, updateProd){
               return response.json(updateProd);
@@ -163,14 +173,45 @@ module.exports = {
 
 	findById:function(req,res){
 		var idProducto = req.allParams().id;
-		console.log("ID PRODUCTO >>>>>>",idProducto)
+		console.log("ID PRODUCTO >>>>>> ", idProducto)
 		Producto.findOne({id:idProducto}).populate('subproductos').then(function(data){
 			console.log(data)
+      if(data.subproductos && data.subproductos.length > 0){
+        var subprods = [];
+        for(var sub in data.subproductos){
+          if( data.subproductos[sub].status === StatusService.ACTIVO ){
+            subprods.push( data.subproductos[sub] );
+          }
+        }
+        data.subproductos = subprods;
+      }
+
 			res.json(data);
 		}).catch(function(err){
       console.log(err);
     });
 	},
+
+  actualizarSubProducto: function( request, response ){
+    var subproducto = request.allParams();
+    Subproducto.update({id:subproducto.id},subproducto).then(function(result){
+      return response.json(result);
+    }).catch(function(err){
+      console.error(err);
+      return response.json(500, err);
+    });
+  },
+
+  createSubProducto: function( request, response ){
+    var subproducto = request.allParams();
+    Subproducto.create( subproducto).then( function(result){
+      console.log(" SUBPRODUCTO CREADO >>> " + JSON.stringify(result) );
+      return response.json( result );
+    }).catch( function(err){
+      console.error( err );
+      return response.json(500, err);
+    } );
+  },
 
 	share:function(req,res){
 		var idProducto = req.allParams().id;

@@ -56,6 +56,7 @@ module.exports.bootstrap = function(cb) {
                                     certificado:0,
                                     visitas:0,
                                     likes:0,
+                                    status:1,
                                     logo:'../../imagenes/noimageavailable.png',
                                     facebook:"facebook.com/oscarvegaro",
                                     twitter:'@oscarvegar',
