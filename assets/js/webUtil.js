@@ -13,7 +13,7 @@ var webUtil = {
 	},
 
   save: function( key, value ){
-    console.log("type value save >> " + typeof(value) );
+    //console.log("type value save >> " + typeof(value) );
     if( typeof(value) === "string") {
       localStorage[key] = value;
     }else{
@@ -34,6 +34,10 @@ var webUtil = {
 
   getCurrentUrl:function(){
     return window.location.href;
+  },
+
+  destroy:function(key){
+    localStorage.removeItem(key);
   }
 
 };

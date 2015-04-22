@@ -1,5 +1,5 @@
 angular.module("CheckoutModule",[])
-.controller('CheckoutCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope){
+.controller('CheckoutCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope,$CarritoService){
 	$scope.orden = {};
 	$scope.datosPago = {};
 	$scope.orden.codigoPostal = null;
@@ -32,6 +32,8 @@ angular.module("CheckoutModule",[])
 			.success(function(data){
 				console.log(data)
 				$scope.disBtnPagar = false;
+				$CarritoService.destroy();
+				$location.url("/gracias")
 			})
 			.error(function(err){
 				console.log(err)
@@ -43,9 +45,11 @@ angular.module("CheckoutModule",[])
 		});
 	}
 	$rootScope.$watch('usuario',function(){
-		$scope.orden.nombre = $rootScope.usuario.mercante.nombre;
-		$scope.orden.apellidoPaterno = $rootScope.usuario.mercante.apellidoPaterno;
-		$scope.orden.apellidoMaterno = $rootScope.usuario.mercante.apellidoMaterno;
+		if($rootScope.usuario){
+			$scope.orden.nombre = $rootScope.usuario.mercante.nombre;
+			$scope.orden.apellidoPaterno = $rootScope.usuario.mercante.apellidoPaterno;
+			$scope.orden.apellidoMaterno = $rootScope.usuario.mercante.apellidoMaterno;
+		}
 	})
 
 	$scope.buscarUsuario = function(){
@@ -74,6 +78,11 @@ angular.module("CheckoutModule",[])
 		$scope.datosPago.number = "4242424242424242"
 		$scope.datosPago.cvc = "777"
 
+		$scope.testDestroy = function(){
+			console.log("testDestroy")
+			$CarritoService.destroy();
+			$location.url("/gracias")
+		}
 
 	/***********************************************/
 });

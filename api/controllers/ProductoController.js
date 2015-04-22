@@ -10,16 +10,14 @@ module.exports = {
 	productoPrincipalByTienda:function(req,res){
 		var idTienda = req.allParams().id;
 		Producto.find({tienda:idTienda,isPrincipal:true}).then(function(data){
-			console.log("PRODUCTOS TIENDAAAAAAAAAAAAAAAAAAA",data)
 			res.json(data)
-		}).catch(function(err){
+		}).fail(function(err){
       console.log(err);
     })
 	},
 
   registraProducto:function(request, response){
     var producto = request.allParams();
-    console.log("Producto a registrar :: " + producto );
     Producto.create(producto).exec(function(err, productoNuevo){
       if(err){
         console.log(err);
@@ -107,9 +105,8 @@ module.exports = {
       {"categorias": peticion.categoria },
       {"categorias": "#PS4" }
     ]}).then(function(data){
-      console.log(data)
       res.json(data)
-    }).catch(function(err){
+    }).fail(function(err){
       console.log(err);
     });
   },
@@ -166,16 +163,14 @@ module.exports = {
 	productoByTienda:function(req,res){
 		var idTienda = req.allParams().id;
 		Producto.find({tienda:idTienda, status:StatusService.ACTIVO}).exec(function(err,data){
-			console.log(data)
 			res.json(data)
 		});
 	},
 
 	findById:function(req,res){
 		var idProducto = req.allParams().id;
-		console.log("ID PRODUCTO >>>>>> ", idProducto)
+    LOGS.info("ID PRODUCTO >>>>>> ",idProducto)
 		Producto.findOne({id:idProducto}).populate('subproductos').then(function(data){
-			console.log(data)
       if(data.subproductos && data.subproductos.length > 0){
         var subprods = [];
         for(var sub in data.subproductos){

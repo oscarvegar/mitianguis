@@ -828,3 +828,11 @@ fieldset[disabled] .navbar-default .btnb-link:focus {
 .btnb-toolbar:after,
 .btnb-group-vertical > .btnb-group:before,
 .btnb-group-vertical > .btnb-group:after,
+
+.gracias{
+  margin-left:10%;
+}
+
+.letras-chiquitas{
+  font-size: 12px;
+}

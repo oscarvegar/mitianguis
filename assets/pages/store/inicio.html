@@ -1,9 +1,5 @@
-<div class="page-content"  ng-controller="TiendaCtrl" >
-  <div ng-if="productos==null || productos.length==0" ng-cloak class="ng-cloak" style="text-align: center">
-    <br><br><br>
-    <h1>Esta Tienda está en construcción. Próximamente será la inauguración.<br><br>Espérala...</h1>
-    <br>
-  </div>
+<div class="page-content"  ng-controller="TiendaCtrl" ng-cloak class="ng-cloak">
+  
   <carrusel ng-show="productos.length>0"></carrusel>
 	<section class="cat-tiles" ng-show="productos.length>0">
       	<div class="container">
@@ -45,4 +41,9 @@
         </div>
 
       </section>
+      <div ng-if="productos==-1" ng-cloak class="ng-cloak" style="text-align: center">
+        <br><br><br>
+        <h1>Esta Tienda está en construcción. Próximamente será la inauguración.<br><br>Espérala...</h1>
+        <br>
+      </div>
 </div>

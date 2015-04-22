@@ -66,8 +66,8 @@
                 <ul class="main">
                   <!--li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li-->
                   <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
-                  <li class="hide-sm" ng-if="usuario === null"><a href="#/registro"><span>U</span>nete</a></li>
-                  <li class="hide-sm"><a href="#/admin" ng-if="usuario !== null"><span>M</span>i cuenta</a></li>
+                  <li class="hide-sm" ng-if="usuario == null"><a href="#/registro"><span>U</span>nete</a></li>
+                  <li class="hide-sm"><a href="#/admin" ng-if="usuario != null"><span>M</span>i cuenta</a></li>
                 </ul>
               </div>
               <div class="catalog-block" style="margin: 0px;">
@@ -117,15 +117,15 @@
               <div class="container">
                 <!--Toolbar-->
                 <div class="toolbar group">
-                  <span class="login-btn btn-outlined-invert" data-toggle="modal" ng-if="usuario === null"
+                  <span class="login-btn btn-outlined-invert" data-toggle="modal" ng-if="usuario == null"
                     data-target="#loginModal"><i class="icon-profile"></i>
                     <span style="color: black;"><b>L</b>ogin</span>
                   </span>
-                  <span class="login-btn" ng-if="usuario !== null">
+                  <span class="login-btn" ng-if="usuario != null">
                     <span style="color: black;font-size: 11px;"><b>B</b>ienvendo {{usuario.username}}</span>
                   </span>
 
-                  <span class="login-btn btn-outlined-invert" ng-if="usuario !== null" href="#" ng-click="logout()"><i class="icon-profile"></i>
+                  <span class="login-btn btn-outlined-invert" ng-if="usuario != null" href="javascript:void(0)" ng-click="logout()"><i class="icon-profile"></i>
                     <span style="color: black;font-size: 13px;"><b>C</b>errar Sesión</span>
                   </span>
 
