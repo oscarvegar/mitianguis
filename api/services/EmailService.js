@@ -3,11 +3,14 @@ var nodemailer = require('nodemailer');
 var fs = require('fs');
 
 var transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    //service: 'Gmail',
     auth: {
-        user: 'oscarvegar@gmail.com',
-        pass: 'boniboni'
-    }
+        user: 'notificaciones@mitianguis.mx',
+        pass: 'powersuper'
+    },
+    host: 'smtp.zoho.com',
+    port: 465,
+    secure:true
 });
 
 module.exports = {
