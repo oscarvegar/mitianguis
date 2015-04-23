@@ -39,11 +39,17 @@ module.exports.bootstrap = function(cb) {
                         	console.log(cParam);
                          });
 
-                        User.create({username:'oscarv@mitianguis.com', email:'oscarv@mitianguis.com', password:'oscarv'})
+                        User.create({username:'oscarv@mitianguis.com', email:'oscarvegar@gmail.com', password:'oscarv'})
                         .exec( function(err, userNew){
                         	Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date(),usuario:userNew})
 	                        .exec(function(err,createdMerc){
 	                             console.log(createdMerc);
+                              ConektaToken.create({ conektaToken: 'tok_test_card_declined', creditDebitCardMask: 'XXXX-XXXX-XXXX-0002', financialServiceBrand: 'MASTERCARD', mercante: createdMerc }).exec(function(err,cCon) {
+                                console.log(cCon);
+                                Mercante.update({id: cCon.mercante}, {conektaToken: cCon}).exec(function(err, uMer) {
+                                  console.log(uMer);
+                                });
+                              });
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
 
@@ -214,11 +220,11 @@ module.exports.bootstrap = function(cb) {
 	                         });
                         });
 
-                        User.create({username:'danielm@mitianguis.com', email:'danielm@mitianguis.com', password:'danielm'})
+                        User.create({username:'danielm@mitianguis.com', email:'lentium.mmx@gmail.com', password:'danielm'})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'José Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos', mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date(),usuario:userNew})
 	                         .exec(function(err,createdMerc){
-                               ConektaToken.create({ conektaToken: 'tok_test_visa_4242', mercante: createdMerc }).exec(function(err,cCon) {
+                               ConektaToken.create({ conektaToken: 'tok_test_visa_4242', creditDebitCardMask: 'XXXX-XXXX-XXXX-4242', financialServiceBrand: 'VISA', mercante: createdMerc }).exec(function(err,cCon) {
                                  console.log(cCon);
                                  Mercante.update({id: cCon.mercante}, {conektaToken: cCon}).exec(function(err, uMer) {
                                    console.log(uMer);
@@ -231,10 +237,16 @@ module.exports.bootstrap = function(cb) {
 	                         });
                         });
 
-                        User.create({username:'oscarg@mitianguis.com', email:'oscarg@mitianguis.com', password:'oscarg'})
+                        User.create({username:'oscarg@mitianguis.com', email:'pachecobionica@gmail.com', password:'oscarg'})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'García',apellidoMaterno:'Pacheco', mentor:created,fechaNacimiento:moment('1981 08 21').toDate(),codigoMercante:'OSCARGARCIA',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
+                               ConektaToken.create({ conektaToken: 'tok_test_insufficient_funds', creditDebitCardMask: 'XXXX-XXXX-XXXX-0127', financialServiceBrand: 'VISA', mercante: createdMerc }).exec(function(err,cCon) {
+                                 console.log(cCon);
+                                 Mercante.update({id: cCon.mercante}, {conektaToken: cCon}).exec(function(err, uMer) {
+                                   console.log(uMer);
+                                 });
+                               });
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
 
@@ -242,10 +254,16 @@ module.exports.bootstrap = function(cb) {
 	                         });
                         });
 
-                        User.create({username:'oscarm@mitianguis.com', email:'oscarm@mitianguis.com', password:'oscarm'})
+                        User.create({username:'oscarm@mitianguis.com', email:'oscar.monroyg@gmail.com', password:'oscarm'})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'García', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
+                               ConektaToken.create({ conektaToken: 'tok_test_mastercard_4444', creditDebitCardMask: 'XXXX-XXXX-XXXX-4444', financialServiceBrand: 'MASTERCARD', mercante: createdMerc }).exec(function(err,cCon) {
+                                 console.log(cCon);
+                                 Mercante.update({id: cCon.mercante}, {conektaToken: cCon}).exec(function(err, uMer) {
+                                   console.log(uMer);
+                                 });
+                               });
 	                             Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:createdMerc}).exec(function(err,cCar){
 	                                 console.log(cCar);
 

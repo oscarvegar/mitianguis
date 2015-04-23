@@ -8,7 +8,17 @@
 module.exports = {
 
   attributes: {
-
+    conektaId : { type: 'string' },
+    fechaCreacion: { type: 'datetime' },
+    estado : { type: 'string' },
+    moneda : { type: 'string' },
+    descripcion : { type: 'string' },
+    aplicadoAlDoc : { type: 'string' },
+    importe : { type: 'float' },
+    fechaRecepcion : { type: 'datetime' },
+    tipoTransaccion : { model: 'tipotransaccion' },
+    mercante : { model: 'mercante' }
   }
+
 };
 

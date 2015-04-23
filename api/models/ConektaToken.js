@@ -9,7 +9,9 @@ module.exports = {
 
   attributes: {
     conektaToken : { type: 'string' },
-    mercante:{ model: 'mercante' }
+    creditDebitCardMask : { type: 'string' },
+    financialServiceBrand : { type: 'string' },
+    mercante : { model: 'mercante' }
   }
 
 };

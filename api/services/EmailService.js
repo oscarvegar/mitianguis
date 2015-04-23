@@ -6,7 +6,7 @@ var transporter = nodemailer.createTransport({
     auth: {
         user: 'oscarvegar@gmail.com',
         pass: 'boniboni'
-    }  
+    }
 });
 
 module.exports = {
@@ -19,6 +19,14 @@ module.exports = {
             text: options.text, // plaintext body
             html: options.html // html body
         };
+
+        if(options.cc) {
+          mailOptions['cc'] = options.cc;
+        }
+        if(options.bcc) {
+          mailOptions['bcc'] = options.bcc;
+        }
+
         // send mail with defined transport object
         // console.log("ENVIANDO CORREO>>>>>>>>>>");
         // console.log('Sending Email: ' + JSON.stringify(mailOptions));
@@ -29,7 +37,7 @@ module.exports = {
                 console.log('Message sent: ' + info.response);
             }
         });
-  
+
 
     }
 };
