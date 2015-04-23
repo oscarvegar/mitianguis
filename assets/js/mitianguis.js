@@ -156,7 +156,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
       
 
   // PARA MENU DE ADMINISTRACION
-  $rootScope.menuOptions = new Array(7);
+  $rootScope.menuOptions = new Array(8);
   for(var i = 0; i < $rootScope.menuOptions.length; i++){
     $rootScope.menuOptions[i]={selected:"",display:'none'};
   }
@@ -190,7 +190,7 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
 
     //localStorage.clear();
-    //Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
+    Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
 
 
 
@@ -239,7 +239,6 @@ myApp.directive('validNumberFloat', function() {
       if(!ngModelCtrl) {
         return;
       }
-
       ngModelCtrl.$parsers.push(function(val) {
         if (angular.isUndefined(val)) {
           var val = '';
