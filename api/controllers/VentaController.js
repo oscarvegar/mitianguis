@@ -88,8 +88,8 @@ module.exports = {
 			         		"email":venta.email
 				       	}
 			     	}
-			     	console.log("PAGO >>>>>",pago);
-			     	unirest.post("https://api.conekta.io/charges")
+          console.log("PAGO >>>>>",pago);
+          unirest.post("https://api.conekta.io/charges")
 					.auth({user: 'key_fK2GfyxqqvW1KJBxmxbqCw'})
 					.headers({	'Accept': 'application/vnd.conekta-v0.3.0+json',
 								'Content-type': 'application/json'})
@@ -121,9 +121,9 @@ module.exports = {
 					res.json(500,{code:-20,msg:"Error al guardar el detalle de la venta"})
 				})
 			})
-			
-			
-	    	
+
+
+
 	  	}).catch(function(err,err2){
 	  		console.log(err)
 	  		console.log(err2)
@@ -182,7 +182,7 @@ module.exports = {
 			      if(ventas){
 			        if(ventas.length>0){
 			     		var productos = [];
-						 for(var i=0;i<ventas.length;i++){	
+						 for(var i=0;i<ventas.length;i++){
 							productos.push(
 								 ProductosVenta.find().where({venta:ventas[i].id}).populate('producto').populate('venta')
 							);
@@ -215,7 +215,7 @@ module.exports = {
         console.log(id);
         console.log(statusVenta);
 
-          Venta.update({id:id},{status:statusVenta}).then(function(data){   
+          Venta.update({id:id},{status:statusVenta}).then(function(data){
           return res.json(data);
 
          }).fail(function(err){

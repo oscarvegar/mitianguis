@@ -124,8 +124,8 @@ module.exports = {
     },
 
     setMentores:function(newMercante,mentorId,nivel,datosSystem,cb){
-      if(mentorId==datosSystem.datosSystem.systemId){
-        newMercante['mentor'+nivel]=mercanteRes;
+      if(mentorId==datosSystem.datosSystem.systemId || nivel === 10){
+        newMercante['mentor'+nivel]=mentorId;
         cb(newMercante);
       }else{
         Mercante.findOne({id:mentorId}).then(function(mercanteRes){
