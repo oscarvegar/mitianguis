@@ -68,7 +68,9 @@ passport.use(new LocalStrategy(
           var returnUser = {
             username: user.username,
             createdAt: user.createdAt,
-            id: user.id
+            id: user.id,
+            perfil: user.perfil,
+            verificacion: user.verificacion
           };
           return done(null, returnUser, {
             message: 'Logged In Successfully'

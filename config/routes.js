@@ -48,6 +48,7 @@ module.exports.routes = {
   'POST /conekta/response': 'ConektaController.responseConekta',
   'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
   'post /recuperarPassword':'RegistroController.recuperarPassword',
+  'POST /registrarUser': 'RegistroController.registrarUser',
 
   '/store': function(req, res, next) {
     res.sendfile(sails.config.appPath + '/assets/pages/index.html');
@@ -69,6 +70,7 @@ module.exports.routes = {
   'POST /guardarArchivoProducto':'ProductoController.guardarArchivo',
   'POST /borrarProducto':'ProductoController.borrarProducto',
   'POST /carmbiarArchivo':'ProductoController.carmbiarArchivo',
+
 
   /***url pruebas**/
 

@@ -13,7 +13,8 @@ var myApp = angular.module("TianguisApp",
                                 'AdminService',
                                 'CheckoutModule',
                                 'VentasAdminModule',
-                                'RedAdminModule'
+                                'RedAdminModule',
+                                'validation.match'
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
@@ -137,6 +138,23 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
           });
       };
 
+
+  $scope.registrarUser = function() {
+
+    console.log("Registro usuario");
+    console.log($scope.user);
+
+    $http.post("/registrarUser", $scope.user).then(function(result) {
+      console.log("Respuesta User");
+      console.log( JSON.stringify(result) );
+      $scope.alert('success', 'Registro Exitoso', 'Favor de revisar tu correo electrónico  para que activar tu cuenta');
+    });
+
+
+  };
+
+      
+
   // PARA MENU DE ADMINISTRACION
   $rootScope.menuOptions = new Array(7);
   for(var i = 0; i < $rootScope.menuOptions.length; i++){
@@ -249,6 +267,8 @@ myApp.directive('validNumberFloat', function() {
     }
   };
 });
+
+
 /*
 myApp.directive('richTextEditor', function() {
   return {

@@ -23,6 +23,8 @@ module.exports = {
 			type : 'string',
 			required : true
 		},
+		perfil : 'string',
+		verificacion: 'int',
 		toJSON : function() {
 			var obj = this.toObject();
 			delete obj.password;
