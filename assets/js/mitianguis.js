@@ -138,7 +138,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
       };
 
   // PARA MENU DE ADMINISTRACION
-  $rootScope.menuOptions = new Array(7);
+  $rootScope.menuOptions = new Array(8);
   for(var i = 0; i < $rootScope.menuOptions.length; i++){
     $rootScope.menuOptions[i]={selected:"",display:'none'};
   }
@@ -221,7 +221,6 @@ myApp.directive('validNumberFloat', function() {
       if(!ngModelCtrl) {
         return;
       }
-
       ngModelCtrl.$parsers.push(function(val) {
         if (angular.isUndefined(val)) {
           var val = '';
@@ -249,6 +248,7 @@ myApp.directive('validNumberFloat', function() {
     }
   };
 });
+
 /*
 myApp.directive('richTextEditor', function() {
   return {

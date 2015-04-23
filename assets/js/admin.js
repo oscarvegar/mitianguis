@@ -25,15 +25,21 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
     templateUrl:"pages/admin/productos.html"
   };
 })
-.directive("ventas", function( ){
+.directive("afiliate", function( ){
   return {
     restrict:"E",
-    templateUrl:"pages/admin/ventas.html"
+    templateUrl:"pages/admin/registro.html"
   };
 })
 .directive("red", function( ){
   return {
     restrict:"E",
     templateUrl:"pages/admin/mired.html"
+  };
+})
+.directive("ventas", function( ){
+  return {
+    restrict:"E",
+    templateUrl:"pages/admin/ventas.html"
   };
 });

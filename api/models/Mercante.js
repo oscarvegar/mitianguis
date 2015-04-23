@@ -45,9 +45,7 @@ module.exports = {
       model: 'conektaToken',
       via: 'mercante'
     },
-
-
-
+    
     mentor2 : {
       model : 'mercante'
     },
