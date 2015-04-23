@@ -44,8 +44,7 @@ module.exports = {
     conektaToken: {
       model: 'conektaToken',
       via: 'mercante'
-    }
-    }
+    },
 
 
 
