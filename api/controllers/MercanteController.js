@@ -55,15 +55,23 @@ module.exports = {
     User.findOne({username:data.username}).exec(function(err,user){
       console.log("usuario encontrado >> " + user + "  :::: " + JSON.stringify(user));
       if(!user)return response.json(404,{code:-1,msg:"Mercante no encontrado"})
-      Mercante.findOne({usuario:user.id}).exec(function( err, found ){
-        console.log("found mercante >> " + found );
-        console.log("err mercante >> " + err );
-        if(err){console.log(err)};
-        if(found.status === StatusService.ELIMINADO){
-          return response.json(500, {mensaje:"El mercante ha sido dado de baja"});
-        }
-        return response.json(found);
-      });
+      if( user.perfil === "MERCANTE" ) {
+        Mercante.findOne({usuario: user.id}).exec(function (err, found) {
+          console.log("found mercante >> " + found);
+          console.log("err mercante >> " + err);
+          if (err) {
+            console.log(err)
+          }
+          ;
+          if (!found)return response.json(404, {code: -1, msg: "Mercante no encontrado"})
+          if (found.status === StatusService.ELIMINADO) {
+            return response.json(500, {mensaje: "El mercante ha sido dado de baja"});
+          }
+          return response.json(found);
+        });
+      }else{
+        return response.json(user);
+      }
     });
   },
   registrarNuevo : function(req, res) {

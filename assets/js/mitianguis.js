@@ -43,6 +43,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 
     $rootScope.usuario = webUtil.getJSON("usuario");
     console.log( $rootScope.usuario );
+
     // Obtener el subdominio erroneo, si existe
     var subdominioError = $location.search().subdomain;
     if(subdominioError){
@@ -50,6 +51,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     }
     //Obtener al mercante en base al subdominio en el primer acceso.
     var subdominio = webUtil.getDomain();
+
     //if(subdominio !== "http://") {
 	    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
 	    .then(function(result) {
@@ -66,7 +68,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 	    } );
     //}
 
-    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
+    //$http.get("/mercanteByUrl?urlMercante=" + subdominio)
 
     $scope.login = function(){
       $scope.user.email = $scope.user.username;
@@ -75,13 +77,19 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
         if( result.data.message === constants.LOGIN_SUCCESS ){
           $('#loginModal').modal('hide');
           console.log("user usado para buscar mercante:: " + JSON.stringify(result.data.user) );
-          $http.post("/mercanteByUsuario", result.data.user).then( function( resultMerca ){
-            console.log("mercante found :: " + JSON.stringify(resultMerca));
-            result.data.user.mercante = resultMerca.data;
+          if( result.data.user.perfil === "MERCANTE" ) {
+            $http.post("/mercanteByUsuario", result.data.user).then(function (resultMerca) {
+              console.log("mercante found :: " + JSON.stringify(resultMerca));
+              result.data.user.mercante = resultMerca.data;
+              webUtil.save("usuario", result.data.user);
+              webUtil.save("email", result.data.user.username);
+              $rootScope.usuario = result.data.user;
+            });
+          }else{
             webUtil.save("usuario", result.data.user);
             webUtil.save("email", result.data.user.username);
             $rootScope.usuario = result.data.user;
-          });
+          }
         }else{
           $scope.errorLogin = true;
         }
@@ -90,53 +98,53 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 
 
     $scope.alert = function(tipo,title,desc){
-            $scope.messageTitle = title;
-            $scope.messageDescription = desc;
-            switch(tipo){
+      $scope.messageTitle = title;
+      $scope.messageDescription = desc;
+      switch(tipo){
 
-                case 'warn':
-                    $scope.alertClass = "alert-warning";
-                    $scope.infoIcon = "icon-exclamation-sign";
-                    break;
-                case 'info':
-                    $scope.alertClass = "alert-info";
-                    $scope.infoIcon = "icon-lightbulb";
-                    break;
-                case 'danger':
-                    $scope.alertClass = "alert-danger";
-                    $scope.infoIcon = "icon-remove-sign";
-                    break;
-                default:
-                    $scope.alertClass = "alert-success";
-                    $scope.infoIcon = "icon-check-sign";
-                    break;
+          case 'warn':
+              $scope.alertClass = "alert-warning";
+              $scope.infoIcon = "icon-exclamation-sign";
+              break;
+          case 'info':
+              $scope.alertClass = "alert-info";
+              $scope.infoIcon = "icon-lightbulb";
+              break;
+          case 'danger':
+              $scope.alertClass = "alert-danger";
+              $scope.infoIcon = "icon-remove-sign";
+              break;
+          default:
+              $scope.alertClass = "alert-success";
+              $scope.infoIcon = "icon-check-sign";
+              break;
 
-            }
+      }
 
-            $scope.showAlert = true;
+      $scope.showAlert = true;
     };
 
-    $scope.forgotPassword = function(){
-        console.log("Recuperar Password");
-        console.log($scope.forgotMail);
+    $scope.forgotPassword = function() {
+      console.log("Recuperar Password");
+      console.log($scope.forgotMail);
 
-            $http.post('/recuperarPassword',{email:$scope.forgotMail}).success(function(data){
-                if(data.code > 0)
-                    console.log("Datos");
-                    console.log(data);
-                     //alert("Success: " + JSON.stringify(data));
-                    $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
-            });
-    };
-
-    $scope.logout = function(){
-          $http.get('/logout').success(function(datos){
-          $window.localStorage.removeItem("usuario");
-              $rootScope.usuario = null;
-              delete $rootScope.usuario;
-              //window.location = '/';
+          $http.post('/recuperarPassword',{email:$scope.forgotMail}).success(function(data){
+              if(data.code > 0)
+                  console.log("Datos");
+                  console.log(data);
+                   //alert("Success: " + JSON.stringify(data));
+                  $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
           });
-      };
+    };
+
+    $scope.logout = function() {
+        $http.get('/logout').success(function(datos){
+        $window.localStorage.removeItem("usuario");
+            $rootScope.usuario = null;
+            delete $rootScope.usuario;
+            //window.location = '/';
+        });
+    };
 
 
   $scope.registrarUser = function() {
@@ -153,7 +161,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 
   };
 
-      
+
 
   // PARA MENU DE ADMINISTRACION
   $rootScope.menuOptions = new Array(8);

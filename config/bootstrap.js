@@ -39,7 +39,7 @@ module.exports.bootstrap = function(cb) {
                         	console.log(cParam);
                          });
 
-                        User.create({username:'oscarv@mitianguis.com', email:'oscarvegar@gmail.com', password:'oscarv'})
+                        User.create({username:'oscarv@mitianguis.com', email:'oscarvegar@gmail.com', password:'oscarv',perfil:'MERCANTE', verificacion:1})
                         .exec( function(err, userNew){
                         	Mercante.create({nombre:'Oscar',apellidoPaterno:'Vega',apellidoMaterno:'Rodríguez', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARVEGAR', diaInscripcion:moment().date(),usuario:userNew})
 	                        .exec(function(err,createdMerc){
@@ -221,7 +221,7 @@ module.exports.bootstrap = function(cb) {
 	                         });
                         });
 
-                        User.create({username:'danielm@mitianguis.com', email:'lentium.mmx@gmail.com', password:'danielm'})
+                        User.create({username:'danielm@mitianguis.com', email:'lentium.mmx@gmail.com', password:'danielm',perfil:'MERCANTE', verificacion:1})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'José Daniel',apellidoPaterno:'Morales',apellidoMaterno:'Ríos', mentor:created,fechaNacimiento:moment('1981 05 15').toDate(),codigoMercante:'DANIMORALES',diaInscripcion:moment().date(),usuario:userNew})
 	                         .exec(function(err,createdMerc){
@@ -238,7 +238,7 @@ module.exports.bootstrap = function(cb) {
 	                         });
                         });
 
-                        User.create({username:'oscarg@mitianguis.com', email:'pachecobionica@gmail.com', password:'oscarg'})
+                        User.create({username:'oscarg@mitianguis.com', email:'pachecobionica@gmail.com', password:'oscarg',perfil:'MERCANTE', verificacion:1})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'García',apellidoMaterno:'Pacheco', mentor:created,fechaNacimiento:moment('1981 08 21').toDate(),codigoMercante:'OSCARGARCIA',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
@@ -255,7 +255,7 @@ module.exports.bootstrap = function(cb) {
 	                         });
                         });
 
-                        User.create({username:'oscarm@mitianguis.com', email:'oscar.monroyg@gmail.com', password:'oscarm'})
+                        User.create({username:'oscarm@mitianguis.com', email:'oscar.monroyg@gmail.com', password:'oscarm', perfil:'MERCANTE', verificacion:1})
                         .exec( function(err, userNew){
 	                         Mercante.create({nombre:'Oscar',apellidoPaterno:'Monroy',apellidoMaterno:'García', mentor:created,fechaNacimiento:moment('1985 08 20').toDate(),codigoMercante:'OSCARMONROY',diaInscripcion:moment().date(), usuario:userNew})
 	                         .exec(function(err,createdMerc){
