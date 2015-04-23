@@ -7,11 +7,11 @@
  var Q = require("q");
 var unirest = require('unirest');
 var fs = require('fs');
+var eden = require('node-eden')
 
 module.exports = {
-	checkout:function(req,res){
-		var orden = req.allParams();
-		console.log(orden);
+	crearVenta:function(orden,res){
+		
 		orden.colonia = orden.selColonia.d_asenta;
 		orden.municipio = orden.selColonia.D_mnpio;
 		orden.ciudad = orden.selColonia.d_ciudad;
@@ -27,16 +27,18 @@ module.exports = {
 		var promises = [];
 		for(var i in carrito.productosCarrito){
 			promises.push(
-				Producto.findOne({id:carrito.productosCarrito[i].producto.id}).populate('subproductos')
+				Producto.findOne({id:carrito.productosCarrito[i].producto.id}).populate('subproductos',{status:1})
 			);
 		}
 		Q.all(promises)
-		.allSettled(promises).then(function(results) {
+		.allSettled(promises)
+		.then(function(results) {
+			LOGS.info("ALGO","DESPUES")
 			for(var i in results){
 				var producto = results[i].value;
 				if(producto.subproductos && producto.subproductos.length>0){
 					for(var j in producto.subproductos){
-						if(producto.subproductos[j].id === carrito.productosCarrito[i].producto.modeloSelected.id){
+						if(producto.subproductos[j].id === carrito.productosCarrito[i].modeloSelected.id){
 							var obj = {
 								producto:producto,
 								precioVenta:producto.subproductos[j].precio,
@@ -112,6 +114,46 @@ module.exports = {
 	  		console.log(err)
 	  		console.log(err2)
 	  	});
+	},
+	checkout:function(req,res){
+		/*** SI NO EXISTE EN SESION SE CREA UNA CUENTA DE USUARIO ***/
+		var currentUser = req.session.currentUser;
+		var orden = req.allParams();
+		LOGS.info("CURRENT USER",currentUser)
+		if(!currentUser){
+			LOGS.info("***** NUEVO USUARIO COMPRANDO, SE CREA CUENTA *****")
+			User.findOne({username:orden.email}).then(function(data){
+				if(!data){
+					var passwd = eden.adam()+'.'+eden.word()+"."+eden.eve();
+					User.create({username:orden.email,email:orden.email,password:passwd}).then(function(user){
+						orden.cliente=user;
+						EmailService.enviarBienvenida(user,passwd);
+						module.exports.crearVenta(orden,res);
+					}).fail(function(err){
+						LOGS.error(err);
+					})
+				}else{
+					unirest.post("https://api.conekta.io/charges")
+					.auth({user: 'key_fK2GfyxqqvW1KJBxmxbqCw'})
+					.headers({	'Accept': 'application/vnd.conekta-v0.3.0+json',
+								'Content-type': 'application/json'})
+					.send(pago)
+					.end(function(response){
+						console.log("SALVANDO LA VENTA!!!!!!!!!!!!!!!!!")
+						venta.conektaInfo = response.body;
+						venta.save();
+						res.json({code:1})
+					})
+					return res.json(500,{code:-10,msg:'USUARIO EXISTENTE'})
+				}
+			})
+		}else{
+			orden.cliente = currentUser;
+			module.exports.crearVenta(orden,res);
+		}
+
+
+		
 	},
 	buscarDatosByEmail:function(req,res){
 		var email = req.allParams().id;

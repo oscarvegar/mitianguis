@@ -1,5 +1,6 @@
 // EmailService.js - in api/services
 var nodemailer = require('nodemailer');
+var fs = require('fs');
 
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -13,7 +14,7 @@ module.exports = {
 
     sendEmail: function(options) {
         var mailOptions = {
-            from: 'Notificacion ✔ <miTianguis@miTianguis.mx>', // sender address
+            from: 'Equipo MiTianguis ✔ <notificaciones@mitianguis.mx>', // sender address
             to: options.to, // list of receivers
             subject: options.subject, // Subject line
             text: options.text, // plaintext body
@@ -39,5 +40,15 @@ module.exports = {
         });
 
 
+    },
+    enviarBienvenida:function(usuario,passwd){
+        var file = fs.readFileSync('./config/mail/bienvenida.html',{encoding:'UTF-8'});
+        file = file.replace("#usuario",usuario.username).replace("#password",passwd);
+        var options ={
+            to:usuario.email,
+            subject:'Bienvenido a MiTianguis',
+            html:file
+        }
+        module.exports.sendEmail(options);
     }
 };

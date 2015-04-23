@@ -124,7 +124,12 @@ angular.module("CarritoModule",[])
           })
       }else{
         console.log("* * * UNSET VARIABLE USUARIO * * *");
-      	$rootScope.carrito = webUtil.getJSON("carritoViejo");
+        var cviejo = webUtil.getJSON("carritoViejo");
+        if(cviejo){
+	      	$rootScope.carrito = cviejo;
+	      	webUtil.save('carrito',$rootScope.carrito);
+	      	webUtil.save('carritoViejo',$rootScope.carrito);
+      	}
       	
       }
     });

@@ -6,6 +6,11 @@
  */
 
 module.exports = {
+  currentUser:function(req,res){
+
+    LOGS.info("CURRENT USER",req.session.currentUser)
+    return res.json(req.session.currentUser)
+  },
 	find:function(req,res){
       Mercante.find().populateAll().exec(function(err,found){
           return res.json(found);

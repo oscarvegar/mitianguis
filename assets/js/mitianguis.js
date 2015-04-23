@@ -172,7 +172,7 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
 
     //localStorage.clear();
-    //Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
+    Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
 
 
 
