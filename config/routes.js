@@ -59,7 +59,8 @@ module.exports.routes = {
   'POST /nuevatienda': 'TiendaController.create',
   'POST /editartienda': 'TiendaController.editar',
   'POST /asignaEstatus': 'TiendaController.setStatus',
-  'GET /misventas/:id': 'VentaController.misVentas',
+  'GET /misventas/:id/:status': 'VentaController.misVentas',
+  'POST /misventasStatus/:id/:status': 'VentaController.misVentasStatus',
 
   /*** ADMINISTRACION DE PRODUCTOS ***/
   'GET /productoPorTienda/:id': 'ProductoController.productoByTienda',
