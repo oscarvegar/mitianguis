@@ -15,8 +15,6 @@ if(process.argv.slice(2).indexOf('--prod')>=0){
 
 var Fiber = require('fibers');
 
-
-
 mongodb.connect(dbstr, function (err, db) {
 	if(!err) {
 		console.log("We are connected");
@@ -32,8 +30,8 @@ mongodb.connect(dbstr, function (err, db) {
 				   sub.connect('mercante-renovacion', function() {
 				   	console.log(">>>>> WORKER CONNECTED <<<<<")
 				   	Fiber(function() {
-				   		
-					   	sub.on('data', function(data) { 
+
+					   	sub.on('data', function(data) {
 					   		var Server = require("mongo-sync").Server;
 								var server = new Server('127.0.0.1');
 								var MercanteSync = server.db("dev_mitianguis").getCollection("mercante");
@@ -46,18 +44,16 @@ mongodb.connect(dbstr, function (err, db) {
 									sub.ack();
 									server.close();
 								});
-						
+
 							})
 					   }).run();
-				   }); 
+				   });
 
 				});
 			});
 		});
 	}
 });
-
-
 
 var renovarSuscripcion = function(mercante,mensualidad,datosSystem,cb){
 	Cartera.findOne({mercante:mercante._id},function(err,cartera){
@@ -67,7 +63,6 @@ var renovarSuscripcion = function(mercante,mensualidad,datosSystem,cb){
 	});
 
 }
-
 
 var calcularComisionesRenovacion=function(mercante,mentor,nivel,repartido,varoInicial,datosSystem,cb){
 	Cartera.findOne({mercante:mercante._id},function(err,fCarteraInscrito){
@@ -99,6 +94,7 @@ var calcularComisionesRenovacion=function(mercante,mentor,nivel,repartido,varoIn
 		});
 	});
 }
+
 var aplicarComision = function(carteraOrigen,carteraDestino,cantidad,cb){
 	console.log(">>>>>TRANSFIRIENDO DE "+JSON.stringify(carteraOrigen)+" A "+JSON.stringify(carteraDestino)+cantidad+" DE VARO");
 	carteraOrigen.varoActual-=cantidad;

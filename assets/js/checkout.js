@@ -1,13 +1,10 @@
 angular.module("CheckoutModule",[])
-.controller('CheckoutCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope){
+.controller('CheckoutCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope,$CarritoService){
 	$scope.orden = {};
 	$scope.datosPago = {};
 	$scope.orden.codigoPostal = null;
 	$scope.direcciones = [];
-	$scope.meses = ["01","02","03","04","05","06","07","08","09","10","11","12"]
-	$scope.selMes = "01";
-	$scope.anos = ["15","16","17"]
-	$scope.selAno = "17";
+
 	$scope.datosPago = {};
 	$scope.disBtnPagar = false;
 
@@ -22,11 +19,8 @@ angular.module("CheckoutModule",[])
 
 	$scope.ordenar = function(){
 
-		console.log($scope.selAno)
-		console.log($scope.selMes)
-		$scope.datosPago.exp_year = $scope.selAno;
-		$scope.datosPago.exp_month = $scope.selMes;
-		console.log($scope.orden);
+		$scope.datosPago.exp_year = $rootScope.selAno;
+		$scope.datosPago.exp_month = $rootScope.selMes;
 		var card = {card:$scope.datosPago};
 		console.log(JSON.stringify(card));
 		Conekta.token.create(card,
@@ -38,6 +32,8 @@ angular.module("CheckoutModule",[])
 			.success(function(data){
 				console.log(data)
 				$scope.disBtnPagar = false;
+				$CarritoService.destroy();
+				$location.url("/gracias")
 			})
 			.error(function(err){
 				console.log(err)
@@ -49,9 +45,11 @@ angular.module("CheckoutModule",[])
 		});
 	}
 	$rootScope.$watch('usuario',function(){
-		$scope.orden.nombre = $rootScope.usuario.mercante.nombre;
-		$scope.orden.apellidoPaterno = $rootScope.usuario.mercante.apellidoPaterno;
-		$scope.orden.apellidoMaterno = $rootScope.usuario.mercante.apellidoMaterno;
+		if($rootScope.usuario){
+			$scope.orden.nombre = $rootScope.usuario.mercante.nombre;
+			$scope.orden.apellidoPaterno = $rootScope.usuario.mercante.apellidoPaterno;
+			$scope.orden.apellidoMaterno = $rootScope.usuario.mercante.apellidoMaterno;
+		}
 	})
 
 	$scope.buscarUsuario = function(){
@@ -80,6 +78,11 @@ angular.module("CheckoutModule",[])
 		$scope.datosPago.number = "4242424242424242"
 		$scope.datosPago.cvc = "777"
 
+		$scope.testDestroy = function(){
+			console.log("testDestroy")
+			$CarritoService.destroy();
+			$location.url("/gracias")
+		}
 
 	/***********************************************/
 });

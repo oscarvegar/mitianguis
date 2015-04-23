@@ -111,7 +111,7 @@
             <div align="center">
               <span data-toggle="modal" data-target="#tiendaModal"
                     ng-click="prepararCambiarImagenSecundria(null);">
-                <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
+                <img src="../../imagenes/add.png" alt="Agrega una nueva imagen"
                      style="width: 110px;height: 110px" >
               </span>
             </div>
@@ -127,33 +127,77 @@
             <h4 class="fondoMiTianguis" style="text-align: center;margin: 0px;">{{$index + 1}} - ARCHIVOS</h4>
             <div align="center" style="margin: 0px;width: 100%;height: 100%">
               <div class="img-wrap" style="margin: 0px;">
-                <span class="close" ng-click="viewDialogDelArchivo(ARCHIVO,$index);"><i class="glyphicon glyphicon-remove"></i></span>
-                <span class="edit"><i class="fa fa-edit"></i></span>
-                <img src="{{archivo.url}}" width="100%" height="200" style="margin: 0px;"
-                     alt="Archivo">
+                <span class="close" ng-click="viewDialogDelArchivo(ARCHIVO,$index);">
+                  <i class="glyphicon glyphicon-remove"></i></span>
+                <span class="edit" ng-click="prepararCambiarArchivo($index);" ><i class="fa fa-edit"></i></span>
+                <img src="../../imagenes/archivoPdf.jpg" width="100%" height="180"
+                     alt="{{archivo.nombre}}" title="{{archivo.nombre}}"
+                     style="margin:0px;height: 180px;max-height: 180px; min-height: 180px;"  >
               </div>
             </div>
+            <div align="center">{{archivo.nombre}}</div>
           </div>
-          <div class="thumbnail" ng-if="$index === (archivosTemp.length - 1)"
+
+          <div class="thumbnail" ng-if="archivosTemp.length === 1 "
                style="height: 200px;" ng-click="tiendaCtrl.setAsNuevaTienda(true, null)">
             <h4>&nbsp;</h4>
             <div align="center">
-              <span data-toggle="modal" data-target="#tiendaModal"  >
-                <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
+              <span ng-click="prepararCambiarArchivo(null);" >
+                <img src="../../imagenes/add.png" alt="Agrega un nuevo archivo"
                      style="width: 110px;height: 110px" >
               </span>
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
 
 
     <div style="display:{{vistas[2]}}">
-      MODELOS
-
+      <h4>
+        PERSONALIZA LOS MODELOS DE TU PRODUCTO <b><i>{{productoSelected.nombre.toUpperCase()}}</i></b>
+        <button class="btn btn-black btn-sm" style="float: right;position: relative;top:-5px;font-size: 15px;"
+                ng-click="setView(0)">
+          <span class="fa fa-repeat"></span>
+          Regresar
+        </button>
+        <button class="btn btn-default btn-sm" style="float: right;position: relative;top:-5px;font-size: 15px;"
+                data-toggle="modal" data-target="#subProductoModal"
+                ng-click="setAsNewSubProducto(null, true)">
+          <span class="glyphicon glyphicon-plus"></span>
+          Agregar Modelo
+        </button>
+      </h4>
+      <hr/>
+      <table class="table-striped table-hover" ng-show="productoSelected.subproductos.length > 0"
+             cellpadding="10" cellspacing="5" width="100%" >
+        <tr>
+          <th>&nbsp;</th>
+          <th>MODELO</th>
+          <th>PRECIO</th>
+          <th>EN STOCK</th>
+          <th>ACCIONES</th>
+        </tr>
+        <tr ng-repeat="subproducto in productoSelected.subproductos" class="cursor">
+          <td style="vertical-align: middle" align="center">
+            <img src="{{subproducto.imagen}}" width="80" height=60">
+          </td>
+          <td>{{subproducto.modelo}}</td>
+          <td>{{subproducto.precio | currency}}</td>
+          <td>{{subproducto.stock}}</td>
+          <td>
+              <span class="glyphicon glyphicon-trash cursor" aria-hidden="true"
+                    data-toggle="modal" data-placement="bottom" title="ELIMINAR"
+                    data-target="#subProdDelModal" ng-click="setSubProductoSelected(subproducto)" ></span>
+              <span class="glyphicon glyphicon-pencil cursor" aria-hidden="true"
+                    data-toggle="modal" data-placement="bottom" title="EDITAR"
+                    data-target="#subProductoModal" ng-click="setAsNewSubProducto(subproducto, false)"></span>
+          </td>
+        </tr>
+      </table>
+      <div ng-show="!productoSelected.subproductos.length">
+        <i>No tiene subproductos registrados</i>
+      </div>
     </div>
 
     <!-- MODALES -->
@@ -230,6 +274,7 @@
                         <div class="btn-mt">
                           <span id="qcf-btn"><i class="glyphicon glyphicon-plus"
                                 ng-click="agregaCategoria( )"></i></span>
+                        </div>
                       </td>
                     </tr>
                   </table>
@@ -313,36 +358,101 @@
                          ng-model="producto.largo" placeholder="Escribe el largo del producto">
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div id="btnGroupImgPrincipal" class="btnb-group" data-toggle="buttons">
+                    <label id="labelImagenUpload" class="btnb btnb-default {{isImagenPrincipalConURL?'':'active'}}" ng-click="mostrarInputImgPrincipal(false)">
+                      <input type="radio" id="q156" name="opcImgPrincipal" value="1" checked="checked"
+                             /> Selecciona una imagen
+                    </label>
+                    <label id="labelImagenUrl" class="btnb btnb-default {{isImagenPrincipalConURL?'active':''}}" ng-click="mostrarInputImgPrincipal(true)" >
+                      <input type="radio" id="q160" name="opcImgPrincipal" value="5"
+                             /> Escribe la URL de tu imagen
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group" ng-show="isNuevoProducto">
                 <label class="col-sm-2 control-label">Imagen Principal</label>
                 <div class="col-sm-10">
                   <input type="file" class="form-control" id="imgPrincipal" name="imgPrincipal"
-                         nv-file-select uploader="imgPrincipalUpload" >
+                         nv-file-select uploader="imgPrincipalUpload" ng-hide="isImagenPrincipalConURL">
+                  <input type="text" class="form-control" id="imgPrincipalUrl" name="imgPrincipal"
+                         ng-show="isImagenPrincipalConURL" placeholder="Escribe la URL de la imagen principal de tu producto"
+                         ng-model="producto.imagenPrincipal">
                 </div>
                 <span style="color:maroon" ng-show="msgErrorImgPrincipal != ''">
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   <span>{{msgErrorImgPrincipal}}</span>
                 </span>
               </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div id="btnGroupImgSecu" class="btnb-group" data-toggle="buttons">
+                    <label id="labelImagenSecuUpload" class="btnb btnb-default {{isImagenSecuConURL?'':'active'}}" ng-click="mostrarInputImgSecu(false)">
+                      <input type="radio" name="opcImgSecu" value="1" checked="checked"
+                        /> Selecciona una imagen
+                    </label>
+                    <label id="labelImagenSecuUrl" class="btnb btnb-default {{isImagenSecuConURL?'active':''}}" ng-click="mostrarInputImgSecu(true)" >
+                      <input type="radio" name="opcImgSecu" value="5"
+                        /> Escribe la URL de tu imagen
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group" ng-show="isNuevoProducto">
                 <label class="col-sm-2 control-label">Imagenes Secundarias</label>
                 <div class="col-sm-10">
                   <input type="file" class="form-control" id="imgSecu" name="imgSecu"
-                         nv-file-select uploader="imgSecundariasUpload">
-                  <span style="font-size: 11px;">Nota: Se pueden agregar mas de una imagen.</span><br/>
+                         nv-file-select uploader="imgSecundariasUpload"
+                         ng-hide="isImagenSecuConURL">
+
+                  <table width="100%" ng-show="isImagenSecuConURL" >
+                    <tr>
+                      <td width="85%">
+                        <input type="text" class="form-control" name="imgSecundaria"
+                               ng-model="imgSecuUrlTemp"
+                               placeholder="Escribe la URL de tu imagen"
+                               ng-enter="agregaImgSecuUrl( )"></td>
+                      <td width="5%">&nbsp;</td>
+                      <td>
+                        <div class="btn-mt">
+                          <span><i class="glyphicon glyphicon-plus"
+                                   ng-click="agregaImgSecuUrl( )"></i></span>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <span style="font-size: 11px;">Nota: Puedes agregar mas de una imagen.</span><br/>
                   <span style="color:maroon" ng-show="msgErrorImgSecundaria != ''">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <span>{{msgErrorImgSecundaria}}</span>
                   </span>
-                  <div style="width: 100%" ng-repeat="item in imgSecundariasUpload.getNotUploadedItems()">
+                  <div  ng-hide="isImagenSecuConURL" style="width: 100%" ng-repeat="item in imgSecundariasUpload.getNotUploadedItems()">
                     <div style="width: 200px;">
                       <span class="label label-default" style="width: 150px;">{{item.file.name}}</span>
                       <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
                             ng-click="removerArchivoImagen(item);"></span>
                     </div>
                   </div>
+                  <div  ng-show="isImagenSecuConURL" style="width: 100%"
+                        ng-repeat="imgSecu in producto.imagenesSecundarias">
+                    <div style="width: 200px;">
+                      <span class="label label-default" style="width: 150px;">{{imgSecu}}</span>
+                      <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
+                            ng-click="removerArchivoImagenUrl($index);"></span>
+                    </div>
+                  </div>
                 </div>
               </div>
+
               <div class="form-group" ng-show="isNuevoProducto">
                 <label class="col-sm-2 control-label">Especifica ciones</label>
                 <div class="col-sm-10">
@@ -361,6 +471,91 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="subProductoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="fa fa-times"></i>
+          </button>
+          <h2>{{tituloSubProductoModal}}</h2>
+        </div>
+        <form  name="subproductoForm" role="form" ng-submit="accionSubProducto()"  novalidate>
+          <div  class="modal-body">
+            <div class="row-fluid">
+              <div class="span12">
+                <div class="row-fluid">
+                  <div class="span2">Modelo</div>
+                  <div class="span9">
+                    <input type="text" name="subprodNombre" ng-model="subproducto.modelo" class="form-control"
+                           ng-required="true">
+                    <span style="color:maroon" ng-show="subproductoForm.subprodNombre.$dirty && subproductoForm.subprodNombre.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span ng-show="subproductoForm.subprodNombre.$error.required">El nombre del modelo es requerido.</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span2">&nbsp;</div>
+                  <div class="span9">
+                    <div class="btnb-group" data-toggle="buttons">
+                      <label class="btnb btnb-default {{isImagenSubProdURL?'':'active'}}"
+                             ng-click="mostrarInputImgSubProd(false)">
+                        <input type="radio" name="opcImgSecu" value="1" checked="checked"
+                          /> Selecciona una imagen
+                      </label>
+                      <label class="btnb btnb-default {{isImagenSubProdURL?'active':''}}"
+                             ng-click="mostrarInputImgSubProd(true)" >
+                        <input type="radio" name="opcImgSecu" value="5" /> Escribe la URL de tu imagen
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span2">Imagen</div>
+                  <div class="span9">
+                    <input type="file" class="form-control" ng-hide="isImagenSubProdURL"
+                           nv-file-select uploader="cambiarArchivoUpload">
+                    <input type="text" class="form-control" ng-show="isImagenSubProdURL"
+                           ng-model="subproducto.imagen">
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span2">Precio</div>
+                  <div class="span9">
+                    <input type="text" ng-model="subproducto.precio" class="form-control"
+                           placeholder="Escribe el precio del producto" ng-required="true"
+                           name="subprodPrecio" valid-number-float>
+                <span style="color:maroon" ng-show="subproductoForm.subprodPrecio.$dirty && subproductoForm.subprodPrecio.$invalid">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <span ng-show="subproductoForm.subprodPrecio.$error.required">El precio es requerido.</span>
+                </span>
+                  </div>
+                </div>
+                <div class="row-fluid">
+                  <div class="span2">Stock</div>
+                  <div class="span9">
+                    <input type="text" ng-model="subproducto.stock" class="form-control" name="subprodStock"
+                           ng-required="true" placeholder="Cantidad de productos disponibles a vender"
+                           only-digits>
+                    <span style="color:maroon" ng-show="subproductoForm.subprodStock.$dirty && subproductoForm.subprodStock.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span ng-show="subproductoForm.subprodStock.$error.required">El stock es requerido.</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div  class="modal-footer">
+            <input class="btn btn-black" ng-disabled="subproductoForm.$invalid" type="submit" value="Aceptar" />
+          </div>
+        </form>
+      </div><!-- /.modal-content -->
+
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
   <div class="modal fade" id="productoDelModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -395,7 +590,29 @@
           {{dlgMensaje}}
         </div>
         <div  class="modal-footer">
-          <input class="btn btn-primary" type="button" value="Si" ng-click="borrarArchivoDetalle();" />
+          <input class="btn btn-primary" type="button" value="Si"
+                 ng-click="borrarArchivoDetalle();" />
+          <input class="btn btn-black" type="button" value="No" data-dismiss="modal" />
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade" id="subProdDelModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <i class="fa fa-times"></i>
+          </button>
+          <h2>Confirmación para Eliminar el Modelo </h2>
+        </div>
+        <div  class="modal-body">
+          ¿Está seguro que desea eliminar el modelo seleccionado?. Sus clientes ya no podrán verlo en su Tienda.
+        </div>
+        <div  class="modal-footer">
+          <input class="btn btn-primary" type="button" value="Si"
+                 ng-click="borrarSubProducto();" />
           <input class="btn btn-black" type="button" value="No" data-dismiss="modal" />
         </div>
       </div><!-- /.modal-content -->
@@ -412,23 +629,75 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
               <i class="fa fa-times"></i>
             </button>
-            <h2>CAMBIAR IMAGEN</h2>
+            <h2>CAMBIAR {{tituloCambiaArchivo}}</h2>
           </div>
           <div  class="modal-body">
-            <label>Selecciona una Imagen</label><br/>
+            <div class="btnb-group" data-toggle="buttons">
+              <label class="btnb btnb-default {{isImagenActURL?'':'active'}}"
+                     ng-click="mostrarInputImgAct(false)">
+                <input type="radio" name="opcImgSecu" value="1" checked="checked"
+                  /> Selecciona una imagen
+              </label>
+              <label class="btnb btnb-default {{isImagenActURL?'active':''}}"
+                     ng-click="mostrarInputImgAct(true)" >
+                <input type="radio" name="opcImgSecu" value="5"
+                  /> Escribe la URL de tu imagen
+              </label>
+            </div>
+            <br/><br/>
+            <label>{{labelCambiaArchivo}}</label><br/>
+
             <input type="file" class="form-control" name="imagen-producto"
-                   ng-if="infoProducto.tipoArchivo === 'ImagenPrincipal'"
+                   ng-if="infoProducto.tipoArchivo === 'ImagenPrincipal' && !isImagenActURL"
                    nv-file-select uploader="imgPrincipalUpload" >
+
             <input type="file" class="form-control" name="imagen-producto"
-                   ng-if="infoProducto.tipoArchivo === 'ImagenSecundaria'"
+                   ng-if="infoProducto.tipoArchivo === 'ImagenSecundaria' && !isImagenActURL"
                    nv-file-select uploader="cambiarArchivoUpload" >
+
+            <input type="text" class="form-control" name="imagen-producto-act"
+                   ng-show="isImagenActURL" placeholder="Escribe la URL de tu Imagen"
+                   ng-model="imagenActURL">
+
             <div style="color:maroon" ng-show="msgErrorImgPrincipal != ''">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
               <span>{{msgErrorImgPrincipal}}</span>
             </div>
+
             <div style="color:maroon" ng-show="msgErrorCamiarArchivo != ''">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-remove hide" aria-hidden="true"></span>
               <span>{{msgErrorCamiarArchivo}}</span>
+            </div>
+
+          </div>
+          <div  class="modal-footer">
+            <input class="btn btn-primary" type="submit" value="Si" />
+            <input class="btn btn-black" type="button" value="No" data-dismiss="modal" />
+          </div>
+        </form>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div class="modal fade" id="prodCambiaArchivoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form class="form-horizontal" name="formImg" role="form"
+              ng-submit="cambiarArchivoPdf()"  novalidate>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              <i class="fa fa-times"></i>
+            </button>
+            <h2>{{tituloCambiaArchivoPdf}}</h2>
+          </div>
+          <div  class="modal-body">
+            <br/>
+            <label>{{labelCambiaArchivoPdf}}</label><br/>
+            <input type="file" class="form-control" name="imagen-producto"
+                   nv-file-select uploader="cambiarArchivoUpload" >
+            <div style="color:maroon" ng-show="msgErrorArchivo != ''">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <span>{{msgErrorArchivo}}</span>
             </div>
 
           </div>

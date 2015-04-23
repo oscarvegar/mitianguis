@@ -14,5 +14,6 @@ var constants = {
   PATH_IMAGE_NOT_AVAILABLE:"../../imagenes/noimageavailable.png",
   VIEW_MIS_PRODUCTOS : 0,
   VIEW_DETALLE_PRODUCTO: 1,
-  VIEW_MODELOS_PRODUCTO: 2
+  VIEW_MODELOS_PRODUCTO: 2,
+  STATUS_ELIMINADO: 2
 };

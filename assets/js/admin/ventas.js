@@ -5,41 +5,97 @@ var module = angular.module("VentasAdminModule",[]);
 
 module.controller("VentasAdminController", function($window,$scope, $http){
 
-//data-ng-init="init()" ng-click="tabChange($event)"
-  $scope.init = function(){
-      console.log("Inicio");
 
-      console.log("Tienda");
+  $scope.init = function(){
+
+      $scope.statusVenta = ["En Transito","Cancelado"];
 
       var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
+      var status = 0;
 
-      $http.get("/misventas/"+usuario.id).then(function(result){
+      $http.get("/misventas/"+usuario.id+"/"+status).then(function(result){
       $scope.misventas = result.data;
-     
-      console.log("Termino Consulta Ventas");
-      console.log(  $scope.misventas);
-      console.log($scope.misventas[0].value[0].precioVenta);
 
+      console.log( $scope.misventas);
       $scope.ventas = new Array();
       for(var i=0;i<$scope.misventas.length;i++){
         for(var j=0;j<$scope.misventas[i].value.length;j++){
           
                  $scope.ventas.push({
+                   "folio": $scope.misventas[i].value[j].venta.folio,
                    "nombre": $scope.misventas[i].value[j].producto.nombre,
                    "cantidad":$scope.misventas[i].value[j].cantidad,
                    "subtotal": $scope.misventas[i].value[j].precioVenta,
-                   "totalVenta": $scope.misventas[i].value[j].subtotal
+                   "totalVenta": $scope.misventas[i].value[j].subtotal,
+                   "id": $scope.misventas[i].value[j].venta.id
                  });
           }
       }
 
-      console.log( $scope.ventas );
     });
   }
 
   $scope.init();
 
-  $scope.tabSelected = "#tab1";
+  $scope.setStatus = function(ventaStatus,valor,id){
+    console.log("Set Status");
+    console.log(ventaStatus);
+    console.log(valor);
+    console.log(id);
+      $scope.ventaStatusParametro = ventaStatus;
+      $scope.ventaStatusOriginal = valor;
+      $scope.id = id;
+  };
+
+  $scope.cambiarStatus = function(ventaStatusParametro,statusOriginal,id){
+    console.log("Cambiar Parametros");
+    console.log(ventaStatusParametro);
+    console.log(statusOriginal);
+    console.log(id);
+
+
+    if(ventaStatusParametro == "En Transito"){
+
+      var status = 1;
+    }else{
+      var status = -1;
+    }
+
+
+    var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
+
+    $http.post("/misventasStatus/"+id+"/"+status).then(function(resultStatus){
+     
+          console.log("Exitoso>>>");
+          console.log(resultStatus);
+
+          $http.get("/misventas/"+usuario.id+"/"+statusOriginal).then(function(result){
+            console.log(result);
+          $scope.misventas = result.data;
+          $scope.ventas = new Array();
+          for(var i=0;i<$scope.misventas.length;i++){
+            for(var j=0;j<$scope.misventas[i].value.length;j++){
+              
+                     $scope.ventas.push({
+                       "folio": $scope.misventas[i].value[j].venta.folio,
+                       "nombre": $scope.misventas[i].value[j].producto.nombre,
+                       "cantidad":$scope.misventas[i].value[j].cantidad,
+                       "subtotal": $scope.misventas[i].value[j].precioVenta,
+                       "totalVenta": $scope.misventas[i].value[j].subtotal,
+                       "id": $scope.misventas[i].value[j].venta.id
+                     });
+              }
+          }
+
+        });
+
+    });
+
+
+  };
+
+
+  $scope.tabSelected = "#tab01";
 
   $scope.tabChange = function(e){
       if (e.target.nodeName === 'A') {
@@ -50,17 +106,29 @@ module.controller("VentasAdminController", function($window,$scope, $http){
 
 
 
-  $scope.consultarVentas = function(){
+  $scope.consultarVentas = function(status){
 
+    var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
 
-/*
-      $http.get("/misventas").then(function(result){
+    $http.get("/misventas/"+usuario.id+"/"+status).then(function(result){
       $scope.misventas = result.data;
-     
-     console.log("Termino Consulta Ventas");
-      console.log(  $scope.misventas);
+      $scope.ventas = new Array();
+      for(var i=0;i<$scope.misventas.length;i++){
+        for(var j=0;j<$scope.misventas[i].value.length;j++){
+          
+                 $scope.ventas.push({
+                   "folio": $scope.misventas[i].value[j].venta.folio,
+                   "nombre": $scope.misventas[i].value[j].producto.nombre,
+                   "cantidad":$scope.misventas[i].value[j].cantidad,
+                   "subtotal": $scope.misventas[i].value[j].precioVenta,
+                   "totalVenta": $scope.misventas[i].value[j].subtotal,
+                   "id": $scope.misventas[i].value[j].venta.id
+                 });
+          }
+      }
+
     });
-*/
+
 
   }
 

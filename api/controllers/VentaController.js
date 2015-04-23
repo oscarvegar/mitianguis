@@ -128,10 +128,12 @@ module.exports = {
 
 	    });
 	},
-		misVentas:function(request, response){
+	misVentas:function(request, response){
 	    console.log("*************** CONSULTA MIS VENTAS **************");
 	    	var data =request.allParams().id;
-			     Venta.find({cliente:data,status:1}).then(function(ventas){
+	    	var estatus =  request.allParams().status;
+	    	console.log(estatus);
+			     Venta.find({cliente:data,status:estatus}).then(function(ventas){
 			      if(ventas){
 			        if(ventas.length>0){
 			     		var productos = [];
@@ -159,6 +161,21 @@ module.exports = {
 			    });
 
 
-  }
+  },
+
+  misVentasStatus:function(req,res){
+     var id = req.allParams().id;
+     var statusVenta =  req.allParams().status;
+        console.log("Actualizar Status >>>>>");
+        console.log(id);
+        console.log(statusVenta);
+
+          Venta.update({id:id},{status:statusVenta}).then(function(data){   
+          return res.json(data);
+
+         }).fail(function(err){
+         	console.log("Fallo update status venta");
+         });
+    },
 
 };

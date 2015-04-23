@@ -43,10 +43,10 @@ module.exports = {
 		archivos:'array', //[{nombre:string,url:string,etc...}]
 		visitas:'int',
 		ratings:'array', //[{stars:int,comentario:string}]
-    	subproductos:{
-    		collection:'subproducto',
-    		via:'producto'
-    	}, //[{modelo:string, imagen:string, precio:float, stock:integer}]
+    subproductos:{
+      collection:'subproducto',
+      via:'producto'
+    }, //[{modelo:string, imagen:string, precio:float, stock:integer}]
 		categorias:'array', //['#hashtag1','#hashtag2']
 		isPrincipal:'boolean',
 		youtube:'string',
