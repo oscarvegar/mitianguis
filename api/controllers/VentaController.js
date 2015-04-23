@@ -80,7 +80,7 @@ module.exports = {
 				console.log("PRODUCTOS VENTA >>>>>",prodsVenta)
 					var pago = {
 				       	"currency":"MXN",
-				       	"amount": venta.totalVenta,
+				       	"amount": venta.totalVenta*100,
 				       	"description":"GAMELAND MITIANGUIS",
 				       	"reference_id":venta.id,
 				       	"card": venta.conektaToken,
@@ -95,10 +95,24 @@ module.exports = {
 								'Content-type': 'application/json'})
 					.send(pago)
 					.end(function(response){
-						console.log("SALVANDO LA VENTA!!!!!!!!!!!!!!!!!")
-						venta.conektaInfo = response.body;
-						venta.save();
-						res.json({code:1})
+						if(response.status===200){
+							if(response.body.failure_code){
+								ProductosVenta.destroy({venta:ventaData.id}).then();
+								venta.destroy();
+								return res.json(500,response.body);
+							}else{
+								console.log("SALVANDO LA VENTA!!!!!!!!!!!!!!!!!")
+								venta.conektaInfo = response.body;
+								venta.save();
+								res.json({code:1})
+
+							}
+						}else{
+							LOGS.error('X X X X X Falló el cargo a conekta X X X X',response.body)
+							ProductosVenta.destroy({venta:ventaData.id}).then();
+							venta.destroy();
+							return res.json(500,response.body);
+						}
 					})
 				}).catch(function(err){
 					console.log("XXXXXXXXXXX DELETING PROD VENTAS XXXXXXXXXXXXX")
@@ -133,17 +147,6 @@ module.exports = {
 						LOGS.error(err);
 					})
 				}else{
-					unirest.post("https://api.conekta.io/charges")
-					.auth({user: 'key_fK2GfyxqqvW1KJBxmxbqCw'})
-					.headers({	'Accept': 'application/vnd.conekta-v0.3.0+json',
-								'Content-type': 'application/json'})
-					.send(pago)
-					.end(function(response){
-						console.log("SALVANDO LA VENTA!!!!!!!!!!!!!!!!!")
-						venta.conektaInfo = response.body;
-						venta.save();
-						res.json({code:1})
-					})
 					return res.json(500,{code:-10,msg:'USUARIO EXISTENTE'})
 				}
 			})
