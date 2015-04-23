@@ -116,16 +116,19 @@ module.exports = {
     var infoProductos = JSON.parse(request.allParams().infoProductos);
     console.log("Params: " + JSON.stringify(infoProductos));
     var pathToSave = ImagenService.PATH_PRODUCTOS() + "/" + infoProductos.userId;
+
     if( infoProductos.tipoArchivo === "archivoPdf" ){
       pathToSave = ImagenService.PATH_ARCHIVO_PRODUCTOS() + "/" + infoProductos.userId;
+    }else if( infoProductos.tipoArchivo === "subproductos" ){
+      pathToSave = ImagenService.PATH_SUBPRODUCTOS() + "/" + infoProductos.userId;
     }
-
+    console.log("PATH A GUARDAR IMAGEN EN DISCO :: " + pathToSave );
     file.upload({dirname: pathToSave},
       function (err, files) {
         var archivo = files[0];
         var indexDiag = archivo.fd.lastIndexOf("/");
         var nombreArchivo = archivo.fd.substring(indexDiag + 1);
-        console.log("nombre de archivo:: " + nombreArchivo);
+        console.log( "nombre de archivo :: " + nombreArchivo );
         if (infoProductos.tipoArchivo === "archivoPdf") {
           var pathArchivo = infoProductos.pathBase + "/getArchivo/" + infoProductos.userId + "_" + nombreArchivo;
           var archivoPdfObj = {nombre:archivo.filename, url:pathArchivo};
@@ -134,13 +137,21 @@ module.exports = {
             console.log("reemplazando en posicion " + infoProductos.index);
             infoProductos.producto.archivos[infoProductos.index] = archivoPdfObj;
           }else {
-            console.log("add archivo :(");
+            console.log("add archivo");
             infoProductos.producto.archivos.push(archivoPdfObj);
           }
           Producto.update({id:infoProductos.producto.id},{archivos:infoProductos.producto.archivos})
             .exec(function(err, updateProd){
               return response.json(updateProd);
             });
+        } else if( infoProductos.tipoArchivo === "subproductos" ) {
+          console.log(">>>>>>>>>>>>>  cargando imagenes de subproductos " );
+          var pathArchivo = infoProductos.pathBase + "/getImagenSubProducto/" + infoProductos.userId + "_" + nombreArchivo;
+          console.log("PATH para guardar imagen upload ::: " + pathArchivo );
+          console.log("Subproducto a modificar :: " + JSON.stringify(infoProductos.producto) );
+          Subproducto.update({id:infoProductos.producto.id},{imagen:pathArchivo}).then( function( result ){
+            return response.json( result );
+          });
         } else {
           console.log(">>>>>>>>>>>>>  cargando imagenes secundarias " );
           Producto.findOne({id:infoProductos.producto.id}).exec(function(err, prodFound){

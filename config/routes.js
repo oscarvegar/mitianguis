@@ -76,7 +76,9 @@ module.exports.routes = {
 
   /*** FUNCIONES GENERALES ***/
   'GET /getImagen/:imagen':'ImagenController.getImagen',
-  'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto'
+  'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto',
+  'GET /getImagenSubProducto/:imagen':'ImagenController.getImagenSubProducto'
+
 
 
 

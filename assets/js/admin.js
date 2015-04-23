@@ -5,9 +5,12 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
   $scope.isVistaDetalle = false;
   $rootScope.menuAccionOn = true;
   $("#menuAccion").css("display","");
+
   $scope.$on("$destroy", function() {
     $rootScope.menuAccionOn = false;
   });
+
+  $rootScope.selecciono( 0 );
 
 })
 .directive("tiendas", function( ){
