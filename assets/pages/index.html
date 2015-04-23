@@ -66,8 +66,8 @@
                 <ul class="main">
                   <!--li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li-->
                   <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
-                  <li class="hide-sm" ng-if="usuario === null"><a href="#/registro"><span>U</span>nete</a></li>
-                  <li class="hide-sm"><a href="#/admin" ng-if="usuario !== null"><span>M</span>i cuenta</a></li>
+                  <li class="hide-sm" ng-if="usuario == null"><a href="#/registro"><span>U</span>nete</a></li>
+                  <li class="hide-sm"><a href="#/admin" ng-if="usuario != null"><span>M</span>i cuenta</a></li>
                 </ul>
               </div>
               <div class="catalog-block" style="margin: 0px;">
@@ -81,7 +81,21 @@
                             <li><a ng-click="selecciono(0)">Mis Tiendas</a></li>
                             <li><a ng-click="selecciono(2)">Mis Ventas</a></li>
                             <li><a ng-click="selecciono(3)">Mi Reputacion</a></li>
-                            <li><a ng-click="selecciono(4)">Red MiTianguis</a></li>
+                            <li class="has-submenu" >
+                              <a ng-href="/store#/admin/mired">Red MiTianguis</a>
+                              <ul class="sub-submenu" style="background-color: white">
+                                <li><a>1ra Generación</a></li>
+                                <li><a>2da Generación</a></li>
+                                <li><a>3ra Generación</a></li>
+                                <li><a>4ta Generación</a></li>
+                                <li><a>5ta Generación</a></li>
+                                <li><a>6ta Generación</a></li>
+                                <li><a>7ma Generación</a></li>
+                                <li><a>8va Generación</a></li>
+                                <li><a>9na Generación</a></li>
+                                <li><a>10ma Generación</a></li>
+                              </ul>
+                            </li>
                             <li><a ng-click="selecciono(5)">Movimientos</a></li>
                             <li><a ng-click="selecciono(6)">Mi Perfil</a></li>
                           </ul>
@@ -103,15 +117,15 @@
               <div class="container">
                 <!--Toolbar-->
                 <div class="toolbar group">
-                  <span class="login-btn btn-outlined-invert" data-toggle="modal" ng-if="usuario === null"
+                  <span class="login-btn btn-outlined-invert" data-toggle="modal" ng-if="usuario == null"
                     data-target="#loginModal"><i class="icon-profile"></i>
                     <span style="color: black;"><b>L</b>ogin</span>
                   </span>
-                  <span class="login-btn" ng-if="usuario !== null">
+                  <span class="login-btn" ng-if="usuario != null">
                     <span style="color: black;font-size: 11px;"><b>B</b>ienvendo {{usuario.username}}</span>
                   </span>
 
-                  <span class="login-btn btn-outlined-invert" ng-if="usuario !== null" href="#" ng-click="logout()"><i class="icon-profile"></i>
+                  <span class="login-btn btn-outlined-invert" ng-if="usuario != null" href="javascript:void(0)" ng-click="logout()"><i class="icon-profile"></i>
                     <span style="color: black;font-size: 13px;"><b>C</b>errar Sesión</span>
                   </span>
 
@@ -325,6 +339,7 @@
         <script src="../js/producto.js"></script>
         <script src="../js/store.js"></script>
         <script src="../js/checkout.js"></script>
+        <script src="../js/red.js"></script>
 
 
         <script src="../js/mitianguis.js"></script>

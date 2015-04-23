@@ -70,9 +70,17 @@ module.exports.routes = {
   'POST /borrarProducto':'ProductoController.borrarProducto',
   'POST /carmbiarArchivo':'ProductoController.carmbiarArchivo',
 
+  /***url pruebas**/
+
+  'GET /cotizacion': 'LoadShippingController.getCotizacionPedido',
+
+
   /*** FUNCIONES GENERALES ***/
   'GET /getImagen/:imagen':'ImagenController.getImagen',
-  'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto'
+  'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto',
+  'GET /getImagenSubProducto/:imagen':'ImagenController.getImagenSubProducto'
+
+
 
 
   /***************************************************************************

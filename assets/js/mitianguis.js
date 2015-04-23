@@ -12,7 +12,8 @@ var myApp = angular.module("TianguisApp",
                                 'ProductosAdminModule',
                                 'AdminService',
                                 'CheckoutModule',
-                                'VentasAdminModule'
+                                'VentasAdminModule',
+                                'RedAdminModule'
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
@@ -25,6 +26,13 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $scope.categorias = null;
     $scope.mercante = null;
     $scope.errorLogin = false;
+
+
+    $rootScope.meses = ["01","02","03","04","05","06","07","08","09","10","11","12"];
+    $rootScope.selMes = "01";
+    $rootScope.anos = ["15","16","17"];
+    $rootScope.selAno = "17";
+
 
     $rootScope.menuAccionOn = false;
 
@@ -50,6 +58,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 	    	} else if ( result.data.mercante.mentor ) {
           webUtil.save("mercante", result.data.mercante);
           webUtil.save("tienda", result.data);
+          $rootScope.tienda = result.data;
 	    	}
 	    },function(error) {
 	    	window.location.href="tiendanoexiste";
@@ -122,7 +131,9 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $scope.logout = function(){
           $http.get('/logout').success(function(datos){
           $window.localStorage.removeItem("usuario");
-              window.location = '/';
+              $rootScope.usuario = null;
+              delete $rootScope.usuario;
+              //window.location = '/';
           });
       };
 
@@ -136,7 +147,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     for(var i = 0; i < $rootScope.menuOptions.length; i++){
       $rootScope.menuOptions[i]={selected:"",display:'none'};
     }
-    $rootScope.menuOptions[index]={selected:"selected",display:''};
+    $rootScope.menuOptions[index]={selected:"selected",display:'',show:true};
   }
   // *** FIN MENU DE ADMINISTRACION ***
 
@@ -152,11 +163,13 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/', {templateUrl: 'pages/store/inicio.html'});
     $routeProvider.when('/registro', {templateUrl: 'pages/store/registro.html'});
     $routeProvider.when('/admin', {templateUrl: 'pages/admin/main.html'});
+    $routeProvider.when('/admin/mired', {templateUrl: 'pages/admin/mired.html'});
     $routeProvider.when('/soporte', {templateUrl: 'pages/soporte.html'});
     $routeProvider.when('/mercantes', {templateUrl: 'pages/mercante.html'});
     $routeProvider.when('/producto', {templateUrl: 'pages/store/detalleProducto.html'});
     $routeProvider.when('/carrito', {templateUrl: 'pages/store/carrito.html'});
     $routeProvider.when('/checkout', {templateUrl: 'pages/store/checkout.html'});
+    $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
 
     //localStorage.clear();
     //Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");

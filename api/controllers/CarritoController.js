@@ -16,7 +16,7 @@ module.exports = {
           for(var i in carrito.productosCarrito){
             if(carrito.productosCarrito[i].producto) {
               prodCar.push(
-                Producto.findOne({id: carrito.productosCarrito[i].producto}).populate('subproductos')
+                Producto.findOne({id: carrito.productosCarrito[i].producto}).populate('subproductos',{status:1})
               )
             }
 
@@ -79,6 +79,15 @@ module.exports = {
       carrito.preguntas.unshift({contenido:data.contenido,creador:'Cliente',createdAt:new Date()})
       carrito.save();
       return res.json(carrito);
+    })
+  },
+  destroy:function(req,res){
+    var id = req.allParams().id;
+    Carrito.destroy({id:id}).then(function(data){
+      return res.json({code:0,msg:"ELIMINADO"});
+    }).fail(function(err){
+      sails.log.error(err)
+      return res.json(500,{code:-1});
     })
   }
 };

@@ -23,6 +23,33 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
   $scope.IMAGEN_PRINCIPAL = 1;
   $scope.IMAGEN_SECUNDARIA = 2;
   $scope.ARCHIVO= 3;
+  $scope.imgSecuUrlTemp = null;
+  $scope.isImagenPrincipalConURL = false;
+  $scope.isImagenSecuConURL = false;
+  $scope.isImagenActURL = false;
+  $scope.imagenActURL = null;
+  $scope.producto={ imagenesSecundarias:[] };
+
+  $scope.agregaImgSecuUrl = function(){
+    $scope.producto.imagenesSecundarias.push( angular.copy($scope.imgSecuUrlTemp) );
+    $scope.imgSecuUrlTemp = null;
+  }
+
+  $scope.removerArchivoImagenUrl = function( index ){
+    $scope.producto.imagenesSecundarias.splice(index, 1);
+  }
+
+  $scope.mostrarInputImgAct = function( isUrlInput ){
+    $scope.isImagenActURL = isUrlInput;
+  }
+
+  $scope.mostrarInputImgPrincipal = function( isUrlInput ){
+    $scope.isImagenPrincipalConURL = isUrlInput;
+  }
+
+  $scope.mostrarInputImgSecu = function( isUrlInput ){
+    $scope.isImagenSecuConURL = isUrlInput;
+  }
 
 
   $scope.setView = function( index ){
@@ -30,6 +57,13 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
       $scope.vistas[i]='none';
     }
     $scope.vistas[index]='';
+
+    if( index === constants.VIEW_MODELOS_PRODUCTO ){
+      $http.get("/Producto/findById/" + $scope.productoSelected.id).then( function(result){
+        $scope.productoSelected = result.data;
+      });
+    }
+
   }
 
   $scope.setView(0);
@@ -149,33 +183,44 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
     }
 
     // Primero registramos el producto
-    $scope.producto.imagenesSecundarias = new Array();
+    if( !$scope.isImagenSecuConURL ) {
+      $scope.producto.imagenesSecundarias = new Array();
+    }
     $scope.producto.subproductos = new Array();
     $scope.producto.archivos = new Array();
     $scope.producto.tienda = $scope.tiendaSelected.id;
-    $http.post( "/registraProducto", $scope.producto).then(function( result ){
+    $http.post( "/registraProducto", $scope.producto).then(function( result ) {
       console.log(JSON.stringify(result));
-      if(result.data === "" ) {
-        alert( "No se registro el producto" );
+      if (result.data === "") {
+        alert("No se registro el producto");
         return;
       }
-      var objRequest = { userId:  webUtil.getJSON("usuario").id,
-                         producto: result.data,
-                         pathBase: webUtil.getOrigin(),
-                         tipoArchivo: "ImagenPrincipal"};
+      var objRequest = {
+        userId: webUtil.getJSON("usuario").id,
+        producto: result.data,
+        pathBase: webUtil.getOrigin(),
+        tipoArchivo: "ImagenPrincipal"
+      };
+
       // Preparando carga de archivos unicos
       var itemIndexImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems().length - 1;
       var itemImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems()[itemIndexImgPrincipal];
       var itemIndexPdf = $scope.fileUpload.getNotUploadedItems().length - 1;
       var itemArchivoPdf = $scope.fileUpload.getNotUploadedItems()[itemIndexPdf];
 
-      if( itemImgPrincipal ) {
-        itemImgPrincipal.formData = [{infoProductos:JSON.stringify(angular.copy(objRequest))}];
-        $scope.imgPrincipalUpload.onCompleteAll = function () {
-          $scope.getProductos();
-          $('#productoModal').modal('hide');
+
+      if (!$scope.isImagenPrincipalConURL) {
+        if (itemImgPrincipal) {
+          itemImgPrincipal.formData = [{infoProductos: JSON.stringify(angular.copy(objRequest))}];
+          $scope.imgPrincipalUpload.onCompleteAll = function () {
+            $scope.getProductos();
+            $('#productoModal').modal('hide');
+          }
+          itemImgPrincipal.upload();
         }
-        itemImgPrincipal.upload();
+      }else{
+        $scope.getProductos();
+        $('#productoModal').modal('hide');
       }
 
       if( itemArchivoPdf ) {
@@ -185,15 +230,18 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
       }
 
       // Guardando imagenes multiples secundarias
-      var tam = $scope.imgSecundariasUpload.getNotUploadedItems().length;
-      if(tam > 0){
-        objRequest.tipoArchivo = "ImagenSecundaria";
-        var objRequestInstr = JSON.stringify(angular.copy(objRequest));
-        for(var i = 0; i < tam; i++) {
-          $scope.imgSecundariasUpload.getNotUploadedItems()[i].formData = [{infoProductos:objRequestInstr}];
+      if(!$scope.isImagenSecuConURL) {
+        var tam = $scope.imgSecundariasUpload.getNotUploadedItems().length;
+        if (tam > 0) {
+          objRequest.tipoArchivo = "ImagenSecundaria";
+          var objRequestInstr = JSON.stringify(angular.copy(objRequest));
+          for (var i = 0; i < tam; i++) {
+            $scope.imgSecundariasUpload.getNotUploadedItems()[i].formData = [{infoProductos: objRequestInstr}];
+          }
+          $scope.imgSecundariasUpload.uploadAll();
         }
-        $scope.imgSecundariasUpload.uploadAll();
       }
+
     });
   };
 
@@ -245,7 +293,12 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
 
   $scope.borrarArchivoDetalle = function( ){
     if( $scope.accionBorrarArchivo === $scope.ARCHIVO ){
-
+      $scope.productoSelected.archivos.splice($scope.index, 1);
+      var request = {id:$scope.productoSelected.id,
+                     archivos:$scope.productoSelected.archivos};
+      $http.post("/actualizarProducto", request).then(function(result){
+        $scope.archivosTemp.splice($scope.index, 1);
+      });
     }else if( $scope.accionBorrarArchivo === $scope.IMAGEN_SECUNDARIA ){
       $scope.productoSelected.imagenesSecundarias.splice( $scope.index, 1 );
       var request = {id:$scope.productoSelected.id,
@@ -266,6 +319,8 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
                             producto: $scope.productoSelected,
                             pathBase: webUtil.getOrigin(),
                             tipoArchivo: "ImagenPrincipal"};
+    $scope.tituloCambiaArchivo = "IMAGEN";
+    $scope.labelCambiaArchivo = "Selecciona una imagen";
     $('#prodCambiaImgModal').modal('show');
   }
 
@@ -275,40 +330,99 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
       pathBase: webUtil.getOrigin(),
       tipoArchivo: "ImagenSecundaria",
       index:indice};
+    $scope.tituloCambiaArchivo = "IMAGEN";
+    $scope.labelCambiaArchivo = "Selecciona una imagen";
     $('#prodCambiaImgModal').modal('show');
+  }
+
+  $scope.prepararCambiarArchivo = function(indice){
+    $scope.infoProducto = { userId:  webUtil.getJSON("usuario").id,
+      producto: $scope.productoSelected,
+      pathBase: webUtil.getOrigin(),
+      tipoArchivo: "archivoPdf",
+      index:indice};
+    $scope.tituloCambiaArchivoPdf = "AGREGA UN NUEVO ARCHIVO PDF";
+    $scope.labelCambiaArchivoPdf = "Selecciona un archivo";
+    $('#prodCambiaArchivoModal').modal('show');
   }
 
   $scope.cambiarImagen = function(){
     if( $scope.infoProducto.tipoArchivo === "ImagenPrincipal" ){
-      var itemIndexImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems().length - 1;
-      var itemImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems()[itemIndexImgPrincipal];
-      if( itemImgPrincipal ) {
-        itemImgPrincipal.formData = [{infoProductos:JSON.stringify(angular.copy($scope.infoProducto))}];
-        $scope.imgPrincipalUpload.onCompleteAll = function () {
-          $http.get("/producto/findById/" + $scope.productoSelected.id).then(function(result){
-            $scope.productoSelected = result.data;
-            $('#prodCambiaImgModal').modal('hide');
-          });
+      if( $scope.isImagenActURL ) {
+        var request = {id:$scope.productoSelected.id,
+                       imagenPrincipal:$scope.imagenActURL};
+        $http.post("/actualizarProducto", request).then(function(result){
+          $scope.productoSelected.imagenPrincipal = angular.copy($scope.imagenActURL);
+          $scope.imagenActURL = null;
+          $('#prodCambiaImgModal').modal('hide');
+        });
+      }else{
+        var itemIndexImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems().length - 1;
+        var itemImgPrincipal = $scope.imgPrincipalUpload.getNotUploadedItems()[itemIndexImgPrincipal];
+        if (itemImgPrincipal) {
+          itemImgPrincipal.formData = [{infoProductos: JSON.stringify(angular.copy($scope.infoProducto))}];
+          $scope.imgPrincipalUpload.onCompleteAll = function () {
+            $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+              $scope.productoSelected = result.data;
+              $('#prodCambiaImgModal').modal('hide');
+            });
+          }
+          itemImgPrincipal.upload();
         }
-        itemImgPrincipal.upload();
       }
+
     }else if( $scope.infoProducto.tipoArchivo === "ImagenSecundaria" ){
-      var tam = $scope.cambiarArchivoUpload.getNotUploadedItems().length;
-      if(tam > 0){
-        var objRequestInstr = JSON.stringify(angular.copy($scope.infoProducto));
-        for(var i = 0; i < tam; i++) {
-          $scope.cambiarArchivoUpload.getNotUploadedItems()[i].formData = [{infoProductos:objRequestInstr}];
+      if( $scope.isImagenActURL ) {
+        if($scope.infoProducto.index ) {
+          $scope.productoSelected.imagenesSecundarias[$scope.infoProducto.index] = $scope.imagenActURL;
+        }else{
+          $scope.productoSelected.imagenesSecundarias.push($scope.imagenActURL);
         }
-        $scope.cambiarArchivoUpload.onCompleteAll = function () {
-          $http.get("/producto/findById/" + $scope.productoSelected.id).then(function(result){
+        var request = {id:$scope.productoSelected.id,
+          imagenesSecundarias:$scope.productoSelected.imagenesSecundarias};
+        $http.post("/actualizarProducto", request).then(function(result) {
+          $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
             $scope.productoSelected = result.data;
             $scope.initImagenes();
             $('#prodCambiaImgModal').modal('hide');
+            $scope.imagenActURL = null;
           });
+        });
+      }else {
+        var tam = $scope.cambiarArchivoUpload.getNotUploadedItems().length;
+        if (tam > 0) {
+          var objRequestInstr = JSON.stringify(angular.copy($scope.infoProducto));
+          for (var i = 0; i < tam; i++) {
+            $scope.cambiarArchivoUpload.getNotUploadedItems()[i].formData = [{infoProductos: objRequestInstr}];
+          }
+          $scope.cambiarArchivoUpload.onCompleteAll = function () {
+            $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+              $scope.productoSelected = result.data;
+              $scope.initImagenes();
+              $('#prodCambiaImgModal').modal('hide');
+            });
+          }
+          $scope.cambiarArchivoUpload.uploadAll();
         }
-        $scope.cambiarArchivoUpload.uploadAll();
       }
     }
+  }
+
+  $scope.cambiarArchivoPdf = function(){
+      var itemIndexPdf = $scope.cambiarArchivoUpload.getNotUploadedItems().length - 1;
+      var itemArchivoPdf = $scope.cambiarArchivoUpload.getNotUploadedItems()[itemIndexPdf];
+      if (itemArchivoPdf) {
+        var objRequestInstr = JSON.stringify(angular.copy($scope.infoProducto));
+        itemArchivoPdf.formData = [{infoProductos: objRequestInstr}];
+        $scope.cambiarArchivoUpload.onCompleteAll = function () {
+          $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+            $scope.productoSelected = result.data;
+            $scope.initImagenes();
+            $('#prodCambiaArchivoModal').modal('hide');
+          });
+        }
+        itemArchivoPdf.upload();
+      }
   }
 
   $scope.viewDialogDelArchivo = function( accion, index ){
@@ -322,11 +436,111 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
       $scope.dlgTitulo="CONFIRMACION BORRAR IMAGEN";
       $scope.dlgMensaje="¿Esta seguro de borrar la imagen seleccionada.?";
     }
-
-
   }
 
+  //**** Modelos  ****/
+  $scope.isImagenSubProdURL = false;
 
+  $scope.mostrarInputImgSubProd = function( opc ){
+    $scope.isImagenSubProdURL = opc;
+  }
+
+  $scope.accionSubProducto = function( ){
+    $scope.subproducto.producto = $scope.productoSelected.id;
+    if( $scope.isNewSubProducto ) {
+      $http.post("/Producto/createSubProducto", $scope.subproducto).then(function (result) {
+        if ($scope.isImagenSubProdURL) {
+          $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+            $scope.productoSelected = result.data;
+            $scope.subproducto = null;
+            $scope.subproductoForm.$setPristine(true);
+            $('#subProductoModal').modal('hide');
+          });
+        }else{
+          //upload file
+          $scope.infoProducto = { userId:  webUtil.getJSON("usuario").id,
+                                  producto: result.data,
+                                  pathBase: webUtil.getOrigin(),
+                                  tipoArchivo: "subproductos"};
+          var tam = $scope.cambiarArchivoUpload.getNotUploadedItems().length;
+          if (tam > 0) {
+            var objRequestInstr = JSON.stringify(angular.copy($scope.infoProducto));
+            for (var i = 0; i < tam; i++) {
+              $scope.cambiarArchivoUpload.getNotUploadedItems()[i].formData = [{infoProductos: objRequestInstr}];
+            }
+            $scope.cambiarArchivoUpload.onCompleteAll = function () {
+              $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+                $scope.productoSelected = result.data;
+                $scope.subproducto = null;
+                $scope.subproductoForm.$setPristine(true);
+                $('#subProductoModal').modal('hide');
+              });
+            }
+            $scope.cambiarArchivoUpload.uploadAll();
+          }
+        }
+      });
+    } else {
+      $http.post("/Producto/actualizarSubProducto", $scope.subproducto).then(function(result){
+        if(!$scope.isImagenSubProdURL){
+
+          //upload file
+          $scope.infoProducto = { userId:  webUtil.getJSON("usuario").id,
+                                  producto: result.data,
+                                  pathBase: webUtil.getOrigin(),
+                                  tipoArchivo: "subproductos"};
+          var tam = $scope.cambiarArchivoUpload.getNotUploadedItems().length;
+          if (tam > 0) {
+            var objRequestInstr = JSON.stringify(angular.copy($scope.infoProducto));
+            for (var i = 0; i < tam; i++) {
+              $scope.cambiarArchivoUpload.getNotUploadedItems()[i].formData = [{infoProductos: objRequestInstr}];
+            }
+            $scope.cambiarArchivoUpload.onCompleteAll = function () {
+              $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+                $scope.productoSelected = result.data;
+                $scope.subproducto = null;
+                $scope.subproductoForm.$setPristine(true);
+                $('#subProductoModal').modal('hide');
+              });
+            }
+            $scope.cambiarArchivoUpload.uploadAll();
+          }
+          // ****************************************************
+        }
+        $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+          $scope.productoSelected = result.data;
+          $scope.subproducto = null;
+          $scope.subproductoForm.$setPristine(true);
+          $('#subProductoModal').modal('hide');
+        });
+      });
+    }
+  }
+
+  $scope.setSubProductoSelected = function( subproducto ){
+    $scope.subProductoSelected = subproducto;
+  }
+
+  $scope.borrarSubProducto = function(){
+    var request = {id: $scope.subProductoSelected.id,
+                   status: constants.STATUS_ELIMINADO};
+    $http.post("/Producto/actualizarSubProducto", request).then(function(result){
+      $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+        $scope.productoSelected = result.data;
+        $('#subProdDelModal').modal('hide');
+      });
+    });
+  }
+
+  $scope.setAsNewSubProducto = function( subproducto, isNew ){
+    $scope.subproducto = angular.copy(subproducto);
+    $scope.isNewSubProducto = isNew;
+    if( isNew ){
+      $scope.tituloSubProductoModal = "Crea un nuevo Modelo";
+    }else{
+      $scope.tituloSubProductoModal = "Modifica la información de tu Modelo";
+    }
+  }
 
 });
 
