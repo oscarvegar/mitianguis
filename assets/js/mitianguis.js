@@ -52,6 +52,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     //Obtener al mercante en base al subdominio en el primer acceso.
     var subdominio = webUtil.getDomain();
 
+    if(subdominio.search("http")>=0) subdominio = "gameland";
     //if(subdominio !== "http://") {
 	    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
 	    .then(function(result) {
@@ -64,7 +65,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
           $rootScope.tienda = result.data;
 	    	}
 	    },function(error) {
-	    	window.location.href="tiendanoexiste";
+	    	//window.location.href="tiendanoexiste";
 	    } );
     //}
 
