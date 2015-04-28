@@ -147,7 +147,7 @@ module.exports = {
 						LOGS.error(err);
 					})
 				}else{
-					return res.json(500,{code:-10,msg:'USUARIO EXISTENTE'})
+					return res.json(500,{code:-10,msg:'El correo electrónico ya existe, ingresa para terminar la transacción.'})
 				}
 			})
 		}else{

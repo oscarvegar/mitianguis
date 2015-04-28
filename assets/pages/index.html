@@ -146,6 +146,7 @@
                     data-target="#loginModal"><i class="icon-profile"></i>
                     <span style="color: black;"><b>L</b>ogin</span>
                   </span>
+                  
                   <span class="login-btn" ng-if="usuario != null">
                     <span style="color: black;font-size: 11px;"><b>B</b>ienvendo {{usuario.username}}</span>
                   </span>
@@ -301,10 +302,8 @@
           </div>
         </div><!-- /.modal -->
 
-
-
-        <div class="modal fade" id="registroCliente" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog">
+       <div class="modal fade" id="registroCliente" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
@@ -380,7 +379,21 @@
                   <input class="btn btn-black" ng-disabled="loginForm3.$invalid" type="submit" value="Registrar" />
 
                 </form>
+                  </div>
+            </div>
+          </div>
+        </div><!-- /.modal -->
+ <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+
+                 <h2>Error</h2>
               </div>
+              <div  class="modal-body">
+                  {{error}}
+             </div>
             </div>
           </div>
         </div><!-- /.modal -->

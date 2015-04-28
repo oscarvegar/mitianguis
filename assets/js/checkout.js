@@ -37,7 +37,8 @@ angular.module("CheckoutModule",[])
 			})
 			.error(function(err){
 				console.log(err)
-				$scope.disBtnPagar = false;
+				$rootScope.error = err.msg;
+				$('#errorModal').modal('show');
 			})
 		},
 		function(err){

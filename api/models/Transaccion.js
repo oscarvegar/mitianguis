@@ -16,8 +16,10 @@ module.exports = {
     aplicadoAlDoc : { type: 'string' },
     importe : { type: 'float' },
     fechaRecepcion : { type: 'datetime' },
+    comision : { type: 'float' },
     tipoTransaccion : { model: 'tipotransaccion' },
-    mercante : { model: 'mercante' }
+    mercante : { model: 'mercante' },
+    metodoPago : { type: 'object' }
   }
 
 };
