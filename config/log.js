@@ -14,14 +14,14 @@ var winston = require('winston');
 
 
 module.exports.log = {
-    /*colors: true,  // To get clean logs without prefixes or color codings
+    colors: true,  // To get clean logs without prefixes or color codings
     custom: new winston.Logger({
     transports: [
        new (winston.transports.Console)({
         label: new Date()
     })
     ],
-})*/
+})
 
-   level: 'verbose'
+   //level: 'verbose'
 };

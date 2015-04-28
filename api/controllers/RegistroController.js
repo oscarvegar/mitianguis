@@ -124,8 +124,8 @@ module.exports = {
     },
 
     setMentores:function(newMercante,mentorId,nivel,datosSystem,cb){
-      if(mentorId==datosSystem.datosSystem.systemId){
-        newMercante['mentor'+nivel]=mercanteRes;
+      if(mentorId==datosSystem.datosSystem.systemId || nivel === 10){
+        newMercante['mentor'+nivel]=mentorId;
         cb(newMercante);
       }else{
         Mercante.findOne({id:mentorId}).then(function(mercanteRes){
@@ -134,6 +134,39 @@ module.exports = {
           setMentores(newMercante,mercanteRes.mentor,nivel,datosSystem,cb);
         })
       }
+    },
+
+    registrarUser:function(req,res){
+
+
+    var data = req.allParams();
+    console.log("data: " + JSON.stringify(data));
+    var usuario = data;
+    var passwrd = usuario.passwordUser;
+
+    console.log("Registrar Usuario");
+    console.log(usuario);
+
+    user = {};
+    user.username = usuario.username;
+    user.password = usuario.passwordUser;
+    user.email = usuario.username;
+    user.perfil = "CLIENTE";
+    user.verificacion = 0;
+
+
+    console.log(user);
+     User.create(user).exec( function(err, userNew){
+          if(err){
+            return res.json(400,err);
+          }
+
+           return res.json(200,userNew);
+      });
     }
+
+
+
+
 
 };

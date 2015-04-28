@@ -8,9 +8,9 @@
 module.exports = {
 
   attributes: {
-    conektaToken : { type: 'string' },
-    creditDebitCardMask : { type: 'string' },
-    financialServiceBrand : { type: 'string' },
+    conektaToken : { type: 'string' }, // token id
+    creditDebitCardMask : { type: 'string' }, // XXXX-XXXX-XXXX-0127
+    financialServiceBrand : { type: 'string' }, // VISA
     mercante : { model: 'mercante' }
   }
 

@@ -8,6 +8,7 @@ var accounting = require('accounting');
 module.exports = {
 
 	productoPrincipalByTienda:function(req,res){
+    LOGS.info("ALJASAS","jahsakjhskahs")
 		var idTienda = req.allParams().id;
 		Producto.find({tienda:idTienda,isPrincipal:true}).then(function(data){
 			res.json(data)

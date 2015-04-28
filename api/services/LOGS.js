@@ -1,8 +1,9 @@
 
-var traceback = require('traceback');
+var stackTrace = require('stack-trace');
 function format(args){
+	var stack = stackTrace.get();
 	var keys = Object.keys(args)
-	var arre = [traceback()[2].file+" - "+traceback()[2].name+" - "];
+	var arre = [stack[2].getFileName()+" - "+stack[2].getFunctionName()+" - "+stack[2].getLineNumber()+" - "];
 	for(var i in keys){
 		arre.push(args[keys[i]])
 	}

@@ -40,13 +40,14 @@ module.exports = {
 		youtube:'string', //canal de youtube
 		telefono:'string',
 		direccion:'string',
-
+    status:{
+      type: 'integer',   // 1-Activo, 2-eliminado, 3-pendiente_renovacion,
+      defaultsTo: 1
+    },
     conektaToken: {
       model: 'conektaToken',
       via: 'mercante'
     },
-
-
 
     mentor2 : {
       model : 'mercante'

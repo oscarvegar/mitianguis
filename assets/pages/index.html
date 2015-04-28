@@ -66,7 +66,7 @@
                 <ul class="main">
                   <!--li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li-->
                   <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
-                  <li class="hide-sm" ng-if="usuario == null"><a href="#/registro"><span>U</span>nete</a></li>
+                  <li class="hide-sm" ng-if="usuario == null"><a href="#/registroUser"><span>U</span>nete</a></li>
                   <li class="hide-sm"><a href="#/admin" ng-if="usuario != null"><span>M</span>i cuenta</a></li>
                 </ul>
               </div>
@@ -75,12 +75,12 @@
                   <table width="100%">
                     <tr>
                       <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
-                        <li class="has-submenu" style="text-align: left">
+                        <li class="has-submenu" style="text-align: left"  ng-if="usuario.perfil != 'CLIENTE'">
                           <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
                           <ul class="submenu">
-                            <li><a ng-click="selecciono(0)">Mis Tiendas</a></li>
-                            <li><a ng-click="selecciono(2)">Mis Ventas</a></li>
-                            <li><a ng-click="selecciono(3)">Mi Reputacion</a></li>
+                            <li><a href="#" ng-click="selecciono(0)">Mis Tiendas</a></li>
+                            <li><a href="#" ng-click="selecciono(2)">Mis Ventas</a></li>
+                            <li><a href="#" ng-click="selecciono(3)">Mi Reputacion</a></li>
                             <li class="has-submenu" >
                               <a ng-href="/store#/admin/mired">Red MiTianguis</a>
                               <ul class="sub-submenu" style="background-color: white">
@@ -96,8 +96,16 @@
                                 <li><a>10ma Generación</a></li>
                               </ul>
                             </li>
-                            <li><a ng-click="selecciono(5)">Movimientos</a></li>
-                            <li><a ng-click="selecciono(6)">Mi Perfil</a></li>
+                            <li><a href="#" ng-click="selecciono(5)">Movimientos</a></li>
+                            <li><a href="#" ng-click="selecciono(6)">Mi Perfil</a></li>
+                              <li><a ng-click="selecciono(7)">Afiliate</a></li>
+                            <li><a href="#" ng-click="selecciono(8)">Mis Compras</a></li>
+                          </ul>
+                        </li>
+                        <li class="has-submenu" style="text-align: left"  ng-if="usuario.perfil === 'CLIENTE'">
+                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
+                          <ul class="submenu">
+                            <li><a href="#" ng-click="selecciono(8)">Mis Compras</a></li>
                           </ul>
                         </li>
                       </ul></td>
@@ -186,7 +194,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
-                <h2>Ingresa o <a href="store/register.html">Registrate</a></h2>
+                <h2>Ingresa o <a href="#"  data-toggle="modal"  data-target="#registroCliente">Registrate</a></h2>
                 <p class="large hide">Ingresa con</p>
                 <div class="social-login hide">
                   <a class="facebook hide" href="https://www.facebook.com/MiTianguisMX"><i class="fa fa-facebook-square"></i></a>
@@ -276,8 +284,92 @@
           </div>
         </div><!-- /.modal -->
 
+
+
+        <div class="modal fade" id="registroCliente" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+                 <h2>Registro</h2>
+                <p class="large hide">Registro</p>
+              </div>
+              <div  class="modal-body">
+
+<!--
+              <form name="myForm">
+                  Password: <input ng-model="user.password" type="password" name="password" data-ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" />
+                  Confirm: <input ng-model="user.passwordConfirm" type="password" data-match="user.password" name="confirmPassword" />
+                  <div data-ng-show="myForm.confirmPassword.$error.match">Passwords do not match!</div>
+              </form>-->
+
+   
+            
+              <form name="loginForm3" class="login-form" ng-submit="registrarUser();" novalidate>
+
+
+
+
+                  <div class="alert alert-success"  ng-show="showAlert">
+                    <strong>Favor de revisar tu correo electrónico para activar tu cuenta.</strong><a href="store/register.html"> Regresar al inicio. </a>
+                    <button type="button" class="close" ng-click="showAlert = false">×</button>
+                  </div>
+
+                  </br>
+
+                  <div class="alert alert-danger" role="alert" ng-show="errorLogin">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    El email y/o la contraseña son incorrectas
+                  </div>
+                  <div class="form-group group">
+                    <label for="emailUser">Email</label>
+                    <input type="email" class="form-control" name="emailUser" id="emailUser"
+                           ng-model="user.username" placeholder="Ingresa tu correo" ng-required="true" />
+                    <span style="color:maroon" ng-show="loginForm3.emailUser.$dirty && loginForm3.emailUser.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span ng-show="loginForm3.emailUser.$error.required">Tu correo electrónico es requerido.</span>
+                      <span ng-show="loginForm3.emailUser.$invalid && !loginForm3.emailUser.$error.required">Tu correo electrónico es inválido.</span>
+                    </span>
+                  </div>
+                  <div class="form-group group">
+                    <label for="logPasswordUser">Contraseña</label>
+                    <input type="password" class="form-control" name="logPasswordUser" id="logPasswordUser"  data-ng-class="{'ng-invalid':loginForm3.passwordConfirm.$error.match}" 
+                           ng-model="user.passwordUser" placeholder="Ingresa tu contraseña"
+                           ng-required="true" ng-minlength="6"/>
+                    <span style="color:maroon" ng-show="loginForm3.logPasswordUser.$dirty && loginForm3.logPasswordUser.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span ng-show="loginForm3.logPasswordUser.$error.required">Tu contraseña es requerida.</span>
+                      <span ng-show="loginForm3.logPasswordUser.$invalid && !loginForm3.logPasswordUser.$error.required">Tu contraseña debe tener un mínimo de 6 caracteres.</span>
+                    </span>
+                  </div>
+
+                  <div class="form-group group">
+                    <label for="logPasswordConfirm">Confirma Contraseña</label>
+                    <input type="password" class="form-control"  data-match="user.passwordUser" name="logPasswordConfirm" id="logPasswordConfirm"
+                           ng-model="user.passwordConfirm" placeholder="Ingresa tu contraseña"
+                           ng-required="true" ng-minlength="6"/>
+                    <span style="color:maroon" ng-show="loginForm3.logPasswordConfirm.$dirty && loginForm3.logPasswordConfirm.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span data-ng-show="loginForm3.logPasswordConfirm.$error.match">La contraseña no coincide!</span>
+                    </span>
+                  </div>
+
+               <!-- 
+                  <div data-ng-show="loginForm3.passwordConfirm.$error.match">La contraseña no coincide!</div>-->
+
+
+                
+                  <input class="btn btn-black" ng-disabled="loginForm3.$invalid" type="submit" value="Registrar" />
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.modal -->
+
         <!-- Librerias -->
-        <!--script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"></script-->
+        <script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"></script>
 
         <script src="../js/angular-1.3.8/angular.min.js"></script>
         <script src="../js/angular-1.3.8/angular-animate.js"></script>
@@ -317,6 +409,7 @@
       <script src="../js/plugins/masterslider.min.js"></script>
       <script src="../js/plugins/bootstrap3-wysihtml5.js"></script>
       <script src="../js/plugins/xeditable.js"></script>
+       <script src="../js/plugins/angular-input-match.js"></script>
 
       <script src="../js/scripts.js"></script>
       <script src="../js/constants.js"></script>
