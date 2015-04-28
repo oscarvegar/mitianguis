@@ -20,6 +20,14 @@ module.exports = {
   models: {
      connection: 'mitianguisServer'
   },
+  session:{
+    secret: 'c88ad64f5b52ba674a9c0f10ecf9d545',
+    adapter: 'mongo',
+    host: 'localhost',
+    port: 27017,
+    db: 'mitianguis',
+    collection: 'sessions',
+  }
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
