@@ -282,7 +282,7 @@ mongodb.connect(dbstr, function(err, db) {
                                   };
 
                                   Cartera.findOne({ mercante: ObjectID(insertedVal.aplicadoAlDoc.split('-')[0]) }, function(err, carteraMercante) {
-                                    Cartera.update({ _id: carteraMercante._id }, { $set: { varoActual: (carteraMercante.varoActual + monto) } }, function(err, result) {
+                                    Cartera.update({ _id: carteraMercante._id }, { $set: { varoActual: (carteraMercante.varoActual + insertedVal.importe) } }, function(err, result) {
 
                                       // mercRenewPush.end(JSON.stringify(msg), 'utf8');
                                       mercRenewPush.write(JSON.stringify(msg), 'utf8');
