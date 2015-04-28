@@ -10,7 +10,7 @@ module.exports = {
 	productoPrincipalByTienda:function(req,res){
     LOGS.info("ALJASAS","jahsakjhskahs")
 		var idTienda = req.allParams().id;
-		Producto.find({tienda:idTienda,isPrincipal:true}).then(function(data){
+		Producto.find({tienda:idTienda,isPrincipal:true,status:StatusService.ACTIVO}).then(function(data){
 			res.json(data)
 		}).fail(function(err){
       console.log(err);
@@ -102,7 +102,7 @@ module.exports = {
 
   productoByTiendaCategorias:function(req,res){
     var peticion = req.allParams();
-    Producto.find({tienda:peticion.id,"$or": [
+    Producto.find({tienda:peticion.id,status:StatusService.ACTIVO,"$or": [
       {"categorias": peticion.categoria },
       {"categorias": "#PS4" }
     ]}).then(function(data){
