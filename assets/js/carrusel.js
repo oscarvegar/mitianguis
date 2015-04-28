@@ -9,6 +9,7 @@ carruselModule.controller("CarruselCtrl", function($scope, $http,$timeout,$sce){
 	.success(function(data){
 		console.log(data)
 		$scope.productosPrincipales = data;
+		if(scope.productosPrincipales.length==0)return;
 		$timeout(function() {
 			/*Hero Slider
 			*******************************************/
