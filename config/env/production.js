@@ -27,7 +27,7 @@ module.exports = {
     port: 27017,
     db: 'mitianguis',
     collection: 'sessions',
-  }
+  },
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
