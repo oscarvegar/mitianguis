@@ -8,6 +8,7 @@ carruselModule.controller("CarruselCtrl", function($scope, $http,$timeout,$sce){
 	$http.get('/producto/productoPrincipalByTienda/'+$scope.tienda.id)
 	.success(function(data){
 		console.log(data)
+		if(data.length==0)return;
 		$scope.productosPrincipales = data;
 		$timeout(function() {
 			/*Hero Slider
