@@ -266,8 +266,10 @@ mongodb.connect(dbstr, function(err, db) {
                                   importe : data.amount / 100,
                                   // fechaRecepcion : moment(),
                                   fechaRecepcion : data.paid_at,
+                                  comision : data.fee / 100,
                                   tipoTransaccion: item._id,
-                                  mercante: ObjectID(paymentDetail.reference_id.split('-')[0])
+                                  mercante: ObjectID(paymentDetail.reference_id.split('-')[0]),
+                                  metodoPago: data.payment_method
                                 };
                                 Transaccion.insert(billingTransaction, function(err, cTrans) {
                                   console.log(cTrans.result);
@@ -278,9 +280,15 @@ mongodb.connect(dbstr, function(err, db) {
                                     mercante: insertedVal.aplicadoAlDoc.split('-')[0],
                                     monto: insertedVal.importe
                                   };
-                                  // mercRenewPush.end(JSON.stringify(msg), 'utf8');
-                                  mercRenewPush.write(JSON.stringify(msg), 'utf8');
-                                  worker.ack();
+
+                                  Cartera.findOne({ mercante: ObjectID(insertedVal.aplicadoAlDoc.split('-')[0]) }, function(err, carteraMercante) {
+                                    Cartera.update({ _id: carteraMercante._id }, { $set: { varoActual: (carteraMercante.varoActual + monto) } }, function(err, result) {
+
+                                      // mercRenewPush.end(JSON.stringify(msg), 'utf8');
+                                      mercRenewPush.write(JSON.stringify(msg), 'utf8');
+                                      worker.ack();
+                                    });
+                                  });
                                 });
                               }
 
