@@ -1,0 +1,22 @@
+var adminModule = angular.module("AdminClienteModule", ["ComprasClienteAdminModule"] );
+adminModule.controller("AdminClienteController", function($rootScope, $scope, $http){
+  $rootScope.titulo = "Mis Compras";
+  $rootScope.tiendaSelected = null;
+  $scope.isVistaDetalle = false;
+  $rootScope.menuAccionClienteOn = true;
+  $("#menuAccionCliente").css("display","");
+
+console.log("Menu Cliente Controller");
+  $scope.$on("$destroy", function() {
+    $rootScope.menuAccionClienteOn = false;
+  });
+
+  $rootScope.selecciono( 0 );
+
+})
+.directive("miscompras", function( ){
+  return {
+    restrict:"E",
+    templateUrl:"pages/adminCliente/comprasCliente.html"
+  };
+});

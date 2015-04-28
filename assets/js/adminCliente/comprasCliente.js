@@ -1,23 +1,21 @@
 /**
- * Created by oscarm on 13/04/15.
+ * Created by oscarm on 27/04/15.
  */
-var module = angular.module("VentasAdminModule",[]);
+var comprasClienteModule = angular.module("ComprasClienteAdminModule",[]);
+comprasClienteModule.controller("ComprasClienteController", function($rootScope, $scope, $http, $window){
 
-module.controller("VentasAdminController", function($window,$scope, $http){
-
+  console.log("mis compras");
 
   $scope.init = function(){
 
-      $scope.statusVenta = ["En Transito","Cancelado"];
+      $scope.statusVenta = ["Confirmado"];
 
-     // var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
+      var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
       var status = 0;
-      var tienda = JSON.parse( $window.localStorage.getItem("tienda") );
+ 
+      console.log(usuario.id);
 
-      console.log("Id tienda >>>>>>>>");
-      console.log(tienda.id);
-
-      $http.get("/misventas/"+tienda.id+"/"+status).then(function(result){
+      $http.get("/comprasCliente/"+usuario.id+"/"+status).then(function(result){
       $scope.misventas = result.data;
 
       console.log( $scope.misventas);
@@ -41,6 +39,17 @@ module.controller("VentasAdminController", function($window,$scope, $http){
 
   $scope.init();
 
+
+
+  $scope.tabSelected = "#tab01";
+
+  $scope.tabChange = function(e){
+      if (e.target.nodeName === 'A') {
+          $scope.tabSelected = e.target.getAttribute("href");
+          e.preventDefault();
+      }
+  }
+
   $scope.setStatus = function(ventaStatus,valor,id){
     console.log("Set Status");
     console.log(ventaStatus);
@@ -51,6 +60,37 @@ module.controller("VentasAdminController", function($window,$scope, $http){
       $scope.id = id;
   };
 
+
+  $scope.consultarCompras = function(status){
+
+    console.log("consultar compras tabulador");
+    console.log(status);
+
+    var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
+
+    $http.get("/comprasCliente/"+usuario.id+"/"+status).then(function(result){
+      $scope.misventas = result.data;
+      $scope.ventas = new Array();
+      for(var i=0;i<$scope.misventas.length;i++){
+        for(var j=0;j<$scope.misventas[i].value.length;j++){
+          
+                 $scope.ventas.push({
+                   "folio": $scope.misventas[i].value[j].venta.folio,
+                   "nombre": $scope.misventas[i].value[j].producto.nombre,
+                   "cantidad":$scope.misventas[i].value[j].cantidad,
+                   "subtotal": $scope.misventas[i].value[j].precioVenta,
+                   "totalVenta": $scope.misventas[i].value[j].subtotal,
+                   "id": $scope.misventas[i].value[j].venta.id
+                 });
+          }
+      }
+
+    });
+
+
+  }
+
+
   $scope.cambiarStatus = function(ventaStatusParametro,statusOriginal,id){
     console.log("Cambiar Parametros");
     console.log(ventaStatusParametro);
@@ -58,23 +98,19 @@ module.controller("VentasAdminController", function($window,$scope, $http){
     console.log(id);
 
 
-    if(ventaStatusParametro == "En Transito"){
-
-      var status = 1;
-    }else{
-      var status = -1;
+    if(ventaStatusParametro == "Confirmado"){
+      var status = 3;
     }
 
 
-    //var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
-    var tienda = JSON.parse( $window.localStorage.getItem("tienda") );
+    var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
 
     $http.post("/misventasStatus/"+id+"/"+status).then(function(resultStatus){
      
           console.log("Exitoso>>>");
           console.log(resultStatus);
 
-          $http.get("/misventas/"+tienda.id+"/"+statusOriginal).then(function(result){
+          $http.get("/comprasCliente/"+usuario.id+"/"+statusOriginal).then(function(result){
             console.log(result);
           $scope.misventas = result.data;
           $scope.ventas = new Array();
@@ -100,42 +136,5 @@ module.controller("VentasAdminController", function($window,$scope, $http){
   };
 
 
-  $scope.tabSelected = "#tab01";
-
-  $scope.tabChange = function(e){
-      if (e.target.nodeName === 'A') {
-          $scope.tabSelected = e.target.getAttribute("href");
-          e.preventDefault();
-      }
-  }
-
-
-
-  $scope.consultarVentas = function(status){
-
-    //var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
-    var tienda = JSON.parse( $window.localStorage.getItem("tienda") );
-
-    $http.get("/misventas/"+tienda.id+"/"+status).then(function(result){
-      $scope.misventas = result.data;
-      $scope.ventas = new Array();
-      for(var i=0;i<$scope.misventas.length;i++){
-        for(var j=0;j<$scope.misventas[i].value.length;j++){
-          
-                 $scope.ventas.push({
-                   "folio": $scope.misventas[i].value[j].venta.folio,
-                   "nombre": $scope.misventas[i].value[j].producto.nombre,
-                   "cantidad":$scope.misventas[i].value[j].cantidad,
-                   "subtotal": $scope.misventas[i].value[j].precioVenta,
-                   "totalVenta": $scope.misventas[i].value[j].subtotal,
-                   "id": $scope.misventas[i].value[j].venta.id
-                 });
-          }
-      }
-
-    });
-
-
-  }
 
 });

@@ -1,17 +1,14 @@
- <div class="post" ng-controller="VentasAdminController" ng-app="tabPanel" >
-
-
-
+<div class="post" ng-controller="ComprasClienteController" ng-app="tabPanel">
      <section class="shopping-cart"  ng-click="tabChange($event)">
           <div class="col-lg-11 col-md-11 col-sm-11">
             <div class="tabs-widget">
               <!-- Nav tabs -->
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab01" data-toggle="tab"  ng-click="consultarVentas(0);">Ordenados</a></li>
-                <li><a href="#tab02" data-toggle="tab"  ng-click="consultarVentas(1);">En Transito</a></li>
-                <li><a href="#tab03" data-toggle="tab"  ng-click="consultarVentas(2);">Entregados</a></li>
-                <li><a href="#tab04" data-toggle="tab"  ng-click="consultarVentas(3);">Confirmados</a></li>
-                <li><a href="#tab05" data-toggle="tab"  ng-click="consultarVentas(-1);">Cancelados</a></li>
+                <li class="active"><a href="#tab01" data-toggle="tab"  ng-click="consultarCompras(0);">Ordenados</a></li>
+                <li><a href="#tab02" data-toggle="tab"  ng-click="consultarCompras(1);">En Transito</a></li>
+                <li><a href="#tab03" data-toggle="tab"  ng-click="consultarCompras(2);">Entregados</a></li>
+                <li><a href="#tab04" data-toggle="tab"  ng-click="consultarCompras(3);">Confirmados</a></li>
+                <li><a href="#tab05" data-toggle="tab"  ng-click="consultarCompras(-1);">Cancelados</a></li>
               </ul>
               <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab01">
@@ -21,8 +18,7 @@
                       <th class="text-center">Nombre Producto</th>
                       <th class="text-center">Cantidad Vendidas</th>
                       <th class="text-center">Subtotal</th>
-                      <th class="text-center">Total</th>
-                      <th class="text-center">Cambiar Estatus</th>
+                      <th class="text-center">Total</th>                   
                     </tr>
                     <!--Item-->
                     <tr class="item first"  ng-repeat="productoVenta in ventas" >
@@ -33,12 +29,6 @@
                       </td>
                       <td class="price">${{productoVenta.subtotal}}</td>
                       <td class="price">${{productoVenta.totalVenta}}</td>
-                      <td class="text-left">
-                        <select class="form-control" ng-model="ventaStatus" ng-options="ventaStatus for ventaStatus in statusVenta" required>
-                                  <option value="" ng-if="true">Selecciona</option>
-                        </select>
-                        <a  class="btn btn-primary btn-xs" data-toggle="modal" data-target="#estatusTransito" type="submit" ng-click="setStatus(ventaStatus,0,productoVenta.id);"><i></i> Aceptar </a>
-                      </td>
                     </tr>    
                   </table>
                 </div>
@@ -78,6 +68,7 @@
                       <th>Cantidad Vendidas</th>
                       <th>Subtotal</th>
                       <th>Total</th>
+                      <th class="text-center">Cambiar Estatus</th>
                     </tr>
                     <!--Item-->
                     <tr class="item first"  ng-repeat="productoVenta in ventas" >
@@ -88,6 +79,12 @@
                       </td>
                       <td class="price">${{productoVenta.subtotal}}</td>
                       <td class="price">${{productoVenta.totalVenta}}</td>
+                      <td class="text-left">
+                        <select class="form-control" ng-model="ventaStatus" ng-options="ventaStatus for ventaStatus in statusVenta" required>
+                                  <option value="" ng-if="true">Selecciona</option>
+                        </select>
+                        <a  class="btn btn-primary btn-xs" data-toggle="modal" data-target="#estatusTransito" type="submit" ng-click="setStatus(ventaStatus,2,productoVenta.id);"><i></i> Aceptar </a>
+                      </td>
                     </tr>    
                   </table>
                 </div>
@@ -112,7 +109,7 @@
                       </tr>    
                     </table>
                 </div>
-                 <div class="tab-pane fade" id="tab05">               
+                <div class="tab-pane fade" id="tab05">               
                     <table class="items-list">
                       <tr>
                         <th>Folio Venta</th>
@@ -160,5 +157,5 @@
           </div>
       </div>
 
+</div>
 
-  </div>

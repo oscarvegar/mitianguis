@@ -14,7 +14,10 @@ var myApp = angular.module("TianguisApp",
                                 'CheckoutModule',
                                 'VentasAdminModule',
                                 'RedAdminModule',
-                                'validation.match'
+                                'validation.match',
+                                'RegistroUserModule',                               
+                                'AdminClienteModule',
+                                'ComprasClienteAdminModule'
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
@@ -196,6 +199,8 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/carrito', {templateUrl: 'pages/store/carrito.html'});
     $routeProvider.when('/checkout', {templateUrl: 'pages/store/checkout.html'});
     $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
+    $routeProvider.when('/registroUser', {templateUrl: 'pages/admin/registroUser.html'});
+    $routeProvider.when('/cliente', {templateUrl: 'pages/adminCliente/menuCliente.html'});
 
     //localStorage.clear();
     Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");

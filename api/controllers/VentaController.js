@@ -177,8 +177,9 @@ module.exports = {
 	    console.log("*************** CONSULTA MIS VENTAS **************");
 	    	var data =request.allParams().id;
 	    	var estatus =  request.allParams().status;
+	    	console.log(data);
 	    	console.log(estatus);
-			     Venta.find({cliente:data,status:estatus}).then(function(ventas){
+			     Venta.find({tienda:data,status:estatus}).then(function(ventas){
 			      if(ventas){
 			        if(ventas.length>0){
 			     		var productos = [];
@@ -222,5 +223,43 @@ module.exports = {
          	console.log("Fallo update status venta");
          });
     },
+
+	comprasCliente:function(request, response){
+	    console.log("*************** CONSULTA MIS COMPRAS CLIENTE **************");
+	    	var data =request.allParams().id;
+	    	var estatus =  request.allParams().status;
+	    	console.log(data);
+	    	console.log(estatus);
+			    Venta.find({cliente:data,status:estatus}).then(function(ventas){
+			      if(ventas){
+			        if(ventas.length>0){
+			     		var productos = [];
+						 for(var i=0;i<ventas.length;i++){
+							productos.push(
+								 ProductosVenta.find().where({venta:ventas[i].id}).populate('producto').populate('venta')
+							);
+						}
+						Q.all(productos)
+						.allSettled(productos).then(function(results) {
+							response.json(results);
+					  	}).catch(function(err,err2){
+					  		console.log(err)
+					  		console.log(err2)
+					  	});
+			        }else{
+			          return response.json(ventas);
+			        }
+			      }else{
+			        return response.json(ventas);
+			      }
+			    }).catch(function(err){
+			      sails.log.error(err)
+			      return response.json(500,"ERROR EN SERVIDOR")
+			    });
+
+
+  },
+
+
 
 };
