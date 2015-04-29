@@ -40,6 +40,7 @@ module.exports = {
 		youtube:'string', //canal de youtube
 		telefono:'string',
 		direccion:'string',
+
     status:{
       type: 'integer',   // 1-Activo, 2-eliminado, 3-pendiente_renovacion,
       defaultsTo: 1
@@ -52,27 +53,35 @@ module.exports = {
     mentor2 : {
       model : 'mercante'
     },
+
     mentor3 : {
       model : 'mercante'
     },
+
     mentor4 : {
       model : 'mercante'
     },
+
     mentor5 : {
       model : 'mercante'
     },
+
     mentor6 : {
       model : 'mercante'
     },
+
     mentor7 : {
       model : 'mercante'
     },
+
     mentor8 : {
       model : 'mercante'
     },
+
     mentor9 : {
       model : 'mercante'
     },
+
     mentor10 : {
       model : 'mercante'
     }

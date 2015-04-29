@@ -76,7 +76,7 @@ angular.module("CheckoutModule",[])
 		$scope.buscarDireccion();
 
 		$scope.datosPago.name = "OSCAR VEGA RODRIGUEZ"
-                                                                                                                                                                                                                                                                                                                                                                                          $scope.datosPago.number = "4242424242424242"
+                                                                                                                                                                                                                                                                                                                                                                                  $scope.datosPago.number = "4242424242424242"
 		$scope.datosPago.cvc = "777"
 
 		$scope.testDestroy = function(){

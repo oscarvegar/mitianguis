@@ -66,9 +66,8 @@
                 <ul class="main">
                   <!--li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li-->
                   <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
-                  <li class="hide-sm" ng-if="usuario == null"><a  href="#/registroUser"><span>U</span>nete</a></li>
-                  <li class="hide-sm"><a href="#/admin" ng-if="usuario != null && usuario.perfil != 'CLIENTE'"><span>M</span>i cuenta</a></li>
-                  <li class="hide-sm"><a href="#/cliente" ng-if="usuario.perfil === 'CLIENTE'"><span>M</span>i cuenta</a></li>
+                  <li class="hide-sm" ng-if="usuario == null"><a href="#/registroUser"><span>U</span>nete</a></li>
+                  <li class="hide-sm"><a href="#/admin" ng-if="usuario != null"><span>M</span>i cuenta</a></li>
                 </ul>
               </div>
               <div class="catalog-block" style="margin: 0px;">
@@ -76,12 +75,12 @@
                   <table width="100%">
                     <tr>
                       <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
-                        <li class="has-submenu" style="text-align: left" >
+                        <li class="has-submenu" style="text-align: left"  ng-if="usuario.perfil != 'CLIENTE'">
                           <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
                           <ul class="submenu">
-                            <li><a href="" ng-click="selecciono(0)">Mis Tiendas</a></li>
-                            <li><a href="" ng-click="selecciono(2)">Mis Ventas</a></li>
-                            <li><a href="" ng-click="selecciono(3)">Mi Reputacion</a></li>
+                            <li><a href="#" ng-click="selecciono(0)">Mis Tiendas</a></li>
+                            <li><a href="#" ng-click="selecciono(2)">Mis Ventas</a></li>
+                            <li><a href="#" ng-click="selecciono(3)">Mi Reputacion</a></li>
                             <li class="has-submenu" >
                               <a ng-href="/store#/admin/mired">Red MiTianguis</a>
                               <ul class="sub-submenu" style="background-color: white">
@@ -97,10 +96,17 @@
                                 <li><a>10ma Generación</a></li>
                               </ul>
                             </li>
-                            <li><a href="" ng-click="selecciono(5)">Movimientos</a></li>
-                            <li><a href="" ng-click="selecciono(6)">Mi Perfil</a></li>
+                            <li><a href="#" ng-click="selecciono(5)">Movimientos</a></li>
+                            <li><a href="#" ng-click="selecciono(6)">Mi Perfil</a></li>
                               <li><a ng-click="selecciono(7)">Afiliate</a></li>
-                            <li><a href="" ng-click="selecciono(8)">Mis Compras</a></li>
+                            <li><a href="#" ng-click="selecciono(8)">Mis Compras</a></li>
+                          </ul>
+                        </li>
+                        <li class="has-submenu" style="text-align: left"  ng-if="usuario.perfil === 'CLIENTE'">
+                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
+                          <ul class="submenu">
+                            <li><a href="#" ng-click="selecciono(8)">Mis Compras</a></li>
+                            <li><a ng-click="selecciono(7)">Afiliate</a></li>
                           </ul>
                         </li>
                       </ul></td>
@@ -111,28 +117,6 @@
                   </table>
                 </div>
                 <span ng-hide="menuAccionOn">&nbsp;</span>
-              </div>
-
-
-              <div class="catalog-block" style="margin: 0px;" >
-              <div id="menuAccionCliente" align="left" style="width: 100%;display: none;" ng-show="menuAccionClienteOn"> 
-                  <table width="100%">
-                    <tr>
-                      <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
-                        <li class="has-submenu" style="text-align: left">
-                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
-                          <ul class="submenu">
-                            <li><a href="" ng-click="selecciono(0)">Mis Compras</a></li>
-                          </ul>
-                        </li>
-                      </ul></td>
-                      <td class="col-nav-admin" align="right">
-                        Mi Cuenta / {{titulo}}
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              <span ng-hide="menuAccionClienteOn">&nbsp;</span>
               </div>
 
             </nav>
@@ -146,7 +130,7 @@
                     data-target="#loginModal"><i class="icon-profile"></i>
                     <span style="color: black;"><b>L</b>ogin</span>
                   </span>
-                  
+
                   <span class="login-btn" ng-if="usuario != null">
                     <span style="color: black;font-size: 11px;"><b>B</b>ienvendo {{usuario.username}}</span>
                   </span>
@@ -254,7 +238,7 @@
                   <div class="checkbox">
                     <label><input type="checkbox" name="remember"> Recordar</label>
                   </div>
-                  <input class="btn btn-black" ng-disabled="loginForm.$invalid" type="submit" value="Entrar" />
+                  <input class="btn btn-black" ng-disabled="loginForm.$invalid" type="submit" value="Entrars" />
                 </form>
               </div>
             </div><!-- /.modal-content -->
@@ -319,8 +303,8 @@
                   <div data-ng-show="myForm.confirmPassword.$error.match">Passwords do not match!</div>
               </form>-->
 
-   
-            
+
+
               <form name="loginForm3" class="login-form" ng-submit="registrarUser();" novalidate>
 
 
@@ -350,7 +334,7 @@
                   </div>
                   <div class="form-group group">
                     <label for="logPasswordUser">Contraseña</label>
-                    <input type="password" class="form-control" name="logPasswordUser" id="logPasswordUser"  data-ng-class="{'ng-invalid':loginForm3.passwordConfirm.$error.match}" 
+                    <input type="password" class="form-control" name="logPasswordUser" id="logPasswordUser"  data-ng-class="{'ng-invalid':loginForm3.passwordConfirm.$error.match}"
                            ng-model="user.passwordUser" placeholder="Ingresa tu contraseña"
                            ng-required="true" ng-minlength="6"/>
                     <span style="color:maroon" ng-show="loginForm3.logPasswordUser.$dirty && loginForm3.logPasswordUser.$invalid">
@@ -371,11 +355,11 @@
                     </span>
                   </div>
 
-               <!-- 
+               <!--
                   <div data-ng-show="loginForm3.passwordConfirm.$error.match">La contraseña no coincide!</div>-->
 
 
-                
+
                   <input class="btn btn-black" ng-disabled="loginForm3.$invalid" type="submit" value="Registrar" />
 
                 </form>
@@ -446,8 +430,7 @@
       <script src="../js/webUtil.js"></script>
 
       <script src="../js/registro.js"></script>
-        <script src="../js/adminCliente.js"></script>
-        <script src="../js/adminCliente/comprasCliente.js"></script>
+
 
         <!-- Services AngularJS -->
         <script src="../js/services/AdminService.js"></script>
@@ -464,8 +447,6 @@
         <script src="../js/store.js"></script>
         <script src="../js/checkout.js"></script>
         <script src="../js/red.js"></script>
-        <script src="../js/registroUser.js"></script>
-
 
 
         <script src="../js/mitianguis.js"></script>

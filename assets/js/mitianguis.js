@@ -75,9 +75,11 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     //$http.get("/mercanteByUrl?urlMercante=" + subdominio)
 
     $scope.login = function(){
+      alert("login 1...");
       $scope.user.email = $scope.user.username;
+      alert("login 2...");
       $http.post("/login", $scope.user).then(function(result){
-        //console.log( JSON.stringify(result) );
+        console.log( JSON.stringify(result) );
         if( result.data.message === constants.LOGIN_SUCCESS ){
           $('#loginModal').modal('hide');
           console.log("user usado para buscar mercante:: " + JSON.stringify(result.data.user) );
@@ -239,7 +241,6 @@ myApp.directive('ngEnter', function() {
         scope.$apply(function(){
           scope.$eval(attrs.ngEnter, {'event': event});
         });
-
         event.preventDefault();
       }
     });

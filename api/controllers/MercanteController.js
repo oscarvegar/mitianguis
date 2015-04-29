@@ -4,7 +4,8 @@
  * @description :: Server-side logic for managing Mercantes
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
-
+var moment = require('moment');
+var unirest = require('unirest');
 module.exports = {
   currentUser:function(req,res){
 
@@ -88,7 +89,7 @@ module.exports = {
       "reference_id":mercante.id + "-" + moment().valueOf(),
       "card": data.token,
       "details": {
-        "email":usuaio.email
+        "email":usuario.email
       }
     }
     console.log("PAGO >>>>>",pago);
@@ -98,9 +99,9 @@ module.exports = {
         'Content-type': 'application/json'})
       .send(pago)
       .end(function(response){
-        console.log("End de Conekta ::: " + JSON.stringify(response) );
+        //console.log("End de Conekta ::: " + JSON.stringify(response) );
         Parametro.findOne({datosSystem:{$exists:true}}).then(function(datosSystem){
-          module.exports.setMentores(mercante, 2, mercante.mentor, function(mercante){
+          module.exports.setMentores(mercante, mercante.mentor, 2, datosSystem, function(mercante){
             mercante.codigoMercante = moment().valueOf().toString(16).toUpperCase();
             mercante.diaInscripcion = moment().date();
             User.update({id:usuario.id},{status:1,perfil:'MERCANTE'}).exec( function(err, userNew){
@@ -112,8 +113,11 @@ module.exports = {
                                         creditDebitCardMask: '',
                                         financialServiceBrand:'',
                                         mercante:mercante.id};
+              console.log(" Mercante a regitrar::: " + JSON.stringify(mercante) );
+              console.log(" ***************************************************"  );
               Mercante.create(mercante).exec( function(err, created){
                 if(err){
+                  console.log("Error al crear mercante :: " + JSON.stringify(err) );
                   return res.json(400,err);
                 }
                 Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:created})
@@ -135,10 +139,12 @@ module.exports = {
       newMercante['mentor'+nivel]=mentorId;
       cb(newMercante);
     }else{
+      LOGS.info("ID MERCANTE PADRE NIVEL [" + nivel + "] = " + JSON.stringify(mentorId) );
       Mercante.findOne({id:mentorId}).then(function(mercanteRes){
+        LOGS.info("Mercante Padre Nivel [" + nivel + "] >>>> " + JSON.stringify(mercanteRes) );
         newMercante['mentor'+nivel]=mercanteRes;
         nivel++;
-        setMentores(newMercante,mercanteRes.mentor,nivel,datosSystem,cb);
+        module.exports.setMentores(newMercante, mercanteRes.mentor, nivel, datosSystem,cb);
       })
     }
   }

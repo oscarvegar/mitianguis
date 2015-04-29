@@ -84,7 +84,8 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
       $scope.$broadcast('show-errors-check-validity');
       if( isValid ){
         $scope.mensajeErrorCodigoMercante = null;
-        $http.post("/Mercante/findByCodigo/", {codigoMercante:$scope.mercante.mentor.codigoMercante} ).then(
+        $http.post("/Mercante/findByCodigo/", {codigoMercante:$scope.mercante.mentor.codigoMercante} )
+          .then(
           function(result) {
             var card = {card:$scope.datosPago};
             console.log(JSON.stringify(card));
@@ -92,6 +93,8 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
               function(data){
                 var token = data.id;
                 console.log( "Respuesta Conekta ::: " + JSON.stringify(data) );
+                console.log( "Mercante a Registrar ::: " + JSON.stringify($scope.mercante) );
+                console.log( "Usuario a Registrar ::: " + JSON.stringify($scope.usuario) );
                 $http.post( "/Mercante/registrarNuevo/",
                   {mercante:$scope.mercante, usuario:$scope.usuario, token: token} )
                   .then(function(result){
