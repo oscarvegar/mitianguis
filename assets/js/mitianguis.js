@@ -75,7 +75,9 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     //$http.get("/mercanteByUrl?urlMercante=" + subdominio)
 
     $scope.login = function(){
+      alert("login 1...");
       $scope.user.email = $scope.user.username;
+      alert("login 2...");
       $http.post("/login", $scope.user).then(function(result){
         console.log( JSON.stringify(result) );
         if( result.data.message === constants.LOGIN_SUCCESS ){
