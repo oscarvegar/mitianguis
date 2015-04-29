@@ -25,12 +25,6 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
     templateUrl:"pages/admin/productos.html"
   };
 })
-.directive("afiliate", function( ){
-  return {
-    restrict:"E",
-    templateUrl:"pages/admin/registro.html"
-  };
-})
 .directive("red", function( ){
   return {
     restrict:"E",

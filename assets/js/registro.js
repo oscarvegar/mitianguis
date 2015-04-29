@@ -92,6 +92,7 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
             Conekta.token.create(card,
               function(data){
                 var token = data.id;
+                $scope.mercante.mentor = result.data;
                 console.log( "Respuesta Conekta ::: " + JSON.stringify(data) );
                 console.log( "Mercante a Registrar ::: " + JSON.stringify($scope.mercante) );
                 console.log( "Usuario a Registrar ::: " + JSON.stringify($scope.usuario) );
@@ -99,6 +100,11 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
                   {mercante:$scope.mercante, usuario:$scope.usuario, token: token} )
                   .then(function(result){
 
+                    console.log(" RESULT DE REGISTRO MERCANTE :: " + JSON.stringify(result) );
+
+                    webUtil.save("usuario", result.data);
+                    webUtil.save("isNewMercante", true);
+                    window.location.href = "store#/admin";
                   },function(err){
 
                   });

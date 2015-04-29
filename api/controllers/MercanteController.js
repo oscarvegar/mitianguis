@@ -81,61 +81,71 @@ module.exports = {
     var usuario = data.usuario;
     usuario.username = usuario.email;
     var mensaje = "";
-    console.log( "Data >> " + JSON.stringify(data) );
-    var pago = {
-      "currency":"MXN",
-      "amount": 19800 ,
-      "description":"MiTianguis Monthly Payment",
-      "reference_id":mercante.id + "-" + moment().valueOf(),
-      "card": data.token,
-      "details": {
-        "email":usuario.email
-      }
-    }
-    console.log("PAGO >>>>>",pago);
-    unirest.post("https://api.conekta.io/charges")
-      .auth({user: 'key_fK2GfyxqqvW1KJBxmxbqCw'})
-      .headers({	'Accept': 'application/vnd.conekta-v0.3.0+json',
-        'Content-type': 'application/json'})
-      .send(pago)
-      .end(function(response){
-        //console.log("End de Conekta ::: " + JSON.stringify(response) );
-        Parametro.findOne({datosSystem:{$exists:true}}).then(function(datosSystem){
-          module.exports.setMentores(mercante, mercante.mentor, 2, datosSystem, function(mercante){
-            mercante.codigoMercante = moment().valueOf().toString(16).toUpperCase();
-            mercante.diaInscripcion = moment().date();
-            User.update({id:usuario.id},{status:1,perfil:'MERCANTE'}).exec( function(err, userNew){
-              if(err){
-                return res.json(400,err);
-              }
-              mercante.usuario = userNew;
-              mercante.conektaToken = { conektaToken: data.token,
-                                        creditDebitCardMask: '',
-                                        financialServiceBrand:'',
-                                        mercante:mercante.id};
-              console.log(" Mercante a regitrar::: " + JSON.stringify(mercante) );
-              console.log(" ***************************************************"  );
-              Mercante.create(mercante).exec( function(err, created){
-                if(err){
-                  console.log("Error al crear mercante :: " + JSON.stringify(err) );
-                  return res.json(400,err);
-                }
-                Cartera.create({varoActual:0,ultimoMovimiento:new Date(),mercante:created})
-                  .exec(function(err,cCar){
-                    console.log(cCar);
-                    SuscripcionService.suscribir(created,function(suscrito){
-                      console.log(suscrito); res.json(created);
-                    })
-                  });
-              });
-            });
+    //console.log( "Data >> " + JSON.stringify(data) );
+    console.log(" Mercante a regitrar::: " + JSON.stringify(mercante));
+    console.log(" Usuario a modificar::: " + JSON.stringify(usuario));
+    console.log(" ***************************************************");
+    Parametro.findOne({datosSystem:{$exists:true}}).then(function(datosSystem){
+      module.exports.setMentores(mercante, mercante.mentor.id, 2, datosSystem,
+        function (mercante) {
+          console.log(" *** se ejecuto callback de mercantes **** ");
+          mercante.codigoMercante = moment().valueOf().toString(16).toUpperCase();
+          mercante.diaInscripcion = moment().date();
+          User.update({id: usuario.id}, {status: 1, perfil: 'MERCANTE'}).exec(function (err, userNew) {
+            if (err) {
+              return res.json(400, err);
+            }
+            console.log("Usuario actualizado :: " + JSON.stringify(userNew));
+            mercante.usuario = usuario.id;
+            mercante.conektaToken = {
+              conektaToken: data.token,
+              creditDebitCardMask: '',
+              financialServiceBrand: '',
+              mercante: mercante.id
+            };
+            Mercante.create(mercante).then( function( newMercante ){
+              Cartera.create({varoActual: 0, ultimoMovimiento: new Date(), mercante: newMercante})
+                .exec(function (err, cCar) {
+                  console.log(cCar);
+                  SuscripcionService.suscribir(newMercante, function (suscrito) {
+                    console.log(suscrito);
+                    var pago = {
+                      "currency":"MXN",
+                      "amount": 19800 ,
+                      "description":"MiTianguis Monthly Payment",
+                      "reference_id":newMercante.id + "-" + moment().valueOf(),
+                      "card": data.token,
+                      "details": { "email":usuario.email }
+                    }
+                    console.log("PAGO >>>>>", pago);
+                    unirest.post("https://api.conekta.io/charges")
+                      .auth({user: 'key_fK2GfyxqqvW1KJBxmxbqCw'})
+                      .headers({	'Accept': 'application/vnd.conekta-v0.3.0+json',
+                                  'Content-type': 'application/json'})
+                      .send(pago)
+                      .end(function(response){
+                        console.log("*****************************************************************");
+                        console.log("End de Conekta :::: " + JSON.stringify(response) );
+                        if(response.statusCode == 200){
+                          userNew[0].mercante = newMercante;
+                          return res.json( userNew[0] );
+                        }else{
+                          return res.json( 500, {code:response.statusCode,body:response.body});
+                        }
+                      });
+                  })
+                });
+          }).fail(function(err){
+            console.error( "Error al crear mercante:: " + JSON.stringify(err)  );
+            return res.json(400, err);
           });
         });
-        res.json({code:1})
       });
+    });
   },// Fin de registrarNuevo
   setMentores:function(newMercante,mentorId,nivel,datosSystem,cb){
     if(mentorId==datosSystem.datosSystem.systemId || nivel === 10){
+      console.log( ">>>>>>>>>><<<<<<<<<<< Se va a ejecutar el callback" );
       newMercante['mentor'+nivel]=mentorId;
       cb(newMercante);
     }else{

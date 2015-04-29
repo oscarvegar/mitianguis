@@ -4,6 +4,14 @@
 var tiendaModule = angular.module("TiendaAdminModule",["angularFileUpload", "AdminService"]);
 tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, FileUploader, $tiendaService){
   var tiendaCtrl = this;
+
+  // Recuperando bandera que proviene de Registrar un nuevo mercante, unicamente para
+  // un mensaje indidcando que su registro fue exitoso
+  if( webUtil.get("isNewMercante") ){
+    $('#exitoNuevoMercanteModal').modal('show');
+    webUtil.destroy("isNewMercante");
+  }
+
   tiendaCtrl.origin = webUtil.getOrigin();
   tiendaCtrl.isDetalle = false;
   console.log("origin :: " + tiendaCtrl.origin );
@@ -45,6 +53,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
   }
 
   tiendaCtrl.getTiendas = function(){
+
     $http.get("/mistiendas/" + webUtil.getJSON("usuario").mercante.id).then(function(result){
       tiendaCtrl.mistiendas = result.data;
       $tiendaService.setTiendas(angular.copy(result.data));
@@ -53,6 +62,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
       }
       tiendaCtrl.mistiendas.push({nombre: 'Nuevo'});
     });
+
   }
 
   tiendaCtrl.crear = function(){

@@ -19,4 +19,10 @@ console.log("Menu Cliente Controller");
     restrict:"E",
     templateUrl:"pages/adminCliente/comprasCliente.html"
   };
+})
+.directive("afiliate", function( ){
+  return {
+    restrict:"E",
+    templateUrl:"pages/admin/registro.html"
+  };
 });
