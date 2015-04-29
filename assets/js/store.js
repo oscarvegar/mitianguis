@@ -1,5 +1,6 @@
 angular.module("TiendaModule",[])
 .controller('TiendaCtrl', function($scope,$http,$location){
+	console.log("TIENDA MODULE")
 	$scope.categorias = [];
 	$scope.tienda = webUtil.getJSON("tienda");
 	$http.get('/producto/productoByTienda/' + $scope.tienda.id)

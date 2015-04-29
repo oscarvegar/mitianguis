@@ -21,7 +21,6 @@ var myApp = angular.module("TianguisApp",
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
-
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};
@@ -54,7 +53,6 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     }
     //Obtener al mercante en base al subdominio en el primer acceso.
     var subdominio = webUtil.getDomain();
-
     if(subdominio.search("http")>=0) subdominio = "gameland";
     //if(subdominio !== "http://") {
 	    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
