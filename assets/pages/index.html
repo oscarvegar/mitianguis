@@ -1,133 +1,150 @@
 <!doctype html>
 <html lang="es" ng-app="TianguisApp" ng-controller="TianguisController">
-    <head>
-     <meta property="og:type" content="website" />
-    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://ebbob.com/img/01/iixjz0f4h2e.jpg" />
-    <meta name="twitter:title" id="mtt" property="og:title" itemprop="title name" content="{{meta}}" />
-    <meta name="twitter:description" property="og:description" itemprop="description" content="Descripcion cambiada" />
-    <meta charset="utf-8">
-    <title>MiTianguis - Compra, Vende y haz Negocio</title>
-    <meta name="description" content="Responsive HTML5 E-Commerce Template" />
-    <meta name="keywords" content="responsive html5 template, e-commerce, shop, bootstrap 3.0, css, jquery, flat, modern" />
-    <meta name="author" content="Oscar" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<head>
+  <meta property="og:type" content="website" />
+  <meta property="og:image" itemprop="image primaryImageOfPage" content="http://ebbob.com/img/01/iixjz0f4h2e.jpg" />
+  <meta name="twitter:title" id="mtt" property="og:title" itemprop="title name" content="{{meta}}" />
+  <meta name="twitter:description" property="og:description" itemprop="description" content="Descripcion cambiada" />
+  <meta charset="utf-8">
+  <title>MiTianguis - Compra, Vende y haz Negocio</title>
+  <meta name="description" content="Responsive HTML5 E-Commerce Template" />
+  <meta name="keywords" content="responsive html5 template, e-commerce, shop, bootstrap 3.0, css, jquery, flat, modern" />
+  <meta name="author" content="Oscar" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-<!--
-      <link rel='stylesheet' type="text/css" href='../css/fullcalendar.css'>-->
+  <!--
+        <link rel='stylesheet' type="text/css" href='../css/fullcalendar.css'>-->
 
-      <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
-      <link rel="stylesheet" type="text/css" href="../css/prettify.css"/>
-      <link rel="stylesheet" type="text/css" href="../css/bootstrap-wysihtml5.css"/>
-      <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.min.css"/>
-      <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-      <link rel="icon" href="../favicon.ico" type="image/x-icon" />
-      <link href="../css/styles.css" rel="stylesheet" media="screen" />
-      <link href="../masterslider/style/masterslider.css" rel="stylesheet" media="screen" />
-      <link rel="stylesheet" type="text/css" href="../css/mitianguis.css" media="screen" />
-      <link rel="stylesheet" type="text/css" href="../css/gridcustom.css"/>
-      <link rel="stylesheet" type="text/css" href="../css/xeditable.css"/>
-      <script src="../js/libs/modernizr.custom.js"></script>
-      <!--Adding Media Queries Support for IE8-->
-      <!--[if lt IE 9]>
-        <script src="../js/plugins/respond.js"></script>
-      <![endif]-->
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/prettify.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap-wysihtml5.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.min.css"/>
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" />
+  <link href="../css/styles.css" rel="stylesheet" media="screen" />
+  <link href="../masterslider/style/masterslider.css" rel="stylesheet" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/mitianguis.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/gridcustom.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/xeditable.css"/>
+  <script src="../js/libs/modernizr.custom.js"></script>
+  <!--Adding Media Queries Support for IE8-->
+  <!--[if lt IE 9]>
+  <script src="../js/plugins/respond.js"></script>
+  <![endif]-->
 
-    </head>
+</head>
 
-    <!--Body-->
-    <body ng-cloak class="ng-cloak">
+<!--Body-->
+<body ng-cloak class="ng-cloak">
 
-     <div id="fb-root"></div>
+<div id="fb-root"></div>
 
-        <!--Header-->
-        <header data-offset-top="500" data-stuck="600">
-            <!--data-offset-top is when header converts to small variant and data-stuck when it becomes visible.
-                Values in px represent position of scroll from top. Make sure there is at least 100px between those
-                two values for smooth animation-->
-            <!--Search Form-->
-            <form class="search-form closed" method="get" role="form" autocomplete="off">
-                <div class="container">
-                    <div class="close-search"><i class="icon-delete"></i></div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="search-hd" id="search-hd"
-                               placeholder="Escribe nombre o descripción de un producto">
-                        <button type="submit"><i class="icon-magnifier"></i></button>
-                    </div>
-                </div>
-            </form>
-            <!--Mobile Menu Toggle-->
-            <div class="menu-toggle"><i class="fa fa-list"></i></div>
-            <div class="container">
-              <h2 class="logo"><a  href="/store#/" >MiTianguis</a></h2>
-            </div>
-            <!--  MENU PRINCIPAL -->
-            <nav class="menu">
-              <div class="container">
-                <ul class="main">
-                  <!--li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li-->
-                  <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
-                  <li class="hide-sm" ng-if="usuario == null"><a href="#/registroUser"><span>U</span>nete</a></li>
-                  <li class="hide-sm"><a href="#/admin" ng-if="usuario != null"><span>M</span>i cuenta</a></li>
+<!--Header-->
+<header data-offset-top="500" data-stuck="600">
+  <!--data-offset-top is when header converts to small variant and data-stuck when it becomes visible.
+      Values in px represent position of scroll from top. Make sure there is at least 100px between those
+      two values for smooth animation-->
+  <!--Search Form-->
+  <form class="search-form closed" method="get" role="form" autocomplete="off">
+    <div class="container">
+      <div class="close-search"><i class="icon-delete"></i></div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="search-hd" id="search-hd"
+               placeholder="Escribe nombre o descripción de un producto">
+        <button type="submit"><i class="icon-magnifier"></i></button>
+      </div>
+    </div>
+  </form>
+  <!--Mobile Menu Toggle-->
+  <div class="menu-toggle"><i class="fa fa-list"></i></div>
+  <div class="container">
+    <h2 class="logo"><a  href="/store#/" >MiTianguis</a></h2>
+  </div>
+  <!--  MENU PRINCIPAL -->
+  <nav class="menu">
+    <div class="container">
+      <ul class="main">
+        <!--li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li-->
+        <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
+        <li class="hide-sm" ng-if="usuario == null"><a  href="#/registroUser"><span>U</span>nete</a></li>
+        <li class="hide-sm"><a href="#/admin" ng-if="usuario != null && usuario.perfil != 'CLIENTE'"><span>M</span>i cuenta</a></li>
+        <li class="hide-sm"><a href="#/cliente" ng-if="usuario.perfil === 'CLIENTE'"><span>M</span>i cuenta</a></li>
+      </ul>
+    </div>
+    <div class="catalog-block" style="margin: 0px;">
+      <div id="menuAccion" align="left" style="width: 100%;display: none;" ng-show="menuAccionOn">
+        <table width="100%">
+          <tr>
+            <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
+              <li class="has-submenu" style="text-align: left" >
+                <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
+                <ul class="submenu">
+                  <li><a href="" ng-click="selecciono(0)">Mis Tiendas</a></li>
+                  <li><a href="" ng-click="selecciono(2)">Mis Ventas</a></li>
+                  <li><a href="" ng-click="selecciono(3)">Mi Reputacion</a></li>
+                  <li class="has-submenu" >
+                    <a ng-href="/store#/admin/mired">Red MiTianguis</a>
+                    <ul class="sub-submenu" style="background-color: white">
+                      <li><a>1ra Generación</a></li>
+                      <li><a>2da Generación</a></li>
+                      <li><a>3ra Generación</a></li>
+                      <li><a>4ta Generación</a></li>
+                      <li><a>5ta Generación</a></li>
+                      <li><a>6ta Generación</a></li>
+                      <li><a>7ma Generación</a></li>
+                      <li><a>8va Generación</a></li>
+                      <li><a>9na Generación</a></li>
+                      <li><a>10ma Generación</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="" ng-click="selecciono(5)">Movimientos</a></li>
+                  <li><a href="" ng-click="selecciono(6)">Mi Perfil</a></li>
+                  <!--li><a ng-click="selecciono(7)">Afiliate</a></li-->
+                  <li><a href="" ng-click="selecciono(8)">Mis Compras</a></li>
                 </ul>
-              </div>
-              <div class="catalog-block" style="margin: 0px;">
-                <div id="menuAccion" align="left" style="width: 100%;display: none;" ng-show="menuAccionOn">
-                  <table width="100%">
-                    <tr>
-                      <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
-                        <li class="has-submenu" style="text-align: left"  ng-if="usuario.perfil != 'CLIENTE'">
-                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
-                          <ul class="submenu">
-                            <li><a href="#" ng-click="selecciono(0)">Mis Tiendas</a></li>
-                            <li><a href="#" ng-click="selecciono(2)">Mis Ventas</a></li>
-                            <li><a href="#" ng-click="selecciono(3)">Mi Reputacion</a></li>
-                            <li class="has-submenu" >
-                              <a ng-href="/store#/admin/mired">Red MiTianguis</a>
-                              <ul class="sub-submenu" style="background-color: white">
-                                <li><a>1ra Generación</a></li>
-                                <li><a>2da Generación</a></li>
-                                <li><a>3ra Generación</a></li>
-                                <li><a>4ta Generación</a></li>
-                                <li><a>5ta Generación</a></li>
-                                <li><a>6ta Generación</a></li>
-                                <li><a>7ma Generación</a></li>
-                                <li><a>8va Generación</a></li>
-                                <li><a>9na Generación</a></li>
-                                <li><a>10ma Generación</a></li>
-                              </ul>
-                            </li>
-                            <li><a href="#" ng-click="selecciono(5)">Movimientos</a></li>
-                            <li><a href="#" ng-click="selecciono(6)">Mi Perfil</a></li>
-                              <li><a ng-click="selecciono(7)">Afiliate</a></li>
-                            <li><a href="#" ng-click="selecciono(8)">Mis Compras</a></li>
-                          </ul>
-                        </li>
-                        <li class="has-submenu" style="text-align: left"  ng-if="usuario.perfil === 'CLIENTE'">
-                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
-                          <ul class="submenu">
-                            <li><a href="#" ng-click="selecciono(8)">Mis Compras</a></li>
-                            <li><a ng-click="selecciono(7)">Afiliate</a></li>
-                          </ul>
-                        </li>
-                      </ul></td>
-                      <td class="col-nav-admin" align="right">
-                        Mi Cuenta / {{titulo}}
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                <span ng-hide="menuAccionOn">&nbsp;</span>
-              </div>
+              </li>
+            </ul></td>
+            <td class="col-nav-admin" align="right">
+              Mi Cuenta / {{titulo}}
+            </td>
+          </tr>
+        </table>
+      </div>
+      <span ng-hide="menuAccionOn">&nbsp;</span>
+    </div>
 
-            </nav>
-            <!-- FIN DE MENU PRINCIPAL -->
 
-            <div class="toolbar-container" ng-cloak>
-              <div class="container">
-                <!--Toolbar-->
-                <div class="toolbar group">
+    <div class="catalog-block" style="margin: 0px;" >
+      <div id="menuAccionCliente" align="left" style="width: 100%;display: none;" ng-show="menuAccionClienteOn">
+        <table width="100%">
+          <tr>
+            <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
+              <li class="has-submenu" style="text-align: left">
+                <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
+                <ul class="submenu">
+                  <li><a href="" ng-click="selecciono(0)">Mis Compras</a></li>
+                  <li><a ng-click="selecciono(1)">Afiliate</a></li>
+                </ul>
+              </li>
+            </ul></td>
+            <td class="col-nav-admin" align="right">
+              Mi Cuenta / {{titulo}}
+            </td>
+          </tr>
+        </table>
+      </div>
+      <span ng-hide="menuAccionClienteOn">&nbsp;</span>
+    </div>
+
+  </nav>
+  <!-- FIN DE MENU PRINCIPAL -->
+
+  <div class="toolbar-container" ng-cloak>
+    <div class="container">
+      <!--Toolbar-->
+      <div class="toolbar group">
                   <span class="login-btn btn-outlined-invert" data-toggle="modal" ng-if="usuario == null"
-                    data-target="#loginModal"><i class="icon-profile"></i>
+                        data-target="#loginModal"><i class="icon-profile"></i>
                     <span style="color: black;"><b>L</b>ogin</span>
                   </span>
 
@@ -139,261 +156,261 @@
                     <span style="color: black;font-size: 13px;"><b>C</b>errar Sesión</span>
                   </span>
 
-              <div class="cart-btn" ng-controller="CarritoCtrl" ng-cloak>
-                <a class="btn btn-outlined-invert" href="/store#/carrito"><i class="icon-shopping-cart-content"></i><span>{{carrito.totalItems}}</span><b>{{carrito.total | currency : symbol : fractionSize}}</b></a>
+        <div class="cart-btn" ng-controller="CarritoCtrl" ng-cloak>
+          <a class="btn btn-outlined-invert" href="/store#/carrito"><i class="icon-shopping-cart-content"></i><span>{{carrito.totalItems}}</span><b>{{carrito.total | currency : symbol : fractionSize}}</b></a>
 
-              <!--Cart Dropdown-->
-                <div class="cart-dropdown" ng-cloak>
-                <span></span><!--Small rectangle to overlap Cart button-->
-                <div class="body" ng-show="carrito.productosCarrito.length > 0">
-                  <table>
-                    <tr>
-                      <th>Artículos</th>
-                      <th>Cantidad</th>
-                      <th>Precio</th>
-                    </tr>
-                    <tr class="item" ng-repeat="pc in carrito.productosCarrito track by $index">
-                      <td><div class="deletes" ng-click="eliminar($index)"></div><a href="/store#/producto?p={{pc.producto.id}}">{{pc.producto.nombre}} {{pc.modeloSelected.modelo}}</a></td>
-                      <td><input type="text" ng-model="pc.cantidad" only-digits ng-change="persist()"></td>
-                      <td class="price">{{pc.producto.precio * pc.cantidad | currency : symbol : fractionSize}}</td>
-                    </tr>
+          <!--Cart Dropdown-->
+          <div class="cart-dropdown" ng-cloak>
+            <span></span><!--Small rectangle to overlap Cart button-->
+            <div class="body" ng-show="carrito.productosCarrito.length > 0">
+              <table>
+                <tr>
+                  <th>Artículos</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                </tr>
+                <tr class="item" ng-repeat="pc in carrito.productosCarrito track by $index">
+                  <td><div class="deletes" ng-click="eliminar($index)"></div><a href="/store#/producto?p={{pc.producto.id}}">{{pc.producto.nombre}} {{pc.modeloSelected.modelo}}</a></td>
+                  <td><input type="text" ng-model="pc.cantidad" only-digits ng-change="persist()"></td>
+                  <td class="price">{{pc.producto.precio * pc.cantidad | currency : symbol : fractionSize}}</td>
+                </tr>
 
-                  </table>
-                </div>
-                <div class="footer group" ng-show="carrito.productosCarrito.length > 0">
-
-                  <div class="buttons">
-                    <a class="btn " href="checkout.html"><i class="icon-download"></i>
-                      Pagar
-                    </a>
-                    <a class="btn" href="/store#/carrito"><i class="icon-shopping-cart-content"></i>Al carrito</a>
-                  </div>
-                  <div class="total">{{carrito.total | currency : symbol : fractionSize}}</div>
-                </div>
-                </div><!--Cart Dropdown Close-->
+              </table>
             </div>
-                  <button class="search-btn btn-outlined-invert"><i class="icon-magnifier"></i></button>
-                </div><!--Toolbar Close-->
+            <div class="footer group" ng-show="carrito.productosCarrito.length > 0">
+
+              <div class="buttons">
+                <a class="btn " href="checkout.html"><i class="icon-download"></i>
+                  Pagar
+                </a>
+                <a class="btn" href="/store#/carrito"><i class="icon-shopping-cart-content"></i>Al carrito</a>
               </div>
+              <div class="total">{{carrito.total | currency : symbol : fractionSize}}</div>
             </div>
+          </div><!--Cart Dropdown Close-->
+        </div>
+        <button class="search-btn btn-outlined-invert"><i class="icon-magnifier"></i></button>
+      </div><!--Toolbar Close-->
+    </div>
+  </div>
 
 
-        </header><!--Header Close-->
-        <!--Page Content-->
-        <div>
-            <ng-view></ng-view>
-        </div><!--Page Content Close-->
+</header><!--Header Close-->
+<!--Page Content-->
+<div>
+  <ng-view></ng-view>
+</div><!--Page Content Close-->
 
-        <!--Footer-->
-        <footer class="footer">
-            <div ng-include="template.footer"></div>
-        </footer><!--Footer Close-->
+<!--Footer-->
+<footer class="footer">
+  <div ng-include="template.footer"></div>
+</footer><!--Footer Close-->
 
-        <!-- modal -->
-        <!--Login Modal-->
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
-                <h2>Ingresa o <a href="#"  data-toggle="modal"  data-target="#registroCliente">Registrate</a></h2>
-                <p class="large hide">Ingresa con</p>
-                <div class="social-login hide">
-                  <a class="facebook hide" href="https://www.facebook.com/MiTianguisMX"><i class="fa fa-facebook-square"></i></a>
-                  <a class="google" href="#"><i class="fa fa-google-plus-square"></i></a>
-                  <a class="twitter" href="https://www.twitter.com/mitianguismx"><i class="fa fa-twitter-square"></i></a>
-                </div>
-              </div>
-              <div  class="modal-body">
-                <form name="loginForm" class="login-form" ng-submit="login();" novalidate>
+<!-- modal -->
+<!--Login Modal-->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h2>Ingresa o <a href="#"  data-toggle="modal"  data-target="#registroCliente">Registrate</a></h2>
+        <p class="large hide">Ingresa con</p>
+        <div class="social-login hide">
+          <a class="facebook hide" href="https://www.facebook.com/MiTianguisMX"><i class="fa fa-facebook-square"></i></a>
+          <a class="google" href="#"><i class="fa fa-google-plus-square"></i></a>
+          <a class="twitter" href="https://www.twitter.com/mitianguismx"><i class="fa fa-twitter-square"></i></a>
+        </div>
+      </div>
+      <div  class="modal-body">
+        <form name="loginForm" class="login-form" ng-submit="login();" novalidate>
 
-                  <div class="alert alert-danger" role="alert" ng-show="errorLogin">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span>
-                    El email y/o la contraseña son incorrectas
-                  </div>
+          <div class="alert alert-danger" role="alert" ng-show="errorLogin">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            El email y/o la contraseña son incorrectas
+          </div>
 
-                  <div class="form-group group">
-                    <label for="logEmail">Email</label>
-                    <input type="email" class="form-control" name="logEmail" id="logEmail"
-                           ng-model="user.username" placeholder="Ingresa tu correo" ng-required="true" />
+          <div class="form-group group">
+            <label for="logEmail">Email</label>
+            <input type="email" class="form-control" name="logEmail" id="logEmail"
+                   ng-model="user.username" placeholder="Ingresa tu correo" ng-required="true" />
                     <span style="color:maroon" ng-show="loginForm.logEmail.$dirty && loginForm.logEmail.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span ng-show="loginForm.logEmail.$error.required">Tu correo electrónico es requerido.</span>
                       <span ng-show="loginForm.logEmail.$invalid && !loginForm.logEmail.$error.required">Tu correo electrónico es inválido.</span>
                     </span>
-                  </div>
-                  <div class="form-group group">
-                    <label for="logPassword">Contraseña</label>
-                    <input type="password" class="form-control" name="logPassword" id="logPassword"
-                           ng-model="user.password" placeholder="Ingresa tu contraseña"
-                           ng-required="true" ng-minlength="6"/>
-                    <a class="help-link" href="#"  data-toggle="modal"  data-target="#passwordModal">¿Olvidaste tu contraseña?</a>
+          </div>
+          <div class="form-group group">
+            <label for="logPassword">Contraseña</label>
+            <input type="password" class="form-control" name="logPassword" id="logPassword"
+                   ng-model="user.password" placeholder="Ingresa tu contraseña"
+                   ng-required="true" ng-minlength="6"/>
+            <a class="help-link" href="#"  data-toggle="modal"  data-target="#passwordModal">¿Olvidaste tu contraseña?</a>
                     <span style="color:maroon" ng-show="loginForm.logPassword.$dirty && loginForm.logPassword.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span ng-show="loginForm.logPassword.$error.required">Tu contraseña es requerida.</span>
                       <span ng-show="loginForm.logPassword.$invalid && !loginForm.logPassword.$error.required">Tu contraseña debe tener un mínimo de 6 caracteres.</span>
                     </span>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" name="remember"> Recordar</label>
-                  </div>
-                  <input class="btn btn-black" ng-disabled="loginForm.$invalid" type="submit" value="Entrars" />
-                </form>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" name="remember"> Recordar</label>
+          </div>
+          <input class="btn btn-black" ng-disabled="loginForm.$invalid" type="submit" value="Entrar" />
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-        <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
-                 <h2>Recuperar contraseña</h2>
-                <p class="large hide">Recuperar contraseña</p>
-              </div>
-              <div  class="modal-body">
-                <form name="loginForm2" class="login-form" ng-submit="forgotPassword();" novalidate>
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h2>Recuperar contraseña</h2>
+        <p class="large hide">Recuperar contraseña</p>
+      </div>
+      <div  class="modal-body">
+        <form name="loginForm2" class="login-form" ng-submit="forgotPassword();" novalidate>
 
-                  <div>
-                    <label>Ingresa tu correo electrónico y en breve recibiras tu contraseña</label>
-                  </div>
+          <div>
+            <label>Ingresa tu correo electrónico y en breve recibiras tu contraseña</label>
+          </div>
 
-                  <div class="alert alert-success"  ng-show="showAlert">
-                    <strong>Se envío un correo electrónico con la contraseña nueva.</strong><a href="store/register.html"> Regresar al inicio. </a>
-                    <button type="button" class="close" ng-click="showAlert = false">×</button>
-                  </div>
+          <div class="alert alert-success"  ng-show="showAlert">
+            <strong>Se envío un correo electrónico con la contraseña nueva.</strong><a href="store/register.html"> Regresar al inicio. </a>
+            <button type="button" class="close" ng-click="showAlert = false">×</button>
+          </div>
 
-                  </br>
+          </br>
 
-                  <div class="form-group group">
-                    <label for="logEmail2">Email</label>
-                    <input type="email" class="form-control" name="logEmail2" id="logEmail2"
-                           ng-model="forgotMail" placeholder="Ingresa tu correo" ng-required="true" />
+          <div class="form-group group">
+            <label for="logEmail2">Email</label>
+            <input type="email" class="form-control" name="logEmail2" id="logEmail2"
+                   ng-model="forgotMail" placeholder="Ingresa tu correo" ng-required="true" />
                     <span style="color:maroon" ng-show="loginForm2.logEmail2.$dirty && loginForm2.logEmail2.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span ng-show="loginForm2.logEmail2.$error.required">Tu correo electrónico es requerido.</span>
                       <span ng-show="loginForm2.logEmail2.$invalid && !loginForm2.logEmail2.$error.required">Tu correo electrónico es inválido.</span>
                     </span>
-                  </div>
-
-
-                  <input class="btn btn-black" ng-disabled="loginForm2.$invalid" type="submit" value="Enviar" />
-                </form>
-              </div>
-            </div>
           </div>
-        </div><!-- /.modal -->
-
-       <div class="modal fade" id="registroCliente" tabindex="-1" role="dialog" aria-hidden="true">
-           <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
-                 <h2>Registro</h2>
-                <p class="large hide">Registro</p>
-              </div>
-              <div  class="modal-body">
-
-<!--
-              <form name="myForm">
-                  Password: <input ng-model="user.password" type="password" name="password" data-ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" />
-                  Confirm: <input ng-model="user.passwordConfirm" type="password" data-match="user.password" name="confirmPassword" />
-                  <div data-ng-show="myForm.confirmPassword.$error.match">Passwords do not match!</div>
-              </form>-->
 
 
+          <input class="btn btn-black" ng-disabled="loginForm2.$invalid" type="submit" value="Enviar" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div><!-- /.modal -->
 
-              <form name="loginForm3" class="login-form" ng-submit="registrarUser();" novalidate>
+<div class="modal fade" id="registroCliente" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h2>Registro</h2>
+        <p class="large hide">Registro</p>
+      </div>
+      <div  class="modal-body">
+
+        <!--
+                      <form name="myForm">
+                          Password: <input ng-model="user.password" type="password" name="password" data-ng-class="{'ng-invalid':myForm.confirmPassword.$error.match}" />
+                          Confirm: <input ng-model="user.passwordConfirm" type="password" data-match="user.password" name="confirmPassword" />
+                          <div data-ng-show="myForm.confirmPassword.$error.match">Passwords do not match!</div>
+                      </form>-->
+
+
+
+        <form name="loginForm3" class="login-form" ng-submit="registrarUser();" novalidate>
 
 
 
 
-                  <div class="alert alert-success"  ng-show="showAlert">
-                    <strong>Favor de revisar tu correo electrónico para activar tu cuenta.</strong><a href="store/register.html"> Regresar al inicio. </a>
-                    <button type="button" class="close" ng-click="showAlert = false">×</button>
-                  </div>
+          <div class="alert alert-success"  ng-show="showAlert">
+            <strong>Favor de revisar tu correo electrónico para activar tu cuenta.</strong><a href="store/register.html"> Regresar al inicio. </a>
+            <button type="button" class="close" ng-click="showAlert = false">×</button>
+          </div>
 
-                  </br>
+          </br>
 
-                  <div class="alert alert-danger" role="alert" ng-show="errorLogin">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span>
-                    El email y/o la contraseña son incorrectas
-                  </div>
-                  <div class="form-group group">
-                    <label for="emailUser">Email</label>
-                    <input type="email" class="form-control" name="emailUser" id="emailUser"
-                           ng-model="user.username" placeholder="Ingresa tu correo" ng-required="true" />
+          <div class="alert alert-danger" role="alert" ng-show="errorLogin">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            El email y/o la contraseña son incorrectas
+          </div>
+          <div class="form-group group">
+            <label for="emailUser">Email</label>
+            <input type="email" class="form-control" name="emailUser" id="emailUser"
+                   ng-model="user.username" placeholder="Ingresa tu correo" ng-required="true" />
                     <span style="color:maroon" ng-show="loginForm3.emailUser.$dirty && loginForm3.emailUser.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span ng-show="loginForm3.emailUser.$error.required">Tu correo electrónico es requerido.</span>
                       <span ng-show="loginForm3.emailUser.$invalid && !loginForm3.emailUser.$error.required">Tu correo electrónico es inválido.</span>
                     </span>
-                  </div>
-                  <div class="form-group group">
-                    <label for="logPasswordUser">Contraseña</label>
-                    <input type="password" class="form-control" name="logPasswordUser" id="logPasswordUser"  data-ng-class="{'ng-invalid':loginForm3.passwordConfirm.$error.match}"
-                           ng-model="user.passwordUser" placeholder="Ingresa tu contraseña"
-                           ng-required="true" ng-minlength="6"/>
+          </div>
+          <div class="form-group group">
+            <label for="logPasswordUser">Contraseña</label>
+            <input type="password" class="form-control" name="logPasswordUser" id="logPasswordUser"  data-ng-class="{'ng-invalid':loginForm3.passwordConfirm.$error.match}"
+                   ng-model="user.passwordUser" placeholder="Ingresa tu contraseña"
+                   ng-required="true" ng-minlength="6"/>
                     <span style="color:maroon" ng-show="loginForm3.logPasswordUser.$dirty && loginForm3.logPasswordUser.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span ng-show="loginForm3.logPasswordUser.$error.required">Tu contraseña es requerida.</span>
                       <span ng-show="loginForm3.logPasswordUser.$invalid && !loginForm3.logPasswordUser.$error.required">Tu contraseña debe tener un mínimo de 6 caracteres.</span>
                     </span>
-                  </div>
+          </div>
 
-                  <div class="form-group group">
-                    <label for="logPasswordConfirm">Confirma Contraseña</label>
-                    <input type="password" class="form-control"  data-match="user.passwordUser" name="logPasswordConfirm" id="logPasswordConfirm"
-                           ng-model="user.passwordConfirm" placeholder="Ingresa tu contraseña"
-                           ng-required="true" ng-minlength="6"/>
+          <div class="form-group group">
+            <label for="logPasswordConfirm">Confirma Contraseña</label>
+            <input type="password" class="form-control"  data-match="user.passwordUser" name="logPasswordConfirm" id="logPasswordConfirm"
+                   ng-model="user.passwordConfirm" placeholder="Ingresa tu contraseña"
+                   ng-required="true" ng-minlength="6"/>
                     <span style="color:maroon" ng-show="loginForm3.logPasswordConfirm.$dirty && loginForm3.logPasswordConfirm.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span data-ng-show="loginForm3.logPasswordConfirm.$error.match">La contraseña no coincide!</span>
                     </span>
-                  </div>
-
-               <!--
-                  <div data-ng-show="loginForm3.passwordConfirm.$error.match">La contraseña no coincide!</div>-->
-
-
-
-                  <input class="btn btn-black" ng-disabled="loginForm3.$invalid" type="submit" value="Registrar" />
-
-                </form>
-                  </div>
-            </div>
           </div>
-        </div><!-- /.modal -->
- <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
-         <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
 
-                 <h2>Error</h2>
-              </div>
-              <div  class="modal-body">
-                  {{error}}
-             </div>
-            </div>
-          </div>
-        </div><!-- /.modal -->
+          <!--
+             <div data-ng-show="loginForm3.passwordConfirm.$error.match">La contraseña no coincide!</div>-->
 
-        <!-- Librerias -->
-        <script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"></script>
 
-        <script src="../js/angular-1.3.8/angular.min.js"></script>
-        <script src="../js/angular-1.3.8/angular-animate.js"></script>
-        <script src="../js/angular-1.3.8/angular-route.min.js"></script>
 
-        <script src="../js/plugins/wysihtml5-0.3.0.js"></script>
+          <input class="btn btn-black" ng-disabled="loginForm3.$invalid" type="submit" value="Registrar" />
 
-        <script src="../js/libs/jquery-1.11.1.min.js"></script>
-        <script src="../js/libs/jquery-ui-1.10.4.custom.min.js"></script>
-        <script src="../js/libs/jquery.easing.min.js"></script>
+        </form>
+      </div>
+    </div>
+  </div>
+</div><!-- /.modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+
+        <h2>Error</h2>
+      </div>
+      <div  class="modal-body">
+        {{error}}
+      </div>
+    </div>
+  </div>
+</div><!-- /.modal -->
+
+<!-- Librerias -->
+<script type="text/javascript" src="https://conektaapi.s3.amazonaws.com/v0.3.2/js/conekta.js"></script>
+
+<script src="../js/angular-1.3.8/angular.min.js"></script>
+<script src="../js/angular-1.3.8/angular-animate.js"></script>
+<script src="../js/angular-1.3.8/angular-route.min.js"></script>
+
+<script src="../js/plugins/wysihtml5-0.3.0.js"></script>
+
+<script src="../js/libs/jquery-1.11.1.min.js"></script>
+<script src="../js/libs/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="../js/libs/jquery.easing.min.js"></script>
 
 
 
@@ -405,55 +422,58 @@
             <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/js/bootstrap-datepicker.js"></script> -->
 
-        <script src="../js/plugins/prettify.js"></script>
+<script src="../js/plugins/prettify.js"></script>
 
 
-        <script src="../js/plugins/angular-file-upload.js"></script>
+<script src="../js/plugins/angular-file-upload.js"></script>
 
-      <script src="../js/plugins/bootstrap.min.js"></script>
-      <script src="../js/plugins/smoothscroll.js"></script>
-      <script src="../js/plugins/jquery.validate.min.js"></script>
-      <script src="../js/plugins/icheck.min.js"></script>
-      <script src="../js/plugins/jquery.placeholder.js"></script>
-      <script src="../js/plugins/jquery.stellar.min.js"></script>
-      <script src="../js/plugins/jquery.touchSwipe.min.js"></script>
-      <script src="../js/plugins/jquery.shuffle.min.js"></script>
-      <script src="../js/plugins/lightGallery.min.js"></script>
-      <script src="../js/plugins/owl.carousel.min.js"></script>
-      <script src="../js/plugins/masterslider.min.js"></script>
-      <script src="../js/plugins/bootstrap3-wysihtml5.js"></script>
-      <script src="../js/plugins/xeditable.js"></script>
-       <script src="../js/plugins/angular-input-match.js"></script>
+<script src="../js/plugins/bootstrap.min.js"></script>
+<script src="../js/plugins/smoothscroll.js"></script>
+<script src="../js/plugins/jquery.validate.min.js"></script>
+<script src="../js/plugins/icheck.min.js"></script>
+<script src="../js/plugins/jquery.placeholder.js"></script>
+<script src="../js/plugins/jquery.stellar.min.js"></script>
+<script src="../js/plugins/jquery.touchSwipe.min.js"></script>
+<script src="../js/plugins/jquery.shuffle.min.js"></script>
+<script src="../js/plugins/lightGallery.min.js"></script>
+<script src="../js/plugins/owl.carousel.min.js"></script>
+<script src="../js/plugins/masterslider.min.js"></script>
+<script src="../js/plugins/bootstrap3-wysihtml5.js"></script>
+<script src="../js/plugins/xeditable.js"></script>
+<script src="../js/plugins/angular-input-match.js"></script>
 
-      <script src="../js/scripts.js"></script>
-      <script src="../js/constants.js"></script>
-      <script src="../js/webUtil.js"></script>
+<script src="../js/scripts.js"></script>
+<script src="../js/constants.js"></script>
+<script src="../js/webUtil.js"></script>
 
-      <script src="../js/registro.js"></script>
+<script src="../js/registro.js"></script>
+<script src="../js/adminCliente.js"></script>
+<script src="../js/adminCliente/comprasCliente.js"></script>
 
+<!-- Services AngularJS -->
+<script src="../js/services/AdminService.js"></script>
 
-        <!-- Services AngularJS -->
-        <script src="../js/services/AdminService.js"></script>
-
-        <!-- Archivos de JS en Administracion de MiTianguis -->
-        <script src="../js/admin/tiendas.js"></script>
-        <script src="../js/admin/productos.js"></script>
-        <script src="../js/admin/ventas.js"></script>
-        <script src="../js/admin.js"></script>
-        <script src="../js/menu.js"></script>
-        <script src="../js/carrusel.js"></script>
-        <script src="/js/carrito.js"></script>
-        <script src="../js/producto.js"></script>
-        <script src="../js/store.js"></script>
-        <script src="../js/checkout.js"></script>
-        <script src="../js/red.js"></script>
-
-
-        <script src="../js/mitianguis.js"></script>
-
-
-     <script src="//localhost:35729/livereload.js"></script>
+<!-- Archivos de JS en Administracion de MiTianguis -->
+<script src="../js/admin/tiendas.js"></script>
+<script src="../js/admin/productos.js"></script>
+<script src="../js/admin/ventas.js"></script>
+<script src="../js/admin.js"></script>
+<script src="../js/menu.js"></script>
+<script src="../js/carrusel.js"></script>
+<script src="/js/carrito.js"></script>
+<script src="../js/producto.js"></script>
+<script src="../js/store.js"></script>
+<script src="../js/checkout.js"></script>
+<script src="../js/red.js"></script>
+<script src="../js/registroUser.js"></script>
 
 
-    </body><!--Body Close-->
+
+<script src="../js/mitianguis.js"></script>
+
+
+<script src="//localhost:35729/livereload.js"></script>
+
+
+</body><!--Body Close-->
 </html>
