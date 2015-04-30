@@ -6,7 +6,21 @@
  */
 var fs = require('fs');
 module.exports = {
-
+  index:function(req,res){
+   var prod = req.param('prod');
+   if(prod){
+      Producto.findOne({id:prod}).then(function(producto){
+        producto.precioFormat = require('accounting').formatMoney(producto.precio);
+        res.view('homepage',{producto:producto,redirectURL: '/store#/producto?p='+producto.id});
+      });
+   }else{
+      res.view('homepage')
+   }
+  },
+  proxy:function(req,res){
+    console.log("PROXY")
+    res.view('proxy',{layout:'layoutProxy'})
+  },
   setStatus: function(request, response){
     var data = request.allParams();
     console.log("set Estatus :: " + JSON.stringify(data) );
