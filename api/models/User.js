@@ -1,6 +1,6 @@
 /**
  * User.js
- * 
+ *
  * @description :: TODO: You might write a short summary of how this model works
  *              and what it represents here.
  * @docs :: http://sailsjs.org/#!documentation/models
@@ -28,6 +28,12 @@ module.exports = {
 		youtube:'string', //canal de youtube
 		telefono:'string',
 		direccion:'string',
+		perfil : 'string', // MERCANTE, CLIENTE
+		verificacion: 'int',
+	    status:{
+	      type:'integer',
+	      defaultsTo: 1
+	    },
 		toJSON : function() {
 			var obj = this.toObject();
 			delete obj.password;
@@ -67,11 +73,16 @@ module.exports = {
 					}
 				});
 			});
+<<<<<<< HEAD
 		}else{
 			cb(null, user);
 		}
 		
+=======
+		});
+
+>>>>>>> ac82e851e6d9bf196b97c90c4ba66540e0384ae5
     },
-	
+
 };
 

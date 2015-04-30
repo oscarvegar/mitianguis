@@ -8,18 +8,17 @@ var accounting = require('accounting');
 module.exports = {
 
 	productoPrincipalByTienda:function(req,res){
+    LOGS.info("ALJASAS","jahsakjhskahs")
 		var idTienda = req.allParams().id;
-		Producto.find({tienda:idTienda,isPrincipal:true}).then(function(data){
-			console.log("PRODUCTOS TIENDAAAAAAAAAAAAAAAAAAA",data)
+		Producto.find({tienda:idTienda,isPrincipal:true,status:StatusService.ACTIVO}).then(function(data){
 			res.json(data)
-		}).catch(function(err){
+		}).fail(function(err){
       console.log(err);
     })
 	},
 
   registraProducto:function(request, response){
     var producto = request.allParams();
-    console.log("Producto a registrar :: " + producto );
     Producto.create(producto).exec(function(err, productoNuevo){
       if(err){
         console.log(err);
@@ -103,13 +102,12 @@ module.exports = {
 
   productoByTiendaCategorias:function(req,res){
     var peticion = req.allParams();
-    Producto.find({tienda:peticion.id,"$or": [
+    Producto.find({tienda:peticion.id,status:StatusService.ACTIVO,"$or": [
       {"categorias": peticion.categoria },
       {"categorias": "#PS4" }
     ]}).then(function(data){
-      console.log(data)
       res.json(data)
-    }).catch(function(err){
+    }).fail(function(err){
       console.log(err);
     });
   },
@@ -119,16 +117,19 @@ module.exports = {
     var infoProductos = JSON.parse(request.allParams().infoProductos);
     console.log("Params: " + JSON.stringify(infoProductos));
     var pathToSave = ImagenService.PATH_PRODUCTOS() + "/" + infoProductos.userId;
+
     if( infoProductos.tipoArchivo === "archivoPdf" ){
       pathToSave = ImagenService.PATH_ARCHIVO_PRODUCTOS() + "/" + infoProductos.userId;
+    }else if( infoProductos.tipoArchivo === "subproductos" ){
+      pathToSave = ImagenService.PATH_SUBPRODUCTOS() + "/" + infoProductos.userId;
     }
-
+    console.log("PATH A GUARDAR IMAGEN EN DISCO :: " + pathToSave );
     file.upload({dirname: pathToSave},
       function (err, files) {
         var archivo = files[0];
         var indexDiag = archivo.fd.lastIndexOf("/");
         var nombreArchivo = archivo.fd.substring(indexDiag + 1);
-        console.log("nombre de archivo:: " + nombreArchivo);
+        console.log( "nombre de archivo :: " + nombreArchivo );
         if (infoProductos.tipoArchivo === "archivoPdf") {
           var pathArchivo = infoProductos.pathBase + "/getArchivo/" + infoProductos.userId + "_" + nombreArchivo;
           var archivoPdfObj = {nombre:archivo.filename, url:pathArchivo};
@@ -137,13 +138,21 @@ module.exports = {
             console.log("reemplazando en posicion " + infoProductos.index);
             infoProductos.producto.archivos[infoProductos.index] = archivoPdfObj;
           }else {
-            console.log("add archivo :(");
+            console.log("add archivo");
             infoProductos.producto.archivos.push(archivoPdfObj);
           }
           Producto.update({id:infoProductos.producto.id},{archivos:infoProductos.producto.archivos})
             .exec(function(err, updateProd){
               return response.json(updateProd);
             });
+        } else if( infoProductos.tipoArchivo === "subproductos" ) {
+          console.log(">>>>>>>>>>>>>  cargando imagenes de subproductos " );
+          var pathArchivo = infoProductos.pathBase + "/getImagenSubProducto/" + infoProductos.userId + "_" + nombreArchivo;
+          console.log("PATH para guardar imagen upload ::: " + pathArchivo );
+          console.log("Subproducto a modificar :: " + JSON.stringify(infoProductos.producto) );
+          Subproducto.update({id:infoProductos.producto.id},{imagen:pathArchivo}).then( function( result ){
+            return response.json( result );
+          });
         } else {
           console.log(">>>>>>>>>>>>>  cargando imagenes secundarias " );
           Producto.findOne({id:infoProductos.producto.id}).exec(function(err, prodFound){
@@ -166,16 +175,14 @@ module.exports = {
 	productoByTienda:function(req,res){
 		var idTienda = req.allParams().id;
 		Producto.find({tienda:idTienda, status:StatusService.ACTIVO}).exec(function(err,data){
-			console.log(data)
 			res.json(data)
 		});
 	},
 
 	findById:function(req,res){
 		var idProducto = req.allParams().id;
-		console.log("ID PRODUCTO >>>>>> ", idProducto)
+    LOGS.info("ID PRODUCTO >>>>>> ",idProducto)
 		Producto.findOne({id:idProducto}).populate('subproductos').then(function(data){
-			console.log(data)
       if(data.subproductos && data.subproductos.length > 0){
         var subprods = [];
         for(var sub in data.subproductos){

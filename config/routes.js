@@ -48,6 +48,7 @@ module.exports.routes = {
   'POST /conekta/response': 'ConektaController.responseConekta',
   'post /registroCliente': 'RegistroClienteController.registrarClienteNuevo',
   'post /recuperarPassword':'RegistroController.recuperarPassword',
+  'POST /registrarUser': 'RegistroController.registrarUser',
 
   '/store': function(req, res, next) {
     res.sendfile(sails.config.appPath + '/assets/pages/index.html');
@@ -59,9 +60,8 @@ module.exports.routes = {
   'POST /nuevatienda': 'TiendaController.create',
   'POST /editartienda': 'TiendaController.editar',
   'POST /asignaEstatus': 'TiendaController.setStatus',
-  'GET /misventas/:id': 'VentaController.misVentas',
-  
-
+  'GET /misventas/:id/:status': 'VentaController.misVentas',
+  'POST /misventasStatus/:id/:status': 'VentaController.misVentasStatus',
 
   /*** ADMINISTRACION DE PRODUCTOS ***/
   'GET /productoPorTienda/:id': 'ProductoController.productoByTienda',
@@ -71,7 +71,6 @@ module.exports.routes = {
   'POST /borrarProducto':'ProductoController.borrarProducto',
   'POST /carmbiarArchivo':'ProductoController.carmbiarArchivo',
 
-  /***url pruebas estafeta**/
 
   'GET /cotizacion': 'LoadShippingController.getCotizacionPedido',
   'GET /seguimiento': 'LoadShippingController.getSeguimientoPedido',
@@ -81,7 +80,15 @@ module.exports.routes = {
 
   /*** FUNCIONES GENERALES ***/
   'GET /getImagen/:imagen':'ImagenController.getImagen',
-  'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto'
+  'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto',
+  'GET /getImagenSubProducto/:imagen':'ImagenController.getImagenSubProducto',
+
+
+  /*** ADMINISTRACION DE CLIENTES ***/
+  'GET /comprasCliente/:id/:status':'VentaController.comprasCliente'
+
+
+
 
 
 

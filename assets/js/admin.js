@@ -5,9 +5,12 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
   $scope.isVistaDetalle = false;
   $rootScope.menuAccionOn = true;
   $("#menuAccion").css("display","");
+
   $scope.$on("$destroy", function() {
     $rootScope.menuAccionOn = false;
   });
+
+  $rootScope.selecciono( 0 );
 
 })
 .directive("tiendas", function( ){
@@ -22,10 +25,10 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
     templateUrl:"pages/admin/productos.html"
   };
 })
-.directive("ventas", function( ){
+.directive("red", function( ){
   return {
     restrict:"E",
-    templateUrl:"pages/admin/ventas.html"
+    templateUrl:"pages/admin/mired.html"
   };
 })
 .directive("miperfil", function( ){
@@ -34,9 +37,9 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
     templateUrl:"pages/admin/miperfil.html"
   };
 })
-.directive("red", function( ){
+.directive("ventas", function( ){
   return {
     restrict:"E",
-    templateUrl:"pages/admin/mired.html"
+    templateUrl:"pages/admin/ventas.html"
   };
 });

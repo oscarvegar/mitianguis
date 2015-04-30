@@ -1,0 +1,62 @@
+<br/>
+<div ng-controller="RegistroUserController">
+    <section class="log-reg container">
+        <h2>Completa tus datos</h2>
+        <div class="row">
+            
+             <form name="loginForm3" class="login-form" ng-submit="registrarUser();" novalidate>
+
+
+                  <div class="alert alert-success"  ng-show="showAlert">
+                    <strong>Favor de revisar tu correo electrónico para activar tu cuenta.</strong><a href="/"> Regresar al inicio. </a>
+                    <button type="button" class="close" ng-click="showAlert = false">×</button>
+                  </div>
+
+                  </br>
+
+                  <div class="alert alert-danger" role="alert" ng-show="errorLogin">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    El email y/o la contraseña son incorrectas
+                  </div>
+                  <div class="form-group group">
+                    <label for="emailUser">Email</label>
+                    <input type="email" class="form-control" name="emailUser" id="emailUser"
+                           ng-model="user.username" placeholder="Ingresa tu correo" ng-required="true" />
+                    <span style="color:maroon" ng-show="loginForm3.emailUser.$dirty && loginForm3.emailUser.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span ng-show="loginForm3.emailUser.$error.required">Tu correo electrónico es requerido.</span>
+                      <span ng-show="loginForm3.emailUser.$invalid && !loginForm3.emailUser.$error.required">Tu correo electrónico es inválido.</span>
+                    </span>
+                  </div>
+                  <div class="form-group group">
+                    <label for="logPasswordUser">Contraseña</label>
+                    <input type="password" class="form-control" name="logPasswordUser" id="logPasswordUser"  data-ng-class="{'ng-invalid':loginForm3.passwordConfirm.$error.match}" 
+                           ng-model="user.passwordUser" placeholder="Ingresa tu contraseña"
+                           ng-required="true" ng-minlength="6"/>
+                    <span style="color:maroon" ng-show="loginForm3.logPasswordUser.$dirty && loginForm3.logPasswordUser.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span ng-show="loginForm3.logPasswordUser.$error.required">Tu contraseña es requerida.</span>
+                      <span ng-show="loginForm3.logPasswordUser.$invalid && !loginForm3.logPasswordUser.$error.required">Tu contraseña debe tener un mínimo de 6 caracteres.</span>
+                    </span>
+                  </div>
+
+                  <div class="form-group group">
+                    <label for="logPasswordConfirm">Confirma Contraseña</label>
+                    <input type="password" class="form-control"  data-match="user.passwordUser" name="logPasswordConfirm" id="logPasswordConfirm"
+                           ng-model="user.passwordConfirm" placeholder="Ingresa tu contraseña"
+                           ng-required="true" ng-minlength="6"/>
+                    <span style="color:maroon" ng-show="loginForm3.logPasswordConfirm.$dirty && loginForm3.logPasswordConfirm.$invalid">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span data-ng-show="loginForm3.logPasswordConfirm.$error.match">La contraseña no coincide!</span>
+                    </span>
+                  </div>
+  
+                  <input class="btn btn-black" ng-disabled="loginForm3.$invalid" type="submit" value="Registrar" />
+
+                </form>
+        </div>
+
+    </section>
+
+</div>

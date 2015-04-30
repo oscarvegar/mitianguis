@@ -458,13 +458,54 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
           });
         }else{
           //upload file
-
+          $scope.infoProducto = { userId:  webUtil.getJSON("usuario").id,
+                                  producto: result.data,
+                                  pathBase: webUtil.getOrigin(),
+                                  tipoArchivo: "subproductos"};
+          var tam = $scope.cambiarArchivoUpload.getNotUploadedItems().length;
+          if (tam > 0) {
+            var objRequestInstr = JSON.stringify(angular.copy($scope.infoProducto));
+            for (var i = 0; i < tam; i++) {
+              $scope.cambiarArchivoUpload.getNotUploadedItems()[i].formData = [{infoProductos: objRequestInstr}];
+            }
+            $scope.cambiarArchivoUpload.onCompleteAll = function () {
+              $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+                $scope.productoSelected = result.data;
+                $scope.subproducto = null;
+                $scope.subproductoForm.$setPristine(true);
+                $('#subProductoModal').modal('hide');
+              });
+            }
+            $scope.cambiarArchivoUpload.uploadAll();
+          }
         }
       });
     } else {
       $http.post("/Producto/actualizarSubProducto", $scope.subproducto).then(function(result){
         if(!$scope.isImagenSubProdURL){
-          // 
+
+          //upload file
+          $scope.infoProducto = { userId:  webUtil.getJSON("usuario").id,
+                                  producto: result.data,
+                                  pathBase: webUtil.getOrigin(),
+                                  tipoArchivo: "subproductos"};
+          var tam = $scope.cambiarArchivoUpload.getNotUploadedItems().length;
+          if (tam > 0) {
+            var objRequestInstr = JSON.stringify(angular.copy($scope.infoProducto));
+            for (var i = 0; i < tam; i++) {
+              $scope.cambiarArchivoUpload.getNotUploadedItems()[i].formData = [{infoProductos: objRequestInstr}];
+            }
+            $scope.cambiarArchivoUpload.onCompleteAll = function () {
+              $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+                $scope.productoSelected = result.data;
+                $scope.subproducto = null;
+                $scope.subproductoForm.$setPristine(true);
+                $('#subProductoModal').modal('hide');
+              });
+            }
+            $scope.cambiarArchivoUpload.uploadAll();
+          }
+          // ****************************************************
         }
         $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
           $scope.productoSelected = result.data;

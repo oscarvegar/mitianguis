@@ -1,4 +1,4 @@
-var registro = angular.module( "RegistroModule", [] );    
+var registro = angular.module( "RegistroModule", [] );
 
 registro.directive('showErrors', function($timeout) {
     return {
@@ -19,7 +19,7 @@ registro.directive('showErrors', function($timeout) {
         var divInput = $("#div" + inputName);
         var hasSuccesClass = "has-success";
         var hasErrorClass = "has-error";
-          
+
         inputNgEl.bind('blur', function() {
             blurred = true;
             el.toggleClass('has-error', formCtrl[inputName].$invalid);
@@ -36,7 +36,7 @@ registro.directive('showErrors', function($timeout) {
                 spanError.toggleClass(classOk, true);
             }
         });
-        
+
         scope.$watch(function() {
           return formCtrl[inputName].$invalid
         }, function(invalid) {
@@ -46,11 +46,11 @@ registro.directive('showErrors', function($timeout) {
           if (!blurred && invalid) { return }
           el.toggleClass('has-error', invalid);
         });
-        
+
         scope.$on('show-errors-check-validity', function() {
           el.toggleClass('has-error', formCtrl[inputName].$invalid);
         });
-        
+
         scope.$on('show-errors-reset', function() {
           $timeout(function() {
             el.removeClass('has-error');
@@ -58,7 +58,7 @@ registro.directive('showErrors', function($timeout) {
         });
       }
     }
-  }); 
+  });
 
 registro.controller( "RegistroController", function($scope, $http, $rootScope) {
     $rootScope.viewToolbar = false;
@@ -67,40 +67,70 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
     var indexInit = window.location.origin.indexOf("//") + 2;
     var indexFin = window.location.origin.indexOf(".mitianguis");
     var urlMercanteFind = window.location.origin.substring( indexInit, indexFin );
-    console.info(urlMercanteFind);	
+    console.info(urlMercanteFind);
     $scope.mercante={mentor:{codigoMercante:null}};
     $scope.lecturaCodMerca = false;
     $http.get("/mercanteByUrl?urlMercante=" + urlMercanteFind).then(function(result){
-    	console.log( JSON.stringify(result) );
-    	if( result.data.codigoMercante ){
-    		$scope.mercante.mentor.codigoMercante = result.data.codigoMercante;
+    	console.log( "Mercante [" + urlMercanteFind + "] >> " + JSON.stringify(result) );
+    	if( result.data.mercante ){
+    		$scope.mercante.mentor.codigoMercante = result.data.mercante.codigoMercante;
     		$scope.lecturaCodMerca = true;
     	}else{
     		$scope.lecturaCodMerca = false;
     	}
-    });	
+    });
+
     $scope.registrar = function(isValid) {
-        		//$http.post("/clienteExpress");
-    	$scope.$broadcast('show-errors-check-validity');
-        if( isValid ){
-        	$http.post("/registro", {mercante:$scope.mercante, usuario:$scope.usuario})
-            .success( function(data, status){
-                alert("Success: " + JSON.stringify(data));
-            })
-            .error(function(data, status){
-                alert("Error: " + JSON.stringify(data));
-            });
-        }else{
-            //alert("El form es invalido");
-        }
-    }
+      $scope.$broadcast('show-errors-check-validity');
+      if( isValid ){
+        $scope.mensajeErrorCodigoMercante = null;
+        $http.post("/Mercante/findByCodigo/", {codigoMercante:$scope.mercante.mentor.codigoMercante} )
+          .then(
+          function(result) {
+            var card = {card:$scope.datosPago};
+            console.log(JSON.stringify(card));
+            Conekta.token.create(card,
+              function(data){
+                var token = data.id;
+                $scope.mercante.mentor = result.data;
+                console.log( "Respuesta Conekta ::: " + JSON.stringify(data) );
+                console.log( "Mercante a Registrar ::: " + JSON.stringify($scope.mercante) );
+                console.log( "Usuario a Registrar ::: " + JSON.stringify($scope.usuario) );
+                $http.post( "/Mercante/registrarNuevo/",
+                  {mercante:$scope.mercante, usuario:$scope.usuario, token: token} )
+                  .then(function(result){
+
+                    console.log(" RESULT DE REGISTRO MERCANTE :: " + JSON.stringify(result) );
+
+                    webUtil.save("usuario", result.data);
+                    webUtil.save("isNewMercante", true);
+                    window.location.href = "store#/admin";
+                  },function(err){
+
+                  });
+              },
+              function(err){
+                console.log("ERROR",err)
+              });
+          }, function(err){
+            //alert("Error: " + JSON.stringify(err) );
+            $scope.registerForm.codigo.$setValidity('codigomercante', false);
+            $scope.mensajeErrorCodigoMercante = err.data.mensaje +
+                                                ".Verifique que haya escrito correctamente el código de mercante";
+            $scope.$broadcast('show-errors-check-validity');
+          }
+        );
+      }else{
+        //alert("El form es invalido");
+      }
+    };
 
 
     $scope.alert = function(tipo,title,desc){
             $scope.messageTitle = title;
             $scope.messageDescription = desc;
             switch(tipo){
-                
+
                 case 'warn':
                     $scope.alertClass = "alert-warning";
                     $scope.infoIcon = "icon-exclamation-sign";
@@ -117,9 +147,9 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
                     $scope.alertClass = "alert-success";
                     $scope.infoIcon = "icon-check-sign";
                     break;
-                    
+
             }
-            
+
             $scope.showAlert = true;
     };
 
@@ -135,7 +165,7 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
                     $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
             });
     };
-    
+
 } );
 
 

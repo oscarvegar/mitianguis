@@ -14,11 +14,14 @@ var myApp = angular.module("TianguisApp",
                                 'CheckoutModule',
                                 'VentasAdminModule',
                                 'RedAdminModule',
-                                'MiPerfilModule'
+                                'MiPerfilModule',
+                                'validation.match',
+                                'RegistroUserModule',
+                                'AdminClienteModule',
+                                'ComprasClienteAdminModule'
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
-
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};
@@ -43,6 +46,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 
     $rootScope.usuario = webUtil.getJSON("usuario");
     console.log( $rootScope.usuario );
+
     // Obtener el subdominio erroneo, si existe
     var subdominioError = $location.search().subdomain;
     if(subdominioError){
@@ -50,6 +54,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     }
     //Obtener al mercante en base al subdominio en el primer acceso.
     var subdominio = webUtil.getDomain();
+    if(subdominio.search("http")>=0) subdominio = "gameland";
     //if(subdominio !== "http://") {
 	    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
 	    .then(function(result) {
@@ -59,28 +64,37 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 	    	} else if ( result.data.mercante.mentor ) {
           webUtil.save("mercante", result.data.mercante);
           webUtil.save("tienda", result.data);
+          $rootScope.tienda = result.data;
 	    	}
 	    },function(error) {
-	    	window.location.href="tiendanoexiste";
+	    	//window.location.href="tiendanoexiste";
 	    } );
     //}
 
-    $http.get("/mercanteByUrl?urlMercante=" + subdominio)
+    //$http.get("/mercanteByUrl?urlMercante=" + subdominio)
 
     $scope.login = function(){
+      alert("login 1...");
       $scope.user.email = $scope.user.username;
+      alert("login 2...");
       $http.post("/login", $scope.user).then(function(result){
-        //console.log( JSON.stringify(result) );
+        console.log( JSON.stringify(result) );
         if( result.data.message === constants.LOGIN_SUCCESS ){
           $('#loginModal').modal('hide');
           console.log("user usado para buscar mercante:: " + JSON.stringify(result.data.user) );
-          $http.post("/mercanteByUsuario", result.data.user).then( function( resultMerca ){
-            console.log("mercante found :: " + JSON.stringify(resultMerca));
-            result.data.user.mercante = resultMerca.data;
+          if( result.data.user.perfil === "MERCANTE" ) {
+            $http.post("/mercanteByUsuario", result.data.user).then(function (resultMerca) {
+              console.log("mercante found :: " + JSON.stringify(resultMerca));
+              result.data.user.mercante = resultMerca.data;
+              webUtil.save("usuario", result.data.user);
+              webUtil.save("email", result.data.user.username);
+              $rootScope.usuario = result.data.user;
+            });
+          }else{
             webUtil.save("usuario", result.data.user);
             webUtil.save("email", result.data.user.username);
             $rootScope.usuario = result.data.user;
-          });
+          }
         }else{
           $scope.errorLogin = true;
         }
@@ -89,54 +103,73 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 
 
     $scope.alert = function(tipo,title,desc){
-            $scope.messageTitle = title;
-            $scope.messageDescription = desc;
-            switch(tipo){
+      $scope.messageTitle = title;
+      $scope.messageDescription = desc;
+      switch(tipo){
 
-                case 'warn':
-                    $scope.alertClass = "alert-warning";
-                    $scope.infoIcon = "icon-exclamation-sign";
-                    break;
-                case 'info':
-                    $scope.alertClass = "alert-info";
-                    $scope.infoIcon = "icon-lightbulb";
-                    break;
-                case 'danger':
-                    $scope.alertClass = "alert-danger";
-                    $scope.infoIcon = "icon-remove-sign";
-                    break;
-                default:
-                    $scope.alertClass = "alert-success";
-                    $scope.infoIcon = "icon-check-sign";
-                    break;
+          case 'warn':
+              $scope.alertClass = "alert-warning";
+              $scope.infoIcon = "icon-exclamation-sign";
+              break;
+          case 'info':
+              $scope.alertClass = "alert-info";
+              $scope.infoIcon = "icon-lightbulb";
+              break;
+          case 'danger':
+              $scope.alertClass = "alert-danger";
+              $scope.infoIcon = "icon-remove-sign";
+              break;
+          default:
+              $scope.alertClass = "alert-success";
+              $scope.infoIcon = "icon-check-sign";
+              break;
 
-            }
+      }
 
-            $scope.showAlert = true;
+      $scope.showAlert = true;
     };
 
-    $scope.forgotPassword = function(){
-        console.log("Recuperar Password");
-        console.log($scope.forgotMail);
+    $scope.forgotPassword = function() {
+      console.log("Recuperar Password");
+      console.log($scope.forgotMail);
 
-            $http.post('/recuperarPassword',{email:$scope.forgotMail}).success(function(data){
-                if(data.code > 0)
-                    console.log("Datos");
-                    console.log(data);
-                     //alert("Success: " + JSON.stringify(data));
-                    $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
-            });
-    };
-
-    $scope.logout = function(){
-          $http.get('/logout').success(function(datos){
-          $window.localStorage.removeItem("usuario");
-              window.location = '/';
+          $http.post('/recuperarPassword',{email:$scope.forgotMail}).success(function(data){
+              if(data.code > 0)
+                  console.log("Datos");
+                  console.log(data);
+                   //alert("Success: " + JSON.stringify(data));
+                  $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
           });
-      };
+    };
+
+    $scope.logout = function() {
+        $http.get('/logout').success(function(datos){
+        $window.localStorage.removeItem("usuario");
+            $rootScope.usuario = null;
+            delete $rootScope.usuario;
+            //window.location = '/';
+        });
+    };
+
+
+  $scope.registrarUser = function() {
+
+    console.log("Registro usuario");
+    console.log($scope.user);
+
+    $http.post("/registrarUser", $scope.user).then(function(result) {
+      console.log("Respuesta User");
+      console.log( JSON.stringify(result) );
+      $scope.alert('success', 'Registro Exitoso', 'Favor de revisar tu correo electrónico  para que activar tu cuenta');
+    });
+
+
+  };
+
+
 
   // PARA MENU DE ADMINISTRACION
-  $rootScope.menuOptions = new Array(7);
+  $rootScope.menuOptions = new Array(8);
   for(var i = 0; i < $rootScope.menuOptions.length; i++){
     $rootScope.menuOptions[i]={selected:"",display:'none'};
   }
@@ -160,16 +193,19 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/', {templateUrl: 'pages/store/inicio.html'});
     $routeProvider.when('/registro', {templateUrl: 'pages/store/registro.html'});
-  $routeProvider.when('/admin', {templateUrl: 'pages/admin/main.html'});
-  $routeProvider.when('/admin/mired', {templateUrl: 'pages/admin/mired.html'});
+    $routeProvider.when('/admin', {templateUrl: 'pages/admin/main.html'});
+    $routeProvider.when('/admin/mired', {templateUrl: 'pages/admin/mired.html'});
     $routeProvider.when('/soporte', {templateUrl: 'pages/soporte.html'});
     $routeProvider.when('/mercantes', {templateUrl: 'pages/mercante.html'});
     $routeProvider.when('/producto', {templateUrl: 'pages/store/detalleProducto.html'});
     $routeProvider.when('/carrito', {templateUrl: 'pages/store/carrito.html'});
-  $routeProvider.when('/checkout', {templateUrl: 'pages/store/checkout.html'});
+    $routeProvider.when('/checkout', {templateUrl: 'pages/store/checkout.html'});
+    $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
+    $routeProvider.when('/registroUser', {templateUrl: 'pages/admin/registroUser.html'});
+    $routeProvider.when('/cliente', {templateUrl: 'pages/adminCliente/menuCliente.html'});
 
     //localStorage.clear();
-    //Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
+    Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
 
 
 
@@ -204,7 +240,6 @@ myApp.directive('ngEnter', function() {
         scope.$apply(function(){
           scope.$eval(attrs.ngEnter, {'event': event});
         });
-
         event.preventDefault();
       }
     });
@@ -218,7 +253,6 @@ myApp.directive('validNumberFloat', function() {
       if(!ngModelCtrl) {
         return;
       }
-
       ngModelCtrl.$parsers.push(function(val) {
         if (angular.isUndefined(val)) {
           var val = '';
@@ -246,6 +280,8 @@ myApp.directive('validNumberFloat', function() {
     }
   };
 });
+
+
 /*
 myApp.directive('richTextEditor', function() {
   return {

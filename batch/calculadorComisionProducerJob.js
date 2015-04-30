@@ -30,8 +30,9 @@ if(process.argv.slice(2).indexOf('--prod')>=0){
 			}else{
 				query = {diaInscripcion:today};
 			}
+      var sortQry = {createdAt: -1};
 
-			Mercante.find(query).toArray(function(err,mercantes){
+			Mercante.find(query).sort(sortQry).toArray(function(err,mercantes){
 				if(mercantes.length==0){
 					console.log("> > > > > NO SE ENCONTRARON SUSCRIPTORES. CERRANDO DB < < < < <")
 					db.close();
@@ -51,8 +52,8 @@ if(process.argv.slice(2).indexOf('--prod')>=0){
 										var mercante = mercantes[i];
 										Cartera.findOne({mercante:mercante._id},function(err,cartera){
 											if(cartera.varoActual < mensualidad){
-												var montoACargar = mensualidad - cartera.varoActual;
-												
+												var montoACargar = mensualidad;
+
 												pubBR.write(JSON.stringify({mercante:cartera.mercante,monto:montoACargar}), 'utf8');
 												console.log(">>>>> SE ENVIA A LA COLA DE COBROS "+cartera.mercante+":::"+montoACargar+" PESOS");
 												curr++;
@@ -61,8 +62,8 @@ if(process.argv.slice(2).indexOf('--prod')>=0){
 													closeResources(pubBR,pubMR,context,db);
 													return
 												}
-												
-												
+
+
 											}else{
 												console.log(">>>>> SE ENVIA A LA COLA PARA DESCUENTO DE LA MISMA CARTERA >>>>> "+cartera.mercante);
 												pubMR.write(JSON.stringify({mercante:cartera.mercante}), 'utf8');

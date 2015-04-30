@@ -28,6 +28,18 @@ module.exports = {
       response.writeHead(200, {'Content-Type': 'image/' + fileExt });
       response.end(data, 'binary');
     });
+  },
+  getImagenSubProducto:function(request, response){
+    var file = request.allParams().imagen;
+    console.log( JSON.stringify(file) );
+    var fileExt = file.substring(file.lastIndexOf(".") + 1 );
+    console.log("Extension :: " + fileExt );
+    console.log("Path to read :: " +  ImagenService.PATH_SUBPRODUCTOS() + file );
+    fs.readFile(ImagenService.PATH_SUBPRODUCTOS() + "/" + file.replace("_", "/"), function(err, data){
+      response.writeHead(200, {'Content-Type': 'image/' + fileExt });
+      response.end(data, 'binary');
+    });
   }
+
 };
 

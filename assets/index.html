@@ -5,9 +5,10 @@
 			var subdominio = webUtil.getDomain();
 	    	if(subdominio.search("http")>-1){
 	    		console.log("sin subdmnio")
+	    		window.location.href = window.location.href+"store#/";
 	    	}else{
     			console.log(subdominio);
-    			window.location.href = window.location.href+"store#";
+    			window.location.href = window.location.href+"store#/";
 	    	}
 		</script>
 	</head>
