@@ -1,64 +1,96 @@
-/**
+  /**
  * RegistroController
  *
  * @description :: Server-side logic for managing Registroes
  * @help :: See http://links.sailsjs.org/docs/controllers
  */
+ var estafeta = require("node-estafeta");
 var moment = require('moment');
-	eden = require('node-eden'),
+  eden = require('node-eden'),
 
 
 module.exports = {
-	test : function(req, res) {
-		for (var i = 0; i < 1; i++)
-			RabbitClient.publish({
-				welcome : 'rabbit.js >>> ' + i,
-				num : 0
-			}, 'colaUno');
-		res.send(200)
-	},
-	registrarNuevo : function(req, res) {
-		/*var data = req.allParams();
-		console.log("data: " + JSON.stringify(data));
-		var mercante = data.mercante;
-		var usuario = data.usuario;
-		usuario.username = usuario.email;
-		var mensaje = "";
+  test : function(req, res) {
+    console.log("peticion test");
+    var passwordUpdate = req.allParams().usuario.password;
+    console.log(req.allParams());
+    console.log(passwordUpdate);
+    console.log("termino parametro");
+    var currentUser = req.session.currentUser;
+    console.log("user: ");
+    console.log(currentUser);
 
-		Mercante.findOne()
-		.where({codigoMercante:mercante.mentor.codigoMercante})
-		.then(function(mercante){
-			console.log( "::: function then promise  ::: " );
-		 	if(!mercante){
-				throw "El mentor " + mercante.mentor.codigoMercante + " no existe.";
-			}
-			var user = User.findOne({email:usuario.email}).then(function(user){
-				return user;
-			});
-			var mercanteDup = Mercante.findOne({urlMercante:mercante.urlMercante}).then(function(mercaDup){
-				return mercaDup;
-			});
-			return [ mercante, user, mercanteDup ];
-		})
-		.spread( function(mercante, user, mercanteDup){
-			console.log( "::: function spread  ::: " );
-			console.log( "mercante found :: " + JSON.stringify(mercante) );
-			console.log( "user found :: " + JSON.stringify(user) );
-			console.log( "mercanteDup found :: " + JSON.stringify(mercanteDup) );
-		})
-		.catch( function(err){
-			console.log("Error :: " + JSON.stringify(err) );
-		} );
+    User.update({id:currentUser.id},{email:req.allParams().usuario.email,password:passwordUpdate}).then(function(user){
+      console.log(user);
+      res.json(user);
+    }).fail(function(err){
+      console.log(err);
+      res.send(500)
+    })
+  },
+  getUserCurrent : function(req,res){
+      var username = req.allParams().username;
+      console.log("Informacion User");
+      console.log(username);  
+      User.findOne({username:username}).exec(function(err,user){
+                console.log ("usuer recuperado"+user);
+                console.log (user);
+                 if(err) {
+                   console.log(err);
+                   return;
+                 }
+                
+                return res.json(user);
 
-		*/
 
-		Mercante.findOne({codigoMercante:mercante.mentor.codigoMercante})
-		.exec(function(err,found){
-			if(err){return res.json(400,err)}
-			if(found == null){
-				mensaje = "El mentor " + mercante.mentor.codigoMercante + " no existe.";
-				return res.json(400,{codigo:-1, mensaje:mensaje});
-			}
+
+        });
+
+    },
+
+
+  registrarNuevo : function(req, res) {
+    /*var data = req.allParams();
+    console.log("data: " + JSON.stringify(data));
+    var mercante = data.mercante;
+    var usuario = data.usuario;
+    usuario.username = usuario.email;
+    var mensaje = "";
+
+    Mercante.findOne()
+    .where({codigoMercante:mercante.mentor.codigoMercante})
+    .then(function(mercante){
+      console.log( "::: function then promise  ::: " );
+      if(!mercante){
+        throw "El mentor " + mercante.mentor.codigoMercante + " no existe.";
+      }
+      var user = User.findOne({email:usuario.email}).then(function(user){
+        return user;
+      });
+      var mercanteDup = Mercante.findOne({urlMercante:mercante.urlMercante}).then(function(mercaDup){
+        return mercaDup;
+      });
+      return [ mercante, user, mercanteDup ];
+    })
+    .spread( function(mercante, user, mercanteDup){
+      console.log( "::: function spread  ::: " );
+      console.log( "mercante found :: " + JSON.stringify(mercante) );
+      console.log( "user found :: " + JSON.stringify(user) );
+      console.log( "mercanteDup found :: " + JSON.stringify(mercanteDup) );
+    })
+    .catch( function(err){
+      console.log("Error :: " + JSON.stringify(err) );
+    } );
+
+    */
+
+    Mercante.findOne({codigoMercante:mercante.mentor.codigoMercante})
+    .exec(function(err,found){
+      if(err){return res.json(400,err)}
+      if(found == null){
+        mensaje = "El mentor " + mercante.mentor.codigoMercante + " no existe.";
+        return res.json(400,{codigo:-1, mensaje:mensaje});
+      }
       Parametro.findOne({datosSystem:{$exists:true}}).then(function(datosSystem){
         User.findOne({email:usuario.email})
         .exec( function( errUser, foundUser ){
@@ -93,16 +125,16 @@ module.exports = {
           }
         })
       });
-		});
+    });
 
 
 
-	},// Fin de registrarNuevo
+  },// Fin de registrarNuevo
 
 
-	recuperarPassword:function(req,res){
+  recuperarPassword:function(req,res){
 
-		console.log("Recuperar Password>>>>>>>");
+    console.log("Recuperar Password>>>>>>>");
         var mail = req.allParams().email;
         console.log(mail);
         User.findOneByEmail(mail,function(err,fuser){

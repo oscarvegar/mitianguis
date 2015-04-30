@@ -13,7 +13,8 @@ var myApp = angular.module("TianguisApp",
                                 'AdminService',
                                 'CheckoutModule',
                                 'VentasAdminModule',
-                                'RedAdminModule'
+                                'RedAdminModule',
+                                'MiPerfilModule'
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){

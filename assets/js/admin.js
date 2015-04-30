@@ -28,6 +28,12 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
     templateUrl:"pages/admin/ventas.html"
   };
 })
+.directive("miperfil", function( ){
+  return {
+    restrict:"E",
+    templateUrl:"pages/admin/miperfil.html"
+  };
+})
 .directive("red", function( ){
   return {
     restrict:"E",

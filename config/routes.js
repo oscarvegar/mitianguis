@@ -60,6 +60,8 @@ module.exports.routes = {
   'POST /editartienda': 'TiendaController.editar',
   'POST /asignaEstatus': 'TiendaController.setStatus',
   'GET /misventas/:id': 'VentaController.misVentas',
+  
+
 
   /*** ADMINISTRACION DE PRODUCTOS ***/
   'GET /productoPorTienda/:id': 'ProductoController.productoByTienda',
@@ -69,9 +71,12 @@ module.exports.routes = {
   'POST /borrarProducto':'ProductoController.borrarProducto',
   'POST /carmbiarArchivo':'ProductoController.carmbiarArchivo',
 
-  /***url pruebas**/
+  /***url pruebas estafeta**/
 
   'GET /cotizacion': 'LoadShippingController.getCotizacionPedido',
+  'GET /seguimiento': 'LoadShippingController.getSeguimientoPedido',
+
+   'GET /getUserCurrent/:username': 'RegistroController.getUserCurrent',
 
 
   /*** FUNCIONES GENERALES ***/

@@ -1,0 +1,32 @@
+ <div class="post"  ng-controller="PerfilAdminController" ng-submit = "engineSubmit()" >
+    <div class="col-lg-5 col-md-5 col-sm-5">
+                <form method="post" class="login-form">
+                    <div class="form-group group">
+                       usuario:
+                        <input type="text" class="form-control" name="updateName" id="updateName"  ng-model="user.username" readonly>
+                    </div>
+
+                    <div class="form-group group">
+                        correo-electronico
+                        <input type="email" class="form-control" name="updateEmail" id="updateEmail"  ng-model ="user.email"  required>
+                    </div>
+
+                   <div class="form-group group">
+                        ¿desar cambiar su contraseña?
+                        <input type="checkbox"    ng-model ="checked" >
+                    </div>
+                   
+                    <div class="form-group group" ng-show="checked">
+                        nueva contraseña
+                        <input type="text" class="form-control" name="updatePassword" id="updatePassword"  ng-model ="user.password" >
+                    </div>
+
+                    
+
+
+                    <input class="btn btn-black" type="submit" value="Enviar">
+                </form> 
+                 <p> {{user}}</p>
+                
+   </div>            
+</div> 

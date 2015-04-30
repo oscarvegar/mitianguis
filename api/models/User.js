@@ -23,6 +23,11 @@ module.exports = {
 			type : 'string',
 			required : true
 		},
+		twitter:'string',
+		facebook:'string',
+		youtube:'string', //canal de youtube
+		telefono:'string',
+		direccion:'string',
 		toJSON : function() {
 			var obj = this.toObject();
 			delete obj.password;
@@ -46,17 +51,25 @@ module.exports = {
 
 	beforeUpdate: function (user, cb) {
 
- 		bcrypt.genSalt(10, function(err, salt) {
-			bcrypt.hash(user.password, salt, null, function(err, hash) {
-				if (err) {
-					console.log(err);
-					cb(err);
-				} else {
-					user.password = hash;
-					cb(null, user);
-				}
+		console.log("ESTA ENTRANDO A MOVER EL PASSWORD ***");
+			console.log(user);
+			console.log("termino user parametro");
+		
+		if(user.password){
+	 		bcrypt.genSalt(10, function(err, salt) {
+				bcrypt.hash(user.password, salt, null, function(err, hash) {
+					if (err) {
+						console.log(err);
+						cb(err);
+					} else {
+						user.password = hash;
+						cb(null, user);
+					}
+				});
 			});
-		});
+		}else{
+			cb(null, user);
+		}
 		
     },
 	
