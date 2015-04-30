@@ -73,15 +73,12 @@ module.exports = {
 					}
 				});
 			});
-<<<<<<< HEAD
 		}else{
 			cb(null, user);
 		}
 		
-=======
-		});
+		
 
->>>>>>> ac82e851e6d9bf196b97c90c4ba66540e0384ae5
     },
 
 };
