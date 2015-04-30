@@ -517,6 +517,18 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
     }
   }
 
+  $scope.isPrincipal = "active";
+  $scope.setIsPrincipal = function( isPrincipal ){
+    $scope.producto.isPrincipal = isPrincipal;
+    if( isPrincipal ){
+      $scope.isPrincipal = "active";
+      $scope.notIsPrincipal = "";
+    }else{
+      $scope.isPrincipal = "";
+      $scope.notIsPrincipal = "active";
+    }
+  }
+
   $scope.setSubProductoSelected = function( subproducto ){
     $scope.subProductoSelected = subproducto;
   }

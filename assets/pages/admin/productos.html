@@ -262,6 +262,19 @@
                 </div>
               </div>
               <div class="form-group">
+                <label class="col-sm-2 control-label">Es imagen Principal</label>
+                <div class="col-sm-10">
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btnb btnb-default {{isPrincipal}}" ng-click="setIsPrincipal(true)">
+                      <input type="radio" name="inputPrioridad" value="true"  checked> SI
+                    </label>
+                    <label class="btnb btnb-default {{notIsPrincipal}}" ng-click="setIsPrincipal(false)">
+                      <input type="radio" name="inputPrioridad" value="false" > NO
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-2 control-label">Categorias</label>
                 <div class="col-sm-10">
                   <table width="100%">
