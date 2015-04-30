@@ -50,9 +50,7 @@ module.exports.routes = {
   'post /recuperarPassword':'RegistroController.recuperarPassword',
   'POST /registrarUser': 'RegistroController.registrarUser',
 
-  '/store': function(req, res, next) {
-    res.sendfile(sails.config.appPath + '/assets/pages/index.html');
-  },
+  'get /store': { view: 'homepage' },
   'GET /share/:id': 'ShareController.shareP',
 
   /*** ADMINISTRACION DE TIENDAS ***/
