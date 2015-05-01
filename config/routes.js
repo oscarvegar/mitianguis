@@ -50,8 +50,9 @@ module.exports.routes = {
   'post /recuperarPassword':'RegistroController.recuperarPassword',
   'POST /registrarUser': 'RegistroController.registrarUser',
 
-  'get /store': 'TiendaController.proxy',
-  'get /tienda': 'TiendaController.index',
+  'get /': 'TiendaController.index',
+  'get /det/:id': 'TiendaController.index',
+  'get /store': 'TiendaController.index',
   //'get /store': {view:'homepage'},
   
   'GET /share/:id': 'ShareController.shareP',

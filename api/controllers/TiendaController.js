@@ -5,36 +5,31 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 var fs = require('fs');
+var accounting = require('accounting');
 module.exports = {
   index:function(req,res){
-   var prod = req.param('prod');
-   if(prod){
-    console.log(prod)
-      req.session.prod = prod;
-      res.redirect('/store')
-   }else{
-      
-      console.log("INDEX PARAMS",req.allParams())
-      req.session.paso = 'paso'
-      res.redirect('/store')
-   }
-  },
-  proxy:function(req,res){
-    
-    if(req.session.paso == 'paso'){
-      delete req.session.paso
-      return res.view('homepage')
-    }else if(req.session.prod){
-      var prod = req.session.prod;
-      Producto.findOne({id:prod}).then(function(producto){
-        producto.precioFormat = require('accounting').formatMoney(producto.precio);
-        delete req.session.prod;
-        return res.view('homepage',{producto:producto,redirectURL: '/store#/producto?p='+producto.id});
-        //return res.redirect('/store?a=a')
-      });
-    }else{
-      console.log("PROXY")
-      res.view('proxy',{layout:'layoutProxy'})
+    var baseURL = req.baseUrl;
+    var params = req.allParams();
+    if(baseURL.split('.').length<=2 && baseURL.search(':')<0)
+      return res.view('info');
+    else{
+      if(Object.keys(params).length>0){
+        Producto.findOne({id:Object.keys(params)[0]}).then(function(data){
+          if(!data){
+            return res.view('404',{
+              producto: {},
+              redirectURL: ''
+            })
+          }
+          data.precioFormat = accounting.formatMoney(data.precio);
+          return res.view('homepage',{
+              producto: data,
+              redirectURL: '/store#/producto?p='+data.id
+            })
+        });
+      }else{
+        return res.view('homepage');
+      }
     }
   },
   setStatus: function(request, response){

@@ -17,7 +17,7 @@ angular.module("TiendaModule",[])
 	})
 
 	$scope.seleccionarProducto = function(prod){
-		$location.url("/producto?p="+prod.id)
+		window.location.href = '/?'+prod.id+"#/producto?p="+prod.id;
 	}
 
     $scope.buscaCategoria = function(cat){

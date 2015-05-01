@@ -13,7 +13,7 @@ module.exports = {
 		Producto.find({tienda:idTienda,isPrincipal:true,status:StatusService.ACTIVO}).then(function(data){
 			res.json(data)
 		}).fail(function(err){
-      console.log(err);
+      LOGS.info(err);
     })
 	},
 
@@ -21,10 +21,10 @@ module.exports = {
     var producto = request.allParams();
     Producto.create(producto).exec(function(err, productoNuevo){
       if(err){
-        console.log(err);
+        LOGS.info(err);
         return response.json({error: "error al dar de alta el producto en la tienda: " + err});
       }
-      //console.log(productoNuevo);
+      //LOGS.info(productoNuevo);
       return response.json(productoNuevo);
     });
   },
@@ -32,7 +32,7 @@ module.exports = {
   actualizarProducto:function( request, response ){
     var producto = request.allParams();
     Producto.update({id:producto.id}, producto).exec(function(err, productoUpdate){
-      //console.log(productoUpdate);
+      //LOGS.info(productoUpdate);
       return response.json(productoUpdate);
     });
   },
@@ -57,7 +57,7 @@ module.exports = {
   guardarArchivo: function( request, response ){
     var file = request.file('file') ;
     var infoProductos = JSON.parse(request.allParams().infoProductos);
-    console.log("Params: " + JSON.stringify(infoProductos));
+    LOGS.info("Params: " + JSON.stringify(infoProductos));
     var pathToSave = ImagenService.PATH_PRODUCTOS() + "/" + infoProductos.userId;
     if( infoProductos.tipoArchivo === "archivoPdf" ){
       pathToSave = ImagenService.PATH_ARCHIVO_PRODUCTOS() + "/" + infoProductos.userId;
@@ -67,7 +67,7 @@ module.exports = {
         var archivo = files[0];
         var indexDiag = archivo.fd.lastIndexOf("/");
         var nombreArchivo = archivo.fd.substring(indexDiag + 1);
-        console.log("nombre de archivo:: " + nombreArchivo);
+        LOGS.info("nombre de archivo:: " + nombreArchivo);
         if( infoProductos.tipoArchivo === "ImagenPrincipal" ){
           var pathArchivo = infoProductos.pathBase + "/getImagenProducto/" + infoProductos.userId + "_" + nombreArchivo;
           Producto.update({id:infoProductos.producto.id},{imagenPrincipal:pathArchivo})
@@ -86,7 +86,7 @@ module.exports = {
               return response.json(updateProd);
             });
         } else {
-          //console.log(">>>>>>>>>>>>>  cargando imagenes secundarias " );
+          //LOGS.info(">>>>>>>>>>>>>  cargando imagenes secundarias " );
           Producto.findOne({id:infoProductos.producto.id}).exec(function(err, prodFound){
             var pathArchivo = infoProductos.pathBase + "/getImagenProducto/" + infoProductos.userId + "_" + nombreArchivo;
             prodFound.imagenesSecundarias.push( pathArchivo );
@@ -108,14 +108,14 @@ module.exports = {
     ]}).then(function(data){
       res.json(data)
     }).fail(function(err){
-      console.log(err);
+      LOGS.info(err);
     });
   },
 
   carmbiarArchivo: function( request, response ){
     var file = request.file('file') ;
     var infoProductos = JSON.parse(request.allParams().infoProductos);
-    console.log("Params: " + JSON.stringify(infoProductos));
+    LOGS.info("Params: " + JSON.stringify(infoProductos));
     var pathToSave = ImagenService.PATH_PRODUCTOS() + "/" + infoProductos.userId;
 
     if( infoProductos.tipoArchivo === "archivoPdf" ){
@@ -123,22 +123,22 @@ module.exports = {
     }else if( infoProductos.tipoArchivo === "subproductos" ){
       pathToSave = ImagenService.PATH_SUBPRODUCTOS() + "/" + infoProductos.userId;
     }
-    console.log("PATH A GUARDAR IMAGEN EN DISCO :: " + pathToSave );
+    LOGS.info("PATH A GUARDAR IMAGEN EN DISCO :: " + pathToSave );
     file.upload({dirname: pathToSave},
       function (err, files) {
         var archivo = files[0];
         var indexDiag = archivo.fd.lastIndexOf("/");
         var nombreArchivo = archivo.fd.substring(indexDiag + 1);
-        console.log( "nombre de archivo :: " + nombreArchivo );
+        LOGS.info( "nombre de archivo :: " + nombreArchivo );
         if (infoProductos.tipoArchivo === "archivoPdf") {
           var pathArchivo = infoProductos.pathBase + "/getArchivo/" + infoProductos.userId + "_" + nombreArchivo;
           var archivoPdfObj = {nombre:archivo.filename, url:pathArchivo};
-          console.log("Indice ::: " + infoProductos.index  );
+          LOGS.info("Indice ::: " + infoProductos.index  );
           if( infoProductos.index  != null && infoProductos.index >= 0 ) {
-            console.log("reemplazando en posicion " + infoProductos.index);
+            LOGS.info("reemplazando en posicion " + infoProductos.index);
             infoProductos.producto.archivos[infoProductos.index] = archivoPdfObj;
           }else {
-            console.log("add archivo");
+            LOGS.info("add archivo");
             infoProductos.producto.archivos.push(archivoPdfObj);
           }
           Producto.update({id:infoProductos.producto.id},{archivos:infoProductos.producto.archivos})
@@ -146,15 +146,15 @@ module.exports = {
               return response.json(updateProd);
             });
         } else if( infoProductos.tipoArchivo === "subproductos" ) {
-          console.log(">>>>>>>>>>>>>  cargando imagenes de subproductos " );
+          LOGS.info(">>>>>>>>>>>>>  cargando imagenes de subproductos " );
           var pathArchivo = infoProductos.pathBase + "/getImagenSubProducto/" + infoProductos.userId + "_" + nombreArchivo;
-          console.log("PATH para guardar imagen upload ::: " + pathArchivo );
-          console.log("Subproducto a modificar :: " + JSON.stringify(infoProductos.producto) );
+          LOGS.info("PATH para guardar imagen upload ::: " + pathArchivo );
+          LOGS.info("Subproducto a modificar :: " + JSON.stringify(infoProductos.producto) );
           Subproducto.update({id:infoProductos.producto.id},{imagen:pathArchivo}).then( function( result ){
             return response.json( result );
           });
         } else {
-          console.log(">>>>>>>>>>>>>  cargando imagenes secundarias " );
+          LOGS.info(">>>>>>>>>>>>>  cargando imagenes secundarias " );
           Producto.findOne({id:infoProductos.producto.id}).exec(function(err, prodFound){
             var pathArchivo = infoProductos.pathBase + "/getImagenProducto/" + infoProductos.userId + "_" + nombreArchivo;
             if( infoProductos.index ) {
@@ -195,7 +195,7 @@ module.exports = {
 
 			res.json(data);
 		}).catch(function(err){
-      console.log(err);
+      LOGS.info(err);
     });
 	},
 
@@ -212,7 +212,7 @@ module.exports = {
   createSubProducto: function( request, response ){
     var subproducto = request.allParams();
     Subproducto.create( subproducto).then( function(result){
-      console.log(" SUBPRODUCTO CREADO >>> " + JSON.stringify(result) );
+      LOGS.info(" SUBPRODUCTO CREADO >>> " + JSON.stringify(result) );
       return response.json( result );
     }).catch( function(err){
       console.error( err );
@@ -222,7 +222,7 @@ module.exports = {
 
 	share:function(req,res){
 		var idProducto = req.allParams().id;
-		console.log("ID PRODUCTO >>>>>>",idProducto)
+		LOGS.info("ID PRODUCTO >>>>>>",idProducto)
 		Producto.findOne({id:idProducto}).exec(function(err,data){
 			if(!data){
 				return res.view('404',{
@@ -230,6 +230,7 @@ module.exports = {
     			redirectURL: ''
   			})
 			}
+      LOGS.info(data)
 			data.precioFormat = accounting.formatMoney(data.precio);
 			return res.view('detalleProducto',{
     			producto: data,
