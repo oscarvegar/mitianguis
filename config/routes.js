@@ -51,8 +51,8 @@ module.exports.routes = {
   'POST /registrarUser': 'RegistroController.registrarUser',
 
   'get /store': 'TiendaController.proxy',
-  'POST /store': 'TiendaController.index',
-  'get /done': 'TiendaController.index',
+  'get /tienda': 'TiendaController.index',
+  //'get /store': {view:'homepage'},
   
   'GET /share/:id': 'ShareController.shareP',
 

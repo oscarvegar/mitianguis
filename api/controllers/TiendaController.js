@@ -9,17 +9,33 @@ module.exports = {
   index:function(req,res){
    var prod = req.param('prod');
    if(prod){
-      Producto.findOne({id:prod}).then(function(producto){
-        producto.precioFormat = require('accounting').formatMoney(producto.precio);
-        res.view('homepage',{producto:producto,redirectURL: '/store#/producto?p='+producto.id});
-      });
+    console.log(prod)
+      req.session.prod = prod;
+      res.redirect('/store')
    }else{
-      res.view('homepage')
+      
+      console.log("INDEX PARAMS",req.allParams())
+      req.session.paso = 'paso'
+      res.redirect('/store')
    }
   },
   proxy:function(req,res){
-    console.log("PROXY")
-    res.view('proxy',{layout:'layoutProxy'})
+    
+    if(req.session.paso == 'paso'){
+      delete req.session.paso
+      return res.view('homepage')
+    }else if(req.session.prod){
+      var prod = req.session.prod;
+      Producto.findOne({id:prod}).then(function(producto){
+        producto.precioFormat = require('accounting').formatMoney(producto.precio);
+        delete req.session.prod;
+        return res.view('homepage',{producto:producto,redirectURL: '/store#/producto?p='+producto.id});
+        //return res.redirect('/store?a=a')
+      });
+    }else{
+      console.log("PROXY")
+      res.view('proxy',{layout:'layoutProxy'})
+    }
   },
   setStatus: function(request, response){
     var data = request.allParams();

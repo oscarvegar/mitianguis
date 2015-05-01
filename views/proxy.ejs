@@ -1,12 +1,9 @@
-<form id="frm" method="POST" action="/store">
-	<input type="hidden" name="prod" id="hdn" >
 
-</form>
 <script>
 if(location.href.split('producto?p=')[1]){
-	document.getElementById('hdn').value = location.href.split('producto?p=')[1];
-	document.getElementById('frm').action = location.href;
+	location.href = "/tienda?prod="+location.href.split('producto?p=')[1];
 	
+}else{
+	location.href = "/tienda";
 }
-document.getElementById('frm').submit();
 </script>
