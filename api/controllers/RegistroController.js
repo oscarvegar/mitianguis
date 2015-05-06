@@ -185,17 +185,19 @@ module.exports = {
     user.email = usuario.username;
     user.perfil = "CLIENTE";
     user.verificacion = 0;
+    user.subdominio = usuario.subdominio;
     passwordEnvio = usuario.passwordUser;
 
 
     console.log(user);
      User.create(user).exec( function(err, userNew){
-          EmailService.enviarBienvenida(user.username, passwordEnvio);
           if(err){
-            return res.json(400,err);
-          }
+                console.log(err);
+                return res.json(400,err);
+            }
 
-           return res.json(200,userNew);
+          EmailService.enviarBienvenidaCliente(user.username, passwordEnvio);
+          return res.json(200,userNew);
       });
     }
 

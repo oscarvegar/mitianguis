@@ -23,6 +23,7 @@ module.exports = {
 			type : 'string',
 			required : true
 		},
+		subdominio: 'string',  
 		twitter:'string',
 		facebook:'string',
 		youtube:'string', //canal de youtube

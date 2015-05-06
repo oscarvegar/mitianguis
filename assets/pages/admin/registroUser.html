@@ -5,11 +5,16 @@
         <div class="row">
             
              <form name="loginForm3" class="login-form" ng-submit="registrarUser();" novalidate>
-
+</br></br></br></br></br>
 
                   <div class="alert alert-success"  ng-show="showAlert">
                     <strong>Favor de revisar tu correo electrónico para activar tu cuenta.</strong><a href="/"> Regresar al inicio. </a>
                     <button type="button" class="close" ng-click="showAlert = false">×</button>
+                  </div>
+
+                   <div class="alert alert-danger"  ng-show="showAlertDanger">
+                    <strong>Ese correo electrónico ya se encuentra registrado favor de cambiarlo.</strong>
+                    <button type="button" class="close" ng-click="showAlertDanger = false">×</button>
                   </div>
 
                   </br>

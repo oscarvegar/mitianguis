@@ -243,8 +243,13 @@
                   </div>
 
                   <div class="alert alert-success"  ng-show="showAlert">
-                    <strong>Se envío un correo electrónico con la contraseña nueva.</strong><a href="store/register.html"> Regresar al inicio. </a>
+                    <strong>Tu cuenta se registro exitosamente, revisa tu correo electrónico para activar tu cuenta.</strong><a href="store/register.html"> Regresar al inicio. </a>
                     <button type="button" class="close" ng-click="showAlert = false">×</button>
+                  </div>
+
+                  <div class="alert alert-danger"  ng-show="showAlertDanger">
+                    <strong>Ese correo electrónico ya se encuentra registrado favor de cambiarlo.</strong>
+                    <button type="button" class="close" ng-click="showAlertDanger = false">×</button>
                   </div>
 
                   </br>
@@ -293,8 +298,14 @@
 
 
                   <div class="alert alert-success"  ng-show="showAlert">
-                    <strong>Favor de revisar tu correo electrónico para activar tu cuenta.</strong><a href="store/register.html"> Regresar al inicio. </a>
+                    <strong>Tu cuenta se registro exitosamente, revisa tu correo electrónico para activar tu cuenta.</strong><a href="store/register.html"> Regresar a inicio. </a>
                     <button type="button" class="close" ng-click="showAlert = false">×</button>
+                  </div>
+
+
+                   <div class="alert alert-danger"  ng-show="showAlertDanger">
+                    <strong>Ese correo electrónico ya se encuentra registrado favor de cambiarlo.</strong>
+                    <button type="button" class="close" ng-click="showAlertDanger = false">×</button>
                   </div>
 
                   </br>

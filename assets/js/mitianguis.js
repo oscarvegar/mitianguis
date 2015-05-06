@@ -116,17 +116,20 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
               $scope.infoIcon = "icon-lightbulb";
               break;
           case 'danger':
+          console.log("Entro Danger");
+          console.log(tipo);
               $scope.alertClass = "alert-danger";
               $scope.infoIcon = "icon-remove-sign";
+               $scope.showAlertDanger = true; 
               break;
           default:
               $scope.alertClass = "alert-success";
               $scope.infoIcon = "icon-check-sign";
+              $scope.showAlert = true;
               break;
 
       }
-
-      $scope.showAlert = true;
+  
     };
 
     $scope.forgotPassword = function() {
@@ -157,10 +160,27 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     console.log("Registro usuario");
     console.log($scope.user);
 
-    $http.post("/registrarUser", $scope.user).then(function(result) {
+    var subdominio = webUtil.getDomain();
+    console.log("subdominio");
+    console.log(subdominio);
+
+
+    $scope.userRegister = {}
+    $scope.userRegister.username = $scope.user.username;
+  $scope.userRegister.passwordUser = $scope.user.passwordUser;
+  $scope.userRegister.subdominio = subdominio;
+
+  console.log($scope.userRegister);
+
+
+    $http.post("/registrarUser", $scope.userRegister).then(function(result) {
       console.log("Respuesta User");
       console.log( JSON.stringify(result) );
       $scope.alert('success', 'Registro Exitoso', 'Favor de revisar tu correo electrónico  para que activar tu cuenta');
+    },function(err){
+
+       $scope.alert('danger', 'Registro Duplicado', 'Ese correo electrónico ya se encuentra registrado favor de cambiarlo.');
+       console.log("ERROR",err);
     });
 
 

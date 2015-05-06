@@ -53,5 +53,16 @@ module.exports = {
             html:file
         }
         module.exports.sendEmail(options);
+    },
+
+    enviarBienvenidaCliente:function(usuario,passwd){
+        var file = fs.readFileSync('./config/mail/bienvenida.html',{encoding:'UTF-8'});
+        file = file.replace("#usuario",usuario).replace("#password",passwd);
+        var options ={
+            to:usuario,
+            subject:'Bienvenido a MiTianguis',
+            html:file
+        }
+        module.exports.sendEmail(options);
     }
 };
