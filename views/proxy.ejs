@@ -1,0 +1,9 @@
+
+<script>
+if(location.href.split('producto?p=')[1]){
+	location.href = "/tienda?prod="+location.href.split('producto?p=')[1];
+	
+}else{
+	location.href = "/tienda";
+}
+</script>

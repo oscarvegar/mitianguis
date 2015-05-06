@@ -5,8 +5,33 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 var fs = require('fs');
+var accounting = require('accounting');
 module.exports = {
-
+  index:function(req,res){
+    var baseURL = req.baseUrl;
+    var params = req.allParams();
+    if(baseURL.split('.').length<=2 && baseURL.search(':')<0)
+      return res.view('info');
+    else{
+      if(Object.keys(params).length>0){
+        Producto.findOne({id:Object.keys(params)[0]}).then(function(data){
+          if(!data){
+            return res.view('404',{
+              producto: {},
+              redirectURL: ''
+            })
+          }
+          data.precioFormat = accounting.formatMoney(data.precio);
+          return res.view('homepage',{
+              producto: data,
+              redirectURL: '/store#/producto?p='+data.id
+            })
+        });
+      }else{
+        return res.view('homepage');
+      }
+    }
+  },
   setStatus: function(request, response){
     var data = request.allParams();
     console.log("set Estatus :: " + JSON.stringify(data) );
