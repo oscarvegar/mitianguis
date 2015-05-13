@@ -83,6 +83,7 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
     $scope.registrar = function(isValid) {
       $scope.$broadcast('show-errors-check-validity');
       if( isValid ){
+        var $btn = $('#btnRegistro').button('loading');
         $scope.mensajeErrorCodigoMercante = null;
         $http.post("/Mercante/findByCodigo/", {codigoMercante:$scope.mercante.mentor.codigoMercante} )
           .then(
@@ -99,11 +100,10 @@ registro.controller( "RegistroController", function($scope, $http, $rootScope) {
                 $http.post( "/Mercante/registrarNuevo/",
                   {mercante:$scope.mercante, usuario:$scope.usuario, token: token} )
                   .then(function(result){
-
                     console.log(" RESULT DE REGISTRO MERCANTE :: " + JSON.stringify(result) );
-
                     webUtil.save("usuario", result.data);
                     webUtil.save("isNewMercante", true);
+                    $btn.button('reset')
                     window.location.href = "store#/admin";
                   },function(err){
 

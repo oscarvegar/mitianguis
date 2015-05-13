@@ -55,7 +55,10 @@
               <div class="checkbox">
                   <label><input type="checkbox" name="remember"> He leido y acepto los terminos de uso</label>
               </div>
-              <button  class="btn btn-black" type="submit" ng-disabled="registerForm.$invalid" >Registar</button>
+              <button id="btnRegistro" class="btn btn-black" type="submit" ng-disabled="registerForm.$invalid"
+                       data-loading-text="Registrando mercante..." autocomplete="off">
+                Registar
+              </button>
             </div>
             <!-- Informacion de la tarjeta -->
             <div class="col-lg-5 col-md-5 col-sm-5">
