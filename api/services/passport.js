@@ -53,14 +53,23 @@ passport.use(new LocalStrategy(
       // indicate failure and set a flash message. Otherwise, return the
       // authenticated `user`.
       findByUsername(username, function (err, user) {
-        if (err)
+        //LOGS.info("User finded :: " + JSON.stringify(user) );
+
+        if (err) {
+          //LOGS.error("Error :: " + JSON.stringify(err) );
           return done(null, err);
+        }
+
         if (!user) {
+          //LOGS.error("El usuario no existe :: " + JSON.stringify(user) );
           return done(null, false, {
             message: 'Unknown user ' + username
           });
         }
+
         bcrypt.compare(password, user.password, function (err, res) {
+          //LOGS.info("comparando passwords :: " + user.password + " -- " + password);
+          //LOGS.info( "Resultado :: " + JSON.stringify( res ) );
           if (!res)
             return done(null, false, {
               message: 'Invalid Password'
@@ -72,6 +81,7 @@ passport.use(new LocalStrategy(
             perfil: user.perfil,
             verificacion: user.verificacion
           };
+          //LOGS.info( "User Return :: " + JSON.stringify( returnUser ) );
           return done(null, returnUser, {
             message: 'Logged In Successfully'
           });

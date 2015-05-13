@@ -19,10 +19,8 @@
               </span>
               <div class="btn-toolbar">
                 <div class="social" >
-
-                  <span data-toggle="modal" data-target="#tiendaDelModal" title="Borrar Tienda"
-                     class="bordeHover"
-                     ng-click="tiendaCtrl.setTiendaSelected(tiendabd);">
+                  <span data-toggle="modal" data-target="#tiendaDelModal" title="Borrar Tiendax"
+                     class="bordeHover" ng-click="tiendaCtrl.setTiendaSelected(tiendabd);">
                     <i class="fa fa-trash-o"></i>
                   </span>
                   <span data-toggle="modal" class="bordeHover" data-toggle="modal"
@@ -117,7 +115,9 @@
               <input type="text" class="form-control" placeholder="Pega aqui la URL de tu tienda en Youtube"
                      name="urlYoutube" id="urlYoutube" ng-model="tiendaCtrl.tienda.youtube" />
             </div>
-            <input class="btn btn-black" ng-disabled="tiendaForm.$invalid" type="submit" value="{{tiendaCtrl.btnLabel}}" />
+            <input id="accionTienda" class="btn btn-black" ng-disabled="tiendaForm.$invalid"
+                   type="submit" value="{{tiendaCtrl.btnLabel}}"
+                   data-loading-text="Procesando petición..." autocomplete="off"/>
           </form>
         </div>
       </div><!-- /.modal-content -->

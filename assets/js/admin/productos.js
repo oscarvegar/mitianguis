@@ -189,12 +189,30 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
     $scope.producto.subproductos = new Array();
     $scope.producto.archivos = new Array();
     $scope.producto.tienda = $scope.tiendaSelected.id;
-    $http.post( "/registraProducto", $scope.producto).then(function( result ) {
-      console.log(JSON.stringify(result));
-      if (result.data === "") {
-        alert("No se registro el producto");
+
+    if ($scope.isImagenPrincipalConURL) {
+      if($scope.producto.imagenPrincipal === "" ){
+        $scope.mensajeErrorModal = "La URL de la imagen principal es obligatoria";
+        $('#errorModal').modal('show');
         return;
       }
+    }else{
+      if( $scope.imgPrincipalUpload.getNotUploadedItems().length <= 0 ){
+        $scope.mensajeErrorModal = "La imagen principal es obligatoria";
+        $('#errorModal').modal('show');
+        return;
+      }
+    }
+
+
+      $http.post( "/registraProducto", $scope.producto).then(function( result ) {
+      console.log(JSON.stringify(result));
+      if (result.data === "") {
+        //alert("No se registro el producto");
+        return;
+      }
+
+
       var objRequest = {
         userId: webUtil.getJSON("usuario").id,
         producto: result.data,
@@ -215,12 +233,21 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
           $scope.imgPrincipalUpload.onCompleteAll = function () {
             $scope.getProductos();
             $('#productoModal').modal('hide');
+            $scope.producto = null;
+            $scope.form.$setPristine(true);
           }
           itemImgPrincipal.upload();
+        } else {
+          //Error, no hay imagen principal
+          //$scope.mensajeErrorModal = "La imagen principal es obligatoria";
+          //$('#errorModal').modal('show');
         }
-      }else{
+      } else {
         $scope.getProductos();
         $('#productoModal').modal('hide');
+        $scope.producto = null;
+
+        $scope.form.$setPristine(true);
       }
 
       if( itemArchivoPdf ) {

@@ -104,37 +104,42 @@ module.exports = {
               mercante: mercante.id
             };
             Mercante.create(mercante).then( function( newMercante ){
-              Cartera.create({varoActual: 0, ultimoMovimiento: new Date(), mercante: newMercante})
-                .exec(function (err, cCar) {
-                  console.log(cCar);
-                  SuscripcionService.suscribir(newMercante, function (suscrito) {
-                    console.log(suscrito);
-                    var pago = {
-                      "currency":"MXN",
-                      "amount": 19800 ,
-                      "description":"MiTianguis Monthly Payment",
-                      "reference_id":newMercante.id + "-" + moment().valueOf(),
-                      "card": data.token,
-                      "details": { "email":usuario.email }
-                    }
-                    console.log("PAGO >>>>>", pago);
-                    unirest.post("https://api.conekta.io/charges")
-                      .auth({user: 'key_fK2GfyxqqvW1KJBxmxbqCw'})
-                      .headers({	'Accept': 'application/vnd.conekta-v0.3.0+json',
-                                  'Content-type': 'application/json'})
-                      .send(pago)
-                      .end(function(response){
-                        console.log("*****************************************************************");
-                        console.log("End de Conekta :::: " + JSON.stringify(response) );
-                        if(response.statusCode == 200){
-                          userNew[0].mercante = newMercante;
-                          return res.json( userNew[0] );
-                        }else{
-                          return res.json( 500, {code:response.statusCode,body:response.body});
-                        }
-                      });
-                  })
-                });
+              var pago = {
+                "currency":"MXN",
+                "amount": 19800 ,
+                "description":"MiTianguis Monthly Payment",
+                "reference_id":newMercante.id + "-" + moment().valueOf(),
+                "card": data.token,
+                "details": { "email":usuario.email }
+              }
+              console.log("PAGO >>>>>", pago);
+              unirest.post("https://api.conekta.io/charges")
+              .auth({user: 'key_fK2GfyxqqvW1KJBxmxbqCw'})
+              .headers({	'Accept': 'application/vnd.conekta-v0.3.0+json',
+                'Content-type': 'application/json'})
+              .send(pago)
+              .end(function(response){
+                console.log("*****************************************************************");
+                console.log("End de Conekta :::: " + JSON.stringify(response) );
+                if(response.statusCode == 200){
+                  Cartera.create({varoActual: 0, ultimoMovimiento: new Date(), mercante: newMercante})
+                  .exec(function (err, cCar) {
+                    console.log(cCar);
+                    SuscripcionService.suscribir(newMercante, function (suscrito) {
+                      console.log(suscrito);
+                      userNew[0].mercante = newMercante;
+                      return res.json( userNew[0] );
+                    });
+                  });
+                }else{
+                  //Hacer Rollback a todos los cambios
+                  Mercante.destroy({id:newMercante.id}).then(function(result){
+                    User.update({id: usuario.id}, {status: 1, perfil: 'CLIENTE'}).then(function(result){
+                      return res.json( 500, {code:response.statusCode,body:response.body});
+                    });
+                  });
+                }
+              });
           }).fail(function(err){
             console.error( "Error al crear mercante:: " + JSON.stringify(err)  );
             return res.json(400, err);

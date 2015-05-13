@@ -23,11 +23,13 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
   tiendaCtrl.isNuevaTienda = true ;
   tiendaCtrl.uploader = new FileUploader({url: "/nuevatienda" });
   tiendaCtrl.uploaderEdit = new FileUploader({url: "/editartienda" });
+  $scope.clickIconMenu = false;
   tiendaCtrl.clear = function(){
     tiendaCtrl.tienda = null;
   }
 
   tiendaCtrl.setTiendaSelected = function( tienda ){
+    $scope.clickIconMenu = true;
     tiendaCtrl.tiendaSelected = tienda;
   }
 
@@ -45,6 +47,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
       tiendaCtrl.btnLabel = "Crear Tienda" ;
       tiendaCtrl.urlProcess = "/nuevatienda";
     }else{
+      $scope.clickIconMenu = true;
       tiendaCtrl.tituloModal = "Edita la información de tu tienda";
       tiendaCtrl.btnLabel = "Aplicar cambios" ;
       tiendaCtrl.tienda = angular.copy( tienda );
@@ -53,8 +56,12 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
   }
 
   tiendaCtrl.getTiendas = function(){
-
-    $http.get("/mistiendas/" + webUtil.getJSON("usuario").mercante.id).then(function(result){
+    var mercante = webUtil.getJSON("usuario").mercante;
+    if(!mercante){
+      window.location.href="/store#/";
+      return;
+    }
+    $http.get("/mistiendas/" + mercante.id).then(function(result){
       tiendaCtrl.mistiendas = result.data;
       $tiendaService.setTiendas(angular.copy(result.data));
       if (!tiendaCtrl.mistiendas) {
@@ -67,6 +74,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
 
   tiendaCtrl.crear = function(){
     var item;
+    var $btn = $('#accionTienda').button('loading');
     tiendaCtrl.tienda.mercante = webUtil.getJSON("usuario").mercante.id;
     tiendaCtrl.tienda.descripcion = $("#descripcionTienda").val();
     var maxItems = tiendaCtrl.uploader.getNotUploadedItems().length;
@@ -87,6 +95,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
           $('#tiendaModal').modal('hide');
           tiendaCtrl.getTiendas()
           tiendaCtrl.clear();
+          $btn.button('reset')
         }
         item.upload();
       }else{
@@ -94,6 +103,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
           $('#tiendaModal').modal('hide');
           tiendaCtrl.getTiendas()
           tiendaCtrl.clear();
+          $btn.button('reset')
         }
         item.upload();
       }
@@ -102,6 +112,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
         $('#tiendaModal').modal('hide');
         tiendaCtrl.getTiendas()
         tiendaCtrl.clear();
+        $btn.button('reset')
       });
     }
   }
@@ -114,9 +125,13 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
   }
 
   tiendaCtrl.goDetalle = function(tiendabd){
-    $rootScope.tiendaSelected = tiendabd;
-    $rootScope.selecciono(1);
-    $scope.isVistaDetalle = true;
+    if( !$scope.clickIconMenu ) {
+      $rootScope.tiendaSelected = tiendabd;
+      $rootScope.selecciono(1);
+      $scope.isVistaDetalle = true;
+    }else{
+      $scope.clickIconMenu = false;
+    }
   }
 
   tiendaCtrl.getTiendas();

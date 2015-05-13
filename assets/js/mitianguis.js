@@ -74,12 +74,10 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     //$http.get("/mercanteByUrl?urlMercante=" + subdominio)
 
     $scope.login = function(){
-      alert("login 1...");
       $scope.user.email = $scope.user.username;
-      alert("login 2...");
       $http.post("/login", $scope.user).then(function(result){
         console.log( JSON.stringify(result) );
-        if( result.data.message === constants.LOGIN_SUCCESS ){
+        if( result.data.message === constants.LOGIN_SUCCESS ) {
           $('#loginModal').modal('hide');
           console.log("user usado para buscar mercante:: " + JSON.stringify(result.data.user) );
           if( result.data.user.perfil === "MERCANTE" ) {
@@ -90,12 +88,12 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
               webUtil.save("email", result.data.user.username);
               $rootScope.usuario = result.data.user;
             });
-          }else{
+          } else {
             webUtil.save("usuario", result.data.user);
             webUtil.save("email", result.data.user.username);
             $rootScope.usuario = result.data.user;
           }
-        }else{
+        } else {
           $scope.errorLogin = true;
         }
       });
