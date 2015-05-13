@@ -208,7 +208,7 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
       $http.post( "/registraProducto", $scope.producto).then(function( result ) {
       console.log(JSON.stringify(result));
       if (result.data === "") {
-        alert("No se registro el producto");
+        //alert("No se registro el producto");
         return;
       }
 
@@ -233,16 +233,21 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
           $scope.imgPrincipalUpload.onCompleteAll = function () {
             $scope.getProductos();
             $('#productoModal').modal('hide');
+            $scope.producto = null;
+            $scope.form.$setPristine(true);
           }
           itemImgPrincipal.upload();
-        }else{
+        } else {
           //Error, no hay imagen principal
           //$scope.mensajeErrorModal = "La imagen principal es obligatoria";
           //$('#errorModal').modal('show');
         }
-      }else{
+      } else {
         $scope.getProductos();
         $('#productoModal').modal('hide');
+        $scope.producto = null;
+
+        $scope.form.$setPristine(true);
       }
 
       if( itemArchivoPdf ) {
