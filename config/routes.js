@@ -84,6 +84,8 @@ module.exports.routes = {
   'GET /getImagen/:imagen':'ImagenController.getImagen',
   'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto',
   'GET /getImagenSubProducto/:imagen':'ImagenController.getImagenSubProducto',
+  'GET /getImagenPerfil/:imagen':'ImagenController.getImagenPerfil',
+  'POST /guardarArchivoPerfil':'RegistroController.guardarArchivoPerfil',
 
 
   /*** ADMINISTRACION DE CLIENTES ***/

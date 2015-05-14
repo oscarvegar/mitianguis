@@ -19,5 +19,9 @@ module.exports = {
   },
   getLogo: function( filename ){
 
-  }
+  },
+  PATH_PERFIL : function(){
+    return this.PATH_IMAGE + "perfil";
+  },
+ 
 };

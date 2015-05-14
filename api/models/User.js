@@ -27,10 +27,18 @@ module.exports = {
 		twitter:'string',
 		facebook:'string',
 		youtube:'string', //canal de youtube
-		telefono:'string',
+		pinterest:'string',
+		telefono:'string', // casa
 		direccion:'string',
 		perfil : 'string', // MERCANTE, CLIENTE
 		verificacion: 'int',
+		imagenPrincipal:'string',
+		nombre:'string',
+		apellidoPaterno:'string',
+		apellidoMaterno:'string',
+		celular:'string',
+		rfc:'string',
+		curp:'string',
 	    status:{
 	      type:'integer',
 	      defaultsTo: 1

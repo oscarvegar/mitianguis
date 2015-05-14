@@ -18,6 +18,7 @@ var myApp = angular.module("TianguisApp",
                                 'validation.match',
                                 'RegistroUserModule',
                                 'AdminClienteModule',
+                                'PerfilClienteModule',
                                 'ComprasClienteAdminModule'
                                ]);
 

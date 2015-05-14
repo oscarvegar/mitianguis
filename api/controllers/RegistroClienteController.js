@@ -22,6 +22,39 @@ module.exports = {
         });
         */
 
+    },
+        updateUserClient: function(req,res){
+         
+        var passwordUpdate = req.allParams().usuario.password;
+        var usertoUpdate = req.allParams().usuario;
+        var currentUser = req.session.currentUser;
+        
+        if( passwordUpdate){
+            console.log("se actualiza con contrasena");
+            User.update({id:currentUser.id},usertoUpdate).then(function(user){
+                console.log(user);
+                res.json(user);
+            }).fail(function(err){
+                console.log(err);
+                res.send(500)
+            })
+
+        }else{
+            console.log("se actualiza sin contrasena");
+            delete usertoUpdate.password;
+            User.update({id:currentUser.id},usertoUpdate).then(function(user){
+                console.log(user);
+                res.json(user);
+            }).fail(function(err){
+                console.log(err);
+                res.send(500)
+            })
+
+        }
+        
+
+
     }
+
 };
 
