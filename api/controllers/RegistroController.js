@@ -11,22 +11,37 @@ var moment = require('moment');
 
 module.exports = {
   test : function(req, res) {
-    console.log("peticion test");
+    var usertoUpdate = req.allParams().usuario;
     var passwordUpdate = req.allParams().usuario.password;
-    console.log(req.allParams());
-    console.log(passwordUpdate);
-    console.log("termino parametro");
     var currentUser = req.session.currentUser;
-    console.log("user: ");
-    console.log(currentUser);
 
-    User.update({id:currentUser.id},{email:req.allParams().usuario.email,password:passwordUpdate}).then(function(user){
-      console.log(user);
-      res.json(user);
-    }).fail(function(err){
-      console.log(err);
-      res.send(500)
-    })
+      if( passwordUpdate){
+            console.log("se actualiza con contrasena");
+            User.update({id:currentUser.id},usertoUpdate).then(function(user){
+                console.log(user);
+                res.json(user);
+            }).fail(function(err){
+                console.log(err);
+                res.send(500)
+            })
+
+        }else{
+            console.log("se actualiza sin contrasena inicio ** ");
+            delete usertoUpdate.password;
+           console.log(usertoUpdate);
+           console.log("se actualiza sin contrasena fin ** ");
+ 
+            User.update({id:currentUser.id},usertoUpdate).then(function(user){
+                console.log(user);
+                res.json(user);
+            }).fail(function(err){
+                console.log(err);
+                res.send(500)
+            })
+
+        }
+
+
   },
   getUserCurrent : function(req,res){
       var username = req.allParams().username;
@@ -48,6 +63,32 @@ module.exports = {
 
     },
 
+   guardarArchivoPerfil :  function(req, res){
+       var file = req.file('file') ;
+       var infoPerfil = JSON.parse(req.allParams().infoPerfil);
+       var pathToSave = ImagenService.PATH_PERFIL() ;
+       file.upload({dirname: pathToSave},
+       function (err, files) {
+          var archivo = files[0];
+          //var indexDiag = archivo.fd.lastIndexOf("\\");
+          var indexDiag = archivo.fd.lastIndexOf("/");
+          var nombreArchivo = archivo.fd.substring(indexDiag + 1);
+          console.log("nombre de archivo:: " + nombreArchivo);
+          var pathArchivo = infoPerfil.pathBase + "/getImagenPerfil/" +  nombreArchivo;
+          console.log("*path del archivo *");
+          console.log(pathArchivo);
+          console.log("*usuario cambiar url *");
+          console.log(infoPerfil.usuario);
+          User.update({username:infoPerfil.usuario},{imagenPrincipal:pathArchivo}).then(function(user){
+                console.log(user);
+                res.json(user);
+            }).fail(function(err){
+                console.log(err);
+                res.send(500)
+            })
+          
+       });
+   },
 
   registrarNuevo : function(req, res) {
     /*var data = req.allParams();

@@ -1,25 +1,17 @@
-/**
- * Created by oscarm on 13/04/15.
- */
-var miperfil = angular.module("MiPerfilModule",[]);
-miperfil.controller("PerfilAdminController", function($scope, $http,FileUploader, $window){
+var miperfil = angular.module("PerfilClienteModule",[]);
+miperfil.controller("PerfilClienteAdminController", function($scope, $http,FileUploader, $window){
       $scope.init = function(){
-      	    console.log("antes de la peticion");
       	    var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
       	    $http.get("/getUserCurrent/"+usuario.username).then(function(result){  
+      	    console.log(result);   
       	    		$scope.user = {};
-      	    		
                 $scope.user= angular.copy(result.data);
-                console.log("******copy angular*******");
-                console.log($scope.user);
-                console.log("*****************");
                 if($scope.user.imagenPrincipal){
                      $scope.imagenPerfil = true;
                 }else{
                      $scope.imagenPerfil = false;
                 }
-
-      		});	
+      	  });	
 
       },
 
@@ -40,29 +32,24 @@ miperfil.controller("PerfilAdminController", function($scope, $http,FileUploader
            }]
           });
 
-
       $scope.engineSubmit = function(){
            if(!$scope.checked){
-             $scope.user.password = null;
+           	 $scope.user.password = null;
            }
            $scope.master = {};
-           $http.post("/registro/test",{usuario:$scope.user})
+           $http.post("/registroCliente/updateUserClient",{usuario:$scope.user})
            .success(function(data, status, headers, config){
            		$scope.user= angular.copy($scope.master);
-               $scope.alert('success', 'Cambio de Información  Exitoso', 'Se guardaron los cambios con exito..');
+              $scope.alert('success', 'Cambio de Información  Exitoso', 'Se guardaron los cambios con exito..');
 
            })
            .error(function(data, status, headers, config){
-  				console.log("error al actualizar el usuario");       
-           $scope.alert('danger', 'Error', 'Error al acutalzar los datos');   	               
-
-
+  				  $scope.alert('danger', 'Error', 'Error al acutalzar los datos'); 
            });
 
       },
 
-
-      $scope.updateImage = function(){
+       $scope.updateImage = function(){
            var itemIndexImgPrincipal = $scope.imgPrincipalUploadPerfil.getNotUploadedItems().length - 1;
            var objRequest = {
               pathBase: webUtil.getOrigin(),
@@ -74,7 +61,7 @@ miperfil.controller("PerfilAdminController", function($scope, $http,FileUploader
            itemImgPrincipal.formData = [{infoPerfil: JSON.stringify(angular.copy(objRequest))}];
 
            $scope.imgPrincipalUploadPerfil.onCompleteAll = function (error, data) {
-             $('#pictuteProfileModal').modal('hide');
+             $('#pictuteProfileModalClient').modal('hide');
              var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
              $http.get("/getUserCurrent/"+usuario.username).then(function(result){  
               $scope.user.imagenPrincipal = result.data.imagenPrincipal;
@@ -116,7 +103,6 @@ miperfil.controller("PerfilAdminController", function($scope, $http,FileUploader
       }
   
     };
-
       $scope.init();
 
 

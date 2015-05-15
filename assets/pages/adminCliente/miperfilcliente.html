@@ -1,95 +1,93 @@
- <div class="post"  ng-controller="PerfilAdminController" ng-submit = "engineSubmit()" >
+ <div class="post"  ng-controller="PerfilClienteAdminController"  ng-submit = "engineSubmit()" > 
     <div class="col-lg-5 col-md-5 col-sm-5">
-
+           
                 <div class="form-group group" >
                         <a href="javascript:void(0)">
                           <img ng-src="{{user.imagenPrincipal}}"  style="width:260px;height:285px;">
                           <span class="tile-overlay"></span>
                         </a>
-                        <button class="btn btn-primary"  data-toggle="modal" data-target="#pictuteProfileModal" ng-hide = "imagenPerfil">Añadir imagen de perfil</button>
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#pictuteProfileModal" ng-show = "imagenPerfil">Modificar imagen de perfil</button>
+                        <button class="btn btn-primary"  data-toggle="modal" data-target="#pictuteProfileModalClient" ng-hide = "imagenPerfil">Añadir imagen de perfil</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#pictuteProfileModalClient" ng-show = "imagenPerfil">Modificar imagen de perfil</button>
                       
                  </div>
 
-                <form method="post" class="login-form">
-                    
+           <form method="post" class="login-form">
                     <div class="form-group group">
-                       usuario:
-                        <input type="text" class="form-control" name="updateName" id="updateName"  ng-model="user.username" readonly>
+                       usuario cliente:
+                        <input type="text" class="form-control" name="nameClient" id="nameClient"  ng-model="user.username" readonly>
                     </div>
 
                     <div class="form-group group">
                         correo-electronico
-                        <input type="email" class="form-control" name="updateEmail" id="updateEmail"  ng-model ="user.email"  required>
+                        <input type="email" class="form-control" name="emailClient" id="emailClient"  ng-model ="user.email"  required>
                     </div>
 
                     <div class="form-group group">
                        nombre(s):
-                        <input type="text" class="form-control" name="updatenombre" id="updatenombre"  ng-model="user.nombre" >
+                        <input type="text" class="form-control" name="nombreClient" id="nombreClient"  ng-model="user.nombre" >
                     </div>
 
                     <div class="form-group group">
                        apellido paterno:
-                        <input type="text" class="form-control" name="updateApellidoPaterno" id="updateApellidoPaterno"  ng-model="user.apellidoPaterno" >
+                        <input type="text" class="form-control" name="apellidoPaternoClient" id="apellidoPaternoClient"  ng-model="user.apellidoPaterno" >
                     </div>
 
                     <div class="form-group group">
                        apellido materno:
-                        <input type="text" class="form-control" name="updateApellidoMaterno" id="updateApellidoMaterno"  ng-model="user.apellidoMaterno" >
+                        <input type="text" class="form-control" name="apellidoMaternoClient" id="apellidoMaternoClient"  ng-model="user.apellidoMaterno" >
                     </div>
 
 
                     <div class="form-group group">
                        telefono:
-                        <input type="text" class="form-control" name="updateTelefono" id="updateTelefono"  ng-model="user.telefono" >
+                        <input type="text" class="form-control" name="telefonoClient" id="telefonoClient"  ng-model="user.telefono" >
                     </div>
 
                     <div class="form-group group">
                        celular:
-                        <input type="text" class="form-control" name="updateCelular" id="updateCelular"  ng-model="user.celular" >
+                        <input type="text" class="form-control" name="celularClient" id="celularClient"  ng-model="user.celular" >
                     </div>
 
                     <div class="form-group group">
                        RFC:
-                        <input type="text" class="form-control" name="updateRfc" id="updateRfc"  ng-model="user.rfc" >
+                        <input type="text" class="form-control" name="rfcClient" id="rfcClient"  ng-model="user.rfc" >
                     </div>
 
                     <div class="form-group group">
                        CURP:
-                        <input type="text" class="form-control" name="updateCurp" id="updateCurp"  ng-model="user.curp" >
+                        <input type="text" class="form-control" name="curpClient" id="curpClient"  ng-model="user.curp" >
                     </div>
 
                     <div class="form-group group">
                        facebook:
-                        <input type="email" class="form-control" name="updateFacebook" id="updateFacebook" ng-model="user.facebook" >
+                        <input type="email" class="form-control" name="facebookClient" id="facebookClient" ng-model="user.facebook" >
                     </div>
 
 
                     <div class="form-group group">
                        twitter:
-                        <input type="email" class="form-control" name="updateTwitter" id="updateTwitter" ng-model="user.twitter" >
+                        <input type="email" class="form-control" name="twitterClient" id="twitterClient" ng-model="user.twitter" >
                     </div>
 
                     <div class="form-group group">
                        pinterest:
-                        <input type="email" class="form-control" name="updatePinterest" id="updatePinterest" ng-model="user.pinterest" >
+                        <input type="email" class="form-control" name="pinterestClient" id="pinterestClient" ng-model="user.pinterest" >
                     </div>
-                   
+
                    <div class="form-group group">
                         ¿desar cambiar su contraseña?
                         <input type="checkbox"    ng-model ="checked" >
                     </div>
                    
-                    
                     <div class="form-group group" ng-show="checked">
                         nueva contraseña
-                        <input type="password" class="form-control" name="updatePassword" id="updatePassword"  ng-model ="user.password" >
+                        <input type="password" class="form-control" name="passwordClient" id="passwordClient"  ng-model ="user.password" >
                     </div>
 
-
+                    
                     <input class="btn btn-black" type="submit" value="Enviar">
 
-                     <div class="alert alert-success"  ng-show="showAlert">
+                    <div class="alert alert-success"  ng-show="showAlert">
                          <strong>Se cargo su información con  exito</strong>
                          <button type="button" class="close" ng-click="showAlert = false">×</button>
                     </div>
@@ -97,11 +95,11 @@
                     <div class="alert alert-danger"  ng-show="showAlertDanger">
                        <strong>Ocurrio un error al actualizar su información</strong>
                        <button type="button" class="close" ng-click="showAlertDanger = false">×</button>
-                    </div>   
-                </form> 
+                    </div>     
+                </form>                    
 
                 <!-- Modal -->
-                <div class="modal fade" id="pictuteProfileModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal fade" id="pictuteProfileModalClient" tabindex="-1" role="dialog"  aria-hidden="true">
                    <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -119,8 +117,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                 
-                
-   </div>            
+                </div>  
+   
+   </div>  
 </div> 
