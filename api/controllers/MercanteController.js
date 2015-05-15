@@ -86,7 +86,7 @@ module.exports = {
     console.log(" Usuario a modificar::: " + JSON.stringify(usuario));
     console.log(" ***************************************************");
     Parametro.findOne({datosSystem:{$exists:true}}).then(function(datosSystem){
-      module.exports.setMentores(mercante, mercante.mentor.id, 2, datosSystem,
+      module.exports.setMentores(mercante, mercante.mentor.mentor, 2, datosSystem, 
         function (mercante) {
           console.log(" *** se ejecuto callback de mercantes **** ");
           mercante.codigoMercante = moment().valueOf().toString(16).toUpperCase();
@@ -149,12 +149,13 @@ module.exports = {
     });
   },// Fin de registrarNuevo
   setMentores:function(newMercante,mentorId,nivel,datosSystem,cb){
+    console.log("entra a set mentores",mentorId);
     if(mentorId==datosSystem.datosSystem.systemId || nivel === 10){
       console.log( ">>>>>>>>>><<<<<<<<<<< Se va a ejecutar el callback" );
       newMercante['mentor'+nivel]=mentorId;
       cb(newMercante);
     }else{
-      LOGS.info("ID MERCANTE PADRE NIVEL [" + nivel + "] = " + JSON.stringify(mentorId) );
+      //LOGS.info("ID MERCANTE PADRE NIVEL [" + nivel + "] = " + JSON.stringify(mentorId) );
       Mercante.findOne({id:mentorId}).then(function(mercanteRes){
         LOGS.info("Mercante Padre Nivel [" + nivel + "] >>>> " + JSON.stringify(mercanteRes) );
         newMercante['mentor'+nivel]=mercanteRes;

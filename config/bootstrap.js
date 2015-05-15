@@ -313,6 +313,16 @@ module.exports.bootstrap = function(cb) {
     	} );
     });*/
 
+    User.native(function (err,collection){
+        collection.createIndex( { username: 1 }, { unique: true } ,function(error, docs) {
+
+        // Handle Errors
+
+        // Do mongo-y things to your docs here
+
+        });
+    })
+
 //GENERANDO PRODUCTOS POR DEFAULT PARA UN MERCANTE
 
 
