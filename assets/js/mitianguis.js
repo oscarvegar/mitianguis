@@ -158,17 +158,16 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     console.log("Registro usuario");
     console.log($scope.user);
 
-    var subdominio = webUtil.getDomain();
-    console.log("subdominio");
-    console.log(subdominio);
-
+    var subdominio = webUtil.getOrigin();
+    var idMentor = JSON.parse( $window.localStorage.getItem("mercante") );
 
     $scope.userRegister = {}
     $scope.userRegister.username = $scope.user.username;
-  $scope.userRegister.passwordUser = $scope.user.passwordUser;
-  $scope.userRegister.subdominio = subdominio;
+    $scope.userRegister.passwordUser = $scope.user.passwordUser;
+    $scope.userRegister.subdominio = subdominio;
+    $scope.userRegister.mentor = idMentor.usuario;
 
-  console.log($scope.userRegister);
+  //  console.log($scope.userRegister);
 
 
     $http.post("/registrarUser", $scope.userRegister).then(function(result) {

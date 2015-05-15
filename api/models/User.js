@@ -31,6 +31,8 @@ module.exports = {
 		direccion:'string',
 		perfil : 'string', // MERCANTE, CLIENTE
 		verificacion: 'int',
+		codigoActivacion:'int',
+		mentor:'string',
 	    status:{
 	      type:'integer',
 	      defaultsTo: 1

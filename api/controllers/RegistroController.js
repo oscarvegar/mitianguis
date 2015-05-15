@@ -185,11 +185,15 @@ module.exports = {
     user.email = usuario.username;
     user.perfil = "CLIENTE";
     user.verificacion = 0;
+    user.codigoActivacion =new Date().getHours() + new Date().getSeconds() + new Date().getMilliseconds()+ new Date().getMinutes();
     user.subdominio = usuario.subdominio;
+    user.mentor = usuario.mentor
     passwordEnvio = usuario.passwordUser;
 
+    
 
     console.log(user);
+
      User.create(user).exec( function(err, userNew){
           if(err){
                 console.log(err);

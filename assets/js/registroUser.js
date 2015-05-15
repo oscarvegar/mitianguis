@@ -1,7 +1,7 @@
 var registro = angular.module( "RegistroUserModule", [] );
 
 
-registro.controller( "RegistroUserController", function($scope, $http, $rootScope) {
+registro.controller( "RegistroUserController", function($scope, $http, $rootScope,$window) {
 
   $scope.alert = function(tipo,title,desc){
       $scope.messageTitle = title;
@@ -37,16 +37,16 @@ registro.controller( "RegistroUserController", function($scope, $http, $rootScop
     console.log($scope.user);
 
 
-    var subdominio = webUtil.getDomain();
-    console.log("subdominio");
-    console.log(subdominio);
+    var subdominio = webUtil.getOrigin();
+    var idMentor = JSON.parse( $window.localStorage.getItem("mercante") );
 
     $scope.userRegister = {}
     $scope.userRegister.username = $scope.user.username;
-	$scope.userRegister.passwordUser = $scope.user.passwordUser;
-	$scope.userRegister.subdominio = subdominio;
+	  $scope.userRegister.passwordUser = $scope.user.passwordUser;
+	  $scope.userRegister.subdominio = subdominio;
+    $scope.userRegister.mentor = idMentor.usuario;
 
-	console.log($scope.userRegister);
+	  //console.log($scope.userRegister);
 
 
     $http.post("/registrarUser", $scope.userRegister).then(function(result) {

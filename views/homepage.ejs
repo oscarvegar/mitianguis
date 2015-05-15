@@ -37,7 +37,8 @@
                   <li class="hide-sm"><a href="#/cliente" ng-if="usuario.perfil === 'CLIENTE'"><span>M</span>i cuenta</a></li>
                 </ul>
               </div>
-              <div class="catalog-block" style="margin: 0px;" style="width: 100%;display: none;" ng-show="menuAccionOn">
+
+              <div class="catalog-block" style="margin: 0px;" style="width: 100%;display: none;" >
                 <div id="menuAccion" align="left" style="width: 100%;display: none;" ng-show="menuAccionOn">
                   <table width="100%">
                     <tr>
@@ -243,7 +244,7 @@
                   </div>
 
                   <div class="alert alert-success"  ng-show="showAlert">
-                    <strong>Tu cuenta se registro exitosamente, revisa tu correo electrónico para activar tu cuenta.</strong><a href="store/register.html"> Regresar al inicio. </a>
+                    <strong>Revisa tu correo electrónico para activar tu cuenta, recuerda checar la carpeta de SPAM también.</strong><a href="store/register.html"> Regresar al inicio. </a>
                     <button type="button" class="close" ng-click="showAlert = false">×</button>
                   </div>
 
@@ -293,9 +294,6 @@
 
 
               <form name="loginForm3" class="login-form" ng-submit="registrarUser();" novalidate>
-
-
-
 
                   <div class="alert alert-success"  ng-show="showAlert">
                     <strong>Tu cuenta se registro exitosamente, revisa tu correo electrónico para activar tu cuenta.</strong><a href="store/register.html"> Regresar a inicio. </a>
