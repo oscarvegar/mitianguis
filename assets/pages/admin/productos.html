@@ -9,7 +9,7 @@
       <span>
         Tienes {{productosDisponibles.length}} productos cargados en tu tienda
 
-        <button class="btn btn-black btn-sm" style="float: right" ng-click="selecciono(0)">
+        <button class="btn btn-black btn-sm" style="float: right" ng-click="selecciono(3)">
           <span class="fa fa-repeat"></span>
           Regresar
         </button>
@@ -213,7 +213,7 @@
             <br/>
             <span class="tenue" >Los campos marcados con * son obligatorios.</span>
           </div>
-          <div  class="modal-body">
+          <div  class="modal-body scroll500">
             <form class="form-horizontal" name="form" role="form"
                   ng-submit="registrarProducto(form.$valid)"  novalidate>
               <div class="form-group">
@@ -465,7 +465,7 @@
                 </div>
               </div>
               <div class="form-group" ng-show="isNuevoProducto">
-                <label class="col-sm-2 control-label">Especificaciones</label>
+                <label class="col-sm-2 control-label">Especifi caciones</label>
                 <div class="col-sm-10">
                   <input type="file" class="form-control" id="fileEspec" name="fileEspec"
                          nv-file-select uploader="fileUpload">
@@ -560,7 +560,8 @@
             </div>
           </div>
           <div  class="modal-footer">
-            <input class="btn btn-black" ng-disabled="subproductoForm.$invalid" type="submit" value="Aceptar" />
+            <input id="btnSubProducto" class="btn btn-black" ng-disabled="subproductoForm.$invalid"
+                   type="submit" value="Aceptar" />
           </div>
         </form>
       </div><!-- /.modal-content -->
@@ -642,7 +643,7 @@
             </button>
             <h2>CAMBIAR {{tituloCambiaArchivo}}</h2>
           </div>
-          <div  class="modal-body">
+          <div  class="modal-body scroll500">
             <div class="btnb-group" data-toggle="buttons">
               <label class="btnb btnb-default {{isImagenActURL?'':'active'}}"
                      ng-click="mostrarInputImgAct(false)">
@@ -692,7 +693,7 @@
 
   <div class="modal fade" id="prodCambiaArchivoModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content ">
         <form class="form-horizontal" name="formImg" role="form"
               ng-submit="cambiarArchivoPdf()"  novalidate>
           <div class="modal-header">

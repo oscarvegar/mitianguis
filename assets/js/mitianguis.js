@@ -123,7 +123,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
           console.log(tipo);
               $scope.alertClass = "alert-danger";
               $scope.infoIcon = "icon-remove-sign";
-               $scope.showAlertDanger = true; 
+               $scope.showAlertDanger = true;
               break;
           default:
               $scope.alertClass = "alert-success";
@@ -132,7 +132,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
               break;
 
       }
-  
+
     };
 
     $scope.forgotPassword = function() {
@@ -254,6 +254,29 @@ myApp.directive('onlyDigits', function () {
         ctrl.$parsers.push(inputValue);
       }
     };
+});
+
+myApp.directive('onlyAlphanumeric', function () {
+  return {
+    require: 'ngModel',
+    restrict: 'A',
+    link: function (scope, element, attr, ctrl) {
+      function inputValue(val) {
+        if (val) {
+          var digits = val.replace(/[^a-zA-Z0-9-]/, '');
+          digits = digits.replace(/\s/g, "");
+          digits = digits.toLowerCase();
+          if (digits !== val) {
+            ctrl.$setViewValue(digits);
+            ctrl.$render();
+          }
+          return digits;
+        }
+        return undefined;
+      }
+      ctrl.$parsers.push(inputValue);
+    }
+  };
 });
 
 myApp.directive('ngEnter', function() {

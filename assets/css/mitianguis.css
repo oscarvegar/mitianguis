@@ -836,3 +836,8 @@ fieldset[disabled] .navbar-default .btnb-link:focus {
 .letras-chiquitas{
   font-size: 12px;
 }
+
+.scroll500{
+  height: 480px;
+  overflow-y: auto;
+}

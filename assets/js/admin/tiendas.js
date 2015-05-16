@@ -26,6 +26,8 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
   $scope.clickIconMenu = false;
   tiendaCtrl.clear = function(){
     tiendaCtrl.tienda = null;
+    $("#upload-edit-logo").html("");
+    $("#upload-file-logo").html("");
   }
 
   tiendaCtrl.setTiendaSelected = function( tienda ){
@@ -36,13 +38,18 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
   tiendaCtrl.verDetalle = function( tienda ){
     tiendaCtrl.isDetalle = true;
     tiendaCtrl.tiendaSelected = tienda;
+    $scope.tiendaForm.$setPristine(true);
   }
 
   tiendaCtrl.setAsNuevaTienda = function(isNuevaTienda, tienda){
     tiendaCtrl.isDetalle = false;
-    tiendaCtrl.isNuevaTienda = isNuevaTienda;
-    if(isNuevaTienda){
+    if(!tiendaCtrl.isNuevaTienda ){
       tiendaCtrl.clear();
+    }
+    tiendaCtrl.isNuevaTienda = isNuevaTienda;
+    //$(":file").filestyle({buttonName: "btnb-primary"});
+    if(isNuevaTienda){
+      //tiendaCtrl.clear();
       tiendaCtrl.tituloModal = "Crea una nueva tienda";
       tiendaCtrl.btnLabel = "Crear Tienda" ;
       tiendaCtrl.urlProcess = "/nuevatienda";
@@ -84,8 +91,10 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
       tiendaCtrl.uploader.formData = [{tienda: tiendaCtrl.tienda}];
       item = tiendaCtrl.uploader.getNotUploadedItems()[itemIndex];
     } else {
+      var indexEditLogo = tiendaCtrl.uploaderEdit.getNotUploadedItems().length;
       tiendaCtrl.uploaderEdit.formData = [{tienda: tiendaCtrl.tienda}];
-      item = tiendaCtrl.uploaderEdit.getNotUploadedItems()[itemIndex];
+      item = tiendaCtrl.uploaderEdit.getNotUploadedItems()[indexEditLogo - 1];
+      console.log("editando tienda con imagen: ", item );
     }
     if (item) {
       tiendaCtrl.tienda.logo = tiendaCtrl.origin;
@@ -127,7 +136,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
   tiendaCtrl.goDetalle = function(tiendabd){
     if( !$scope.clickIconMenu ) {
       $rootScope.tiendaSelected = tiendabd;
-      $rootScope.selecciono(3);
+      $rootScope.selecciono(2);
       $scope.isVistaDetalle = true;
     }else{
       $scope.clickIconMenu = false;

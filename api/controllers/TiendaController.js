@@ -86,6 +86,7 @@ module.exports = {
   editar:function(request, response){
     console.log("***************  ACTUALIZANDO INFO TIENDA **************");
     var tienda = request.allParams().tienda;
+
     var data = null;
     if( tienda ){
       data = JSON.parse(tienda);
@@ -97,7 +98,8 @@ module.exports = {
         var indexDiag = archivo.fd.lastIndexOf("/");
         var nombreArchivo = archivo.fd.substring(indexDiag + 1);
         console.log("nombre de archivo:: " + nombreArchivo);
-        data.logo = nombreArchivo;
+        data.logo += "/getImagen/" + nombreArchivo;
+        console.log("logo URL :: " + data.logo);
         Tienda.update({id:data.id},data).exec(function (err, newTienda) {
           if (err) {
             console.log(err);
