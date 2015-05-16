@@ -180,7 +180,7 @@
         </tr>
         <tr ng-repeat="subproducto in productoSelected.subproductos" class="cursor">
           <td style="vertical-align: middle" align="center">
-            <img src="{{subproducto.imagen}}" width="80" height=60">
+            <img src="{{subproducto.imagen}}" width="80" height="60">
           </td>
           <td>{{subproducto.modelo}}</td>
           <td>{{subproducto.precio | currency}}</td>
@@ -229,6 +229,14 @@
                 </div>
               </div>
               <div class="form-group">
+                <label class="col-sm-2 control-label">Descripción Corta*</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="descripconCorta" name="descripconCorta"
+                         ng-model="producto.descripcionCorta" required
+                         placeholder="Escribe la descripcion corta del producto">
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-2 control-label">Descripción*</label>
                 <div class="col-sm-10">
                   <textarea id="descripcion" name="descripcion" class="form-control"
@@ -239,14 +247,6 @@
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <span ng-show="form.descripcion.$error.required">La descripción del producto es requerido.</span>
                   </span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Descripción Corta</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="descripconCorta" name="descripconCorta"
-                         ng-model="producto.descripcionCorta"
-                         placeholder="Escribe la descripcion corta del producto">
                 </div>
               </div>
               <div class="form-group">
@@ -262,8 +262,101 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">Es imagen Principal</label>
+                <label class="col-sm-2 control-label">&nbsp;</label>
                 <div class="col-sm-10">
+                  <div id="btnGroupImgPrincipal" class="btnb-group" data-toggle="buttons">
+                    <label id="labelImagenUpload" class="btnb btnb-default {{isImagenPrincipalConURL?'':'active'}}" ng-click="mostrarInputImgPrincipal(false)">
+                      <input type="radio" id="q156" name="opcImgPrincipal" value="1" checked="checked"
+                             /> Selecciona una imagen
+                    </label>
+                    <label id="labelImagenUrl" class="btnb btnb-default {{isImagenPrincipalConURL?'active':''}}" ng-click="mostrarInputImgPrincipal(true)" >
+                      <input type="radio" id="q160" name="opcImgPrincipal" value="5"
+                             /> Escribe la URL de tu imagen
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" ng-show="isNuevoProducto">
+                <label class="col-sm-2 control-label">Imagen Principal</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control" id="imgPrincipal" name="imgPrincipal"
+                         nv-file-select uploader="imgPrincipalUpload" ng-hide="isImagenPrincipalConURL">
+                  <input type="text" class="form-control" id="imgPrincipalUrl" name="imgPrincipal"
+                         ng-show="isImagenPrincipalConURL" placeholder="Escribe la URL de la imagen principal de tu producto"
+                         ng-model="producto.imagenPrincipal">
+                </div>
+                <span style="color:maroon" ng-show="msgErrorImgPrincipal != ''">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <span>{{msgErrorImgPrincipal}}</span>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-10">
+                  <div id="btnGroupImgSecu" class="btnb-group" data-toggle="buttons">
+                    <label id="labelImagenSecuUpload" class="btnb btnb-default {{isImagenSecuConURL?'':'active'}}" ng-click="mostrarInputImgSecu(false)">
+                      <input type="radio" name="opcImgSecu" value="1" checked="checked"
+                        /> Selecciona una imagen
+                    </label>
+                    <label id="labelImagenSecuUrl" class="btnb btnb-default {{isImagenSecuConURL?'active':''}}" ng-click="mostrarInputImgSecu(true)" >
+                      <input type="radio" name="opcImgSecu" value="5"
+                        /> Escribe la URL de tu imagen
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" ng-show="isNuevoProducto">
+                <label class="col-sm-2 control-label">Imagenes Secundarias</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control" id="imgSecu" name="imgSecu"
+                         nv-file-select uploader="imgSecundariasUpload"
+                         ng-hide="isImagenSecuConURL">
+
+                  <table width="100%" ng-show="isImagenSecuConURL" >
+                    <tr>
+                      <td width="85%">
+                        <input type="text" class="form-control" name="imgSecundaria"
+                               ng-model="imgSecuUrlTemp"
+                               placeholder="Escribe la URL de tu imagen"
+                               ng-enter="agregaImgSecuUrl( )"></td>
+                      <td width="5%">&nbsp;</td>
+                      <td>
+                        <div class="btn-mt">
+                          <span><i class="glyphicon glyphicon-plus"
+                                   ng-click="agregaImgSecuUrl( )"></i></span>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <span style="font-size: 11px;">Nota: Puedes agregar mas de una imagen.</span><br/>
+                  <span style="color:maroon" ng-show="msgErrorImgSecundaria != ''">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span>{{msgErrorImgSecundaria}}</span>
+                  </span>
+                  <div  ng-hide="isImagenSecuConURL" style="width: 100%" ng-repeat="item in imgSecundariasUpload.getNotUploadedItems()">
+                    <div style="width: 200px;">
+                      <span class="label label-default" style="width: 150px;">{{item.file.name}}</span>
+                      <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
+                            ng-click="removerArchivoImagen(item);"></span>
+                    </div>
+                  </div>
+                  <div  ng-show="isImagenSecuConURL" style="width: 100%"
+                        ng-repeat="imgSecu in producto.imagenesSecundarias">
+                    <div style="width: 200px;">
+                      <span class="label label-default" style="width: 150px;">{{imgSecu}}</span>
+                      <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
+                            ng-click="removerArchivoImagenUrl($index);"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">¿Promocionar?</label>
+                <div class="col-sm-9">
                   <div class="btn-group" data-toggle="buttons">
                     <label class="btnb btnb-default {{isPrincipal}}" ng-click="setIsPrincipal(true)">
                       <input type="radio" name="inputPrioridad" value="true"  checked> SI
@@ -371,103 +464,8 @@
                          ng-model="producto.largo" placeholder="Escribe el largo del producto">
                 </div>
               </div>
-
-              <div class="form-group">
-                <label class="col-sm-2 control-label">&nbsp;</label>
-                <div class="col-sm-10">
-                  <div id="btnGroupImgPrincipal" class="btnb-group" data-toggle="buttons">
-                    <label id="labelImagenUpload" class="btnb btnb-default {{isImagenPrincipalConURL?'':'active'}}" ng-click="mostrarInputImgPrincipal(false)">
-                      <input type="radio" id="q156" name="opcImgPrincipal" value="1" checked="checked"
-                             /> Selecciona una imagen
-                    </label>
-                    <label id="labelImagenUrl" class="btnb btnb-default {{isImagenPrincipalConURL?'active':''}}" ng-click="mostrarInputImgPrincipal(true)" >
-                      <input type="radio" id="q160" name="opcImgPrincipal" value="5"
-                             /> Escribe la URL de tu imagen
-                    </label>
-                  </div>
-                </div>
-              </div>
-
               <div class="form-group" ng-show="isNuevoProducto">
-                <label class="col-sm-2 control-label">Imagen Principal</label>
-                <div class="col-sm-10">
-                  <input type="file" class="form-control" id="imgPrincipal" name="imgPrincipal"
-                         nv-file-select uploader="imgPrincipalUpload" ng-hide="isImagenPrincipalConURL">
-                  <input type="text" class="form-control" id="imgPrincipalUrl" name="imgPrincipal"
-                         ng-show="isImagenPrincipalConURL" placeholder="Escribe la URL de la imagen principal de tu producto"
-                         ng-model="producto.imagenPrincipal">
-                </div>
-                <span style="color:maroon" ng-show="msgErrorImgPrincipal != ''">
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  <span>{{msgErrorImgPrincipal}}</span>
-                </span>
-              </div>
-
-              <div class="form-group">
-                <label class="col-sm-2 control-label">&nbsp;</label>
-                <div class="col-sm-10">
-                  <div id="btnGroupImgSecu" class="btnb-group" data-toggle="buttons">
-                    <label id="labelImagenSecuUpload" class="btnb btnb-default {{isImagenSecuConURL?'':'active'}}" ng-click="mostrarInputImgSecu(false)">
-                      <input type="radio" name="opcImgSecu" value="1" checked="checked"
-                        /> Selecciona una imagen
-                    </label>
-                    <label id="labelImagenSecuUrl" class="btnb btnb-default {{isImagenSecuConURL?'active':''}}" ng-click="mostrarInputImgSecu(true)" >
-                      <input type="radio" name="opcImgSecu" value="5"
-                        /> Escribe la URL de tu imagen
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group" ng-show="isNuevoProducto">
-                <label class="col-sm-2 control-label">Imagenes Secundarias</label>
-                <div class="col-sm-10">
-                  <input type="file" class="form-control" id="imgSecu" name="imgSecu"
-                         nv-file-select uploader="imgSecundariasUpload"
-                         ng-hide="isImagenSecuConURL">
-
-                  <table width="100%" ng-show="isImagenSecuConURL" >
-                    <tr>
-                      <td width="85%">
-                        <input type="text" class="form-control" name="imgSecundaria"
-                               ng-model="imgSecuUrlTemp"
-                               placeholder="Escribe la URL de tu imagen"
-                               ng-enter="agregaImgSecuUrl( )"></td>
-                      <td width="5%">&nbsp;</td>
-                      <td>
-                        <div class="btn-mt">
-                          <span><i class="glyphicon glyphicon-plus"
-                                   ng-click="agregaImgSecuUrl( )"></i></span>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <span style="font-size: 11px;">Nota: Puedes agregar mas de una imagen.</span><br/>
-                  <span style="color:maroon" ng-show="msgErrorImgSecundaria != ''">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    <span>{{msgErrorImgSecundaria}}</span>
-                  </span>
-                  <div  ng-hide="isImagenSecuConURL" style="width: 100%" ng-repeat="item in imgSecundariasUpload.getNotUploadedItems()">
-                    <div style="width: 200px;">
-                      <span class="label label-default" style="width: 150px;">{{item.file.name}}</span>
-                      <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
-                            ng-click="removerArchivoImagen(item);"></span>
-                    </div>
-                  </div>
-                  <div  ng-show="isImagenSecuConURL" style="width: 100%"
-                        ng-repeat="imgSecu in producto.imagenesSecundarias">
-                    <div style="width: 200px;">
-                      <span class="label label-default" style="width: 150px;">{{imgSecu}}</span>
-                      <span class="glyphicon glyphicon-remove cursor" aria-hidden="true"
-                            ng-click="removerArchivoImagenUrl($index);"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group" ng-show="isNuevoProducto">
-                <label class="col-sm-2 control-label">Especifica ciones</label>
+                <label class="col-sm-2 control-label">Especificaciones</label>
                 <div class="col-sm-10">
                   <input type="file" class="form-control" id="fileEspec" name="fileEspec"
                          nv-file-select uploader="fileUpload">

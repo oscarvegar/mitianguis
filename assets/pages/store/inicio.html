@@ -25,14 +25,16 @@
                 	<span class="sale">{{prod.nombre}}</span>
                 </div>
               	<div class="price-label">${{prod.precio}}</div>
+                <br>
+                <br>
               	<a href="javascript:void(0)" ng-click="seleccionarProducto(prod)">
-                  <img ng-src="{{prod.imagenPrincipal}}" alt="1" style="width:260px;height:285px;">
+                  <img ng-src="{{prod.imagenPrincipal}}" alt="1" style="width:100%;">
                   <span class="tile-overlay"></span>
                 </a>
                 <div class="footer">
                 	<a>{{prod.descripcionCorta}}</a>
 
-                  <button class="btn btn-primary">Añadir al carrito</button>
+                  <button class="btn btn-primary" ng-click="seleccionarProducto(prod)">Ver Detalle</button>
                 </div>
               </div>
             </div>

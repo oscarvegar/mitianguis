@@ -40,7 +40,12 @@ angular.module("ProductoModule",[])
 						speed: 25,
 						preload:'all',
 						loop:true,
-						view:'fade'
+						view:'fade',
+						//layout: 'fullwidth',
+						preload:'all',
+            			fillMode:'stretch',
+						view:'basic',
+						instantStartLayers: true
 				});
 			}
 			

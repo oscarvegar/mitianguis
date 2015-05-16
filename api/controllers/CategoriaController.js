@@ -8,7 +8,7 @@
 module.exports = {
 	categoriasByTienda:function(req,res){
 		var idTienda = req.allParams().id;
-		Producto.find({tienda:idTienda},{fields: ['categorias']}).exec(function(err,data){
+		Producto.find({tienda:idTienda,status:1},{fields: ['categorias']}).exec(function(err,data){
 			console.log(data)
 			var cats = []
 			for(var i in data){

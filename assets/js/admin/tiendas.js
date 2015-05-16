@@ -127,7 +127,7 @@ tiendaModule.controller("TiendaController", function($rootScope, $scope, $http, 
   tiendaCtrl.goDetalle = function(tiendabd){
     if( !$scope.clickIconMenu ) {
       $rootScope.tiendaSelected = tiendabd;
-      $rootScope.selecciono(1);
+      $rootScope.selecciono(3);
       $scope.isVistaDetalle = true;
     }else{
       $scope.clickIconMenu = false;
