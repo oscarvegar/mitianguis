@@ -1,3 +1,5 @@
+
+
 angular.module("ProductoModule",[])
 .controller('ProductoCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope){
 	$scope.showDesc=true;
@@ -32,21 +34,23 @@ angular.module("ProductoModule",[])
 			*******************************************/
 			//Product Gallery
 			if($('#prod-gal').length > 0) {
-				var categorySlider = new MasterSlider();
-				categorySlider.control('thumblist' , {autohide:false ,dir:'h',align:'bottom', width:137, height:130, margin:15, space:0 , hideUnder:400});
-				categorySlider.setup('prod-gal' , {
+				$scope.categorySlider = new MasterSlider();
+				$scope.categorySlider.control('thumblist' , {autohide:false ,dir:'h',align:'bottom', width:137, height:130, margin:15, space:0 , hideUnder:400});
+				$scope.categorySlider.setup('prod-gal' , {
 						width:550,
 						height:484,
 						speed: 25,
-						preload:'all',
+						//preload:'all',
 						loop:true,
 						view:'fade',
 						//layout: 'fullwidth',
-						preload:'all',
+						//preload:'all',
             			fillMode:'stretch',
 						view:'basic',
 						instantStartLayers: true
 				});
+				if($scope.selProducto.subproductos && $scope.selProducto.subproductos.length>0)
+					$scope.categorySlider.api.gotoSlide($scope.imagenes.length);
 			}
 			
 			}, 10); 
@@ -77,14 +81,15 @@ angular.module("ProductoModule",[])
 
   	};
 
- 	$scope.desSeleccionarModelos = function(modelo){
+ 	$scope.desSeleccionarModelos = function(modelo,index){
+
 		for(var i in $scope.selProducto.subproductos){
 			$scope.selProducto.subproductos[i].selected = false;
 		}
+		$scope.categorySlider.api.gotoSlide($scope.imagenes.length+index);
 		$scope.selProducto.precio = modelo.precio;
 		$scope.selProducto.stock = modelo.stock;
 		$scope.selProducto.modeloSelected = modelo;
-		console.log($scope.selProducto.modeloSelected.id)
 		modelo.selected = true;
 	}
 	

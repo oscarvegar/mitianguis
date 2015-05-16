@@ -3,11 +3,16 @@
   <carrusel ng-show="productos.length>0"></carrusel>
 	<section class="cat-tiles" ng-show="productos.length>0">
       	<div class="container">
-        	<h2>Categorías {{categorias.length}}</h2>
+        	<h2>Categorías</h2>
         	<div class="row">
           	<!--Category-->
-          	<div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" ng-repeat="cat in categorias" style="height:40px;">
-            	<a href="javascript:void(0)" ng-click="buscaCategoria(cat)">
+          	<div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" >
+              <a href="javascript:void(0)" ng-click="buscaCategoria(-1)">
+                <p>Todas</p>
+              </a>
+            </div>
+            <div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" ng-repeat="cat in categorias" style="height:40px;">
+              <a href="javascript:void(0)" ng-click="buscaCategoria(cat)">
                 <p>{{cat}}</p>
               </a>
             </div>
