@@ -1,9 +1,6 @@
-<!doctype html>
-<html lang="es" ng-app="TianguisApp" ng-controller="TianguisController">
-    <!--Body-->
-    <body ng-cloak class="ng-cloak">
 
-     <div id="fb-root"></div>
+
+     <div id="fb-root" ></div>
 
         <!--Header-->
         <header data-offset-top="500" data-stuck="600">
@@ -148,9 +145,9 @@
                 <div class="footer group" ng-show="carrito.productosCarrito.length > 0">
 
                   <div class="buttons">
-                    <a class="btn " href="checkout.html"><i class="icon-download"></i>
+                    <!--a class="btn " href="checkout.html"><i class="icon-download"></i>
                       Pagar
-                    </a>
+                    </a-->
                     <a class="btn" href="/store#/carrito"><i class="icon-shopping-cart-content"></i>Al carrito</a>
                   </div>
                   <div class="total">{{carrito.total | currency : symbol : fractionSize}}</div>
@@ -374,9 +371,6 @@
             </div>
           </div>
         </div><!-- /.modal -->
-
-
-
-
-    </body><!--Body Close-->
-</html>
+        <% if(typeof redirectURL != 'undefined'){%>
+<input type="hidden" value="<%=redirectURL%>" id="redirectURL">
+<% } %>

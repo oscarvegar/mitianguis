@@ -23,6 +23,10 @@ var myApp = angular.module("TianguisApp",
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
+    var redirectURL = document.getElementById('redirectURL');
+    if(redirectURL){
+      $location.url('/blog');
+    }
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};
@@ -221,6 +225,7 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
     $routeProvider.when('/registroUser', {templateUrl: 'pages/admin/registroUser.html'});
     $routeProvider.when('/cliente', {templateUrl: 'pages/adminCliente/menuCliente.html'});
+    $routeProvider.when('/blog', {templateUrl: 'pages/store/blog.html'});
 
     //localStorage.clear();
     Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
