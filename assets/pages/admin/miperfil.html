@@ -1,6 +1,4 @@
- <div class="post"  ng-controller="PerfilAdminController" ng-submit = "engineSubmit()" >
-    <div class="col-lg-5 col-md-5 col-sm-5">
-
+ <div   ng-controller="PerfilAdminController" ng-submit = "engineSubmit()" >
                 <div class="form-group group" >
                         <a href="javascript:void(0)">
                           <img ng-src="{{user.imagenPrincipal}}"  style="width:260px;height:285px;">
@@ -11,79 +9,79 @@
                       
                  </div>
 
-                <form method="post" class="login-form">
+                <form method="post" name="perfilForm" >
                     
                     <div class="form-group group">
-                       usuario:
-                        <input type="text" class="form-control" name="updateName" id="updateName"  ng-model="user.username" readonly>
-                    </div>
-
-                    <div class="form-group group">
-                        correo-electronico
-                        <input type="email" class="form-control" name="updateEmail" id="updateEmail"  ng-model ="user.email"  required>
-                    </div>
-
-                    <div class="form-group group">
-                       nombre(s):
-                        <input type="text" class="form-control" name="updatenombre" id="updatenombre"  ng-model="user.nombre" >
-                    </div>
-
-                    <div class="form-group group">
-                       apellido paterno:
-                        <input type="text" class="form-control" name="updateApellidoPaterno" id="updateApellidoPaterno"  ng-model="user.apellidoPaterno" >
-                    </div>
-
-                    <div class="form-group group">
-                       apellido materno:
-                        <input type="text" class="form-control" name="updateApellidoMaterno" id="updateApellidoMaterno"  ng-model="user.apellidoMaterno" >
+                       <label  class="col-lg-2 col-md-2 col-sm-2" for="updateName">Usuario:</label>
+                        <input type="text" class="col-lg-3 col-md-3 col-sm-3" name="updateName" id="updateName"  ng-model="user.username" readonly>
                     </div>
 
 
                     <div class="form-group group">
-                       telefono:
-                        <input type="text" class="form-control" name="updateTelefono" id="updateTelefono"  ng-model="user.telefono" >
-                    </div>
-
-                    <div class="form-group group">
-                       celular:
-                        <input type="text" class="form-control" name="updateCelular" id="updateCelular"  ng-model="user.celular" >
-                    </div>
-
-                    <div class="form-group group">
-                       RFC:
-                        <input type="text" class="form-control" name="updateRfc" id="updateRfc"  ng-model="user.rfc" >
-                    </div>
-
-                    <div class="form-group group">
-                       CURP:
-                        <input type="text" class="form-control" name="updateCurp" id="updateCurp"  ng-model="user.curp" >
-                    </div>
-
-                    <div class="form-group group">
-                       facebook:
-                        <input type="email" class="form-control" name="updateFacebook" id="updateFacebook" ng-model="user.facebook" >
+                       <label  class="col-lg-2 col-md-2 col-sm-2" for="updatenombre">Nombre(s):</label>
+                        <input type="text" class="col-lg-3 col-md-3 col-sm-3" name="updatenombre" id="updatenombre"  ng-model="user.nombre" >
+              
+                        <label class="col-lg-2 col-md-2 col-sm-2" for="updateApellidoPaterno">Apellido Paterno:</label>
+                        <input type="text" class="col-lg-3 col-md-3 col-sm-3" name="updateApellidoPaterno" id="updateApellidoPaterno"  ng-model="user.apellidoPaterno" >
                     </div>
 
 
                     <div class="form-group group">
-                       twitter:
-                        <input type="email" class="form-control" name="updateTwitter" id="updateTwitter" ng-model="user.twitter" >
+
+                        <label class="col-lg-2col-md-2 col-sm-2" for="updateApellidoMaterno">Apellido Materno:</label>
+                        <input type="text" class="col-lg-3 col-md-3 col-sm-3" name="updateApellidoMaterno" id="updateApellidoMaterno"  ng-model="user.apellidoMaterno" >
+
+                       <label class="col-lg-1 col-md-1 col-sm-1" for="updateTelefono">Telefono:</label>
+                        <input type="text" maxlength="10" class="col-lg-2 col-md-2 col-sm-2" name="updateTelefono" id="updateTelefono"  ng-model="user.telefono" >
+                    
+                       <label class="col-lg-1 col-md-1 col-sm-1" for="updateCelular">Celular:</label>
+                        <input type="text" maxlength="10" class="col-lg-2 col-md-2 col-sm-2" name="updateCelular" id="updateCelular"  ng-model="user.celular" >
                     </div>
 
                     <div class="form-group group">
-                       pinterest:
-                        <input type="email" class="form-control" name="updatePinterest" id="updatePinterest" ng-model="user.pinterest" >
+                       
+                    </div>
+
+                    <div class="form-group group">
+
+
+                        <label class="col-lg-2 col-md-2 col-sm-2" for="updateEmail">Correo Electronico:</label>
+                        <input type="email" class="col-lg-3 col-md-3 col-sm-3" name="updateEmail" id="updateEmail"  ng-model ="user.email"  required>
+                       
+                       <label  class="col-lg-1 col-md-1 col-sm-1" for="updateRfc">RFC:</label>
+                        <input type="text" class="col-lg-2 col-md-2 col-sm-2" name="updateRfc" id="updateRfc"  ng-model="user.rfc" >
+
+                        <label  class="col-lg-1 col-md-1 col-sm-1" for="updateCurp">CURP:</label>
+                        <input type="text" class="col-lg-2 col-md-2 col-sm-2" name="updateCurp" id="updateCurp"  ng-model="user.curp" >
+                    </div>
+
+                    <div class="form-group group">
+                       <label   class="col-lg-2 col-md-2 col-sm-2" for="updateFacebook">Facebook:</label>
+                        <input type="email" class="col-lg-3 col-md-3 col-sm-3" name="updateFacebook" id="updateFacebook" ng-model="user.facebook" >
+                    
+                       <label   class="col-lg-1 col-md-1 col-sm-1" for="updateTwitter">Twitter:</label>
+                        <input type="text" ng-pattern= "/@[A-Za-z0-9-]/"  class="col-lg-2 col-md-2 col-sm-2" name="updateTwitter" id="updateTwitter" ng-model="user.twitter" >
+                                            
+                       <label   class="col-lg-1 col-md-1 col-sm-1" for="updatePinterest">Pinterest:</label>
+                        <input type="email" class="col-lg-3 col-md-3 col-sm-3" name="updatePinterest" id="updatePinterest" ng-model="user.pinterest" >
                     </div>
                    
+                  
                    <div class="form-group group">
-                        ¿desar cambiar su contraseña?
-                        <input type="checkbox"    ng-model ="checked" >
+                       <span  ng-show="perfilForm.updateTwitter.$error.pattern">dirección de twitter no valida!</span>
                     </div>
-                   
+
+                   <div class="form-group group">
+                        <label   class="col-lg-2 col-md-2 col-sm-2" for="clienteCheched">¿Desea Cambiar Su Contraseña?</label>
+                        <input   class="col-lg-1 col-md-1 col-sm-1" type="checkbox" id="clienteCheched"   ng-model ="checked" >
+                    </div>
+
+
+
                     
                     <div class="form-group group" ng-show="checked">
-                        nueva contraseña
-                        <input type="password" class="form-control" name="updatePassword" id="updatePassword"  ng-model ="user.password" >
+                        <label   class="col-lg-2 col-md-2 col-sm-2" for="updatePassword">Nueva Contraseña:</label>
+                        <input type="password" class="col-lg-2 col-md-2 col-sm-2" name="updatePassword" id="updatePassword"  ng-model ="user.password" >
                     </div>
 
 
@@ -105,22 +103,25 @@
                    <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Acualizar Imagen Perfil</h4>
                       </div>
                       <div class="modal-body">
                                <!-- cargar imagen nueva-->
                                 <input type="file" class="form-control" id="imgPrincipalPerfil" name="imgPrincipalPerfil"
                                         nv-file-select uploader="imgPrincipalUploadPerfil" >
+
+                                <div class="alert alert-danger"  ng-show="showWarn">
+                                   <strong>Debes Subir una Imagen</strong>
+                                   <button type="button"  class="close" ng-click="showWarn = false">×</button>
+                                </div>        
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         <button type="button" ng-click = "updateImage()"  class="btn btn-primary">OK</button>
                       </div>
                     </div>
                   </div>
                 </div>
-                 
-                
-   </div>            
+              
 </div> 

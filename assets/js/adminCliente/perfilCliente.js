@@ -17,20 +17,30 @@ miperfil.controller("PerfilClienteAdminController", function($scope, $http,FileU
 
       $scope.imgPrincipalUploadPerfil = new FileUploader(
         {url: "/guardarArchivoPerfil",
+        removeAfterUpload: true,
+        queueLimit : 1,
           filters: [{
             name: 'extension',
             // A user-defined filter
             fn: function(item) {
-              if(item.type.indexOf("image") < 0 ){
-                item = null;
-                console.log(" debes subir una imagen");
-                return false;
-              }
-              console.log(" se subio la imagen");
-              return true;
+               var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+               var cadena = '|jpg|png|jpeg|bmp|gif|'.indexOf(type);
+               if(cadena !== -1 ){
+                  return true;
+
+               }else{
+                  document.getElementById("imgPrincipalPerfil").value = "";   
+                  $scope.alert('warn', 'Error', 'Debes subir una imagen');
+                  return false;
+
+               }
+               // return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
             }
            }]
           });
+
+    
+
 
       $scope.engineSubmit = function(){
            if(!$scope.checked){
@@ -58,22 +68,32 @@ miperfil.controller("PerfilClienteAdminController", function($scope, $http,FileU
            };
 
            var itemImgPrincipal = $scope.imgPrincipalUploadPerfil.getNotUploadedItems()[itemIndexImgPrincipal];
-           itemImgPrincipal.formData = [{infoPerfil: JSON.stringify(angular.copy(objRequest))}];
+           if(itemIndexImgPrincipal >= 0){
+                itemImgPrincipal.formData = [{infoPerfil: JSON.stringify(angular.copy(objRequest))}];
 
-           $scope.imgPrincipalUploadPerfil.onCompleteAll = function (error, data) {
-             $('#pictuteProfileModalClient').modal('hide');
-             var usuario = JSON.parse( $window.localStorage.getItem("usuario") );
-             $http.get("/getUserCurrent/"+usuario.username).then(function(result){  
-              $scope.user.imagenPrincipal = result.data.imagenPrincipal;
-             console.log("nueva imagen");
-             console.log($scope.user.imagenPrincipal);
-             });
-           }
+                itemImgPrincipal.onComplete = function (response, status, headers) {
+                $('#pictuteProfileModalClient').modal('hide');
+                console.log('onComplete', response[0].imagenPrincipal); 
+                $scope.user.imagenPrincipal = response[0].imagenPrincipal;
+                document.getElementById("imgPrincipalPerfil").value = "";
+                          }
            itemImgPrincipal.upload();
+           
+           }
+           
+           
 
+        
            
       
       },
+
+      $scope.cancel = function(){
+          $scope.imgPrincipalUploadPerfil.clearQueue();
+          document.getElementById("imgPrincipalPerfil").value = "";
+
+      },
+
 
 
       $scope.alert = function(tipo,title,desc){
@@ -84,6 +104,7 @@ miperfil.controller("PerfilClienteAdminController", function($scope, $http,FileU
           case 'warn':
               $scope.alertClass = "alert-warning";
               $scope.infoIcon = "icon-exclamation-sign";
+              $scope.showWarn = true; 
               break;
           case 'info':
               $scope.alertClass = "alert-info";

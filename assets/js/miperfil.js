@@ -25,17 +25,23 @@ miperfil.controller("PerfilAdminController", function($scope, $http,FileUploader
 
       $scope.imgPrincipalUploadPerfil = new FileUploader(
         {url: "/guardarArchivoPerfil",
+          removeAfterUpload: true,
+          queueLimit : 1,
           filters: [{
             name: 'extension',
             // A user-defined filter
             fn: function(item) {
-              if(item.type.indexOf("image") < 0 ){
-                item = null;
-                console.log(" debes subir una imagen");
-                return false;
-              }
-              console.log(" se subio la imagen");
-              return true;
+              var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+               var cadena = '|jpg|png|jpeg|bmp|gif|'.indexOf(type);
+               if(cadena !== -1 ){
+                  return true;
+
+               }else{
+                  document.getElementById("imgPrincipalPerfil").value = "";   
+                  $scope.alert('warn', 'Error', 'Debes subir una imagen');
+                  return false;
+
+               }
             }
            }]
           });
@@ -63,7 +69,7 @@ miperfil.controller("PerfilAdminController", function($scope, $http,FileUploader
 
 
       $scope.updateImage = function(){
-           var itemIndexImgPrincipal = $scope.imgPrincipalUploadPerfil.getNotUploadedItems().length - 1;
+           /*var itemIndexImgPrincipal = $scope.imgPrincipalUploadPerfil.getNotUploadedItems().length - 1;
            var objRequest = {
               pathBase: webUtil.getOrigin(),
               usuario: $scope.user.username,
@@ -82,10 +88,35 @@ miperfil.controller("PerfilAdminController", function($scope, $http,FileUploader
              console.log($scope.user.imagenPrincipal);
              });
            }
-           itemImgPrincipal.upload();
+           itemImgPrincipal.upload();*/
 
+           var itemIndexImgPrincipal = $scope.imgPrincipalUploadPerfil.getNotUploadedItems().length - 1;
+           var objRequest = {
+              pathBase: webUtil.getOrigin(),
+              usuario: $scope.user.username,
+              tipoArchivo: "ImagenPrincipal"
+           };
+
+           var itemImgPrincipal = $scope.imgPrincipalUploadPerfil.getNotUploadedItems()[itemIndexImgPrincipal];
+           if(itemIndexImgPrincipal >= 0){
+                itemImgPrincipal.formData = [{infoPerfil: JSON.stringify(angular.copy(objRequest))}];
+
+                itemImgPrincipal.onComplete = function (response, status, headers) {
+                $('#pictuteProfileModal').modal('hide');
+                console.log('onComplete', response[0].imagenPrincipal); 
+                $scope.user.imagenPrincipal = response[0].imagenPrincipal;
+                document.getElementById("imgPrincipalPerfil").value = "";
+                }
+                itemImgPrincipal.upload();
+          }
            
       
+      },
+
+      $scope.cancel = function(){
+          $scope.imgPrincipalUploadPerfil.clearQueue();
+          document.getElementById("imgPrincipalPerfil").value = "";
+
       },
 
 
@@ -97,6 +128,7 @@ miperfil.controller("PerfilAdminController", function($scope, $http,FileUploader
           case 'warn':
               $scope.alertClass = "alert-warning";
               $scope.infoIcon = "icon-exclamation-sign";
+              $scope.showWarn = true; 
               break;
           case 'info':
               $scope.alertClass = "alert-info";
