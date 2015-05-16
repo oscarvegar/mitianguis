@@ -3,9 +3,9 @@
     <div class="master-slider" id="hero-slider" ng-show="productosPrincipales.length>0">
         <!--Slide 1-->
         <div class="ms-slide"  ng-repeat="prod in productosPrincipales">
-            <img ng-src="{{prod.imagenPrincipal}}" alt="" >
+            <img ng-src="{{prod.imagenPrincipal}}" alt="" style="background-color:white;" style="z-index:1">
 
-            <h2 style="width: 456px; left: 110px; top: 110px;" class="ms-layer ms-layer btn btn-primary" data-effect="top(50,true)" data-duration="700"
+            <h2 style=" left: 110px; top: 110px;" class="ms-layer ms-layer btn btn-primary" data-effect="top(50,true)" data-duration="700" style="visibility:visible"
                 data-delay="250" data-ease="easeOutQuad">{{prod.nombre}}</h2>
 
             <!--div style="left: 110px; top: 300px;" class="ms-layer button" data-effect="left(50,true)" data-duration="500" data-delay="750"
