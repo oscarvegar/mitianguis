@@ -331,6 +331,7 @@ myApp.directive('validNumberFloat', function() {
 
 myApp.run(function(){
   document.getElementById('mainmain').style.display = 'inline';
+  document.getElementById('mainloading').style.display = 'none';
 });
 
 /*
