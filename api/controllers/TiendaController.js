@@ -8,6 +8,7 @@ var fs = require('fs');
 var accounting = require('accounting');
 module.exports = {
   index:function(req,res){
+    console.info("sdjhsajkhdsakjdhas")
     var baseURL = req.baseUrl;
     var params = req.allParams();
     if(baseURL.split('.').length<=2 && baseURL.search(':')<0)
