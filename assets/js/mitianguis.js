@@ -28,7 +28,6 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     if(redirectURL){
       $location.url('/blog');
     }
-    console.info("esta entrando")
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};
@@ -227,7 +226,7 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
     $routeProvider.when('/registroUser', {templateUrl: 'pages/admin/registroUser.html'});
     $routeProvider.when('/cliente', {templateUrl: 'pages/adminCliente/menuCliente.html'});
-    $routeProvider.when('/blog', {templateUrl: 'pages/store/blogs.html'});
+    $routeProvider.when('/blog', {templateUrl: 'pages/store/blog.html'});
     $routeProvider.when('/admin/blog/crear', {templateUrl: 'pages/admin/crearBlog.html'});
 
     //localStorage.clear();
@@ -330,6 +329,9 @@ myApp.directive('validNumberFloat', function() {
   };
 });
 
+myApp.run(function(){
+  document.getElementById('mainmain').style.display = 'inline';
+});
 
 /*
 myApp.directive('richTextEditor', function() {

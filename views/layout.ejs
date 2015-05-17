@@ -4,6 +4,8 @@
   <head>
      <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
     <meta property="og:type" content="website" />
 
     <!-- si viene un producto -->
@@ -16,6 +18,15 @@
     <meta name="twitter:title" content="<%=producto.nombre%> a <%= producto.precioFormat%>" />
     <meta name="twitter:image" content="<%=producto.imagenPrincipal%>" />
     <meta name="twitter:url" content="http://mitianguis.mx/<%=redirectURL%>" />
+
+    <%}%>
+    <!-- si viene un blog -->
+    <% if(typeof blog != 'undefined'){%>
+      <meta property="og:image" itemprop="image primaryImageOfPage" content="<%=blog.imagen%>" />
+      <meta name="og:title" id="mtt" property="og:title" itemprop="title name" content="<%=blog.titulo%>" />
+      <meta name="og:description" property="og:description" itemprop="description" content="<%=blog.preview%>" />
+      <meta name="HandheldFriendly" content="True"><title><%=blog.titulo%></title>    
+        <meta name="description" content="<%=blog.preview%>">
 
     <%}%>
 <!--
@@ -40,8 +51,11 @@
 
     </head>
 
-  <body>
+  <body >
+    <div id="mainmain" style="display:none">
     <%- body %>
+    </div>
+    <div class="overlay"><div>CENTERED ICON</div></div>
 
 
 

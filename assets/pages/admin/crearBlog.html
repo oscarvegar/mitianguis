@@ -1,0 +1,115 @@
+<section class="blog" style="padding-top:100px;" ng-controller="BlogCtrl" flow-prevent-drop>
+	<div class="container">
+		<div class="row">
+			<h1>Crear nueva entrada de blog</h1>
+			<!--Left Column-->
+			
+			<div class="col-lg-9 col-md-9">
+				<h2 class="title" style="width:100%"><input class="text-sin-border" id="blog.titulo" type="text" ng-model="blog.titulo" style="width:100%" select-on-click></h2>
+				<!--Post-->
+				<div class="post">
+					<div class="row">
+						<div class="col-lg-12 col-md-12">
+
+							<div flow-init>
+								<div class="row">
+									<span flow-btn ng-show="!$flow.files[0]">
+										<img src="/img/image_add.png"   class="hand">
+									</span>
+								</div>
+								<div class="row">
+									<img flow-img="$flow.files[0]" style="width:100%; max-height:400px"/>
+								</div>
+								<div class="row">
+									<div class="col-md-4 col-md-offset-4">
+										
+										<button class="form-control" ng-click="borrarImagen()" ng-show="$flow.files[0]">Cambiar Imagen</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+					<br>
+						<textarea style="width:100%" rows=10 select-on-click>{{blog.articulo}}</textarea>
+							<footer>
+								<div class="share">
+									<a href="#"><i class="fa fa-twitter"></i></a>
+									<a href="#"><i class="fa fa-facebook-square"></i></a>
+									<a href="#"><i class="fa fa-pinterest-square"></i></a>
+									<a href="#"><i class="fa fa-envelope"></i></a>
+								</div>
+								<ul class="meta">
+									<li><i class="fa fa-user"></i><a href="#">By Resoursa</a></li>
+									<li><i class="fa fa-calendar"></i><a href="#">12.02.2014</a></li>
+								</ul>
+							</footer>
+						</div>
+					</div>
+
+					<!--Disqus Comments Plugin-->
+					<div class="comments-block">
+						<div id="disqus_thread"></div>
+						<script type="text/javascript">
+							/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  var disqus_shortname = '8guild'; // required: replace example with your forum shortname
+
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                  	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  	dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                  })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+      </div>
+
+      <!--Sidebar-->
+      <div class="col-lg-3 col-md-3">
+      	<!--Search Widget-->
+      	<h3>Search the blog</h3>
+      	<form class="sidebar-search">
+      		<input type="text" class="form-control" name="search-blog" placeholder="Search">
+      		<button type="submit"></button>
+      	</form>
+      	<!--Tags-->
+      	<h3>Tags</h3>
+      	<div class="tags">
+      		<a href="#">Limo</a>, 
+      		<a href="#">theme</a>, 
+      		<a href="#">HTML5</a>, 
+      		<a href="#">premium</a>, 
+      		<a href="#">shopping</a>, 
+      		<a href="#">e-commerce</a> 
+      	</div>
+      	<!--Latest posts-->
+      	<h3>Latest posts</h3>
+      	<div class="latest-posts">
+      		<div class="post">
+      			<a href="#">New awesome theme out there...</a>
+      			<div class="meta">
+      				<a href="#">Comments <span>(34)</span></a>
+      				<span class="date">12.02.2014</span>
+      			</div>
+      		</div>
+      		<div class="post">
+      			<a href="#">Lorem ipsum dolor sit amet...</a>
+      			<div class="meta">
+      				<a href="#">Comments <span>(22)</span></a>
+      				<span class="date">12.02.2014</span>
+      			</div>
+      		</div>
+      		<div class="post">
+      			<a href="#">Anim pariatur cliche reprehenderit...</a>
+      			<div class="meta">
+      				<a href="#">Comments <span>(81)</span></a>
+      				<span class="date">12.02.2014</span>
+      			</div>
+      		</div>
+      	</div>
+      </div>
+  </div>
+</div>
+      </section><!--Blog Single Close-->
