@@ -19,7 +19,8 @@ var myApp = angular.module("TianguisApp",
                                 'RegistroUserModule',
                                 'AdminClienteModule',
                                 'PerfilClienteModule',
-                                'ComprasClienteAdminModule'
+                                'ComprasClienteAdminModule',
+                                'BlogModule',
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
@@ -225,7 +226,8 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
     $routeProvider.when('/registroUser', {templateUrl: 'pages/admin/registroUser.html'});
     $routeProvider.when('/cliente', {templateUrl: 'pages/adminCliente/menuCliente.html'});
-    $routeProvider.when('/blog', {templateUrl: 'pages/store/blog.html'});
+    $routeProvider.when('/blog', {templateUrl: 'pages/store/blogs.html'});
+    $routeProvider.when('/admin/blog/crear', {templateUrl: 'pages/admin/crearBlog.html'});
 
     //localStorage.clear();
     Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
