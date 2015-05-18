@@ -5,10 +5,10 @@
         <h2>Completa tus datos</h2>
         <div class="row">
              <form name="loginForm3" class="login-form" ng-submit="registrarUser();" novalidate>
-</br></br></br>
-
+            </br></br></br>
+                  <h2><a>Crea tu Cuenta!!!, Es muy Fácil</a></h2>
                   <div class="alert alert-success"  ng-show="showAlert">
-                    <strong>Revisa tu correo electrónico para activar tu cuenta, recuerda checar la carpeta de SPAM también.</strong><a href="/"> Regresar al inicio. </a>
+                    <strong>Revisa tu correo electrónico para activar tu cuenta, recuerda checar la carpeta de SPAM también.</strong><a href="http://mitianguis.mx/#/"> Regresar al inicio. </a>
                     <button type="button" class="close" ng-click="showAlert = false">×</button>
                   </div>
 
@@ -27,11 +27,13 @@
                   <div class="form-group group">
                     <label for="emailUser">Email</label>
                     <input type="email" class="form-control" name="emailUser" id="emailUser"
-                           ng-model="user.username" placeholder="Ingresa tu correo" ng-required="true" />
+                           ng-model="user.username" placeholder="Ingresa tu correo" ng-required="true" />    
+                    <span ng-show="submitted==false">         
                     <span style="color:maroon" ng-show="loginForm3.emailUser.$dirty && loginForm3.emailUser.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span ng-show="loginForm3.emailUser.$error.required">Tu correo electrónico es requerido.</span>
                       <span ng-show="loginForm3.emailUser.$invalid && !loginForm3.emailUser.$error.required">Tu correo electrónico es inválido.</span>
+                    </span>
                     </span>
                   </div>
                   <div class="form-group group">
@@ -39,10 +41,12 @@
                     <input type="password" class="form-control" name="logPasswordUser" id="logPasswordUser"  data-ng-class="{'ng-invalid':loginForm3.passwordConfirm.$error.match}" 
                            ng-model="user.passwordUser" placeholder="Ingresa tu contraseña"
                            ng-required="true" ng-minlength="6"/>
+                    <span ng-show="submitted==false">  
                     <span style="color:maroon" ng-show="loginForm3.logPasswordUser.$dirty && loginForm3.logPasswordUser.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span ng-show="loginForm3.logPasswordUser.$error.required">Tu contraseña es requerida.</span>
                       <span ng-show="loginForm3.logPasswordUser.$invalid && !loginForm3.logPasswordUser.$error.required">Tu contraseña debe tener un mínimo de 6 caracteres.</span>
+                    </span>
                     </span>
                   </div>
 
@@ -51,13 +55,15 @@
                     <input type="password" class="form-control"  data-match="user.passwordUser" name="logPasswordConfirm" id="logPasswordConfirm"
                            ng-model="user.passwordConfirm" placeholder="Ingresa tu contraseña"
                            ng-required="true" ng-minlength="6"/>
+                    <span ng-show="submitted==false">  
                     <span style="color:maroon" ng-show="loginForm3.logPasswordConfirm.$dirty && loginForm3.logPasswordConfirm.$invalid">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <span data-ng-show="loginForm3.logPasswordConfirm.$error.match">La contraseña no coincide!</span>
                     </span>
+                    </span>
                   </div>
   
-                  <input class="btn btn-black" ng-disabled="loginForm3.$invalid" type="submit" value="Registrar" />
+                  <input class="btn btn-black" ng-click="submitted=true" ng-disabled="loginForm3.$invalid" type="submit" value="Registrar"  ng-disabled="blockRegister"/>
 
                 </form>
         </div>

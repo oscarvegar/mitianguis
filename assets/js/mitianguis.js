@@ -31,8 +31,9 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $scope.categorias = null;
     $scope.mercante = null;
     $scope.errorLogin = false;
-
-
+    $scope.blockRegister=false;
+    $scope.showAlertDanger = false; 
+    $scope.submitted = false;
     $rootScope.meses = ["01","02","03","04","05","06","07","08","09","10","11","12"];
     $rootScope.selMes = "01";
     $rootScope.anos = ["15","16","17"];
@@ -88,14 +89,21 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
               webUtil.save("usuario", result.data.user);
               webUtil.save("email", result.data.user.username);
               $rootScope.usuario = result.data.user;
+              $scope.user ={};
+              $scope.errorLogin = false;
+              $scope.submitted = false;
             });
           } else {
             webUtil.save("usuario", result.data.user);
             webUtil.save("email", result.data.user.username);
             $rootScope.usuario = result.data.user;
+            $scope.user ={};
+            $scope.errorLogin = false;
+            $scope.submitted = false;
           }
         } else {
           $scope.errorLogin = true;
+          $scope.submitted = false;
         }
       });
     }
@@ -135,21 +143,23 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
       console.log("Recuperar Password");
       console.log($scope.forgotMail);
 
-          $http.post('/recuperarPassword',{email:$scope.forgotMail}).success(function(data){
-              if(data.code > 0)
-                  console.log("Datos");
-                  console.log(data);
-                   //alert("Success: " + JSON.stringify(data));
-                  $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
+           $http.post("/recuperarPassword", {email:$scope.forgotMail}).then(function(result) {
+             $scope.showAlertDanger = false; 
+             $scope.alert('success','Recuperar Contraseña','Se ha enviado un correo a tu cuenta');
+          },function(err){
+             $scope.showAlert = false;
+             $scope.alert('danger', 'Registro No Existente', 'Ese correo no existe en el sistema, favor de registrarse.');
+             console.log("ERROR",err);
           });
     };
 
     $scope.logout = function() {
+        $scope.submitted = false;
         $http.get('/logout').success(function(datos){
         $window.localStorage.removeItem("usuario");
             $rootScope.usuario = null;
             delete $rootScope.usuario;
-            //window.location = '/';
+            window.location = 'http://mitianguis.mx/#/';
         });
     };
 
@@ -174,9 +184,12 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     $http.post("/registrarUser", $scope.userRegister).then(function(result) {
       console.log("Respuesta User");
       console.log( JSON.stringify(result) );
+      $scope.user = {};
+      $scope.blockRegister=true;
+      $scope.showAlertDanger = false; 
       $scope.alert('success', 'Registro Exitoso', 'Favor de revisar tu correo electrónico  para que activar tu cuenta');
     },function(err){
-
+       $scope.submitted = false;
        $scope.alert('danger', 'Registro Duplicado', 'Ese correo electrónico ya se encuentra registrado favor de cambiarlo.');
        console.log("ERROR",err);
     });

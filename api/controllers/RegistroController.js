@@ -178,7 +178,14 @@ module.exports = {
     console.log("Recuperar Password>>>>>>>");
         var mail = req.allParams().email;
         console.log(mail);
+
         User.findOneByEmail(mail,function(err,fuser){
+          if(fuser === undefined){
+           console.log("No existe ese usuario");
+           mensaje = "No existe el usuario en el sistema, favor de registrarse.";
+            return res.json(400,{codigo:-1, mensaje:mensaje});
+          }else{
+
             if(!fuser){res.json({code:1});return}
             if(err){console.log(err);return res.json({code:-1})};
             var word =  eden.word()+ new Date().getMilliseconds()+new Date().getMinutes();
@@ -193,6 +200,7 @@ module.exports = {
             };
             EmailService.sendEmail(notificationMail);
             res.json({code:1});
+          }
         });
     },
 
