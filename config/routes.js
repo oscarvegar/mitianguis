@@ -89,7 +89,12 @@ module.exports.routes = {
 
 
   /*** ADMINISTRACION DE CLIENTES ***/
-  'GET /comprasCliente/:id/:status':'VentaController.comprasCliente'
+  'GET /comprasCliente/:id/:status':'VentaController.comprasCliente',
+
+
+  /*** BLOG ???? ***/
+  'GET /blog/:id':'BlogController.renderBlog',
+  'GET /blog':'BlogController.renderMain'
 
 
 

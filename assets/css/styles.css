@@ -10414,6 +10414,7 @@ header .search-form .close-search:hover {
   }
   header .menu-toggle {
     left: 5px;
+    z-index: 99999;
   }
   header .toolbar button,
   header .toolbar a {

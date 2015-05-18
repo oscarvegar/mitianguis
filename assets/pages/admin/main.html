@@ -5,11 +5,14 @@
    <div class="container">
    <br/>
      <div>
-       <tiendas style="display:{{menuOptions[0].display}}"></tiendas>
-       <productos style="display:{{menuOptions[1].display}};"></productos>
-       <ventas style="display:{{menuOptions[2].display}};"></ventas>
-       <red ng-if="menuOptions[4].show"></red>
-       <miperfil ng-if="menuOptions[6].show"></miperfil>
+       <miperfil ng-if="menuOptions[1].show"></miperfil>
+       <tiendas ng-if="menuOptions[3].show"></tiendas>
+       <ventas ng-if="menuOptions[4].show"></ventas>
+
+       <productos style="display:{{menuOptions[2].display}};"></productos>
+       <!--
+       <red ng-if="menuOptions[4].show"></red>-->
+
      </div>
    </div>
  </section><!--Blog Sidebar Left Close-->

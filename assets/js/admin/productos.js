@@ -475,12 +475,14 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
   $scope.accionSubProducto = function( ){
     $scope.subproducto.producto = $scope.productoSelected.id;
     if( $scope.isNewSubProducto ) {
+      var $btn = $('#btnSubProducto').button('loading');
       $http.post("/Producto/createSubProducto", $scope.subproducto).then(function (result) {
         if ($scope.isImagenSubProdURL) {
           $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
             $scope.productoSelected = result.data;
             $scope.subproducto = null;
             $scope.subproductoForm.$setPristine(true);
+            $btn.button('reset')
             $('#subProductoModal').modal('hide');
           });
         }else{
@@ -500,10 +502,19 @@ module.controller("ProductosAdminController", function($rootScope, $timeout, $sc
                 $scope.productoSelected = result.data;
                 $scope.subproducto = null;
                 $scope.subproductoForm.$setPristine(true);
+                $btn.button('reset')
                 $('#subProductoModal').modal('hide');
               });
             }
             $scope.cambiarArchivoUpload.uploadAll();
+          }else{
+            $http.get("/producto/findById/" + $scope.productoSelected.id).then(function (result) {
+              $scope.productoSelected = result.data;
+              $scope.subproducto = null;
+              $scope.subproductoForm.$setPristine(true);
+              $btn.button('reset')
+              $('#subProductoModal').modal('hide');
+            });
           }
         }
       });

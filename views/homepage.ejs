@@ -1,9 +1,6 @@
-<!doctype html>
-<html lang="es" ng-app="TianguisApp" ng-controller="TianguisController">
-    <!--Body-->
-    <body ng-cloak class="ng-cloak">
 
-     <div id="fb-root"></div>
+
+     <div id="fb-root" ></div>
 
         <!--Header-->
         <header data-offset-top="500" data-stuck="600">
@@ -46,9 +43,12 @@
                         <li class="has-submenu" style="text-align: left" >
                           <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
                           <ul class="submenu">
-                            <li><a href="" ng-click="selecciono(0)">Mis Tiendas</a></li>
-                            <li><a href="" ng-click="selecciono(2)">Mis Ventas</a></li>
-                            <li><a href="" ng-click="selecciono(3)">Mi Reputacion</a></li>
+                            <li><a href="" ng-click="selecciono(0)">Mis Compras</a></li>
+                            <li><a href="" ng-click="selecciono(1)">Mi Perfil</a></li>
+                            <li><a href="" ng-click="selecciono(2)">Mi Reputacion</a></li>
+                            <li><a href="" ng-click="selecciono(3)">Mis Tiendas</a></li>
+                            <<li><a href="" ng-click="selecciono(4)">Mis Ventas</a></li>
+                            <li><a href="" ng-click="selecciono(5)">Movimientos</a></li>
                             <li class="has-submenu" >
                               <a ng-href="/store#/admin/mired">Red MiTianguis</a>
                               <ul class="sub-submenu" style="background-color: white">
@@ -63,10 +63,8 @@
                                 <li><a>9na Generación</a></li>
                                 <li><a>10ma Generación</a></li>
                               </ul>
-                            </li>
-                            <li><a href="" ng-click="selecciono(5)">Movimientos</a></li>
-                            <li><a href="" ng-click="selecciono(6)">Mi Perfil</a></li>
-                            <li><a href="" ng-click="selecciono(8)">Mis Compras</a></li>
+                            </li> 
+                            
                           </ul>
                         </li>
                       </ul></td>
@@ -88,8 +86,8 @@
                         <li class="has-submenu" style="text-align: left">
                           <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
                           <ul class="submenu">
-                            <li><a href="" ng-click="selecciono(0)">Mis Compras</a></li>
-                            <li><a href="" ng-click="selecciono(1)">Afiliate</a></li>
+                            <li><a href="" ng-click="selecciono(0)">Afiliate</a></li>
+                            <li><a href="" ng-click="selecciono(1)">Mis Compras</a></li>
                             <li><a href="" ng-click="selecciono(2)">Mi Perfil Cliente</a></li>
                           </ul>
                         </li>
@@ -147,9 +145,9 @@
                 <div class="footer group" ng-show="carrito.productosCarrito.length > 0">
 
                   <div class="buttons">
-                    <a class="btn " href="checkout.html"><i class="icon-download"></i>
+                    <!--a class="btn " href="checkout.html"><i class="icon-download"></i>
                       Pagar
-                    </a>
+                    </a-->
                     <a class="btn" href="/store#/carrito"><i class="icon-shopping-cart-content"></i>Al carrito</a>
                   </div>
                   <div class="total">{{carrito.total | currency : symbol : fractionSize}}</div>
@@ -383,9 +381,6 @@
             </div>
           </div>
         </div><!-- /.modal -->
-
-
-
-
-    </body><!--Body Close-->
-</html>
+        <% if(typeof redirectURL != 'undefined'){%>
+<input type="hidden" value="<%=redirectURL%>" id="redirectURL">
+<% } %>

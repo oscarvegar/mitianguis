@@ -35,10 +35,12 @@
                  style="height: 200px;" ng-click="tiendaCtrl.setAsNuevaTienda(true, null)">
               <h4>&nbsp;</h4>
               <div align="center">
-              <span data-toggle="modal" data-target="#tiendaModal"  >
-                <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
-                     style="width: 110px;height: 110px" >
-              </span>
+                <span data-toggle="modal" data-target="#tiendaModal"  >
+                  <img src="../../imagenes/add.png" alt="Agrega una nueva Tienda"
+                       style="width: 110px;height: 110px" >
+                  <label style="font-size: 11px; position: relative;top: -15px"> Crear Nueva Tienda </label>
+                </span>
+
               </div>
             </div>
           </div>
@@ -59,7 +61,7 @@
           <h2>{{tiendaCtrl.tituloModal}}</h2>
           <span class="tenue" >Los campos marcados con * son obligatorios.</span>
         </div>
-        <div  class="modal-body">
+        <div  class="modal-body scroll500" >
           <form name="tiendaForm" class="login-form" ng-submit="tiendaCtrl.crear();" novalidate>
             <div class="alert alert-danger" role="alert" ng-show="errorTienda">
               <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -83,8 +85,9 @@
             </div>
             <div class="form-group group">
               <input type="text" class="form-control" name="url" id="url"
-                     ng-model="tiendaCtrl.tienda.url" placeholder="Escribe la url de acceso a tu tienda * " ng-required="true" />
-              <span style="font-size: 11px;">Ej. <b>zonajuegos</b> podrá ser vista como: <i>https://zonajuegos.mitianguis.mx</i></span>
+                     ng-model="tiendaCtrl.tienda.url" placeholder="Escribe la url de acceso a tu tienda * "
+                     ng-required="true" only-alphanumeric/>
+              <span style="font-size: 11px;">Ej. <b>zonajuegos</b> podrá ser vista como: <i>https://zonajuegos.mitianguis.mx</i></span><br/>
               <span style="color:maroon" ng-show="tiendaForm.url.$dirty && tiendaForm.url.$invalid">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 <span ng-show="tiendaForm.url.$error.required">La url es requerido.</span>
@@ -96,13 +99,31 @@
             <div class="form-group group">
               <img  ng-if="tiendaCtrl.tienda.logo" src="{{tiendaCtrl.tienda.logo}}"
                     width="50" height="50" style="height: 50px;max-height: 50px; min-height: 50px;" />
-              <input type="file" class="form-control" placeholder="Agrega el logo de tu tienda"
-                     nv-file-select uploader="tiendaCtrl.uploader" name="logo" id="logo"
-                     ng-show="tiendaCtrl.isNuevaTienda"/>
-              <input type="file" class="form-control" placeholder="Edita el logo de tu tienda"
-                     nv-file-select uploader="tiendaCtrl.uploaderEdit" name="logo" id="logo"
-                     ng-hide="tiendaCtrl.isNuevaTienda"/>
+              <div style="position:relative;" ng-show="tiendaCtrl.isNuevaTienda">
+                <a class='btn btn-primary' href='javascript:;'>
+                  <i class="fa fa-upload"></i>Sube tu logo ...
+                  <input type="file" class="form-control"
+                         style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;'
+                         name="file_source" size="40"
+                         onchange='$("#upload-file-logo").html("Archivo: " + $(this).val().split("\\")[2]);'
+                         nv-file-select uploader="tiendaCtrl.uploader" name="logo" id="logoFU"/>
+                </a>
+                <span class='label label-info' id="upload-file-logo"></span>
+              </div>
+              <div style="position:relative;" ng-hide="tiendaCtrl.isNuevaTienda">
+                <a class='btn btn-primary' href='javascript:;'>
+                  <i class="fa fa-upload"></i>Edita tu logo ...
+                  <input type="file" class="form-control"
+                         style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;'
+                         name="file_source" size="40"
+                         onchange='$("#upload-edit-logo").html("Archivo: " + $(this).val().split("\\")[2]);'
+                         nv-file-select uploader="tiendaCtrl.uploaderEdit" name="logo" id="logo"
+                         ng-hide="tiendaCtrl.isNuevaTienda"/>
+                </a>
+                <span class='label label-info' id="upload-edit-logo"></span>
+              </div>
             </div>
+
             <div class="form-group group">
               <input type="text" class="form-control" placeholder="Pega aqui la URL de tu tienda en faceboook"
                         name="urlFacebook" id="urlFacebook" ng-model="tiendaCtrl.tienda.facebook" />

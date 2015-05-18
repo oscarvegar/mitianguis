@@ -1,5 +1,5 @@
- <div class="post"  ng-controller="PerfilClienteAdminController"  ng-submit = "engineSubmit()" > 
-    <div class="col-lg-5 col-md-5 col-sm-5">
+ <div  ng-controller="PerfilClienteAdminController"  ng-submit = "engineSubmit()" > 
+    <div  >
            
                 <div class="form-group group" >
                         <a href="javascript:void(0)">
@@ -10,78 +10,71 @@
                         <button class="btn btn-primary" data-toggle="modal" data-target="#pictuteProfileModalClient" ng-show = "imagenPerfil">Modificar imagen de perfil</button>
                       
                  </div>
+     </div>               
 
-           <form method="post" class="login-form">
+           <form method="post" name="perfilForm">
+               <!-- <div class="form-horizontal" role="form"> -->
+                  <div class="form-group group">
+                        <label  class="col-lg-2 col-md-2 col-sm-2" for="nameClient">Usuario Cliente:</label>
+                        <input class="col-lg-3 col-md-3 col-sm-3" type="text"  name="nameClient" id="nameClient"  ng-model="user.username" readonly>
+                  </div>
+
+                  
+              <!--</div> -->
+
                     <div class="form-group group">
-                       usuario cliente:
-                        <input type="text" class="form-control" name="nameClient" id="nameClient"  ng-model="user.username" readonly>
+                        <label  class="col-lg-2 col-md-2 col-sm-2" for="nombreClient">Nombre(s):</label>
+                        <input class="col-lg-3 col-md-3 col-sm-3"  type="text" name="nombreClient" id="nombreClient"  ng-model="user.nombre" >   
+                        <label class="col-lg-2 col-md-2 col-sm-2" for="apellidoPaternoClient">Apellido Paterno:</label>
+                        <input class="col-lg-3 col-md-3 col-sm-3" type="text"  name="apellidoPaternoClient" id="apellidoPaternoClient"  ng-model="user.apellidoPaterno" >
                     </div>
 
                     <div class="form-group group">
-                        correo-electronico
-                        <input type="email" class="form-control" name="emailClient" id="emailClient"  ng-model ="user.email"  required>
+                        <label class="col-lg-2col-md-2 col-sm-2" for="apellidoMaternoClient">Apellido Materno:</label>
+                        <input type="text" class="col-lg-3 col-md-3 col-sm-3" name="apellidoMaternoClient" id="apellidoMaternoClient"  ng-model="user.apellidoMaterno" >
+                        <label class="col-lg-1 col-md-1 col-sm-1" for="telefonoClient">Telefono:</label>
+                        <input class="col-lg-2 col-md-2 col-sm-2" type="number" maxlength="10"  name="telefonoClient" id="telefonoClient"  ng-model="user.telefono" >
+                        <label class="col-lg-1 col-md-1 col-sm-1" for="celularClient">Celular:</label>
+                        <input class="col-lg-2 col-md-2 col-sm-2" type="number" maxlength="10" class="form-control" name="celularClient" id="celularClient"  ng-model="user.celular" >
                     </div>
 
                     <div class="form-group group">
-                       nombre(s):
-                        <input type="text" class="form-control" name="nombreClient" id="nombreClient"  ng-model="user.nombre" >
+                       
                     </div>
 
                     <div class="form-group group">
-                       apellido paterno:
-                        <input type="text" class="form-control" name="apellidoPaternoClient" id="apellidoPaternoClient"  ng-model="user.apellidoPaterno" >
+                        <label class="col-lg-2 col-md-2 col-sm-2" for="emailClient">Correo Electronico:</label>
+                        <input class="col-lg-3 col-md-3 col-sm-3" type="email"  name="emailClient" id="emailClient"  ng-model ="user.email"  required>
+                       <label  class="col-lg-1 col-md-1 col-sm-1" for="rfcClient">RFC:</label>
+                        <input type="text"  class="col-lg-2 col-md-2 col-sm-2"  name="rfcClient" id="rfcClient"  ng-model="user.rfc" >
+                        <label  class="col-lg-1 col-md-1 col-sm-1" for="curpClient">CURP:</label>
+                        <input  class="col-lg-2 col-md-2 col-sm-2" type="text"  name="curpClient" id="curpClient"  ng-model="user.curp" >
                     </div>
 
+                    
                     <div class="form-group group">
-                       apellido materno:
-                        <input type="text" class="form-control" name="apellidoMaternoClient" id="apellidoMaternoClient"  ng-model="user.apellidoMaterno" >
-                    </div>
+                       <label   class="col-lg-2 col-md-2 col-sm-2" for="facebookClient">Facebook:</label>
+                        <input   class="col-lg-3 col-md-3 col-sm-3" type="email"  name="facebookClient" id="facebookClient" ng-model="user.facebook" >
+                        <label   class="col-lg-1 col-md-1 col-sm-1" for="twitterClient">Twitter:</label>
+                        <input   class="col-lg-2 col-md-2 col-sm-2" type="text" ng-pattern= "/@[A-Za-z0-9-]/" name="twitterClient" id="twitterClient" ng-model="user.twitter" >
+                        <label   class="col-lg-1 col-md-1 col-sm-1" for="pinterestClient">Pinterest:</label>
+                        <input type="email"   class="col-lg-3 col-md-3 col-sm-3" name="pinterestClient" id="pinterestClient" ng-model="user.pinterest" >
 
-
-                    <div class="form-group group">
-                       telefono:
-                        <input type="text" class="form-control" name="telefonoClient" id="telefonoClient"  ng-model="user.telefono" >
-                    </div>
-
-                    <div class="form-group group">
-                       celular:
-                        <input type="text" class="form-control" name="celularClient" id="celularClient"  ng-model="user.celular" >
-                    </div>
-
-                    <div class="form-group group">
-                       RFC:
-                        <input type="text" class="form-control" name="rfcClient" id="rfcClient"  ng-model="user.rfc" >
-                    </div>
-
-                    <div class="form-group group">
-                       CURP:
-                        <input type="text" class="form-control" name="curpClient" id="curpClient"  ng-model="user.curp" >
-                    </div>
-
-                    <div class="form-group group">
-                       facebook:
-                        <input type="email" class="form-control" name="facebookClient" id="facebookClient" ng-model="user.facebook" >
                     </div>
 
 
                     <div class="form-group group">
-                       twitter:
-                        <input type="email" class="form-control" name="twitterClient" id="twitterClient" ng-model="user.twitter" >
-                    </div>
-
-                    <div class="form-group group">
-                       pinterest:
-                        <input type="email" class="form-control" name="pinterestClient" id="pinterestClient" ng-model="user.pinterest" >
+                      <span  ng-show="perfilForm.twitterClient.$error.pattern">dirección de twitter no valida!</span>
                     </div>
 
                    <div class="form-group group">
-                        ¿desar cambiar su contraseña?
-                        <input type="checkbox"    ng-model ="checked" >
+                        <label   class="col-lg-2 col-md-2 col-sm-2" for="clienteCheched">¿Desea Cambiar Su Contraseña?</label>
+                        <input   class="col-lg-1 col-md-1 col-sm-1" type="checkbox" id="clienteCheched"   ng-model ="checked" >
                     </div>
                    
                     <div class="form-group group" ng-show="checked">
-                        nueva contraseña
-                        <input type="password" class="form-control" name="passwordClient" id="passwordClient"  ng-model ="user.password" >
+                        <label   class="col-lg-2 col-md-2 col-sm-2" for="passwordClient">Nueva Contraseña:</label>
+                        <input type="password"   class="col-lg-2 col-md-2 col-sm-2" name="passwordClient" id="passwordClient"  ng-model ="user.password" >
                     </div>
 
                     
@@ -103,21 +96,29 @@
                    <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" ng-click="cancel()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Acualizar Imagen Perfil</h4>
                       </div>
                       <div class="modal-body">
                                <!-- cargar imagen nueva-->
-                                <input type="file" class="form-control" id="imgPrincipalPerfil" name="imgPrincipalPerfil"
-                                        nv-file-select uploader="imgPrincipalUploadPerfil" >
+                                <input type="file"  id="imgPrincipalPerfil" name="imgPrincipalPerfil"
+                                        nv-file-select   class="form-control" uploader="imgPrincipalUploadPerfil" >
+
+                                  <div class="alert alert-danger"  ng-show="showWarn">
+                                   <strong>Debes Subir una Imagen</strong>
+                                   <button type="button" class="close" ng-click="showWarn = false">×</button>
+                                </div>   
+  
+                                
+
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button"  ng-click="cancel()" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         <button type="button" ng-click = "updateImage()"  class="btn btn-primary">OK</button>
                       </div>
                     </div>
                   </div>
                 </div>  
    
-   </div>  
+     
 </div> 

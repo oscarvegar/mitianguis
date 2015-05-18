@@ -1,4 +1,4 @@
-var registro = angular.module( "RegistroModule", [] );
+var registro = angular.module( "RegistroModule", ['igCharLimit'] );
 
 registro.directive('showErrors', function($timeout) {
     return {

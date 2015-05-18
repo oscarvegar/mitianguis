@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="TianguisApp" ng-controller="TianguisController">
 
   <head>
+    <style type="text/css">
+
+
+div.overlay {
+    display:        table;
+    position:       fixed;
+    top:            0;
+    left:           0;
+    width:          100%;
+    height:         100%;
+}
+div.overlay > div {
+    display:        table-cell;
+    width:          100%;
+    height:         100%;
+    background:     #ccc;
+    text-align:     center;
+    vertical-align: middle;
+}
+    </style>
      <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
     <meta property="og:type" content="website" />
-    
+
     <!-- si viene un producto -->
     <% if(typeof producto != 'undefined'){%>
     <meta property="og:image" itemprop="image primaryImageOfPage" content="<%=producto?producto.imagenPrincipal:null%>" />
@@ -16,6 +38,15 @@
     <meta name="twitter:title" content="<%=producto.nombre%> a <%= producto.precioFormat%>" />
     <meta name="twitter:image" content="<%=producto.imagenPrincipal%>" />
     <meta name="twitter:url" content="http://mitianguis.mx/<%=redirectURL%>" />
+
+    <%}%>
+    <!-- si viene un blog -->
+    <% if(typeof blog != 'undefined'){%>
+      <meta property="og:image" itemprop="image primaryImageOfPage" content="<%=blog.imagen%>" />
+      <meta name="og:title" id="mtt" property="og:title" itemprop="title name" content="<%=blog.titulo%>" />
+      <meta name="og:description" property="og:description" itemprop="description" content="<%=blog.preview%>" />
+      <meta name="HandheldFriendly" content="True"><title><%=blog.titulo%></title>    
+        <meta name="description" content="<%=blog.preview%>">
 
     <%}%>
 <!--
@@ -40,8 +71,14 @@
 
     </head>
 
-  <body>
+  <body >
+    <div id="mainmain" style="display:none">
     <%- body %>
+    </div>
+    <div class="overlay" id="mainloading">
+      <div><img src="/img/cargando.gif" style="margin-left: auto;margin-right: auto;">Cargando . . .</div>
+
+    </div>
 
 
 
@@ -56,7 +93,7 @@
         By default, your Gruntfile is configured to automatically load and precompile
         client-side JST templates in your `assets/templates` folder, then
         include them here automatically (between TEMPLATES and TEMPLATES END).
-        
+
         To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
         For example, here are a few things you could do:
 
@@ -77,17 +114,17 @@
       ========================
 
       You can always bring in JS files manually with `script` tags, or asynchronously
-      on the client using a solution like AMD (RequireJS).  Or, if you like, you can 
+      on the client using a solution like AMD (RequireJS).  Or, if you like, you can
       take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
 
       By default, files in your `assets/js` folder are included here
       automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
       CoffeeScript (.coffee) are supported. In production, your scripts will be minified
       and concatenated into a single file.
-      
+
       To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
       For example, here are a few things you could do:
-          
+
           + Change the order of your scripts
           + Import scripts from other directories
           + Use a different preprocessor, like TypeScript
@@ -106,9 +143,6 @@
         <script src="../js/libs/jquery-1.11.1.min.js"></script>
         <script src="../js/libs/jquery-ui-1.10.4.custom.min.js"></script>
         <script src="../js/libs/jquery.easing.min.js"></script>
-
-
-
 
 <!--
         <script src='../js/libs/fullcalendar.min.js'></script>
@@ -136,7 +170,8 @@
       <script src="../js/plugins/bootstrap3-wysihtml5.js"></script>
       <script src="../js/plugins/xeditable.js"></script>
        <script src="../js/plugins/angular-input-match.js"></script>
-
+      <script src="../js/plugins/igCharLimit.js"></script>
+    <script src="../js/plugins/bootstrap-filestyle.min.js"></script>
       <script src="../js/scripts.js"></script>
       <script src="../js/constants.js"></script>
       <script src="../js/webUtil.js"></script>
@@ -162,11 +197,14 @@
         <script src="../js/checkout.js"></script>
         <script src="../js/red.js"></script>
         <script src="../js/registroUser.js"></script>
+        <script src="../js/plugins/ng-flow-standalone.min.js"></script>
+        <script src="../js/plugins/ng-flow.min.js"></script>
+        <script src="../js/blog.js"></script>
+        <script src="../js/miperfil.js"></script>
 
 
 
         <script src="../js/mitianguis.js"></script>
-        <script src="../js/miperfil.js"></script>
 
 
      <script src="//localhost:35729/livereload.js"></script>

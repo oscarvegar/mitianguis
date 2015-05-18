@@ -35,7 +35,7 @@
     </head>
 
     <!--Body-->
-    <body ng-cloak class="ng-cloak">
+    <body >
 
      <div id="fb-root"></div>
 
@@ -151,12 +151,14 @@
                     <span style="color: black;font-size: 11px;"><b>B</b>ienvendo {{usuario.username}}</span>
                   </span>
 
-                  <span class="login-btn btn-outlined-invert" ng-if="usuario != null" href="javascript:void(0)" ng-click="logout()"><i class="icon-profile"></i>
+                  <span class="login-btn btn-outlined-invert" ng-if="usuario != null" href="javascript:void(0)"
+                        ng-click="logout()"><i class="icon-profile"></i>
                     <span style="color: black;font-size: 13px;"><b>C</b>errar Sesión</span>
                   </span>
 
               <div class="cart-btn" ng-controller="CarritoCtrl" ng-cloak>
-                <a class="btn btn-outlined-invert" href="/store#/carrito"><i class="icon-shopping-cart-content"></i><span>{{carrito.totalItems}}</span><b>{{carrito.total | currency : symbol : fractionSize}}</b></a>
+                <a class="btn btn-outlined-invert" href="/store#/carrito"><i class="icon-shopping-cart-content"></i>
+                  <span>{{carrito.totalItems}}</span><b>{{carrito.total | currency : symbol : fractionSize}}</b></a>
 
               <!--Cart Dropdown-->
                 <div class="cart-dropdown" ng-cloak>
@@ -169,7 +171,8 @@
                       <th>Precio</th>
                     </tr>
                     <tr class="item" ng-repeat="pc in carrito.productosCarrito track by $index">
-                      <td><div class="deletes" ng-click="eliminar($index)"></div><a href="/store#/producto?p={{pc.producto.id}}">{{pc.producto.nombre}} {{pc.modeloSelected.modelo}}</a></td>
+                      <td><div class="deletes" ng-click="eliminar($index)"></div>
+                        <a href="/store#/producto?p={{pc.producto.id}}">{{pc.producto.nombre}} {{pc.modeloSelected.modelo}}</a></td>
                       <td><input type="text" ng-model="pc.cantidad" only-digits ng-change="persist()"></td>
                       <td class="price">{{pc.producto.precio * pc.cantidad | currency : symbol : fractionSize}}</td>
                     </tr>
@@ -464,15 +467,8 @@
         <script src="../js/checkout.js"></script>
         <script src="../js/red.js"></script>
         <script src="../js/registroUser.js"></script>
-
-
-
         <script src="../js/mitianguis.js"></script>
         <script src="../js/miperfil.js"></script>
-
-
      <script src="//localhost:35729/livereload.js"></script>
-
-
     </body><!--Body Close-->
 </html>

@@ -65,7 +65,7 @@ angular.module("CheckoutModule",[])
 		});
 	}
 
-	/******************DATOS DE PRUEBA****************************/
+	/******************DATOS DE PRUEBA****************************
 		$scope.orden.nombre = "oscar";
 		$scope.orden.apellidoMaterno = "rodriguez";
 		$scope.orden.apellidoPaterno = "vega";

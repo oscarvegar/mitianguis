@@ -19,10 +19,15 @@ var myApp = angular.module("TianguisApp",
                                 'RegistroUserModule',
                                 'AdminClienteModule',
                                 'PerfilClienteModule',
-                                'ComprasClienteAdminModule'
+                                'ComprasClienteAdminModule',
+                                'BlogModule',
                                ]);
 
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
+    var redirectURL = document.getElementById('redirectURL');
+    if(redirectURL){
+      $location.url('/blog');
+    }
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};
@@ -127,7 +132,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
           console.log(tipo);
               $scope.alertClass = "alert-danger";
               $scope.infoIcon = "icon-remove-sign";
-               $scope.showAlertDanger = true; 
+               $scope.showAlertDanger = true;
               break;
           default:
               $scope.alertClass = "alert-success";
@@ -136,7 +141,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
               break;
 
       }
-  
+
     };
 
     $scope.forgotPassword = function() {
@@ -234,6 +239,8 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/gracias', {templateUrl: 'pages/store/gracias.html'});
     $routeProvider.when('/registroUser', {templateUrl: 'pages/admin/registroUser.html'});
     $routeProvider.when('/cliente', {templateUrl: 'pages/adminCliente/menuCliente.html'});
+    $routeProvider.when('/blog', {templateUrl: 'pages/store/blog.html'});
+    $routeProvider.when('/admin/blog/crear', {templateUrl: 'pages/admin/crearBlog.html'});
 
     //localStorage.clear();
     Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
@@ -262,6 +269,29 @@ myApp.directive('onlyDigits', function () {
         ctrl.$parsers.push(inputValue);
       }
     };
+});
+
+myApp.directive('onlyAlphanumeric', function () {
+  return {
+    require: 'ngModel',
+    restrict: 'A',
+    link: function (scope, element, attr, ctrl) {
+      function inputValue(val) {
+        if (val) {
+          var digits = val.replace(/[^a-zA-Z0-9-]/, '');
+          digits = digits.replace(/\s/g, "");
+          digits = digits.toLowerCase();
+          if (digits !== val) {
+            ctrl.$setViewValue(digits);
+            ctrl.$render();
+          }
+          return digits;
+        }
+        return undefined;
+      }
+      ctrl.$parsers.push(inputValue);
+    }
+  };
 });
 
 myApp.directive('ngEnter', function() {
@@ -312,6 +342,10 @@ myApp.directive('validNumberFloat', function() {
   };
 });
 
+myApp.run(function(){
+  document.getElementById('mainmain').style.display = 'inline';
+  document.getElementById('mainloading').style.display = 'none';
+});
 
 /*
 myApp.directive('richTextEditor', function() {

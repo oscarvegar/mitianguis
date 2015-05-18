@@ -24,14 +24,14 @@ carruselModule.controller("CarruselCtrl", function($scope, $http,$timeout,$sce){
 						speed: 18,
 						autoplay: true,
 						loop: true,
-            layout: 'fullwidth',
-						preload:'all',
+            //layout: 'fullwidth',
+						//preload:'all',
             fillMode:'stretch',
 						view:'basic',
 						instantStartLayers: true
 				});
 			}
-		}, 10);
+		}, 1200);
 
 
 
