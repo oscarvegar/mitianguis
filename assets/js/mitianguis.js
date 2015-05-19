@@ -241,6 +241,8 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/cliente', {templateUrl: 'pages/adminCliente/menuCliente.html'});
     $routeProvider.when('/blog', {templateUrl: 'pages/store/blog.html'});
     $routeProvider.when('/admin/blog/crear', {templateUrl: 'pages/admin/crearBlog.html'});
+    $routeProvider.when('/admin/blog', {templateUrl: 'pages/admin/blogs.html'});
+    $routeProvider.when('/admin/blog/editar/:blogId', {templateUrl: 'pages/admin/crearBlog.html'});
 
     //localStorage.clear();
     Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");

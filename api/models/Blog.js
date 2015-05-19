@@ -7,8 +7,10 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		user:{
+			model:'user'
+		}	
+	}
 };
 
