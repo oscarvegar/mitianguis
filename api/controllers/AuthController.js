@@ -45,6 +45,7 @@ module.exports = {
             if(!fuser){res.json({code:1});return}
             if(err){console.log(err);return res.json({code:-1})};           
             fuser.verificacion = 1;
+            fuser.cambioPassword = 0;
             fuser.save();
             //res.json({code:1});
             res.redirect('http://mitianguis.mx/#/');

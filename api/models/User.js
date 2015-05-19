@@ -33,6 +33,7 @@ module.exports = {
 		perfil : 'string', // MERCANTE, CLIENTE
 		verificacion: 'int',
 		codigoActivacion:'string',
+		cambioPassword:'int',
 		mentor:'string',
 		imagenPrincipal:'string',
 		nombre:'string',
@@ -69,21 +70,26 @@ module.exports = {
 	beforeUpdate: function (user, cb) {
 
 		console.log("ESTA ENTRANDO A MOVER EL PASSWORD ***");
-			console.log(user);
-			console.log("termino user parametro");
-		
+		console.log(user);
+		//	console.log("termino user parametro");
+		//	console.log(user.verificacion);
+
 		if(user.password){
-	 		bcrypt.genSalt(10, function(err, salt) {
-				bcrypt.hash(user.password, salt, null, function(err, hash) {
-					if (err) {
-						console.log(err);
-						cb(err);
-					} else {
-						user.password = hash;
-						cb(null, user);
-					}
+				if(user.verificacion == 1 && user.cambioPassword == 0){
+					cb(null, user);
+				}else if(user.cambioPassword == 1){
+					bcrypt.genSalt(10, function(err, salt) {
+					bcrypt.hash(user.password, salt, null, function(err, hash) {
+						if (err) {
+							console.log(err);
+							cb(err);
+						} else {
+							user.password = hash;
+							cb(null, user);
+						}
+					});
 				});
-			});
+				} 		
 		}else{
 			cb(null, user);
 		}

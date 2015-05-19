@@ -190,6 +190,7 @@ module.exports = {
             if(err){console.log(err);return res.json({code:-1})};
             var word =  eden.word()+ new Date().getMilliseconds()+new Date().getMinutes();
             fuser.password = word ;
+            fuser.cambioPassword = 1;
             console.log("Password");
             console.log(fuser.password);
             fuser.save();

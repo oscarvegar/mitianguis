@@ -57,7 +57,7 @@ module.exports = {
 
     enviarBienvenidaCliente:function(usuario,passwd,codigo){
         var file = fs.readFileSync('./config/mail/activacion.html',{encoding:'UTF-8'});
-        var url = "http://gameland.mitianguis:1337/activarCuenta/"+codigo;
+        var url = "http://mitianguis.mx/activarCuenta/"+codigo;
         file = file.replace("#usuario",usuario).replace("#password",passwd).replace("#url",url).replace("#codigoActivacion",codigo);
         var options ={
             to:usuario,
