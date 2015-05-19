@@ -51,6 +51,15 @@ module.exports = {
       response.end(data, 'binary');
     });
   },
+  getImagenBlog:function(request, response){
+    var file = request.allParams().imagen;
+    console.log( JSON.stringify(file) );
+    var fileExt = file.substring(file.lastIndexOf(".") + 1 );
+    fs.readFile(ImagenService.PATH_BLOG() + "/" + file.replace("_", "/"), function(err, data){
+      response.writeHead(200, {'Content-Type': 'image/' + fileExt });
+      response.end(data, 'binary');
+    });
+  },
 
 };
 

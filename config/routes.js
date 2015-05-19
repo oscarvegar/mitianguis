@@ -91,6 +91,7 @@ module.exports.routes = {
   'GET /getImagenProducto/:imagen':'ImagenController.getImagenProducto',
   'GET /getImagenSubProducto/:imagen':'ImagenController.getImagenSubProducto',
   'GET /getImagenPerfil/:imagen':'ImagenController.getImagenPerfil',
+  'GET /getImagenBlog/:imagen':'ImagenController.getImagenBlog',
   'POST /guardarArchivoPerfil':'RegistroController.guardarArchivoPerfil',
 
 
@@ -99,7 +100,11 @@ module.exports.routes = {
 
 
   /*** BLOG ???? ***/
-  'GET /blog/:id':'BlogController.renderBlog',
+  'GET /blog/crear':'BlogController.crear',
+  'GET /blog/all':'BlogController.all',
+  'GET /blog/upload':'BlogController.upload',
+  'GET /blog/:id':'BlogController.findById',
+  'GET /b/:id':'BlogController.renderBlog',
   'GET /blog':'BlogController.renderMain'
 
 

@@ -23,5 +23,8 @@ module.exports = {
   PATH_PERFIL : function(){
     return this.PATH_IMAGE + "perfil";
   },
+  PATH_BLOG : function(){
+    return this.PATH_IMAGE + "blog";
+  },
  
 };

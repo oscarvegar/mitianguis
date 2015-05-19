@@ -1,33 +1,70 @@
-angular.module("BlogModule",['flow'])
-.controller('BlogCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope,FileUploader){
+angular.module("BlogModule",['angularFileUpload']) 
+.controller('BlogCtrl', function($scope,$http,$timeout,$location,FileUploader,$routeParams){
+
+
 	$scope.editTitulo = false;
-	$scope.blog = {titulo:"* Clic aqui para editar el titulo *",articulo:"* Clic aqui para editar el articulo *"}
-	
+	$scope.blog = {}
+	$scope.uploader = new FileUploader({url: "/blog/upload" });
+    $scope.uploader.onAfterAddingFile = function(item) {
+        console.log("AHI VA PA ARRIBA")
+        item.onSuccess = function(response, status, headers) {
+            console.info("SUCCESS",response);
+            $scope.blog.imagen=response.filename;
+        };
+        var res = item.upload();
+
+    };
 	$scope.editarTitulo = function(bol){
 		$scope.editTitulo = bol;
 		document.getElementById('blog.titulo').focus()
 	}
 
-	
+    $scope.crear = function(){
+        console.log($scope.blog)
+        $http.post("/blog/crear",$scope.blog)
+        .success(function(blog){
+            $location.url('/admin/blog');
 
-	$scope.borrarImagen = function(){
-		console.log($scope.flow.files[0])
-	}
+        }).error(function(err){
+            console.error(err);
+        })
+    }
 
-	
-
-}).config(['flowFactoryProvider', function (flowFactoryProvider) {
-    flowFactoryProvider.defaults = {
-        target: '/blog/uploadImage',
-        permanentErrors:[404, 500, 501]
+     $scope.autoExpand = function(e) {
+        var element = typeof e === 'object' ? e.target : document.getElementById(e);
+            var scrollHeight = element.scrollHeight; // replace 60 by the sum of padding-top and padding-bottom
+        element.style.height =  scrollHeight + "px";    
     };
-    // You can also set default events:
-    flowFactoryProvider.on('catchAll', function (event) {
-      	console.info(event)
-    });
-    // Can be used with different implementations of Flow.js
-    // flowFactoryProvider.factory = fustyFlowFactory;
-}]).directive('selectOnClick', function () {
+    function expand() {
+        $scope.autoExpand('TextArea');
+    }
+  
+
+    $scope.init = function(){
+        if($routeParams.blogId){
+            console.log($routeParams.blogId);
+            $http.get('/blog/'+$routeParams.blogId)
+            .success(function(blog){
+                console.info("BLOG",blog)
+                $scope.blog = blog;
+            }).error(function(err){
+                console.error(err);
+            })
+            return;
+        }else{
+            console.log("ENTRA A INIT BLOG")
+            $http.get('/blog/all')
+            .success(function(blogs){
+                $scope.blogs = blogs;
+                console.log("BLOGS LENGTH:",blogs)
+            }).error(function(err){
+                console.error(err);
+            });
+        }
+    };
+	$scope.init();
+
+}).directive('selectOnClick', function () {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -36,4 +73,5 @@ angular.module("BlogModule",['flow'])
             });
         }
     };
-});;
+})
+

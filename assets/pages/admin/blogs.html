@@ -1,1 +1,99 @@
-blogs.html
+<div class="page-content" ng-controller="BlogCtrl">
+      <!--Blog Sidebar Right-->
+      <section class="blog">
+      	<div class="container">
+        	<div class="row">
+          
+          	<!--Left Column-->
+          	<div class="col-lg-9 col-md-9">
+            	<h2 class="title">Blog posts</h2>
+              <h2><a href="/#/admin/blog/crear"><i class="glyphicon glyphicon-edit"></i>Crear Nueva Entrada</a></h2>
+              <!--Post-->
+              <div class="post" ng-repeat="blog in blogs track by $index">
+              	<h3 class="title"><a href="blog-single.html">{{blog.titulo}}</a></h3>
+                <img ng-src="/getImagenBlog/{{blog.imagen}}" style="width:849px;height:408px" alt="Blog post"/>
+                <p class="p-style3">{{blog.resumen}}</p>
+                <footer>
+                	<a class="btn btn-primary" href="/#/admin/blog/editar/{{blog.id}}">Editar</a>
+                  <div class="share">
+                  	<a href="#"><i class="fa fa-twitter"></i></a>
+                  	<a href="#"><i class="fa fa-facebook-square"></i></a>
+                  	<a href="#"><i class="fa fa-pinterest-square"></i></a>
+                  	<a href="#"><i class="fa fa-envelope"></i></a>
+                  </div>
+                  <ul class="meta">
+                 		<li><i class="fa fa-user"></i><a href="#"></a></li>
+                    <li><i class="fa fa-calendar"></i><a href="javascript:void(0)">{{blog.createdAt | date:'dd.MM.yyyy'}}</a></li>
+                    <li><i class="fa fa-comment"></i><a href="#">Comments (34)</a></li>
+                 	</ul>
+                </footer>
+             </div>
+             
+              
+            </div>
+            
+            <!--Sidebar-->
+            <div class="col-lg-3 col-md-3">
+            	<!--Search Widget-->
+              <h3>Search the blog</h3>
+              <form class="sidebar-search">
+              	<input type="text" class="form-control" name="search-blog" placeholder="Search">
+                <button type="submit"></button>
+              </form>
+            	<!--Tags
+              <h3>Tags</h3>
+              <div class="tags">
+              	<a href="#">Limo</a>, 
+                <a href="#">theme</a>, 
+              	<a href="#">HTML5</a>, 
+                <a href="#">premium</a>, 
+                <a href="#">shopping</a>, 
+              	<a href="#">e-commerce</a> 
+              </div>
+              <!--Latest posts
+              <h3>Latest posts</h3>
+              <div class="latest-posts">
+              	<div class="post">
+                	<a href="blog-single.html">New awesome theme out there...</a>
+                  <div class="meta">
+                  	<a href="#">Comments <span>(34)</span></a>
+                    <span class="date">12.02.2014</span>
+                  </div>
+                </div>
+              	<div class="post">
+                	<a href="blog-single.html">Lorem ipsum dolor sit amet...</a>
+                  <div class="meta">
+                  	<a href="#">Comments <span>(22)</span></a>
+                    <span class="date">12.02.2014</span>
+                  </div>
+                </div>
+              	<div class="post">
+                	<a href="blog-single.html">Anim pariatur cliche reprehenderit...</a>
+                  <div class="meta">
+                  	<a href="#">Comments <span>(81)</span></a>
+                    <span class="date">12.02.2014</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section><!--Blog Sidebar Right Close-->
+      
+      <!--Brands Carousel Widget-
+      <section class="brand-carousel">
+        <div class="container">
+          <h2>Brands in our shop</h2>
+          <div class="inner">
+            <a class="item" href="#"><img src="img/brands/1.png" alt="1"/></a>
+            <a class="item" href="#"><img src="img/brands/1.png" alt="1"/></a>
+            <a class="item" href="#"><img src="img/brands/1.png" alt="1"/></a>
+            <a class="item" href="#"><img src="img/brands/1.png" alt="1"/></a>
+            <a class="item" href="#"><img src="img/brands/1.png" alt="1"/></a>
+            <a class="item" href="#"><img src="img/brands/1.png" alt="1"/></a>
+            <a class="item" href="#"><img src="img/brands/1.png" alt="1"/></a>
+          </div>
+        </div>
+      </section><!--Brands Carousel Close-->
+      
+    </div><!--Page Content Close-->
