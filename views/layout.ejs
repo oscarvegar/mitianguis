@@ -42,7 +42,7 @@ div.overlay > div {
     <%}%>
     <!-- si viene un blog -->
     <% if(typeof blog != 'undefined'){%>
-      <meta property="og:image" itemprop="image primaryImageOfPage" content="<%=blog.imagen%>" />
+      <meta property="og:image" itemprop="image primaryImageOfPage" content="/getImagenBlog/<%=blog.imagen%>" />
       <meta name="og:title" id="mtt" property="og:title" itemprop="title name" content="<%=blog.titulo%>" />
       <meta name="og:description" property="og:description" itemprop="description" content="<%=blog.resumen%>" />
       <meta name="HandheldFriendly" content="True"><title><%=blog.titulo%></title>    
