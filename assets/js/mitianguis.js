@@ -108,6 +108,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
             $scope.submitted = false;
           }
         } else {
+           $scope.user ={};
           $scope.errorLogin = true;
           $scope.submitted = false;
         }
