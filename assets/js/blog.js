@@ -1,5 +1,5 @@
 angular.module("BlogModule",['angularFileUpload']) 
-.controller('BlogCtrl', function($scope,$http,$timeout,$location,FileUploader,$routeParams){
+.controller('BlogCtrl', function($scope,$http,$timeout,$location,FileUploader,$routeParams,$rootScope){
 
 
 	$scope.editTitulo = false;
@@ -41,9 +41,11 @@ angular.module("BlogModule",['angularFileUpload'])
   
 
     $scope.init = function(){
-        if($routeParams.blogId){
-            console.log($routeParams.blogId);
-            $http.get('/blog/'+$routeParams.blogId)
+        console.info("ENTRA INIT BLOG",$rootScope.getQueryParam('b'))
+        if($routeParams.blogId || $rootScope.getQueryParam('b')){
+            var bid = $rootScope.getQueryParam('b')?$rootScope.getQueryParam('b'):$routeParams.blogId;
+            
+            $http.get('/blog/'+bid)
             .success(function(blog){
                 console.info("BLOG",blog)
                 $scope.blog = blog;

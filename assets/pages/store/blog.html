@@ -1,4 +1,4 @@
-<div class="page-content">
+<div class="page-content" ng-controller="BlogCtrl">
     
      
       <!--Blog Sidebar Right-->
@@ -11,56 +11,35 @@
             	<h2 class="title">Blog posts</h2>
               <!--Post-->
               <div class="post">
-              	<h3 class="title"><a href="blog-single.html">New awesome theme from 8Guild team</a></h3>
-                <img src="img/blog/blog_01.png" alt="Blog post"/>
-                <p class="p-style3">Limo is the product which was born thanks to the involvement not only of the UI experts but also great marketers who have tremendous experience in outstanding implementations of e-commerce projects from different domains...</p>
+              	<h3 class="title"><a href="javascript:void(0)">{{blog.titulo}}</a></h3>
+                <img src="/getImagenBlog/{{blog.imagen}}" alt="{{blog.titulo}}"  style="width:849px;height:408px"/>
+                <p class="p-style3">{{blog.resumen}}</p>
+                <br>
+                <p class="p-style3">{{blog.articulo}}</p>
                 <footer>
-                	<a class="btn btn-primary" href="blog-single.html">Read more</a>
+                	
                   <div class="share">
-                  	<a href="#"><i class="fa fa-twitter"></i></a>
                   	<a href="#"><i class="fa fa-facebook-square"></i></a>
-                  	<a href="#"><i class="fa fa-pinterest-square"></i></a>
-                  	<a href="#"><i class="fa fa-envelope"></i></a>
                   </div>
                   <ul class="meta">
-                 		<li><i class="fa fa-user"></i><a href="#">By Resoursa</a></li>
-                    <li><i class="fa fa-calendar"></i><a href="#">12.02.2014</a></li>
-                    <li><i class="fa fa-comment"></i><a href="#">Comments (34)</a></li>
+                    <li><i class="fa fa-calendar"></i><a href="#">{{blog.createdAt | date:'dd.MM.yyyy'}}</a></li>
+                   
                  	</ul>
                 </footer>
              </div>
              
-              <!--Post-->
-              <div class="post">
-              	<h3 class="title"><a href="blog-single.html">Beautiful and clickable post title</a></h3>
-                <img src="img/blog/blog_01.png" alt="Blog post"/>
-                <p class="p-style3">Limo Theme is quite universal and covers a lot of use cases for either big e-commerce website or smaller ones. Due to 5 different landing pages you can easily guide a client whether directly to a specific product or to a category page. The Product Showcase Home page is a full featured landing page for effective product or service promotion...</p>
-                <footer>
-                	<a class="btn btn-primary" href="blog-single.html">Read more</a>
-                  <div class="share">
-                  	<a href="#"><i class="fa fa-twitter"></i></a>
-                  	<a href="#"><i class="fa fa-facebook-square"></i></a>
-                  	<a href="#"><i class="fa fa-pinterest-square"></i></a>
-                  	<a href="#"><i class="fa fa-envelope"></i></a>
-                  </div>
-                  <ul class="meta">
-                 		<li><i class="fa fa-user"></i><a href="#">By Resoursa</a></li>
-                    <li><i class="fa fa-calendar"></i><a href="#">28.05.2014</a></li> 
-                    <li><i class="fa fa-comment"></i><a href="#">Comments (25)</a></li>
-                 	</ul>
-                </footer>
-             </div>
+              
             </div>
             
-            <!--Sidebar-->
+            <!--Sidebar
             <div class="col-lg-3 col-md-3">
-            	<!--Search Widget-->
+            	<!--Search Widget-
               <h3>Search the blog</h3>
               <form class="sidebar-search">
               	<input type="text" class="form-control" name="search-blog" placeholder="Search">
                 <button type="submit"></button>
               </form>
-            	<!--Tags-->
+            	<!--Tags
               <h3>Tags</h3>
               <div class="tags">
               	<a href="#">Limo</a>, 
@@ -70,7 +49,7 @@
                 <a href="#">shopping</a>, 
               	<a href="#">e-commerce</a> 
               </div>
-              <!--Latest posts-->
+              <!--Latest posts-
               <h3>Latest posts</h3>
               <div class="latest-posts">
               	<div class="post">
@@ -100,7 +79,7 @@
         </div>
       </section><!--Blog Sidebar Right Close-->
       
-      <!--Brands Carousel Widget-->
+      <!--Brands Carousel Widget-
       <section class="brand-carousel">
         <div class="container">
           <h2>Brands in our shop</h2>
