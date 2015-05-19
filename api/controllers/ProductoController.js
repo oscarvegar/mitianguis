@@ -234,7 +234,7 @@ module.exports = {
 			data.precioFormat = accounting.formatMoney(data.precio);
 			return res.view('detalleProducto',{
     			producto: data,
-    			redirectURL: '/store#/producto?p='+data.id
+    			redirectURL: 'producto?p='+data.id
   			})
 		});
 	}

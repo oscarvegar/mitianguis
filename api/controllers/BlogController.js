@@ -7,18 +7,24 @@
 
 module.exports = {
 	renderBlog : function(req,res){
-		return res.view('homepage',{
-			//producto: data,
-			//redirectURL: '/#/blog'
+		Blog.findOneById(req.allParams().id).then(function(blog){
+			return res.view('homepage',{
+				blog:blog,
+				redirectURL: '/blog'
+			})
+		}).fail(function(err){
+			LOGS.error(err);
+			res.send(500)
 		})
+		
 	},
 	renderMain : function(req,res){
 		return res.view('homepage',{
 			blog: {titulo:"RayBan y su legado en la historia",
-					preview:"RayBan ha sido por excelencia la marca de gafas con mayor favoritismo en la historia, pero realmente conoces su origen?",
+					resumen:"RayBan ha sido por excelencia la marca de gafas con mayor favoritismo en la historia, pero realmente conoces su origen?",
 					imagen:"http://gameland.mitianguis.mx/getImagenSubProducto/555684d67d1de57622689628_9d2e3199-3f56-4819-9c0d-a99b82b826bb.png"
 				},
-			redirectURL: '/#/blog'
+			redirectURL: '/blog'
 		})
 	},
 	crear : function(req,res){

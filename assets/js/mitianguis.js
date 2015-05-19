@@ -26,7 +26,8 @@ var myApp = angular.module("TianguisApp",
 myApp.controller( "TianguisController", function($scope, $http, $rootScope, $location,$window, $sce,$rootScope){
     var redirectURL = document.getElementById('redirectURL');
     if(redirectURL){
-      $location.url('/blog');
+      console.info("VIENE UN BLOG",redirectURL)
+      $location.url(redirectURL.value);
     }
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
@@ -202,7 +203,15 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
 
   };
 
-
+  $rootScope.getQueryParam = function(param) {
+    var found;
+    window.location.search.substr(1).split("&").forEach(function(item) {
+        if (param ==  item.split("=")[0]) {
+            found = item.split("=")[1];
+        }
+    });
+    return found;
+};
 
   // PARA MENU DE ADMINISTRACION
   $rootScope.menuOptions = new Array(8);

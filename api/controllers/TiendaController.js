@@ -15,19 +15,33 @@ module.exports = {
       return res.view('info');
     else{
       if(Object.keys(params).length>0){
-        Producto.findOne({id:Object.keys(params)[0]}).then(function(data){
-          if(!data){
-            return res.view('404',{
-              producto: {},
-              redirectURL: ''
+        if(req.param('b')){
+          Blog.findOneById(req.allParams().b).then(function(blog){
+            return res.view('homepage',{
+              blog:blog,
+              redirectURL: '/blog'
             })
-          }
-          data.precioFormat = accounting.formatMoney(data.precio);
-          return res.view('homepage',{
-              producto: data,
-              redirectURL: '/store#/producto?p='+data.id
-            })
-        });
+          }).fail(function(err){
+            LOGS.error(err);
+            res.send(500)
+          })
+        }else{
+            Producto.findOne({id:Object.keys(params)[0]}).then(function(data){
+            if(!data){
+              return res.view('404',{
+                producto: {},
+                redirectURL: ''
+              })
+            }
+            data.precioFormat = accounting.formatMoney(data.precio);
+            return res.view('homepage',{
+                producto: data,
+                redirectURL: '/producto?p='+data.id
+              })
+          });
+        }
+
+        
       }else{
         return res.view('homepage');
       }
