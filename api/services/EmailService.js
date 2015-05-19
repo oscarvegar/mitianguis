@@ -55,9 +55,10 @@ module.exports = {
         module.exports.sendEmail(options);
     },
 
-    enviarBienvenidaCliente:function(usuario,passwd){
-        var file = fs.readFileSync('./config/mail/bienvenida.html',{encoding:'UTF-8'});
-        file = file.replace("#usuario",usuario).replace("#password",passwd);
+    enviarBienvenidaCliente:function(usuario,passwd,codigo){
+        var file = fs.readFileSync('./config/mail/activacion.html',{encoding:'UTF-8'});
+        var url = "http://gameland.mitianguis:1337/activarCuenta/"+codigo;
+        file = file.replace("#usuario",usuario).replace("#password",passwd).replace("#url",url).replace("#codigoActivacion",codigo);
         var options ={
             to:usuario,
             subject:'Bienvenido a MiTianguis',

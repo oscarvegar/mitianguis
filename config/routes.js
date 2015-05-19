@@ -39,6 +39,12 @@ module.exports.routes = {
 	    controller: 'AuthController',
 	    	action: 'logout'
 	},
+  
+  '/activarCuenta/:codigo': {
+      controller: 'AuthController',
+        action: 'activarCuenta'
+  },
+
 	'post /registro': 'RegistroController.registrarNuevo',
 	//'GET /categoriasMenu': 'CategoriaController.categoriasMenu',
 	'GET /mercante': 'MercanteController.find',

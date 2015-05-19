@@ -234,7 +234,7 @@ module.exports = {
     user.email = usuario.username;
     user.perfil = "CLIENTE";
     user.verificacion = 0;
-    user.codigoActivacion =new Date().getHours() + new Date().getSeconds() + new Date().getMilliseconds()+ new Date().getMinutes();
+    user.codigoActivacion =new Date().getYear() +'1'+ new Date().getMonth() +'1' + new Date().getDay() + '1' + new Date().getSeconds()+'1'+ new Date().getMilliseconds()+'1'+ new Date().getMinutes();
     user.subdominio = usuario.subdominio;
     user.mentor = usuario.mentor
     passwordEnvio = usuario.passwordUser;
@@ -249,13 +249,9 @@ module.exports = {
                 return res.json(400,err);
             }
 
-          EmailService.enviarBienvenidaCliente(user.username, passwordEnvio);
+          EmailService.enviarBienvenidaCliente(user.username, passwordEnvio,user.codigoActivacion);
           return res.json(200,userNew);
       });
     }
-
-
-
-
 
 };

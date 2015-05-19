@@ -32,6 +32,26 @@ module.exports = {
 		req.logout();
 		req.session.destroy();
 		res.send({message : 'Logout successful'});
-	}
+	},
+
+     activarCuenta: function  (req, res) {
+          console.log("Entra Funcion");
+
+          console.log(req.allParams().codigo);
+		  var codigoActivacion = req.allParams().codigo;
+
+           User.findOneByCodigoActivacion(codigoActivacion,function(err,fuser){
+ 
+            if(!fuser){res.json({code:1});return}
+            if(err){console.log(err);return res.json({code:-1})};           
+            fuser.verificacion = 1;
+            fuser.save();
+            //res.json({code:1});
+            res.redirect('http://mitianguis.mx/#/');
+          
+        });
+
+
+      }
 
 };

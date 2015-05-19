@@ -32,7 +32,7 @@ module.exports = {
 		direccion:'string',
 		perfil : 'string', // MERCANTE, CLIENTE
 		verificacion: 'int',
-		codigoActivacion:'int',
+		codigoActivacion:'string',
 		mentor:'string',
 		imagenPrincipal:'string',
 		nombre:'string',
