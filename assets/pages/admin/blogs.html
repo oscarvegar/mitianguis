@@ -1,22 +1,29 @@
-<div class="page-content" ng-controller="BlogCtrl">
+<br><br>
+<div class="page-content" ng-controller="AdminController">
       <!--Blog Sidebar Right-->
-      <section class="blog">
+      <section class="blog" ng-controller="BlogCtrl">
       	<div class="container">
         	<div class="row">
           
           	<!--Left Column-->
           	<div class="col-lg-9 col-md-9">
-            	<h2 class="title">Blog posts</h2>
-              <h2><a href="/#/admin/blog/crear"><i class="glyphicon glyphicon-edit"></i>Crear Nueva Entrada</a></h2>
+              <h2 class="text-right"><a href="/#/admin/blog/crear"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Crear Nueva Entrada</a></h2>
+              <br>
               <!--Post-->
               <div class="post" ng-repeat="blog in blogs track by $index">
-              	<h3 class="title"><a href="blog-single.html">{{blog.titulo}}</a></h3>
+              	<h1 class="title"><a href="/#/admin/blog/editar/{{blog.id}}">{{blog.titulo}}</a></h1>
                 <img ng-src="/getImagenBlog/{{blog.imagen}}" style="width:849px;height:408px" alt="Blog post"/>
-                <p class="p-style3">{{blog.resumen}}</p>
+                <h2 style="word-wrap: break-word">{{blog.resumen}}</h2>
                 <footer>
-                	<a class="btn btn-primary" href="/#/admin/blog/editar/{{blog.id}}">Editar</a>
+                  <a class="btn btn-primary" href="/#/admin/blog/editar/{{blog.id}}">Editar</a>
+                  <a class="btn btn-primary" target="_blank" href="/?b={{blog.id}}">Ver</a>
                   <div class="share">
                   	<a href="https://www.facebook.com/sharer/sharer.php?u=http://mitianguis.mx/?b={{blog.id}}"><i class="fa fa-facebook-square"></i></a>
+                    <a style="float:left" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=http://mitianguis.mx&description={{blog.titulo}}&media=https://mitianguis.mx/getImagenBlog/cd22285c-49b6-4351-a37d-2c2da367094b.png"
+        data-pin-do="buttonPin"
+        data-pin-config="above">
+        <img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" />
+    </a>
                   </div>
                   <ul class="meta">
                  		<li><i class="fa fa-user"></i><a href="#"></a></li>
@@ -30,7 +37,7 @@
             </div>
             
             <!--Sidebar-->
-            <div class="col-lg-3 col-md-3">
+            <div class="col-lg-3 col-md-3" ng-if="false">
             	<!--Search Widget-->
               <h3>Search the blog</h3>
               <form class="sidebar-search">

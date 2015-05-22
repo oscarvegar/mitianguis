@@ -31,6 +31,12 @@ adminModule.controller("AdminController", function($rootScope, $scope, $http){
     templateUrl:"pages/admin/mired.html"
   };
 })
+.directive("blog", function( ){
+  return {
+    restrict:"E",
+    templateUrl:"pages/admin/blogs.html"
+  };
+})
 .directive("miperfil", function( ){
   return {
     restrict:"E",

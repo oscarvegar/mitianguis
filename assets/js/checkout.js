@@ -1,12 +1,34 @@
 angular.module("CheckoutModule",[])
 .controller('CheckoutCtrl', function($scope,$http,$location,$sce,$timeout,$rootScope,$CarritoService){
-	$scope.orden = {};
-	$scope.datosPago = {};
-	$scope.orden.codigoPostal = null;
-	$scope.direcciones = [];
+	$scope.init = function(){
+		$scope.orden = {};
+		console.info($rootScope.usuario)
+		if($rootScope.usuario){
+			$scope.orden.email = $rootScope.usuario.username;
+		}
+		$scope.datosPago = {};
+		$scope.orden.codigoPostal = null;
+		$scope.direcciones = [];
+		$scope.datosPago = {};
+		
 
-	$scope.datosPago = {};
-	$scope.disBtnPagar = false;
+		/******************DATOS DE PRUEBA****************************
+		$scope.orden.nombre = "oscar";
+		$scope.orden.apellidoMaterno = "rodriguez";
+		$scope.orden.apellidoPaterno = "vega";
+		$scope.orden.calle = "calle 2 No. 36";
+		$scope.orden.codigoPostal = "07680";
+		$scope.orden.email = "oscarm@mitianguis.com";
+		$scope.orden.telefono = "5520686109";
+		$scope.buscarDireccion();
+		$scope.datosPago.name = "OSCAR VEGA RODRIGUEZ"                                                                                                                                                                                                                                                                                                                            $scope.datosPago.number = "4242424242424242"
+		$scope.datosPago.cvc = "777"
+		/***********************************************/
+
+
+	}
+	
+	
 
 
 	$scope.buscarDireccion = function(){
@@ -18,7 +40,7 @@ angular.module("CheckoutModule",[])
 	}
 
 	$scope.ordenar = function(){
-
+		$scope.disBtnPagar = true;
 		$scope.datosPago.exp_year = $rootScope.selAno;
 		$scope.datosPago.exp_month = $rootScope.selMes;
 		var card = {card:$scope.datosPago};
@@ -36,21 +58,37 @@ angular.module("CheckoutModule",[])
 				$location.url("/gracias")
 			})
 			.error(function(err){
-				console.log(err)
+				$scope.disBtnPagar = false;
+				console.info("ERROR",err) 
 				$rootScope.error = err.msg;
 				$('#errorModal').modal('show');
 			})
 		},
 		function(err){
-			console.log("ERROR",err)
+				$scope.disBtnPagar = false;
+				console.info("ERROR",err) 
+				$rootScope.error = err.message_to_purchaser;
+				$scope.$apply();
+
+				$('#errorModal').modal('show');
+
+
 		});
 	}
 	$rootScope.$watch('usuario',function(){
 		if($rootScope.usuario){
-			$scope.orden.nombre = $rootScope.usuario.mercante.nombre;
-			$scope.orden.apellidoPaterno = $rootScope.usuario.mercante.apellidoPaterno;
-			$scope.orden.apellidoMaterno = $rootScope.usuario.mercante.apellidoMaterno;
+			$scope.orden.nombre = $rootScope.usuario.nombre;
+			$scope.orden.apellidoPaterno = $rootScope.usuario.apellidoPaterno;
+			$scope.orden.apellidoMaterno = $rootScope.usuario.apellidoMaterno;
+			$scope.orden.email = $rootScope.usuario.username;
+			$scope.orden.telefono = $rootScope.usuario.telefono;
 		}
+	})
+	$rootScope.$watch('carrito',function(){
+		if($rootScope.carrito && $rootScope.carrito.total>3)
+			$scope.disBtnPagar = false;
+		else
+			$scope.disBtnPagar = true;
 	})
 
 	$scope.buscarUsuario = function(){
@@ -65,25 +103,7 @@ angular.module("CheckoutModule",[])
 		});
 	}
 
-	/******************DATOS DE PRUEBA****************************
-		$scope.orden.nombre = "oscar";
-		$scope.orden.apellidoMaterno = "rodriguez";
-		$scope.orden.apellidoPaterno = "vega";
-		$scope.orden.calle = "calle 2 No. 36";
-		$scope.orden.codigoPostal = "07680";
-		$scope.orden.email = "oscarm@mitianguis.com";
-		$scope.orden.telefono = "5520686109";
-		$scope.buscarDireccion();
 
-		$scope.datosPago.name = "OSCAR VEGA RODRIGUEZ"
-                                                                                                                                                                                                                                                                                                                                                                                  $scope.datosPago.number = "4242424242424242"
-		$scope.datosPago.cvc = "777"
-
-		$scope.testDestroy = function(){
-			console.log("testDestroy")
-			$CarritoService.destroy();
-			$location.url("/gracias")
-		}
-
-	/***********************************************/
+$scope.init();
+	
 });

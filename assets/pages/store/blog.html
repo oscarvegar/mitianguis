@@ -8,14 +8,12 @@
           
           	<!--Left Column-->
           	<div class="col-lg-9 col-md-9">
-            	<h2 class="title">Blog posts</h2>
               <!--Post-->
               <div class="post">
-              	<h3 class="title"><a href="javascript:void(0)">{{blog.titulo}}</a></h3>
+              	<h1 class="title"><a href="javascript:void(0)">{{blog.titulo}}</a></h1>
                 <img src="/getImagenBlog/{{blog.imagen}}" alt="{{blog.titulo}}"  style="width:849px;height:408px"/>
-                <p class="p-style3">{{blog.resumen}}</p>
-                <br>
-                <p class="p-style3">{{blog.articulo}}</p>
+                <h3><textarea readonly elastic ng-model="blog.resumen" class="text-sin-border" style="width:100%;resize: none;"></textarea></h3>
+                <textarea readonly elastic ng-model="blog.articulo" class="text-sin-border" style="width:100%;resize: none;"></textarea>
                 <footer>
                 	
                   <div class="share">

@@ -13,8 +13,26 @@
                     <div class="close-search"><i class="icon-delete"></i></div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="search-hd" id="search-hd"
-                               placeholder="Escribe nombre o descripción de un producto">
+                               placeholder="Escribe nombres o descripción de un producto">
                         <button type="submit"><i class="icon-magnifier"></i></button>
+                        <section class="cat-tiles" ng-show="productos.length>0" ng-controller="TiendaCtrl" ng-if="false">
+    <div class="container">
+      <h2>Categorías</h2>
+      <div class="row">
+        <!--Category-->
+        <div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" >
+          <a href="javascript:void(0)" ng-click="buscaCategoria(-1)">
+            <p>Todas</p>
+          </a>
+        </div>
+        <div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" ng-repeat="cat in categorias" style="height:40px;">
+          <a href="javascript:void(0)" ng-click="buscaCategoria(cat)">
+            <p>{{cat}}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
                     </div>
                 </div>
             </form>
@@ -23,6 +41,7 @@
             <div class="container">
               <h2 class="logo"><a  href="/store#/" >MiTianguis</a></h2>
             </div>
+            
             <!--  MENU PRINCIPAL -->
             <nav class="menu">
               <div class="container">
@@ -41,14 +60,14 @@
                     <tr>
                       <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
                         <li class="has-submenu" style="text-align: left" >
-                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
+                          <a href="#" ><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;<big><b>Menu</b></big>&nbsp;</a>
                           <ul class="submenu">
                             <li><a href="/#/admin/blog" >Mi Blog</a></li>
                             <li><a href="" ng-click="selecciono(0)">Mis Compras</a></li>
                             <li><a href="" ng-click="selecciono(1)">Mi Perfil</a></li>
                             <li><a href="" ng-click="selecciono(2)">Mi Reputacion</a></li>
                             <li><a href="" ng-click="selecciono(3)">Mis Tiendas</a></li>
-                            <<li><a href="" ng-click="selecciono(4)">Mis Ventas</a></li>
+                            <li><a href="" ng-click="selecciono(4)">Mis Ventas</a></li>
                             <li><a href="" ng-click="selecciono(5)">Movimientos</a></li>
                             <li class="has-submenu" >
                               <a ng-href="/#/admin/mired">Red MiTianguis</a>
@@ -85,7 +104,7 @@
                     <tr>
                       <td><ul class="catalog" style="text-align: left;margin-left: 100px;">
                         <li class="has-submenu" style="text-align: left">
-                          <a href="#" ><big>Acciones</big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
+                          <a href="#" ><big><b>Menu</b></big><span class="fa fa-chevron-down" aria-hidden="true" style="font-size: 8px;"></span></a>
                           <ul class="submenu">
                             <li><a href="" ng-click="selecciono(0)">Afiliate</a></li>
                             <li><a href="" ng-click="selecciono(1)">Mis Compras</a></li>
@@ -341,7 +360,7 @@
                       <span ng-show="loginForm3.logPasswordUser.$invalid && !loginForm3.logPasswordUser.$error.required">Tu contraseña debe tener un mínimo de 6 caracteres.</span>
                     </span>
                     </span>
-                  </div>
+                  </div>modal
 
                   <div class="form-group group">
                     <label for="logPasswordConfirm">Confirma Contraseña</label>
