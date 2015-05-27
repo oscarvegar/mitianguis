@@ -14,8 +14,8 @@ module.exports = {
 	},
 
 	process : function(req, res) {
-		passport.authenticate('local', function(err, user, info) {
-      if ((err) || (!user)) {
+	  passport.authenticate('local', function(err, user, info) {
+      if ((err) || (!user) || user.verificacion == 0) {
 				return res.send({ message : 'login failed'});
 				res.send(err);
 			}
@@ -48,7 +48,8 @@ module.exports = {
             fuser.cambioPassword = 0;
             fuser.save();
             //res.json({code:1});
-            res.redirect('http://mitianguis.mx/#/');
+            res.redirect('http://mitianguis.mx/#/admin/login');// produccion
+            //res.redirect('http://gameland.mitianguis:1337/#/admin/login');// prueba local
           
         });
 

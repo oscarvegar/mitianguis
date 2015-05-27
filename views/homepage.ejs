@@ -30,6 +30,7 @@
                   <!--li class="hide-sm"><a href="#/"><span>I</span>nicio</a></li-->
                   <li class="hide-sm"><a href="#/quienesSomos">¿<span>Q</span>uienes somos?</a></li>
                   <li class="hide-sm" ng-if="usuario == null"><a  href="#/registroUser"><span>U</span>nete</a></li>
+                <!--  <li class="hide-sm" ng-if="usuario == null"><a  href="#/admin/login"><span>I</span>ngresa</a></li>-->
                   <li class="hide-sm"><a href="#/admin" ng-if="usuario != null && usuario.perfil != 'CLIENTE'"><span>M</span>i cuenta</a></li>
                   <li class="hide-sm"><a href="#/cliente" ng-if="usuario.perfil === 'CLIENTE'"><span>M</span>i cuenta</a></li>
                 </ul>
@@ -48,7 +49,7 @@
                             <li><a href="" ng-click="selecciono(1)">Mi Perfil</a></li>
                             <li><a href="" ng-click="selecciono(2)">Mi Reputacion</a></li>
                             <li><a href="" ng-click="selecciono(3)">Mis Tiendas</a></li>
-                            <<li><a href="" ng-click="selecciono(4)">Mis Ventas</a></li>
+                            <li><a href="/#/admin/ventas" >Mis Ventas</a></li>
                             <li><a href="" ng-click="selecciono(5)">Movimientos</a></li>
                             <li class="has-submenu" >
                               <a ng-href="/#/admin/mired">Red MiTianguis</a>
@@ -111,7 +112,7 @@
                 <div class="toolbar group">
                   <span class="login-btn btn-outlined-invert" data-toggle="modal" ng-if="usuario == null"
                     data-target="#loginModal"><i class="icon-profile"></i>
-                    <span style="color: black;"><b>L</b>ogin</span>
+                    <span style="color: black;"><b>I</b>ngresa</span>
                   </span>
 
                   <span class="login-btn" ng-if="usuario != null">

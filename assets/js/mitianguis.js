@@ -33,6 +33,8 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};
     $scope.showAlert = false;
+    $scope.showLogin = {val:true};
+    $scope.showPassword = {val:false};
     $scope.alertClass = "";
     $scope.categorias = null;
     $scope.mercante = null;
@@ -87,6 +89,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
         console.log( JSON.stringify(result) );
         if( result.data.message === constants.LOGIN_SUCCESS ) {
           $('#loginModal').modal('hide');
+          $scope.showLogin = {val:false};
           console.log("user usado para buscar mercante:: " + JSON.stringify(result.data.user) );
           if( result.data.user.perfil === "MERCANTE" ) {
             $http.post("/mercanteByUsuario", result.data.user).then(function (resultMerca) {
@@ -94,7 +97,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
               result.data.user.mercante = resultMerca.data;
               webUtil.save("usuario", result.data.user);
               webUtil.save("email", result.data.user.username);
-              $rootScope.usuario = result.data.user;
+              $rootScope.usuario = result.data.user;           
               $scope.user ={};
               $scope.errorLogin = false;
               $scope.submitted = false;
@@ -115,6 +118,18 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
       });
     }
 
+
+    $scope.showPassword = function(){
+      $scope.showLogin = {val:false};
+      $scope.show($scope.showPassword);
+    };
+    
+    $scope.show = function(elem){
+      
+      $scope.showPassword.val = false;   
+      elem.val = true;
+      
+    };
 
     $scope.alert = function(tipo,title,desc){
       $scope.messageTitle = title;
@@ -253,6 +268,9 @@ myApp.config(function( $routeProvider, $locationProvider){
     $routeProvider.when('/admin/blog/crear', {templateUrl: 'pages/admin/crearBlog.html'});
     $routeProvider.when('/admin/blog', {templateUrl: 'pages/admin/blogs.html'});
     $routeProvider.when('/admin/blog/editar/:blogId', {templateUrl: 'pages/admin/crearBlog.html'});
+    $routeProvider.when('/admin/ventas', {templateUrl: 'pages/admin/ventas.html'});
+    $routeProvider.when('/admin/login', {templateUrl: 'pages/admin/login.html'});
+
 
     //localStorage.clear();
     Conekta.setPublishableKey("key_Oxhifz8dyqLeZ3xYqfGczng");
