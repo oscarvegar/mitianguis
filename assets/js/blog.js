@@ -1,7 +1,7 @@
 angular.module("BlogModule",['angularFileUpload']) 
 .controller('BlogCtrl', function($scope,$http,$timeout,$location,FileUploader,$routeParams,$rootScope){
 
-
+    
 	$scope.editTitulo = false;
 	$scope.blog = {}
 	$scope.uploader = new FileUploader({url: "/blog/upload" });
@@ -15,7 +15,7 @@ angular.module("BlogModule",['angularFileUpload'])
 
     };
 	$scope.editarTitulo = function(bol){
-		$scope.editTitulo = bol;
+        $scope.editTitulo = bol;
 		document.getElementById('blog.titulo').focus()
 	}
 
@@ -43,6 +43,7 @@ angular.module("BlogModule",['angularFileUpload'])
     $scope.init = function(){
         console.info("ENTRA INIT BLOG",$rootScope.getQueryParam('b'))
         if($routeParams.blogId || $rootScope.getQueryParam('b')){
+            $scope.mode="U"
             var bid = $rootScope.getQueryParam('b')?$rootScope.getQueryParam('b'):$routeParams.blogId;
             
             $http.get('/blog/'+bid)
@@ -75,5 +76,19 @@ angular.module("BlogModule",['angularFileUpload'])
             });
         }
     };
-})
+}).directive('elastic', [
+    '$timeout',
+    function($timeout) {
+      return {
+        restrict: 'A',
+        link: function($scope, element) {
+          var resize = function() {
+            return element[0].style.height = "" + (element[0].scrollHeight) + "px";
+          };
+          element.on("blur keyup change load", resize);
+          $timeout(resize, 50);
+        }
+      };
+    }
+  ]);
 

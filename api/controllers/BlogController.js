@@ -61,8 +61,7 @@ module.exports = {
 		
 	},
 	all: function(req,res){
-		console.info("VIENE POR LOS BLOGS")
-		Blog.find().then(function(blogs){ 
+		Blog.find({user:req.session.currentUser.id}).then(function(blogs){ 
 			return res.json(blogs);
 		}).fail(function(err){
 			LOGS.err(err);
@@ -70,7 +69,9 @@ module.exports = {
 		})
 	},
 	findById:function(req,res){
-		Blog.findOneById(req.allParams().id).then(function(blog){
+		var user = req.session.currentUser;
+		console.info(user);
+		Blog.findOne({id:req.param('id'),user:user.id}).then(function(blog){
 			return res.json(blog);
 		}).fail(function(err){
 			LOGS.error(err);

@@ -28,7 +28,7 @@ myApp.controller( "TianguisController", function($scope, $http, $rootScope, $loc
     if(redirectURL){
       console.info("VIENE UN BLOG",redirectURL)
       $location.url(redirectURL.value);
-    }
+    } 
     $scope.modal={login:"../modal/login-module.html",
                  contactus:"../modal/contact-us.html"};
     $scope.template={footer:"../footer.html", menu:"../menu.html"};

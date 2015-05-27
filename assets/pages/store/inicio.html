@@ -1,56 +1,38 @@
 <div class="page-content"  ng-controller="TiendaCtrl" ng-cloak class="ng-cloak">
-  
+
   <carrusel ng-show="productos.length>0"></carrusel>
-	<section class="cat-tiles" ng-show="productos.length>0">
-      	<div class="container">
-        	<h2>Categorías</h2>
-        	<div class="row">
-          	<!--Category-->
-          	<div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" >
-              <a href="javascript:void(0)" ng-click="buscaCategoria(-1)">
-                <p>Todas</p>
-              </a>
+
+  <section class="catalog-grid" ng-show="productos.length>0">
+    <div class="container">
+      <div class="row">
+        <!--Tile-->
+        <div class="col-lg-3 col-md-3 col-sm-3" ng-repeat="prod in productos">
+          <div class="tile">
+            <div class="badges" style="width:200px">
+              <span class="sale">{{prod.nombre}}</span>
             </div>
-            <div class="category col-lg-1 col-md-1 col-sm-2 col-xs-3" ng-repeat="cat in categorias" style="height:40px;">
-              <a href="javascript:void(0)" ng-click="buscaCategoria(cat)">
-                <p>{{cat}}</p>
-              </a>
+            <div class="price-label">${{prod.precio}}</div>
+            <br>
+            <br>
+            <a href="javascript:void(0)" ng-click="seleccionarProducto(prod)">
+              <img ng-src="{{prod.imagenPrincipal}}" alt="1" style="width:100%;">
+              <span class="tile-overlay"></span>
+            </a>
+            <div class="footer">
+              <a>{{prod.descripcionCorta}}</a>
+
+              <button class="btn btn-primary" ng-click="seleccionarProducto(prod)">Ver Detalle</button>
             </div>
           </div>
         </div>
-      </section>
-	    <section class="catalog-grid" ng-show="productos.length>0">
-      	<div class="container">
-        	<h2 class="dark-color">Productos</h2>
-          <div class="row">
-          	<!--Tile-->
-          	<div class="col-lg-3 col-md-3 col-sm-3" ng-repeat="prod in productos">
-            	<div class="tile">
-              	<div class="badges" style="width:200px">
-                	<span class="sale">{{prod.nombre}}</span>
-                </div>
-              	<div class="price-label">${{prod.precio}}</div>
-                <br>
-                <br>
-              	<a href="javascript:void(0)" ng-click="seleccionarProducto(prod)">
-                  <img ng-src="{{prod.imagenPrincipal}}" alt="1" style="width:100%;">
-                  <span class="tile-overlay"></span>
-                </a>
-                <div class="footer">
-                	<a>{{prod.descripcionCorta}}</a>
 
-                  <button class="btn btn-primary" ng-click="seleccionarProducto(prod)">Ver Detalle</button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </section>
-      <div ng-if="productos==-1" ng-cloak class="ng-cloak" style="text-align: center">
-        <br><br><br>
-        <h1>Esta Tienda está en construcción. Próximamente será la inauguración.<br><br>Espérala...</h1>
-        <br>
       </div>
+    </div>
+
+  </section>
+  <div ng-if="productos==-1" ng-cloak class="ng-cloak" style="text-align: center">
+    <br><br><br>
+    <h1>Esta Tienda está en construcción. Próximamente será la inauguración.<br><br>Espérala...</h1>
+    <br>
+  </div>
 </div>

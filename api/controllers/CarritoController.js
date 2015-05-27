@@ -61,12 +61,14 @@ module.exports = {
       })
   },
   update:function(req,res){
+
     var carrito = req.allParams();
+      console.log("CARRITO UPDATE ANTES",carrito)
     for(var i in carrito.productosCarrito){
       carrito.productosCarrito[i].producto = carrito.productosCarrito[i].producto.id;
     }
     Carrito.update({id:carrito.id},carrito).then(function(data){
-      console.log(data)
+      console.log("CARRITO UPDATE DESPUES",data)
       return res.json(data);
     }).catch(function(err){
       console.log(err)

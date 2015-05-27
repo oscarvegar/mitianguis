@@ -7,6 +7,7 @@ angular.module("CarritoModule",[])
 			/*****SI EL USUARIO HIZO LOGIN*****/
 			$http.get('/carrito/current/'+tienda.id)
 			.success(function(data){
+				console.log("CURRENT CArRo",data)
 				$rootScope.carrito = data;
 				if(!$rootScope.carrito){
 		          $http.get("/carrito/create/"+tienda.id).success(function(carrito){
@@ -14,6 +15,14 @@ angular.module("CarritoModule",[])
 		            $rootScope.carrito = carrito;
 		            $scope.persist();
 		          })
+		        }else{
+		        	for(var i in data.productosCarrito){
+		        		if(data.productosCarrito[i].modeloSelected){
+		        			data.productosCarrito[i].producto.precio = data.productosCarrito[i].modeloSelected.precio;
+		        			data.productosCarrito[i].producto.nombre += " " + data.productosCarrito[i].modeloSelected.modelo;
+		        		}
+		        	}
+		        	$scope.persist();
 		        }
 			}).error(function(err){
 				console.log(err);
@@ -28,9 +37,7 @@ angular.module("CarritoModule",[])
 		          $rootScope.carrito = carrito;
 		          $scope.persist();
 		        })
-			}else{
-				$scope.persist();
-			}
+			 }
 		}
 	}
 
@@ -40,7 +47,7 @@ angular.module("CarritoModule",[])
 			var newItem = angular.copy(item);
 			$rootScope.carrito.productosCarrito.push({producto:newItem,cantidad:_cantidad,modeloSelected:newItem.modeloSelected})
 		}else{
-			$rootScope.carrito.productosCarrito[idxItem].cantidad += _cantidad;
+			$rootScope.carrito.productosCarrito[idxItem].cantidad = parseInt($rootScope.carrito.productosCarrito[idxItem].cantidad)+ parseInt(_cantidad);
 		}
 		$scope.showATC = true;
 		$scope.persist();
@@ -116,6 +123,12 @@ angular.module("CarritoModule",[])
         $http.get('/carrito/current/' + tienda.id)
           .success(function (data) {
             if (data) {
+              	for(var i in data.productosCarrito){
+	        		if(data.productosCarrito[i].modeloSelected){
+	        			data.productosCarrito[i].producto.precio = data.productosCarrito[i].modeloSelected.precio;
+	        			data.productosCarrito[i].producto.nombre += " " + data.productosCarrito[i].modeloSelected.modelo;
+	        		}
+	        	}
               	$rootScope.carrito = data;
               	webUtil.save('carrito',$rootScope.carrito);
             }
@@ -134,9 +147,9 @@ angular.module("CarritoModule",[])
       }
     });
 
-    $timeout($scope.init,1000);
+   // $timeout($scope.init,100);
 
-	//$scope.init();
+	$scope.init();
 
 }).service('$CarritoService',function($rootScope,$http){
 	var _this = this;

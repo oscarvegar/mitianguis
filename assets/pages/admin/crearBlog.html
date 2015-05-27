@@ -1,49 +1,55 @@
-<section class="blog" style="padding-top:100px;" ng-controller="BlogCtrl" flow-prevent-drop>
-      <div class="container">
+<div class="page-content" >
+  <section class="blog" ng-controller="BlogCtrl" flow-prevent-drop>
+    <div class="container">
       <form ng-submit="crear()">
-                  <div class="row">
-                        <h1>Crear nueva entrada de blog</h1>
-                        <hr>
-                        <!--Left Column-->
+        <div class="row">
+          <div class="post">
+            <h2 ng-if="mode=='C'" class="title text-right">Crear nueva entrada de blogartículo</h2>
+            <h2 ng-if="mode=='U'" class="title text-right">Modificar artículo</h2>
+            <hr>
+            <!--Left Column-->
 
-                        <div class="col-lg-9 col-md-9">
+            <div class="col-lg-9 col-md-9">
 
-                              <h2 class="title" style="width:100%"><input class="text-sin-border" id="blog.titulo" type="text" ng-model="blog.titulo" style="width:100%" required placeholder="Clic aqui para editar el titulo . . ."></h2>
-                              <h3 class="subtitle" style="width:100%"><textarea ng-keyup="autoExpand($event)" rows="1" class="text-sin-border" id="blog.resumen"  ng-model="blog.resumen" style="width:100%" placeholder="Clic aqui para crear una intro . . ." required></textarea></h3>
-                              <!--Post-->
-                              <div class="post">
-                                    <div class="row">
-                                          <div class="col-lg-12 col-md-12">
-                                                 <i class="fa fa-upload"></i>Sube una imagen . . .
-                  <input type="file" class="form-control"
-                         style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;'
-                         name="file_source" size="40"
-                         nv-file-select uploader="uploader" name="logo" id="logoFU"  />
-                
-
-                                          </div>
-                                    </div>
-                                    <div class="row">
-                                    <img ng-src="/getImagenBlog/{{blog.imagen}}" ng-show="blog.imagen" style="width:849;height:408">
-
-                                    </div>
-
-                                    <div class="row">
-                                          <br>
-                                          <textarea ng-keyup="autoExpand($event)" class="text-sin-border" placeholder="Clic aqui para editar el articulo . . ." style="width:100%" rows=1  ng-model="blog.articulo" required></textarea>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                          <br>
-                                          <input type="submit" class="btn btn-primary col-md-12" value="Crear Entrada">
-
-                                    </div>
+              <h1 class="title" style="width:100%"><input class="text-sin-border" id="blog.titulo" type="text" ng-model="blog.titulo" style="width:100%" required placeholder="Clic aqui para editar el titulo . . ."></h1>
+              <h3 class="subtitle" style="width:100%"><textarea elastic rows="1" class="text-sin-border" id="blog.resumen"  ng-model="blog.resumen" style="width:100%" placeholder="Clic aqui para crear una intro . . ." required></textarea></h3>
+              <br>
+              <!--Post-->
+              <div class="post">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <i class="fa fa-upload"></i>Sube una imagen . . .
+                    <input type="file" class="form-control"
+                    style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;'
+                    name="file_source" size="40"
+                    nv-file-select uploader="uploader" name="logo" id="logoFU"  />
 
 
-                                   
-                              </div>
-                        </div>
                   </div>
-            </form>
-      </div>
-</section><!--Blog Single Close-->
+                </div>
+                <div class="row">
+                  <img ng-src="/getImagenBlog/{{blog.imagen}}" ng-show="blog.imagen" style="width:849;height:408">
+
+                </div>
+
+                <div class="row">
+                  <br>
+                  <textarea elastic class="text-sin-border" placeholder="Clic aqui para editar el articulo . . ." style="width:100%" rows=1  ng-model="blog.articulo" required></textarea>
+                </div>
+                <br>
+                <div class="row">
+                  <br>
+                  <input type="submit" class="btn btn-primary col-md-12" value="Guardar">
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section><!--Blog Single Close-->
+</div>
